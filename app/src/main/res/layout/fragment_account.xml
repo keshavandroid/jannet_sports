@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.commonApp.AccountFragment">
+
+    <include
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/llProfile"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/perf"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+
+
+<!--//event register request -->
+            <LinearLayout
+                android:id="@+id/llevent_register_request"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/perf"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event Register Request "
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+
+<!--            ticket booking request-->
+
+            <LinearLayout
+                android:id="@+id/ll_ticket_booking_request"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/perf"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ticket Booking Request"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+
+            <LinearLayout
+                android:id="@+id/llNotifications"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/perf"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notifications"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+            <LinearLayout
+                android:id="@+id/llChangePwd"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/password"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_password"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llselectSports"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/password"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Sports"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+
+            <LinearLayout
+                android:id="@+id/llContactUs"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/mail1"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_us"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+            <LinearLayout
+                android:id="@+id/llPrivacyPolicy"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/tearm_coding"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Privacy Policy"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+            <LinearLayout
+                android:id="@+id/llTermsCondition"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/tearm_coding"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/terms_amp_conditions"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+            <LinearLayout
+                android:id="@+id/llLogout"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@mipmap/logout"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/logout"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

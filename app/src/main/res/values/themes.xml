@@ -1,0 +1,155 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Jannet_stable_code" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green1</item>
+        <item name="colorPrimaryVariant">@color/green2</item>
+        <item name="colorOnPrimary">@color/green2</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="myDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/bg_white_solid</item>
+
+    </style>
+     <style name="Theme.Wolves" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green1</item>
+        <item name="colorPrimaryVariant">@color/green2</item>
+        <item name="colorOnPrimary">@color/green2</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/green1</item>
+        <item name="colorPrimaryDark">@color/green2</item>
+        <item name="colorAccent">@color/green3</item>
+    </style>
+
+    <style name="txtButton1" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="android:background">@mipmap/login_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="txtButtonFilter" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="android:background">@mipmap/login_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="txtButton2" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="android:background">@mipmap/button2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="txtButton3" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@mipmap/button2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="etxtPhoneEmailVerificationScreen1" parent="Widget.AppCompat.EditText">
+        <item name="android:maxLength">1</item>
+        <item name="android:background">@mipmap/otp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_50sdp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:inputType">number</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey2</item>
+        <item name="android:textColorHint">@color/grey2</item>
+    </style>
+    <style name="MyBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/MYBottomSheetStyle</item>
+    </style>
+
+    <style name="MYBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_bd</item>
+    </style>
+    <style name="txtUserSelectionScreen" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/_13sdp</item>
+        <item name="android:paddingBottom">@dimen/_13sdp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_30sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_30sdp</item>
+    </style>
+
+    <style name="etxtLoginScreen1" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingStart">@dimen/_5sdp</item>
+        <item name="android:paddingEnd">@dimen/_20sdp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">70</item>
+        <item name="android:layout_height">@dimen/_25sdp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/grey1</item>
+        <item name="android:textColorHint">@color/grey1</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/grey1</item>
+    </style>
+
+    <style name="txtLoginScreen1" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_10sdp</item>
+        <item name="android:textColor">@color/grey1</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+    </style>
+    <style name="txtPhVerifiScreen1" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_20sdp</item>
+        <item name="android:textColor">@color/grey1</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+    <style name="txtLoginScreen2" parent="Widget.AppCompat.TextView">
+        <item name="android:paddingEnd">@dimen/_5sdp</item>
+        <item name="android:layout_marginStart">@dimen/_25sdp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">70</item>
+        <item name="android:layout_height">@dimen/_25sdp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/grey1</item>
+        <item name="android:textColorHint">@color/grey1</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+    <style name="txtLoginScreen3" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/_5sdp</item>
+        <item name="android:paddingBottom">@dimen/_5sdp</item>
+        <item name="android:paddingEnd">@dimen/_15sdp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/grey1</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+</resources>

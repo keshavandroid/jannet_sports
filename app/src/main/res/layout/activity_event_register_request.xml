@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.parentsApp.EventRegisterRequestActivity">
+
+    <include
+        android:id="@+id/event_registe_request"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:elevation="@dimen/_5sdp"
+        android:background="@drawable/whitebg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/txtNoParticipants">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner_event_request"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:layout_marginEnd="@dimen/_15sdp"
+                tools:ignore="Suspicious0dp" />
+
+
+            <TextView
+                android:id="@+id/txt_event_request"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:text="Current Request"
+                android:textColor="@color/grey1"
+                android:textSize="@dimen/_11ssp" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:padding="@dimen/_4sdp"
+                android:src="@mipmap/drap"
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/rcvEventRequest"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_event_request"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/txtNoData"
+        android:text="Oops! No Data Found"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="@dimen/_18sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </TextView>
+
+</LinearLayout>

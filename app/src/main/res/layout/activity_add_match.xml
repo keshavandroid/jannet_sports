@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.coachApp.AddMatchActivity">
+
+    <include
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtDate"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/date"
+            android:layout_marginStart="@dimen/_25sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtBDate"
+                style="@style/txtLoginScreen2"
+                android:hint="@string/date" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_23sdp"
+                android:padding="@dimen/_4sdp"
+                android:src="@mipmap/birts" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txtBirthDate"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:text="@string/select_team_a"
+            android:layout_marginStart="@dimen/_25sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDate">
+
+            <TextView
+                android:id="@+id/txtTeamA"
+                style="@style/txtLoginScreen2"
+                android:hint="@string/select_team" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_23sdp"
+                android:padding="@dimen/_7sdp"
+                android:src="@mipmap/drap" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/_20ssp"
+        android:textColor="@color/green2"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/vs"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTeamB"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/select_team_b"
+            android:layout_marginStart="@dimen/_25sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtSelectTeamB"
+                style="@style/txtLoginScreen2"
+                android:hint="@string/select_team" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_23sdp"
+                android:padding="@dimen/_7sdp"
+                android:src="@mipmap/drap" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txtTimeTitle"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:text="@string/time"
+            android:layout_marginStart="@dimen/_25sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTeamB" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTeamB">
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_marginEnd="@dimen/_20sdp"
+                style="@style/txtLoginScreen2"
+                android:hint="@string/_00_00" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtAdd"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_45sdp"
+        android:layout_marginEnd="@dimen/_45sdp"
+        android:text="@string/add"
+        style="@style/txtButton1"/>
+</LinearLayout>

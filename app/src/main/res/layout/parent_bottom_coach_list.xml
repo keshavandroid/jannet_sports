@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_47sdp"
+            android:id="@+id/iv_all_coach_image"
+            android:layout_height="@dimen/_47sdp"
+            android:src="@color/green1"
+            android:scaleType="centerCrop"
+            app:civ_border_color="@color/green2"
+            app:civ_border_width="@dimen/_1sdp" />
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_all_coach_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/david_m_garcia"
+                android:textColor="@color/green6"
+                android:textSize="@dimen/_13ssp"
+                />
+
+            <TextView
+                android:id="@+id/tv_all_coach_sports"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sport_type"
+                android:textColor="@color/grey2"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textSize="@dimen/_10ssp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@color/green2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.parentsApp.EventDetailsActivity">
+
+    <include
+        android:id="@+id/tool_bar_p_event_detail"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/imageSlider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_130sdp"
+        app:sliderAnimationDuration="600"
+        app:sliderAutoCycleDirection="right"
+        app:sliderAutoCycleEnabled="true"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        app:sliderIndicatorEnabled="false"
+        app:sliderScrollTimeInSec="3"
+        app:sliderStartAutoCycle="true" />
+
+
+    <!--ll1 about venue register-->
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:id="@+id/txtAbout"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/about"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <TextView
+            android:id="@+id/txtVenue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/venue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <TextView
+            android:id="@+id/txtRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:layout_weight="0.5" />
+
+    </LinearLayout>
+
+    <!--team match result  ll2-->
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtTeam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:paddingTop="@dimen/_5sdp"
+
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/team"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <TextView
+            android:id="@+id/txtMatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/match"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/result"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+    </LinearLayout>
+
+    <!--ll6 edit delete event-->
+    <LinearLayout
+        android:id="@+id/ll6"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:id="@+id/txtEdit"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/edit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:visibility="visible"
+            android:id="@+id/tv_delete_event"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
+
+    </LinearLayout>
+
+    <!--book tickets ll7-->
+
+    <LinearLayout
+        android:id="@+id/ll7"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_45sdp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:id="@+id/txtBookEvent"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="Book Tickets"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+
+
+
+    </LinearLayout>
+
+    <!--tickets ll8-->
+    <LinearLayout
+        android:id="@+id/ll8"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_45sdp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:id="@+id/txt_Tickets_coach"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="Tickets"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+
+
+
+    </LinearLayout>
+
+    <!--booking details ll9-->
+    <LinearLayout
+        android:id="@+id/ll9"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_45sdp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/circle2"
+            android:gravity="center"
+            android:id="@+id/txtBooking_details_coach"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="Booking Details"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:elevation="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_6sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/UName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textColor="@color/green4"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_time_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/imgTeamA"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@mipmap/usa" />
+
+                <TextView
+                    android:id="@+id/team_a_name_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/vs"
+                android:textColor="@color/green4"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgTeamB"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@mipmap/usa" />
+
+
+                <TextView
+                    android:id="@+id/tv_team_b_name_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Coat:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:id="@+id/tv_coat_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number of Tickits:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:id="@+id/tv_num_tik"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:id="@+id/tv_price_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

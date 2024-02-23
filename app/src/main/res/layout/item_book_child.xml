@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="-10dp"
+        android:text="Name"
+        android:textColor="@color/grey1"
+        android:textSize="@dimen/_9ssp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/whitebg"
+        android:elevation="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/etxtchildNameInfo"
+            style="@style/etxtLoginScreen1"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/gender"
+        android:textColor="@color/grey1"
+        android:textSize="@dimen/_9ssp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center|start"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/imgMale"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@mipmap/rad" />
+
+        <TextView
+            android:id="@+id/txtMale"
+            style="@style/txtLoginScreen3"
+            android:text="@string/male" />
+
+        <ImageView
+            android:id="@+id/imgFeMale"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:src="@mipmap/rad1" />
+
+        <TextView
+            android:id="@+id/txtFeMale"
+            style="@style/txtLoginScreen3"
+            android:text="@string/female" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="-10dp"
+        android:text="@string/email"
+        android:textColor="@color/grey1"
+        android:textSize="@dimen/_9ssp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/whitebg"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/etxtChildEmailInfo"
+            style="@style/etxtLoginScreen1"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="-10dp"
+        android:text="@string/phone_number"
+        android:textColor="@color/grey1"
+        android:textSize="@dimen/_9ssp" />
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/whitebg"
+        android:elevation="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/etxtChildPhoneInfo"
+            style="@style/etxtLoginScreen1"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp"
+        android:elevation="@dimen/_5sdp"
+        android:background="@color/grey1"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+
+</LinearLayout>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.loginRegister.RegisterParentActivity">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/topbar_layout" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_20sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:src="@mipmap/cam" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/your_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/mal" />
+
+                    <EditText
+                        android:id="@+id/etxtName"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:inputType="text" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtName">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_1sdp"
+                        android:paddingEnd="@dimen/_1sdp"
+                        android:paddingBottom="@dimen/_1sdp"
+                        android:src="@mipmap/mail" />
+
+                    <EditText
+                        android:id="@+id/etxtEmail"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:inputType="textEmailAddress" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtPassword"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/password"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEmail">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/locak" />
+
+                    <EditText
+                        android:id="@+id/etxtPwd"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:inputType="textPassword" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtPhNo"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/phone_number"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/call" />
+
+                    <EditText
+                        android:id="@+id/etxtPhNo"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:inputType="phone"
+                        android:maxLength="12" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtBirthDate"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/birthdate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPhNo" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPhNo">
+
+                    <TextView
+                        android:id="@+id/txtBDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/dd_mm_yyyy"
+                        android:paddingStart="@dimen/_35sdp"
+                        android:textColor="@color/grey1"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginEnd="@dimen/_23sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/birts" />
+
+                </RelativeLayout>
+
+                // location
+
+                <TextView
+                    android:id="@+id/txtLocation"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/location"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtBirthDate" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPhNo">
+
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/location"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textColor="@color/grey1"
+                        android:textSize="@dimen/_11ssp" />
+
+                 
+                </RelativeLayout>
+
+                <!-- <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="@dimen/_55sdp"
+                     android:background="@mipmap/white_bg"
+                     android:gravity="center"
+                     android:visibility="visible"
+                     android:orientation="horizontal"
+                     app:layout_constraintTop_toBottomOf="@+id/txtBirthDate">
+
+                     <EditText
+                         android:id="@+id/etxtLocation"
+                         style="@style/etxtLoginScreen1"
+                         android:layout_marginStart="@dimen/_30sdp"
+                         android:layout_marginEnd="@dimen/_30sdp"
+                         android:inputType="text" />
+
+                 </LinearLayout>-->
+
+                <TextView
+                    android:id="@+id/txtGender"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/gender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation">
+
+                    <ImageView
+                        android:id="@+id/imgMale"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@mipmap/rad1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtMale"
+                        style="@style/txtLoginScreen3"
+                        android:text="@string/male"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgMale"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imgFemale"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_110sdp"
+                        android:src="@mipmap/rad1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtFemale"
+                        style="@style/txtLoginScreen3"
+                        android:text="@string/female"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgFemale"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtRegister"
+                style="@style/txtButton1"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_13sdp"
+                android:text="@string/register" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/already_have_an_account_please"
+                    android:textColor="@color/blue2"
+                    android:textSize="@dimen/_11ssp" />
+
+                <TextView
+                    android:id="@+id/txtLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/login"
+                    android:textColor="@color/blue3"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

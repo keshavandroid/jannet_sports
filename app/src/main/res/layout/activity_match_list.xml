@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.parentsApp.MatchListActivity">
+
+    <include
+        android:id="@+id/topbar_added_match"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topbar_added_match"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_60sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_match_list_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            tools:itemCount="10"
+            tools:listitem="@layout/single_row_design_match_list_event_detail" />
+
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+
+        android:id="@+id/txtAddMatch_event_detail"
+        style="@style/txtButton1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/add_match" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/txtAdd_new_match"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:background="@mipmap/login_button"
+            android:gravity="center"
+            android:text="@string/add" />
+
+
+        <TextView
+            android:id="@+id/txtDone_match"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:background="@mipmap/login_button"
+            android:gravity="center"
+            android:text="Done"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

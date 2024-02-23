@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/rounded1"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:translationZ="@dimen/_5sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txt_match_date_ed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@string/_30_sept_2021"
+            android:textColor="@color/grey2"
+            android:textSize="@dimen/_11ssp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/iv_edit_match_event_detail"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:background="@drawable/circle2"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@mipmap/create" />
+
+                <ImageView
+                    android:id="@+id/iv_delete_match_event_detail"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/circle2"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/delete_icn" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_team_a_ed"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@mipmap/usa" />
+
+                <TextView
+                    android:id="@+id/tv_taem_a_Name_ed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:maxLines="2"
+                    android:text="@string/united_states_men_s_national_basketball"
+                    android:textColor="@color/green4"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="@string/vs"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_20ssp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_team_b_ed"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@mipmap/usa" />
+
+                <TextView
+                    android:id="@+id/tv_team_b_name_ed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/inter_miami_cf"
+                    android:textColor="@color/green4"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="Coat:"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+
+            <TextView
+                android:id="@+id/txt_match_coat_ed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="5"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

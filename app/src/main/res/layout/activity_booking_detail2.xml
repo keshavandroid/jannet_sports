@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.coachApp.addEventScreen.BookingDetail2Activity">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_booking_detail"
+        android:layout_below="@id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/user" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User Name:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="Johan.H.Miller"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="user@gmail.com"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contact No.:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="9998586697"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No.of Match:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="5"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No.of Tickets:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="10"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Amount:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="$650"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_below="@id/ll_booking_detail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@color/green1" />
+
+    <TextView
+        android:id="@+id/tv_match_list"
+        android:layout_below="@id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:text="Match List"/>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_below="@id/tv_match_list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@color/green1" />
+
+    <androidx.core.widget.NestedScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_below="@id/view2"
+        
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_booking_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            tools:itemCount="10"
+            tools:listitem="@layout/single_row_design_booking_detail" />
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>

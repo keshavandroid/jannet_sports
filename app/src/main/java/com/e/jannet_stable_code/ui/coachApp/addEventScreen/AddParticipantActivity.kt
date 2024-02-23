@@ -1,0 +1,88 @@
+package com.e.jannet_stable_code.ui.coachApp.addEventScreen
+
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.adapter.NonParticipentSelectionListAdapter
+import com.e.jannet_stable_code.retrofit.controller.IBaseController
+import com.e.jannet_stable_code.retrofit.controller.INonParticipantController
+import com.e.jannet_stable_code.retrofit.controller.NonParticipantController
+import com.e.jannet_stable_code.retrofit.nonparticipantdata.NonParticipanResult
+import com.e.jannet_stable_code.ui.BaseActivity
+import com.e.jannet_stable_code.utils.Constants
+import com.e.jannet_stable_code.utils.StoreUserData
+import com.e.jannet_stable_code.viewinterface.INonParticipanView
+import kotlinx.android.synthetic.main.activity_add_participant.*
+import kotlinx.android.synthetic.main.topbar_layout.*
+
+class AddParticipantActivity : BaseActivity(), INonParticipanView {
+    override fun getController(): IBaseController? {
+        return null
+    }
+
+    lateinit var controller: INonParticipantController
+     var tempList = ArrayList<NonParticipanResult>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_participant)
+
+        txtTitle.text = "ADD MEMBER"
+        imgBack.setOnClickListener {
+
+            onBackPressed()
+            finish()
+        }
+
+
+        var storeData = StoreUserData(this)
+        val id = storeData.getString(Constants.COACH_ID)
+        val token = storeData.getString(Constants.COACH_TOKEN)
+
+        controller = NonParticipantController(this, this)
+        controller.callNonParticipantApi(id, token, "155")
+            showLoader()
+
+        txt_select_participants.setOnClickListener {
+
+            val intent = Intent(this, AddMemberInTeamActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    override fun onNonParticipantSuccess(response: List<NonParticipanResult?>?) {
+
+
+        hideLoader()
+         tempList = ArrayList<NonParticipanResult>()
+        for (nonParticipanList in response!!) {
+
+
+            if (nonParticipanList?.getSelected() == true) {
+
+                tempList.add(nonParticipanList)
+                Log.e("TAG", "onNonParticipantSuccess: $tempList")
+            } else {
+
+
+            }
+
+        }
+
+
+        var TeamAdapger = NonParticipentSelectionListAdapter(this, response!!)
+        rv_participant_list_in_team_selection.adapter = TeamAdapger
+        TeamAdapger.notifyDataSetChanged()
+
+
+    }
+
+    override fun onFail(message: String?, e: Exception?) {
+
+        hideLoader()
+        showToast(message)
+
+    }
+}

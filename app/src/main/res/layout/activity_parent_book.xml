@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.parentsApp.ParentBookActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <include
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_55sdp"
+        android:background="@mipmap/white_bg"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp">
+
+
+        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+            android:id="@+id/multipleItemSelectionSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_28sdp"
+            app:hintText="Select Child" />
+
+
+
+
+    </LinearLayout>
+
+    <Spinner
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:id="@+id/spinnerChildList"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp" />
+
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:visibility="visible"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_child_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="1"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_book_child" />
+
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtChild"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/select_child"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <Spinner-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_marginTop="@dimen/_65sdp"-->
+<!--            android:layout_marginStart="@dimen/_30sdp"-->
+<!--            android:layout_marginEnd="@dimen/_30sdp"-->
+<!--            android:id="@+id/spinnerChildList"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0.1dp" />-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtSelectChild"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_25sdp"
+                style="@style/etxtLoginScreen1"  />
+
+            <ImageView
+                android:src="@mipmap/drap"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:text="@string/name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtChild" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/txtChild">
+
+            <TextView
+                android:id="@+id/etxtName"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_25sdp"
+                style="@style/etxtLoginScreen1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtGender"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:text="@string/gender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_60sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtName">
+
+            <ImageView
+                android:id="@+id/imgMale"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@mipmap/rad"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtMale"
+                style="@style/txtLoginScreen3"
+                android:text="@string/male"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgMale"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgFemale"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_110sdp"
+                android:src="@mipmap/rad1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtFemale"
+                style="@style/txtLoginScreen3"
+                android:text="@string/female"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgFemale"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtEmail"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:text="@string/email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGender" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/txtGender">
+
+            <TextView
+                android:id="@+id/etxtEmail"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_25sdp"
+                style="@style/etxtLoginScreen1" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtPhoneNumber"
+            style="@style/txtLoginScreen1"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:text="@string/phone_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:background="@mipmap/white_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail">
+
+            <TextView
+                android:id="@+id/etxtPhNo"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_25sdp"
+                style="@style/etxtLoginScreen1"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_total_price"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@mipmap/moany"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"/>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fees"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+
+            <TextView
+                android:id="@+id/txt_fess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_20_00"
+                android:textColor="@color/green6"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtBook"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_45sdp"
+        android:layout_marginEnd="@dimen/_45sdp"
+        android:text="@string/book1"
+        style="@style/txtButton1"/>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.coachApp.addEventScreen.EditMatchActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/topbar_layout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_35sdp"
+            android:background="@drawable/whitebg"
+            android:elevation="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/txtNoParticipants">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinnervs1_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/_35sdp"
+                    android:background="@null"
+                    tools:ignore="Suspicious0dp" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/txtspinnervs1"-->
+                <!--                    style="@style/etxtLoginScreen1"-->
+                <!--                    android:layout_width="match_parent" />-->
+
+                <!--                <ImageView-->
+                <!--                    android:layout_width="@dimen/_20sdp"-->
+                <!--                    android:layout_height="@dimen/_20sdp"-->
+                <!--                    android:layout_alignParentEnd="true"-->
+                <!--                    android:layout_centerVertical="true"-->
+                <!--                    android:layout_marginEnd="@dimen/_23sdp"-->
+                <!--                    android:padding="@dimen/_7sdp"-->
+                <!--                    android:src="@mipmap/drap" />-->
+
+
+                <TextView
+                    android:id="@+id/txt_spinnervs1"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_width="match_parent" />
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/drap" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@mipmap/vsimage" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_35sdp"
+            android:background="@drawable/whitebg"
+            android:elevation="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/txtNoParticipants">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinnervs2_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/_35sdp"
+                    android:background="@null"
+                    tools:ignore="Suspicious0dp" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/txtSpinnervs2"-->
+                <!--                    style="@style/etxtLoginScreen1"-->
+                <!--                    android:layout_width="match_parent" />-->
+
+                <!--                <ImageView-->
+                <!--                    android:layout_width="@dimen/_20sdp"-->
+                <!--                    android:layout_height="@dimen/_20sdp"-->
+                <!--                    android:layout_alignParentEnd="true"-->
+                <!--                    android:layout_centerVertical="true"-->
+                <!--                    android:layout_marginEnd="@dimen/_23sdp"-->
+                <!--                    android:padding="@dimen/_7sdp"-->
+                <!--                    android:src="@mipmap/drap" />-->
+
+                <TextView
+                    android:id="@+id/txt_spinnervs2"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_width="match_parent" />
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/drap" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_35sdp"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/txtName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Event Time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/etxtMatchTime_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_20sdp"
+                    android:textColor="@color/grey1"
+                    android:textColorHint="@color/grey1"
+                    android:textSize="@dimen/_11ssp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtEventName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Coat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/txtName">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinnerCoat_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/_35sdp"
+                        android:background="@null"
+                        tools:ignore="Suspicious0dp" />
+
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/txtSpinnervs2"-->
+                    <!--                    style="@style/etxtLoginScreen1"-->
+                    <!--                    android:layout_width="match_parent" />-->
+
+                    <!--                <ImageView-->
+                    <!--                    android:layout_width="@dimen/_20sdp"-->
+                    <!--                    android:layout_height="@dimen/_20sdp"-->
+                    <!--                    android:layout_alignParentEnd="true"-->
+                    <!--                    android:layout_centerVertical="true"-->
+                    <!--                    android:layout_marginEnd="@dimen/_23sdp"-->
+                    <!--                    android:padding="@dimen/_7sdp"-->
+                    <!--                    android:src="@mipmap/drap" />-->
+
+                    <TextView
+                        android:id="@+id/txt_spinnerCoat"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_width="match_parent" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_18sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/drap" />
+
+
+                </RelativeLayout>
+
+
+                <!--                <EditText-->
+                <!--                    android:id="@+id/etxt_coat_addmatch_edit"-->
+                <!--                    style="@style/etxtLoginScreen1"-->
+                <!--                    android:layout_marginStart="@dimen/_30sdp"-->
+                <!--                    android:layout_marginEnd="@dimen/_30sdp"-->
+                <!--                    android:inputType="text"-->
+                <!--                    tools:ignore="TextFields" />-->
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txtAdd_Fmatch_event_edit"
+            style="@style/txtButton1"
+            android:layout_marginStart="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_60sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:text="Edit" />
+
+    </LinearLayout>
+
+
+</ScrollView>

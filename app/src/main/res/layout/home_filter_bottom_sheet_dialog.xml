@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/_15sdp"
+    android:paddingEnd="@dimen/_15sdp"
+    android:paddingBottom="@dimen/_15sdp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center"
+        android:text="@string/Please_Select_sports_or_Location"
+        android:textSize="@dimen/_11sdp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/linSports"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:background="@drawable/background_white_radius_4dp"
+        android:elevation="@dimen/_5sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_sport"
+            style="@style/txtLoginScreen2"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:hint="@string/hint_resource"
+            android:scrollbars = "vertical"
+            android:textColor="@color/black"
+            tools:ignore="TextFields" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_location"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:background="@drawable/background_white_radius_4dp"
+        android:elevation="@dimen/_5sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/tv_Location"
+            style="@style/txtLoginScreen2"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:hint="@string/SelectLocation"
+            android:inputType="text"
+            android:scrollbars = "vertical"
+            android:textColor="@color/black"
+            tools:ignore="TextFields" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtApply"
+        style="@style/txtButton1"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/Apply"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtClear"
+        style="@style/txtButton1"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:text="@string/clear"
+        tools:ignore="MissingConstraints" />
+
+</LinearLayout>

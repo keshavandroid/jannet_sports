@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.parentsApp.BookeEventActivity">
+
+
+    <include
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_35sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtEventName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Your Name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/etxt_your_Name"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+
+
+           <!-- enter contact number-->
+
+            <TextView
+                android:id="@+id/txt_contact"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Contact Number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/etxt_contact"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+            //How many tickets
+
+            <TextView
+                android:id="@+id/txtno_of_tickets"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="How Many Tickets Book?"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/etxtNo_tickets"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:inputType="number"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtSports1"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Tickets type "
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/txtLocation">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/multispinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@null" />
+
+                    <TextView
+                        android:id="@+id/txtSportscoach"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical"
+                        android:text="Near by ground"
+                        android:textColor="@color/grey1"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/drap"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="Particular Match"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/chkPertiMatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:scaleY="0.9"
+                    android:scaleX="0.9"
+                    android:buttonTint="@color/black"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center" />
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:visibility="gone"
+                    android:src="@mipmap/check1"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_match_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="1"
+                android:visibility="gone"
+                tools:listitem="@layout/event_book_matchlist_item" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="Total Amount :"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+                <TextView
+                    android:id="@+id/txt_amount"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text=""
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtBookEvent"
+                style="@style/txtButton1"
+                android:layout_marginStart="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:text="Book" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

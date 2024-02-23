@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_5sdp"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_8sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_6sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    android:text="Time:"/>
+
+                <TextView
+                    android:id="@+id/tv_match_time_booking_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="8:30 PM"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgTeamA_booking_detail"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/cam" />
+
+                <TextView
+                    android:id="@+id/tv_team_a_name_booking_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="Team A"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@mipmap/vsimage"
+                android:layout_marginStart="@dimen/_50sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgTeamB_booking_detail"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/cam" />
+
+                <TextView
+                    android:id="@+id/tv_team_b_name_booking_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="Team B"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:text="Coat:"/>
+
+                <TextView
+                    android:id="@+id/tv_coat_booking_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:text="3"/>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.coachApp.addEventScreen.FinalAddEventActivity">
+
+
+    <include
+        android:id="@+id/topbar_added_match"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/_420sdp"-->
+    <!--        android:layout_below="@id/topbar_added_match"-->
+    <!--        android:layout_marginTop="@dimen/_15sdp"-->
+    <!--        android:orientation="vertical">-->
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topbar_added_match"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_70sdp">
+
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="@dimen/_420sdp"-->
+        <!--                android:orientation="vertical">-->
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_add_match_price_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            tools:itemCount="10"
+            tools:listitem="@layout/single_row_design_add_match_price" />
+
+
+        <!--            </LinearLayout>-->
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_55sdp"
+        android:layout_marginEnd="@dimen/_55sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All Matches Price:"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:gravity="center"
+                android:hint="590$"
+                android:inputType="number"
+                android:maxLength="5"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txt_finish_event"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_55sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@mipmap/login_button"
+            android:gravity="center"
+            android:text="Finish" />
+
+    </LinearLayout>
+
+
+
+    <!--    </LinearLayout>-->
+
+
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.coachApp.addEventScreen.AddedMatchlistActivity">
+
+    <include
+        android:id="@+id/topbar_added_match"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_below="@id/topbar_added_match"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_match_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            tools:itemCount="10"
+            tools:listitem="@layout/single_row_design_added_matchlist" />
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/txtAdd_new_match"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@mipmap/login_button"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:text="@string/add" />
+
+
+        <TextView
+            android:id="@+id/txtDone_match"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:gravity="center"
+            android:background="@mipmap/login_button"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:text="Done" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

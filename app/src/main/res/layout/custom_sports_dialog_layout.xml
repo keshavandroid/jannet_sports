@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#CBCAC5">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+           android:text="@string/SelectSportsType"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:padding="@dimen/_5sdp"
+           />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll"
+        android:padding="5dp"
+        tools:listitem="@layout/dlg_list_item"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/ll_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recycler_view"
+        android:background="#E5E5E5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:text="@string/Done"
+            android:textStyle="bold"
+            android:textColor="@color/green6"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            />
+    </LinearLayout>
+</RelativeLayout>

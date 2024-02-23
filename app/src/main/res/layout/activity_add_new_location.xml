@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.coachApp.AddNewLocationActivity">
+
+
+    <include
+        android:id="@+id/topbar_add_location"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/topbar_add_location"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp">
+
+
+    <TextView
+        android:id="@+id/txtEventName"
+        style="@style/txtLoginScreen1"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Search Location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:background="@drawable/whitebg"
+        android:elevation="@dimen/_5sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/etxt_location"
+            style="@style/etxtLoginScreen1"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:inputType="text"
+            tools:ignore="TextFields" />
+
+    </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_coat_No"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="Enter Coat Number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/etxt_coat_number"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:inputType="number"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/txt_coat_name"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="Enter Coat Name (Optional)"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/etxt_coat_name"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:inputType="text"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/txt_coat_Strength"
+                style="@style/txtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="Enter Coat Strength (Optional)"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/etxt_coat_strength"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:inputType="number"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/map_location"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="@dimen/_300sdp"
+                class="com.google.android.gms.maps.SupportMapFragment" />
+
+            <TextView
+                android:id="@+id/txtAdd_new_location"
+                style="@style/txtButton1"
+                android:layout_marginStart="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:text="@string/add" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>

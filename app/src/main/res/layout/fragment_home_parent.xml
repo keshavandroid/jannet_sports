@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.coachApp.CHomeFragment">
+
+    <include
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_17sdp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="@dimen/_95sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:background="@mipmap/ch"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_11sdp"
+                android:layout_height="@dimen/_11sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:src="@mipmap/list_hvr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="List View"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_11sdp"
+                android:layout_height="@dimen/_11sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:src="@mipmap/lvv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calendar View"
+                android:textColor="@color/grey1"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+  <!--  <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@mipmap/line" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/rcvEventList"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_event_list"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll1"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_30_sept_2021"
+            android:textColor="@color/grey2"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:src="@color/green1"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="@dimen/_15sdp"
+            android:layout_height="@dimen/_120sdp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/phillies_national"
+            android:textColor="@color/green6"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll2"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_07_sept_2021"
+            android:textColor="@color/grey2"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"/>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:src="@color/green1"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="@dimen/_15sdp"
+            android:layout_height="@dimen/_120sdp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/fifa_international_match"
+            android:textColor="@color/green6"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

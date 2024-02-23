@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_25sdp"
+    android:layout_marginTop="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_25sdp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgChildProfile"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:src="@mipmap/cam"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/circle1"
+            android:padding="@dimen/_8sdp"
+            android:src="@mipmap/close"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="First Name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/mal" />
+
+                <EditText
+                    android:id="@+id/etxtChildName"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:inputType="text"
+                    android:maxLength="70" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtMiddleName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Middle Name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/txtName">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/mal" />
+
+                <EditText
+                    android:id="@+id/etxtChilMiddleName"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:inputType="text"
+                    android:maxLength="70" />
+
+            </LinearLayout>
+
+            //lastname
+
+            <TextView
+                android:id="@+id/txtLastName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Last Name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtMiddleName" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/txtMiddleName">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/mal" />
+
+                <EditText
+                    android:id="@+id/etxtChilLastName"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:inputType="text"
+                    android:maxLength="70" />
+
+            </LinearLayout>
+
+            //gercy name
+
+            <TextView
+                android:id="@+id/txtJerseyName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Jersey Name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLastName" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/txtLastName">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/mal" />
+
+                <EditText
+                    android:id="@+id/etxtChilJerseyName"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:inputType="text"
+                    android:maxLength="70" />
+
+            </LinearLayout>
+
+
+            // Geade
+
+            <TextView
+                android:id="@+id/txtGrade"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Grade"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtJerseyName" />
+
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/txtJerseyName">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/drap" />
+
+                    <!--            <EditText-->
+                    <!--                android:id="@+id/etxtGrade"-->
+                    <!--                style="@style/etxtLoginScreen1"-->
+                    <!--                android:layout_marginEnd="@dimen/_25sdp"-->
+                    <!--                android:inputType="text"-->
+                    <!--                android:maxLength="70" />-->
+
+
+                    <Spinner
+                        android:id="@+id/spGrade"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:background="@null" />
+
+                    <TextView
+                        android:id="@+id/txtGradeSelected"
+                        style="@style/txtLoginScreen2"
+                        android:layout_width="match_parent"
+                        android:hint="Select Grade" />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            //emil
+
+            <TextView
+                android:id="@+id/txtEmail"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtGrade" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtGrade">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:paddingStart="@dimen/_1sdp"
+                    android:paddingEnd="@dimen/_1sdp"
+                    android:paddingBottom="@dimen/_1sdp"
+                    android:src="@mipmap/mail" />
+
+                <EditText
+                    android:id="@+id/etxtEmail"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="70" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPassword"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+            <LinearLayout
+                android:id="@+id/llPwd"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail">
+
+                <EditText
+                    android:id="@+id/etxtPwd"
+                    style="@style/etxtLoginScreen1"
+                    android:inputType="textPassword"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:maxLength="50" />
+                <ImageView
+                    android:id="@+id/iv_eye"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/eye" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtBirthDate"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/birthdate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPassword">
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/txtBirthdate"-->
+                <!--                style="@style/txtLoginScreen2"-->
+                <!--                android:hint="@string/dd_mm_yyyy" />-->
+
+
+                <TextView
+                    android:id="@+id/txtBirthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:hint="@string/dd_mm_yyyy"
+                    android:textColor="@color/grey1"
+                    android:textColorHint="@color/grey1"
+                    android:textSize="@dimen/_11ssp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_23sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/birts" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtSports"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/sports"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtBirthDate" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtBirthDate">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <com.e.jannet_stable_code.utils.MultiSpinner
+                        android:id="@+id/multispinner"
+                        android:layout_width="@dimen/_500sdp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_5sdp" />
+
+
+                    <TextView
+                        android:id="@+id/txtSportsSelected"
+                        style="@style/txtLoginScreen2"
+                        android:layout_width="match_parent"
+                        android:hint="@string/sports" />
+
+
+                    <ImageView
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/circle3" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_23sdp"
+                        android:padding="@dimen/_6sdp"
+                        android:src="@mipmap/drap" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtGender"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/gender"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSports" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSports">
+
+                <ImageView
+                    android:id="@+id/imgMale"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:src="@mipmap/rad1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtMale"
+                    style="@style/txtLoginScreen3"
+                    android:text="@string/male"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgMale"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgFemale"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_110sdp"
+                    android:src="@mipmap/rad1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtFemale"
+                    style="@style/txtLoginScreen3"
+                    android:text="@string/female"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgFemale"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_child_permision"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:src="@mipmap/check2" />
+
+                <TextView
+                    android:id="@+id/txtchild_permision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Do you want to allow child payment?"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_11ssp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llchild_permission"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail">
+
+                <EditText
+                    android:id="@+id/etxt_child_payment"
+                    style="@style/etxtLoginScreen1"
+                    android:inputType="number"
+                    android:layout_weight="1"
+                    android:hint="100$"
+                    android:textColorHint="@color/grey1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:maxLength="50" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

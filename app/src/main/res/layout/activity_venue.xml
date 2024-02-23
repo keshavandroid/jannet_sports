@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/llMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.parentsApp.VenueActivity">
+
+    <include
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtField1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        tools:text="@string/_3726_bryan_avenue_prior_lake_mn_55372"
+        android:textColor="@color/green6"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtField2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_text"
+        android:textColor="@color/grey2"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_10ssp"/>
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_height="@dimen/_300sdp"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+</LinearLayout>

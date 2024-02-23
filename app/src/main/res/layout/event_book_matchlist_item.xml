@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/rounded1"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:translationZ="@dimen/_5sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txt_match_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:text="@string/_30_sept_2021"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11ssp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_team_A_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:ellipsize="end"
+                    android:text="dfxgbc"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vs"
+                android:textColor="@color/green4"
+                android:textSize="@dimen/_15sdp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/txt_team_B_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/inter_miami_cf"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp" />
+
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/chkPertiMatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleY="0.8"
+                android:scaleX="0.8"
+                android:layout_gravity="right"
+                android:buttonTint="@color/black"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Price:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11ssp" />
+
+            <TextView
+                android:id="@+id/txt_match_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11ssp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

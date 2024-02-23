@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:padding="@dimen/_10sdp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blank_bg"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:elevation="@dimen/_20sdp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/whitebg"
+            android:gravity="center"
+            android:elevation="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/txtEventName">
+
+            <Spinner
+                android:id="@+id/spinner_location"
+                style="@style/etxtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:inputType="textMultiLine"
+                tools:ignore="TextFields" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/whitebg"
+            android:gravity="center"
+            android:elevation="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/txtEventName">
+
+            <Spinner
+                android:id="@+id/spinner_sports"
+                style="@style/etxtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:inputType="textMultiLine"
+                tools:ignore="TextFields" />
+
+        </LinearLayout>
+
+
+       <TextView
+            android:id="@+id/btn_apply"
+            android:text="Apply"
+            style="@style/txtButtonFilter"
+            android:layout_marginEnd="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_10sdp"/>
+        <TextView
+            android:id="@+id/btn_clear"
+            android:text="Clear"
+            android:visibility="visible"
+            style="@style/txtButtonFilter"
+            android:layout_marginEnd="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_35sdp"
+            android:layout_marginBottom="@dimen/_30sdp"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

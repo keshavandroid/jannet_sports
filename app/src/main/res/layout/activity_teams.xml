@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.parentsApp.TeamsActivity">
+
+    <include
+        android:id="@+id/teamList_ed"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.core.widget.NestedScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_below="@id/teamList_ed"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_team_list_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            tools:itemCount="10"
+            tools:listitem="@layout/single_row_design_team_list_event_detail" />
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <TextView
+        android:id="@+id/txtAdd_new_team_ed"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@mipmap/login_button"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:textSize="@dimen/_11ssp"
+        android:text="ADD TEAM" />
+
+
+
+    // not work here
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/team_a"
+            android:textColor="@color/green4"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/team_b"
+            android:textColor="@color/green4"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@color/white"
+                app:civ_border_color="@color/green1"
+                app:civ_border_width="@dimen/_1sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:text="@string/team_member_name"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green1" />
+    </LinearLayout>
+
+</RelativeLayout>

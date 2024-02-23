@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.coachApp.AddMainTeamActivity">
+
+
+
+    <include
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProfile_add_team_main"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@mipmap/cam" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/txtName_main"
+            style="@style/txtLoginScreen1"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/whitebg"
+            android:elevation="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/etxtTeamName_addTeam_main"
+                style="@style/etxtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txtEmail"
+            style="@style/txtLoginScreen1"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/whitebg"
+            android:elevation="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/txtName">
+
+            <EditText
+                android:id="@+id/etxt_teams_description_main"
+                style="@style/etxtLoginScreen1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:inputType="textMultiLine" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtAdd_teams_event_main"
+        style="@style/txtButton1"
+        android:layout_marginStart="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_60sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:text="@string/add" />
+
+</LinearLayout>
