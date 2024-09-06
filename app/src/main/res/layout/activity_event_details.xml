@@ -12,7 +12,7 @@
         layout="@layout/topbar_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.smarteist.autoimageslider.SliderView
+    <com.e.jannet_stable_code.autoimageslider.SliderView
         android:id="@+id/imageSlider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_130sdp"

@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.smarteist.autoimageslider.SliderViewAdapter
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.autoimageslider.SliderViewAdapter
 import com.e.jannet_stable_code.retrofit.response.SliderItem
 
 

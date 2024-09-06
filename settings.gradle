@@ -1,3 +1,4 @@
 include ':app'
 rootProject.name = "jannet_stable_code"
-include ':multispinner'
+//include ':multispinner'
+//include ':autoimageslider'

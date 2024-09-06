@@ -174,7 +174,6 @@
                         android:textColor="@color/grey1"
                         android:textColorHint="@color/grey1"
                         android:textSize="@dimen/_11ssp" />
-                    // style="@style/txtLoginScreen2"
 
                     <ImageView
                         android:layout_width="@dimen/_20sdp"
@@ -268,7 +267,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/txtFees">
 
-                    <com.androidbuts.multispinnerfilter.SingleSpinnerSearch
+                    <com.e.jannet_stable_code.multispinner.SingleSpinnerSearch
                         android:id="@+id/spinnerLocation_update"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"

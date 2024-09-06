@@ -93,9 +93,11 @@
         <activity
             android:name=".ui.coachApp.ParticipantsListActivity"
             android:exported="true" />
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+
+        <!--<activity
+            android:name=".imagecropper.CropImageActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />-->
+
         <activity
             android:name=".ui.parentsApp.ParentBookActivity"
             android:exported="true" />

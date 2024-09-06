@@ -11,6 +11,9 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
@@ -18,8 +21,6 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import com.e.jannet_stable_code.R
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -62,6 +63,8 @@ class PickImage(private val activity: Activity) {
             .onSameThread()
             .check()
     }
+
+
 
     private fun selectImage() {
         val options = arrayOf<CharSequence>(
@@ -161,22 +164,41 @@ class PickImage(private val activity: Activity) {
                     }
                     if (mImageBitmap != null) {
                         imageUri = getImageUri(mImageBitmap!!)
-                        startCropImageActivity(getImageUri(mImageBitmap!!))
+
+//                        startCropImageActivity(getImageUri(mImageBitmap!!)) //OLD AKSHAY
+
+                        //NEW
+                        if (imageView != null)
+                            Glide.with(activity)
+                                .load(imageUri)
+                                .into(imageView)
                     }
                 } else if (requestCode == GALLERY) {
                     if (data != null) {
                         val selectedImage = data.data
                         imageUri = selectedImage
-                        startCropImageActivity(selectedImage)
+
+                        //                        startCropImageActivity(selectedImage)// OLD AKSHAY
+
+                        //NEW
+                        if (imageView != null)
+                            Glide.with(activity)
+                                .load(imageUri)
+                                .into(imageView)
+
+
                     }
-                } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                }
+
+                //OLD AKSHAY
+                /* else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                     val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
                     imageUri = result.uri
                     if (imageView != null)
                         Glide.with(activity)
                             .load(result.uri)
                             .into(imageView)
-                }
+                }*/
             } else {
                 Utilities.showLog(TAG, "onActivityResult: ==== error ===")
             }
@@ -200,7 +222,9 @@ class PickImage(private val activity: Activity) {
         return Uri.parse(path)
     }
 
-    private fun startCropImageActivity(imageUri: Uri?) {
+
+    //OLD AKSHAY
+    /*private fun startCropImageActivity(imageUri: Uri?) {
         val intent: Intent = CropImage.activity(imageUri!!)
             .setGuidelines(CropImageView.Guidelines.ON)
             .setMultiTouchEnabled(true)
@@ -208,7 +232,7 @@ class PickImage(private val activity: Activity) {
             .getIntent(activity)
         activity.startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
     }
-
+*/
     fun getImage(): String? {
         return try {
             ImageFilePath.getPath(activity, imageUri!!)

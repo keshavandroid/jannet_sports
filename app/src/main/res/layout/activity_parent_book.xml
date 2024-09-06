@@ -24,7 +24,7 @@
         android:layout_marginEnd="@dimen/_25sdp">
 
 
-        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+        <com.e.jannet_stable_code.multispinner.MultiSpinnerSearch
             android:id="@+id/multipleItemSelectionSpinner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_25sdp"

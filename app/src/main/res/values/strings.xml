@@ -6,6 +6,9 @@
     <string name="child_login">Child Login</string>
     <string name="adult_login">Adult Login</string>
 
+    <string name="type_to_search">Type to Search</string>
+    <string name="string_item_name">Item Name</string>
+    <string name="not_found">Not Found!</string>
 
     <string name="Google_API_key">AIzaSyDZz4wntacjlvQ3aEGb9eWpDPU6M71t_Vc</string>
     <string name="email">Email</string>
