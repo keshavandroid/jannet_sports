@@ -41,7 +41,7 @@ class CoachTeamListAdapter() : RecyclerView.Adapter<CoachTeamListAdapter.MyViewH
         Glide.with(holder.ivImage.context)
             .load(currentItem?.getImage())
             .apply(RequestOptions().override(600, 200))
-            .placeholder(R.drawable.user)
+            .placeholder(R.drawable.loader_background)
             .into(holder.ivImage)
 
         holder.coachTeamType.text = currentItem?.getSportsType().toString()

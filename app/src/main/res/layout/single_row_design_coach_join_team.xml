@@ -21,7 +21,7 @@
             android:id="@+id/iv_join_team"
             android:layout_width="@dimen/_43sdp"
             android:layout_height="@dimen/_43sdp"
-            android:src="@mipmap/usa" />
+            android:src="@drawable/loader_background" />
 
         <LinearLayout
             android:layout_marginStart="@dimen/_10sdp"

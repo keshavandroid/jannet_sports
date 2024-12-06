@@ -15,288 +15,749 @@
     <com.e.jannet_stable_code.autoimageslider.SliderView
         android:id="@+id/imageSlider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"
+        android:layout_height="@dimen/_150sdp"
         app:sliderAnimationDuration="600"
         app:sliderAutoCycleDirection="right"
         app:sliderAutoCycleEnabled="true"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         app:sliderIndicatorEnabled="false"
         app:sliderScrollTimeInSec="3"
         app:sliderStartAutoCycle="true" />
 
-
-    <!--ll1 about venue register-->
-    <LinearLayout
-        android:id="@+id/ll1"
+    <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/view1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            android:layout_weight="0.5" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:id="@+id/txtAbout"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/about"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-        <TextView
-            android:id="@+id/txtVenue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginEnd="@dimen/_7sdp"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/venue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-        <TextView
-            android:id="@+id/txtRegister"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/register"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"
-            android:visibility="gone" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            android:layout_weight="0.5" />
-
-    </LinearLayout>
-
-    <!--team match result  ll2-->
-    <LinearLayout
-        android:id="@+id/ll2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:visibility="gone"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txtTeam"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:paddingTop="@dimen/_5sdp"
-
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/team"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-        <TextView
-            android:id="@+id/txtMatch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginEnd="@dimen/_7sdp"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/match"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/result"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-    </LinearLayout>
-
-    <!--ll6 edit delete event-->
-    <LinearLayout
-        android:id="@+id/ll6"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:orientation="horizontal">
-
-        <View
-            android:id="@+id/view3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:id="@+id/txtEdit"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="@string/edit"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginEnd="@dimen/_7sdp"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:visibility="visible"
-            android:id="@+id/tv_delete_event"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="Delete"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-        <View
-            android:id="@+id/view4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
-
-    </LinearLayout>
-
-    <!--book tickets ll7-->
-
-    <LinearLayout
-        android:id="@+id/ll7"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_45sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_45sdp"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:id="@+id/txtBookEvent"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="Book Tickets"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
+            <!--ll1 about venue register-->
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    android:layout_weight="0.5" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardAbout"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:elevation="@dimen/_8sdp"
+                        android:visibility="visible"
+                        app:cardBackgroundColor="@color/quantum_white_100"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardElevation="@dimen/_5sdp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/imgInfo"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:src="@drawable/ic_info"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp">
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@color/cardview_dark_background"
+                                android:gravity="center"
+                                android:id="@+id/txtAbout"
+                                android:paddingTop="@dimen/_5sdp"
+                                android:paddingBottom="@dimen/_5sdp"
+                                android:text="@string/about"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_13ssp" />
+
+                        </LinearLayout>
 
 
 
+                    </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardVenue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:elevation="@dimen/_8sdp"
+                        android:visibility="visible"
+                        app:cardBackgroundColor="@color/quantum_white_100"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardElevation="@dimen/_5sdp">
 
-    <!--tickets ll8-->
-    <LinearLayout
-        android:id="@+id/ll8"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_45sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_45sdp"
-        android:orientation="horizontal">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
+                            <ImageView
+                                android:id="@+id/imgVenue"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:src="@drawable/ic_location"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp">
+                            </ImageView>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:id="@+id/txt_Tickets_coach"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="Tickets"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@color/cardview_dark_background"
+                                android:gravity="center"
+                                android:id="@+id/txtVenue"
+                                android:paddingTop="@dimen/_5sdp"
+                                android:paddingBottom="@dimen/_5sdp"
+                                android:text="@string/venue"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_13ssp" />
 
-
-
-
-    </LinearLayout>
-
-    <!--booking details ll9-->
-    <LinearLayout
-        android:id="@+id/ll9"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_45sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_45sdp"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/circle2"
-            android:gravity="center"
-            android:id="@+id/txtBooking_details_coach"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="Booking Details"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
+                        </LinearLayout>
 
 
 
+                    </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:elevation="@dimen/_8sdp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/quantum_white_100"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardElevation="@dimen/_5sdp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/imgRegister"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:src="@drawable/ic_register"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp">
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@color/cardview_dark_background"
+                                android:gravity="center"
+                                android:id="@+id/txtRegister"
+                                android:paddingTop="@dimen/_5sdp"
+                                android:paddingBottom="@dimen/_5sdp"
+                                android:text="@string/register"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_13ssp" />
+
+                        </LinearLayout>
 
 
 
+                    </androidx.cardview.widget.CardView>
 
+
+                </LinearLayout>
+
+                <!--<TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:id="@+id/txtAbout"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/about"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+                <!--<TextView
+                    android:id="@+id/txtVenue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:layout_marginEnd="@dimen/_7sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/venue"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+                <!--<TextView
+                    android:id="@+id/txtRegister"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp"
+                    android:visibility="gone" />-->
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    android:layout_weight="0.5" />
+
+            </LinearLayout>
+
+            <!--team match result  ll2-->
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTeam"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_8sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/quantum_white_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:src="@drawable/ic_group_chat"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/cardview_dark_background"
+                            android:gravity="center"
+                            android:id="@+id/txtTeam"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="@string/team"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMatch"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_8sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/quantum_white_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:src="@drawable/icsports"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/cardview_dark_background"
+                            android:gravity="center"
+                            android:id="@+id/txtMatch"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="@string/match"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <!--<TextView
+                    android:id="@+id/txtTeam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/team"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:id="@+id/txtMatch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:layout_marginEnd="@dimen/_7sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/match"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/result"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+            </LinearLayout>
+
+
+
+            <!--book tickets ll7-->
+
+            <LinearLayout
+                android:id="@+id/ll7"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBookTickets"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_8sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/quantum_white_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:src="@drawable/ic_booking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/cardview_dark_background"
+                            android:gravity="center"
+                            android:id="@+id/txtBookEvent"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="Book Tickets"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--<TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:id="@+id/txtBookEvent"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="Book Tickets"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+            </LinearLayout>
+
+            <!--tickets ll8-->
+            <LinearLayout
+                android:id="@+id/ll8"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTickets"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_8sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/quantum_white_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:src="@drawable/ic_ticket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/cardview_dark_background"
+                            android:gravity="center"
+                            android:id="@+id/txt_Tickets_coach"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="Tickets"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--<TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:id="@+id/txt_Tickets_coach"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="Tickets"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+            </LinearLayout>
+
+            <!--booking details ll9-->
+            <LinearLayout
+                android:id="@+id/ll9"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBookingDetails"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_8sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/quantum_white_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:src="@drawable/ic_details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/cardview_dark_background"
+                            android:gravity="center"
+                            android:id="@+id/txtBooking_details_coach"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="Booking Details"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--<TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:id="@+id/txtBooking_details_coach"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="Booking Details"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+            </LinearLayout>
+
+
+            <!--ll6 edit delete event-->
+            <LinearLayout
+                android:id="@+id/ll6"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardEdit"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_8sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/quantum_white_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:src="@drawable/ic_baseline_edit_24"
+                            android:layout_width="36dp"
+                            android:layout_height="48dp"
+                            app:tint="@color/black">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/green6"
+                            android:gravity="center"
+                            android:id="@+id/txtEdit"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="@string/edit"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardDeleteEvent"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:elevation="@dimen/_8sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/quantum_white_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:src="@drawable/ic_delete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorRed"
+                            android:gravity="center"
+                            android:id="@+id/tv_delete_event"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="Delete"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!--<TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:id="@+id/txtEdit"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/edit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+                <!--<TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:layout_marginEnd="@dimen/_7sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle2"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:id="@+id/tv_delete_event"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="Delete"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />-->
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 
 </LinearLayout>

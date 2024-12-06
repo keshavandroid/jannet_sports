@@ -5,11 +5,13 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.view.Window
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jannet_stable_code.R
 import kotlinx.android.synthetic.main.custom_dialog_layout.*
+import kotlinx.android.synthetic.main.custom_sports_dialog_layout.imgSelectAll
 
 public class CustomListSportsDialog(
     var activity: Activity,
@@ -20,7 +22,7 @@ public class CustomListSportsDialog(
     internal var recyclerView: RecyclerView? = null
     internal var llDone: LinearLayout? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
-
+    private var mImgSelectAll: ImageView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +30,16 @@ public class CustomListSportsDialog(
         setContentView(R.layout.custom_sports_dialog_layout)
 
         recyclerView = recycler_view
+        mImgSelectAll = imgSelectAll
         llDone = ll_done
 
         mLayoutManager = LinearLayoutManager(activity)
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.adapter = adapter
         ll_done!!.setOnClickListener(View.OnClickListener { listener!!.onItemSelected() })
+
+        mImgSelectAll?.setOnClickListener(View.OnClickListener { listener!!.onSelectAll() })
+
         /* yes.setOnClickListener(this)
          no.setOnClickListener(this)*/
 
@@ -45,6 +51,9 @@ public class CustomListSportsDialog(
 
     public interface DoneInterface {
         fun onItemSelected()
+
+        fun onSelectAll()
+
     }
 /*
     override fun onClick(v: View) {

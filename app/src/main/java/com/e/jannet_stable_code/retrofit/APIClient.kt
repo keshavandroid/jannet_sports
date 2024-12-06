@@ -11,7 +11,10 @@ import java.util.concurrent.TimeUnit
 object APIClient {
 
     private var retrofit: Retrofit? = null
-    private val SERVER_URL = "https://keshavinfotechdemo2.com/keshav/KG2/Jannet_new/api/"
+//    private val SERVER_URL = "https://keshavinfotechdemo2.com/keshav/KG2/Jannet_new/api/"
+    private val SERVER_URL = "http://www.x-trane.com/api/"
+
+
     fun getClient(): Retrofit? {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY

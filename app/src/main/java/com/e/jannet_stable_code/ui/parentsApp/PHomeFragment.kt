@@ -387,6 +387,11 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
 
                     tv_sport.setText(strSports)
                 }
+
+                override fun onSelectAll() {
+                    adapter.selectAllItems(true)
+                }
+
             })
             customDialogSports!!.show()
             customDialogSports!!.setCanceledOnTouchOutside(false)

@@ -40,7 +40,7 @@
                     android:id="@+id/txtName"
                     style="@style/txtLoginScreen1"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:text="@string/first_name"
+                    android:text="@string/your_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,6 +76,7 @@
                     style="@style/txtLoginScreen1"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="Middle Name"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtName" />
 
@@ -87,6 +88,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/whitebg"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:elevation="@dimen/_5sdp"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +105,8 @@
                         android:id="@+id/etxtMiddleName"
                         style="@style/etxtLoginScreen1"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:text="test"/>
                 </LinearLayout>
 
 
@@ -113,6 +116,7 @@
                     style="@style/txtLoginScreen1"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/last_name"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtMiddleName" />
 
@@ -122,6 +126,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/whitebg"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:elevation="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
@@ -140,7 +145,8 @@
                         android:id="@+id/etxtLName"
                         style="@style/etxtLoginScreen1"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:text="test"/>
                 </LinearLayout>
 
                 <TextView
@@ -208,11 +214,31 @@
                         android:padding="@dimen/_4sdp"
                         android:src="@mipmap/locak" />
 
-                    <EditText
+                    <!--<EditText
                         android:id="@+id/etxtPassword"
                         style="@style/etxtLoginScreen1"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword" />-->
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayoutPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:boxBackgroundMode="none"
+                        app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etxtPassword"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:inputType="textPassword"/> <!-- Input type for password -->
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
 
                 <TextView
@@ -243,12 +269,62 @@
                         android:padding="@dimen/_4sdp"
                         android:src="@mipmap/call" />
 
-                    <EditText
-                        android:id="@+id/etxtPhNo"
-                        style="@style/etxtLoginScreen1"
-                        android:layout_marginEnd="@dimen/_20sdp"
-                        android:inputType="phone"
-                        android:maxLength="12" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_margin="@dimen/_5sdp">
+
+                        <EditText
+                            android:id="@+id/etxtPhNo"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:inputType="phone"
+                            android:maxLength="3"
+                            android:text="000"
+                            android:textSize="@dimen/_11ssp"
+                            android:gravity="center"
+                            android:background="@null"
+                            android:layout_margin="@dimen/_5sdp"/>
+
+                        <View
+                            android:layout_width="5dp"
+                            android:layout_height="1dp"
+                            android:background="@color/black"></View>
+
+                        <EditText
+                            android:id="@+id/etxtPhNo1"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:inputType="phone"
+                            android:maxLength="3"
+                            android:gravity="center"
+                            android:textSize="@dimen/_11ssp"
+                            android:text="000"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:background="@null"/>
+
+                        <View
+                            android:layout_width="5dp"
+                            android:layout_height="1dp"
+                            android:background="@color/black">
+                        </View>
+
+                        <EditText
+                            android:id="@+id/etxtPhNo2"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:inputType="phone"
+                            android:maxLength="4"
+                            android:textSize="@dimen/_11ssp"
+                            android:text="0000"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:background="@null"/>
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <TextView

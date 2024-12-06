@@ -257,7 +257,7 @@ class CoachUpdateProfileActivity : BaseActivity() {
             Glide.with(this)
                 .load(data!!.image)
                 .apply( RequestOptions().override(600, 200))
-                .placeholder(R.drawable.user)
+                .placeholder(R.drawable.loader_background)
                 .into(imgProfile)
 
             Log.d(TAG, "setData: testNAME>>" + data.name)

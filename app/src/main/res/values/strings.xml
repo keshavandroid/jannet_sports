@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Elite Games</string>
+    <string name="app_name">X-Trane</string>
     <string name="participant">Participant</string>
     <string name="coach">Coach</string>
     <string name="participant_login">Participant Login</string>
@@ -181,6 +181,7 @@
     <string name="NoEventFound">No event found.</string>
     <string name="Please_Select_sports">Please Select Sports Type</string>
     <string name="please_select_location">Please Select Location Type</string>
+    <string name="update_profile_str">Update Profile</string>
 
 
     <string-array name="Languages">

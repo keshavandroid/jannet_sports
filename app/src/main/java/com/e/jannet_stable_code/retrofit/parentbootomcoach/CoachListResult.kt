@@ -1,5 +1,6 @@
 package com.e.jannet_stable_code.retrofit.parentbootomcoach
 
+import com.e.jannet_stable_code.retrofit.response.EventDetailResponse
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
@@ -41,12 +42,36 @@ class CoachListResult {
     @Expose
     private var userToken: String? = null
 
+    @SerializedName("sportsName")
+    @Expose
+    private var sportsName: List<SportsName?>? = null
+
+    @SerializedName("sportsname")
+    @Expose
+    private var sportsname: List<SportsName?>? = null
+
     fun getId(): Int? {
         return id
     }
 
     fun setId(id: Int?) {
         this.id = id
+    }
+
+    fun getSportsName(): List<SportsName?>? {
+        return sportsName
+    }
+
+    fun setSportsName(sportsName: List<SportsName?>?) {
+        this.sportsName = sportsName
+    }
+
+    fun getSportsname(): List<SportsName?>? {
+        return sportsname
+    }
+
+    fun setSportsname(sportsName: List<SportsName?>?) {
+        this.sportsname = sportsName
     }
 
     fun getName(): String? {
@@ -104,5 +129,21 @@ class CoachListResult {
     fun setUserToken(userToken: String?) {
         this.userToken = userToken
     }
+
+    class SportsName {
+
+        @SerializedName("sportsName")
+        @Expose
+        private var sportsName: String? = null
+
+        fun getSportsName(): String? {
+            return sportsName
+        }
+
+        fun setSportsName(sportsName: String?) {
+            this.sportsName = sportsName
+        }
+    }
+
 
 }

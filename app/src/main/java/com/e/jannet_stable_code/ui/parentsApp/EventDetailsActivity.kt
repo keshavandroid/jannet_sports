@@ -76,11 +76,11 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                     if (res!![0]!!.child!!.isEmpty()) {
 
                         ll1.isVisible = true
-                        txtRegister.isGone = true
+                        cardRegister.isGone = true
 
                     } else {
                         ll1.isVisible = true
-                        txtRegister.isVisible = true
+                        cardRegister.isVisible = true
 
 
                     }
@@ -164,7 +164,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         adapter = SliderAdapterExample(this)
         imageSlider.setSliderAdapter(adapter!!)
 
-        txtMatch.setOnClickListener {
+        cardMatch.setOnClickListener {
 //            if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
 //                    .equals("coachPersonal")
 //            ) startActivity(
@@ -190,7 +190,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
             startActivity(intent)
         }
-        txtTeam.setOnClickListener {
+        cardTeam.setOnClickListener {
 
             val eventid = intent.getStringExtra("eventId")
 
@@ -208,9 +208,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
         }
-        txtAbout.setOnClickListener { startActivity(Intent(this, EventAboutActivity::class.java)) }
+        cardAbout.setOnClickListener { startActivity(Intent(this, EventAboutActivity::class.java)) }
 
-        txtVenue.setOnClickListener {
+        cardVenue.setOnClickListener {
 
             val eventid = intent.getStringExtra("eventId")
 
@@ -224,7 +224,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
             startActivity(intent)
         }
-        txtRegister.setOnClickListener {
+        cardRegister.setOnClickListener {
 
             val userType = SharedPrefUserData(this).getSavedData().usertype
             val eventid = intent.getStringExtra("eventId")
@@ -252,7 +252,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
         }
-        txtEdit.setOnClickListener {
+        cardEdit.setOnClickListener {
 //            startActivity(
 //                Intent(this, EditEventActivity::class.java
 //                )
@@ -265,7 +265,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             startActivity(intent)
         }
 
-        txt_Tickets_coach.setOnClickListener {
+        cardTickets.setOnClickListener {
 
             val eventid = intent.getStringExtra("eventId")
             val fees = intent.getStringExtra("fees")
@@ -277,7 +277,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
         }
 
-        txtBooking_details_coach.setOnClickListener {
+        cardBookingDetails.setOnClickListener {
 
             val parent = intent.getStringExtra("parent")
 
@@ -305,7 +305,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
         }
 
-        txtBookEvent.setOnClickListener {
+        cardBookTickets.setOnClickListener {
 
             val EVENT_id = intent.getStringExtra("eventId")
             val fees = intent.getStringExtra("fees")
@@ -316,7 +316,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             startActivity(intent)
         }
 
-        tv_delete_event.setOnClickListener {
+        cardDeleteEvent.setOnClickListener {
 
 //            val stordata = StoreUserData(this)
 //            val id = stordata.getString(Constants.COACH_ID)
@@ -435,7 +435,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             0 -> {
                 //from home screen
                 //from parent
-                txtRegister.visibility = View.VISIBLE
+                cardRegister.visibility = View.VISIBLE
                 view1.visibility = View.GONE
                 view2.visibility = View.GONE
 
@@ -444,24 +444,24 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 ll7.visibility = View.VISIBLE
                 ll9.visibility = View.VISIBLE
                 ll8.visibility = View.GONE
-                txtEdit.visibility = View.GONE
+                cardEdit.visibility = View.GONE
 
             }
             1 -> {
                 //from match screen
                 //from paent scren
-                txtRegister.visibility = View.GONE
+                cardRegister.visibility = View.GONE
                 view1.visibility = View.VISIBLE
                 view2.visibility = View.VISIBLE
                 ll2.visibility = View.VISIBLE
                 ll6.visibility = View.GONE
                 ll7.visibility = View.VISIBLE
-                txtEdit.visibility = View.GONE
+                cardEdit.visibility = View.GONE
             }
             2 -> {
                 //from match screen
                 //from coach side
-                txtRegister.visibility = View.GONE
+                cardRegister.visibility = View.GONE
                 view1.visibility = View.VISIBLE
                 view2.visibility = View.VISIBLE
                 ll2.visibility = View.VISIBLE
@@ -470,9 +470,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 ll8.visibility = View.VISIBLE
                 ll7.visibility = View.GONE
                 ll9.visibility = View.VISIBLE
-                tv_delete_event.visibility = View.VISIBLE
+                cardDeleteEvent.visibility = View.VISIBLE
 
-                txtEdit.visibility = View.VISIBLE
+                cardEdit.visibility = View.VISIBLE
             }
         }
     }
@@ -481,7 +481,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         imgBack.visibility = View.VISIBLE
         imgBack.setOnClickListener { finish() }
         txtTitle.text = getString(R.string.event_detail)
-        imgShare.isVisible = true
+        imgShare.isVisible = false
         imgShare.setOnClickListener {
 
             val intent = Intent()
@@ -505,12 +505,12 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         if (child?.size == null) {
             Log.e("EventDetail", "=========child size2===${child?.size.toString()}")
 
-            txtRegister.isGone = true
+            cardRegister.isGone = true
 
         } else {
             Log.e("EventDetail", "=========child size3===${child?.size.toString()}")
 
-            txtRegister.isVisible = true
+            cardRegister.isVisible = true
         }
 
 

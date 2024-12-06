@@ -169,7 +169,7 @@ class AddChildActivity : AppCompatActivity() {
         if (isEditFlag)
             etxtChildName.setText(firstName)
 
-        setEditUserData()
+//        setEditUserData()
     }
 
     private var isEditFlag = false

@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -14,6 +15,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
@@ -37,10 +40,18 @@ class PickImage(private val activity: Activity) {
     private val GALLERY = 1
     private var REQUEST_CAMERA: Int = 0
     private var imageUri: Uri? = null
+    private val PERMISSION_REQUEST_CODE = 100
+
 
     init {
         Log.d(TAG, ": PickImage>>INIT")
-        Dexter.withActivity(activity)
+
+        checkPermissions()
+
+        selectImage()
+
+
+        /*Dexter.withActivity(activity)
             .withPermissions(
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -61,10 +72,43 @@ class PickImage(private val activity: Activity) {
                 }
             }).withErrorListener { Utilities.showLog("Permission Error!") }
             .onSameThread()
-            .check()
+            .check()*/
     }
 
-
+    private fun checkPermissions() {
+        // Check if permissions are already granted
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) ||
+            (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU && ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        ) {
+            // Request the permissions
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ActivityCompat.requestPermissions(
+                    activity,
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_MEDIA_IMAGES
+                    ),
+                    PERMISSION_REQUEST_CODE
+                )
+            } else {
+                ActivityCompat.requestPermissions(
+                    activity,
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ),
+                    PERMISSION_REQUEST_CODE
+                )
+            }
+        } else {
+            // Permissions are already granted
+            selectImage()
+        }
+    }
 
     private fun selectImage() {
         val options = arrayOf<CharSequence>(

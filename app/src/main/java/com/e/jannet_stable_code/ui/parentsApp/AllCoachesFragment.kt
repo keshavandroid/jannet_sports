@@ -131,7 +131,10 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
             llAllCoaches.visibility = View.VISIBLE
             llJoinTeam.visibility = View.GONE
             imgFilter.visibility = View.VISIBLE
-            imgLoc.visibility = View.VISIBLE
+
+            //AKSHAY VISIBLE this to show location button in title bar on top
+            imgLoc.visibility = View.GONE
+
             imgFilter.setOnClickListener(View.OnClickListener { showBottomSheetDialog() })
             imgLoc.setOnClickListener { showLocationBottomSheetDialog() }
         } else if (i == 2) {
@@ -148,8 +151,7 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
 
     private fun showBottomSheetDialog() {
 
-        val bottomSheetDialog =
-            BottomSheetDialog(this.requireContext(), R.style.MyBottomSheetDialogTheme)
+        val bottomSheetDialog = BottomSheetDialog(this.requireContext(), R.style.MyBottomSheetDialogTheme)
         bottomSheetDialog.setContentView(R.layout.home_filter_bottom_sheet_dialog)
 
         val tv_sport = bottomSheetDialog.findViewById<TextView>(R.id.tv_sport)
@@ -219,6 +221,11 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
                     }
                     tv_sport.setText(strSports)
                 }
+
+                override fun onSelectAll() {
+                    adapter.selectAllItems(true)
+                }
+
             })
             customDialogSports!!.show()
             customDialogSports!!.setCanceledOnTouchOutside(false)
@@ -264,8 +271,7 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
 
     private fun showLocationBottomSheetDialog() {
 
-        val bottomSheetDialog =
-            BottomSheetDialog(this.requireContext(), R.style.MyBottomSheetDialogTheme)
+        val bottomSheetDialog = BottomSheetDialog(this.requireContext(), R.style.MyBottomSheetDialogTheme)
         bottomSheetDialog.setContentView(R.layout.home_filter_bottom_sheet_dialog)
 
         val tv_sport = bottomSheetDialog.findViewById<TextView>(R.id.tv_sport)
@@ -348,6 +354,7 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
             })
 
         txtApply?.setOnClickListener(View.OnClickListener {
+
         })
 
         txtClear!!.setOnClickListener(View.OnClickListener {
@@ -473,6 +480,7 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
         intent.putExtra("NAME", name.toString())
         intent.putExtra("IMAGE", image.toString())
         intent.putExtra("BOTTOM_COACH", "bottom_coach")
+
 
         startActivity(intent)
     }

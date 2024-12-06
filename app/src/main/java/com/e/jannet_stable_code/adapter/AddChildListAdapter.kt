@@ -24,6 +24,7 @@ import com.e.jannet_stable_code.utils.DatePickerResult
 import com.e.jannet_stable_code.utils.MultiSpinner
 import com.e.jannet_stable_code.utils.datePicker
 import com.e.jannet_stable_code.utils.getPathFromUri
+import com.google.gson.GsonBuilder
 
 
 private const val TAG = "AddChildListAdapter"
@@ -236,8 +237,10 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
     var editFlag = false
 
     fun setEditChildUserData(data: ChildListObject?) {
-        Log.d(TAG,
-            "setEditChildUserData: et==>>" + data!!.id + ">>middlename" + data.middleName + ">>" + data.firstName + ">>" + data.email + ">>" + data.bdate + ">>" + data.imageUrl + ">>" + data.imageUri)
+
+        Log.d(TAG, "ChildAdapterData: ==>>" + GsonBuilder().setPrettyPrinting().create().toJson(data))
+
+        Log.d(TAG, "setEditChildUserData: et==>>" + data!!.id + ">>middlename" + data.middleName + ">>" + data.firstName + ">>" + data.email + ">>" + data.bdate + ">>" + data.imageUrl + ">>" + data.imageUri)
         editFlag = true
         arrayList.clear()
         arrayList.add(data!!)

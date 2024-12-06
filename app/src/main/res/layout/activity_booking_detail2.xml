@@ -25,7 +25,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            android:src="@drawable/user" />
+            android:src="@drawable/loader_background" />
 
         <LinearLayout
             android:layout_width="match_parent"

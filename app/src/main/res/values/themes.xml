@@ -98,10 +98,9 @@
 
     <style name="etxtLoginScreen1" parent="Widget.AppCompat.EditText">
         <item name="android:paddingStart">@dimen/_5sdp</item>
-        <item name="android:paddingEnd">@dimen/_20sdp</item>
+        <item name="android:paddingEnd">@dimen/_5sdp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:singleLine">true</item>
-        <item name="android:maxLength">70</item>
         <item name="android:layout_height">@dimen/_25sdp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/grey1</item>

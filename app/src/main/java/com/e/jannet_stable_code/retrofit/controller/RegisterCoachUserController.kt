@@ -36,11 +36,14 @@ class RegisterCoachUserController(var context: Activity, internal var controller
         val location: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.location)
 
         var image: MultipartBody.Part? = null
-        val file_path: String = registerObj.image!!
-        if (file_path.isNotEmpty()) {
-            val file = File(file_path)
-            val reqFile = RequestBody.create(context.contentResolver.getType(Utilities.getImageContentUri(context, file)!!)!!.toMediaTypeOrNull(), file)
-            image = MultipartBody.Part.createFormData("image", file.name, reqFile)
+
+        if(registerObj.image!=null){
+            val file_path: String = registerObj.image!!
+            if (file_path.isNotEmpty()) {
+                val file = File(file_path)
+                val reqFile = RequestBody.create(context.contentResolver.getType(Utilities.getImageContentUri(context, file)!!)!!.toMediaTypeOrNull(), file)
+                image = MultipartBody.Part.createFormData("image", file.name, reqFile)
+            }
         }
 
         val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().registerCoachApi(name = name,gender = gender,birthdate = birthdate,email=email,password=password,contactNo=contactNo,location=location,image=image)

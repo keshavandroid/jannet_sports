@@ -60,7 +60,7 @@ class EditMainTeamActivity : BaseActivity(), RegisterControllerInterface {
             Glide.with(this)
                 .load(teamImage)
                 .apply( RequestOptions().override(600, 200))
-                .placeholder(R.drawable.user)
+                .placeholder(R.drawable.loader_background)
                 .into(imgProfile_add_team_main_edit)
         }
 

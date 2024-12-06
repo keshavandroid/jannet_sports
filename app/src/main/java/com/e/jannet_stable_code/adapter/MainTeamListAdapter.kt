@@ -43,7 +43,7 @@ class MainTeamListAdapter() : RecyclerView.Adapter<MainTeamListAdapter.MyViewHol
         Glide.with(holder.ivImage.context)
             .load(currentItem?.getImage())
             .apply( RequestOptions().override(600, 200))
-            .placeholder(R.drawable.user)
+            .placeholder(R.drawable.loader_background)
             .into(holder.ivImage)
 
 

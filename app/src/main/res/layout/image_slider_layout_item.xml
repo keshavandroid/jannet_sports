@@ -6,39 +6,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_auto_image_slider"
-        app:riv_corner_radius="@dimen/_15sdp"
+    <androidx.cardview.widget.CardView
+        android:visibility="visible"
+        android:id="@+id/cv_event_register_request_1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:elevation="@dimen/_8sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/quantum_white_100"
+        app:cardCornerRadius="@dimen/_8sdp">
+
+        <ImageView
+            android:id="@+id/iv_auto_image_slider"
+            app:riv_corner_radius="@dimen/_15sdp"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_gif_container"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="50dp" />
 
 
-    <ImageView
-        android:id="@+id/iv_gif_container"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="50dp" />
-
-
-    <FrameLayout
-        android:visibility="gone"
-        android:id="@+id/fl_shadow_container"
-        android:background="@drawable/bg_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-
-        <TextView
-            android:id="@+id/tv_auto_image_slider"
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/fl_shadow_container"
+            android:background="@drawable/bg_overlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="25dp"
-            android:padding="6dp"
-            android:textColor="#FFF"
-            android:textSize="18sp" />
+            android:layout_gravity="bottom">
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/tv_auto_image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="25dp"
+                android:padding="6dp"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
 
 </FrameLayout>

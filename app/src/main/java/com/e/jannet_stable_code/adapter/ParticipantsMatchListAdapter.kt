@@ -43,13 +43,13 @@ class ParticipantsMatchListAdapter() : RecyclerView.Adapter<ParticipantsMatchLis
         Glide.with(holder.imgTeamA.context)
             .load(currentItem?.getTeamAImage())
             .apply( RequestOptions().override(600, 200))
-            .placeholder(R.drawable.user)
+            .placeholder(R.drawable.loader_background)
             .into(holder.imgTeamA)
 
         Glide.with(holder.imgTeamB.context)
             .load(currentItem?.getTeamBImage())
             .apply( RequestOptions().override(600, 200))
-            .placeholder(R.drawable.user)
+            .placeholder(R.drawable.loader_background)
             .into(holder.imgTeamB)
 
 

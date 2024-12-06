@@ -49,7 +49,7 @@ class EditTeamActivity : BaseActivity(), RegisterControllerInterface {
 //
             Glide.with(this)
                 .load(team_image.toString())
-                .placeholder(R.drawable.user)
+                .placeholder(R.drawable.loader_background)
                 .into(imgProfile_edit_team)
 //        }
         controller = EditTeamController(this, this)

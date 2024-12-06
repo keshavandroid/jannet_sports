@@ -37,7 +37,7 @@ class GetProfileController(val context: Activity, val isParent:Boolean,internal 
 
             id = SharedPrefUserData(context).getSavedData().id
             token = SharedPrefUserData(context).getSavedData().token
-             userType = SharedPrefUserData(context).getSavedData().usertype
+            userType = SharedPrefUserData(context).getSavedData().usertype
 
             Log.e(TAG, "callApi: profile controller cll parent====$id", )
 

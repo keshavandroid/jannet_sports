@@ -80,21 +80,18 @@ public class CustomListViewDialogAdapter() :
                 }
             })
 
-            //  v.setOnClickListener(this)
         }
 
-        /*   @SuppressLint("WrongConstant")
-           override fun onClick(v: View) {
-               recyclerViewItemClickListener.clickOnItem(mDataset[this.adapterPosition])
-               Toast.makeText(v.context,mDataset[this.adapterPosition],1)
-           }*/
     }
 
-    interface RecyclerViewItemClickListener {
-        fun clickOnItem(data: String)
+    fun selectAllItems(selectAll: Boolean) {
+        for (item in mDataset!!) {
+            item!!.isCheck = if (selectAll) "1" else "0"
+        }
+        notifyDataSetChanged() // Notify the adapter that data has changed
     }
 
-    public interface AdapterListInterface {
+    interface AdapterListInterface {
         fun onItemSelected(position: Int, data: String)
     }
 }

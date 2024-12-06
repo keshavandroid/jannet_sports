@@ -37,8 +37,7 @@ class ParentsMainActivity : AppCompatActivity() {
         bottomNavigationViewTop!!.setOnNavigationItemSelectedListener(navListener)
 
 
-        val menuView = bottom_navigatin_view
-            .getChildAt(0) as BottomNavigationMenuView
+        val menuView = bottom_navigatin_view.getChildAt(0) as BottomNavigationMenuView
 
         Log.d(TAG, "onCreate: test>>" + menuView.childCount)
 

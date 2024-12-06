@@ -17,6 +17,8 @@ import com.e.jannet_stable_code.utils.PickImage
 import com.e.jannet_stable_code.utils.SpinnerPickerDialog
 import com.e.jannet_stable_code.utils.SpinnerPickerDialog.OnDialogListener
 import com.e.jannet_stable_code.utils.Utilities
+import kotlinx.android.synthetic.main.activity_adult_register.etxtPhNo1
+import kotlinx.android.synthetic.main.activity_adult_register.etxtPhNo2
 import kotlinx.android.synthetic.main.activity_parent_register.*
 import kotlinx.android.synthetic.main.topbar_layout.*
 import java.util.*
@@ -29,7 +31,7 @@ class RegisterAdultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adult_register)
 
-      getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         setTopBar()
 
@@ -78,7 +80,7 @@ class RegisterAdultActivity : AppCompatActivity() {
                 @SuppressLint("SetTextI18n")
                 override fun onSetDate(month: Int, day: Int, year: Int) {
                     // "  (Month selected is 0 indexed {0 == January})"
-                    txtBDate.text="$year-"+(month+1)+"-$day"
+                    txtBDate.text = "$year-" + (month + 1) + "-$day"
                 }
 
                 override fun onCancel() {}
@@ -109,24 +111,26 @@ class RegisterAdultActivity : AppCompatActivity() {
     }
 
     private fun isDataValid(): Boolean {
-        if (pickImage == null || pickImage!!.getImage() == null || pickImage!!.getImage()
+        /*if (pickImage == null || pickImage!!.getImage() == null || pickImage!!.getImage()
                 .equals("")
         ) {
             Utilities.showToast(this, "Please select image to continue.")
             return false
-        } else if (etxtFName.text.toString().trim() == "") {
+        } else */if (etxtFName.text.toString().trim() == "") {
             Utilities.showToast(this, "Please enter first name to continue.")
             return false
         } else if (etxtFName.text.toString().trim().length < 3) {
             Utilities.showToast(this, "Please enter longer first name to continue.")
             return false
-        } else if (etxtLName.text.toString().trim() == "") {
-            Utilities.showToast(this, "Please enter last name to continue.")
-            return false
-        } else if (etxtLName.text.toString().trim().length < 3) {
-            Utilities.showToast(this, "Please enter last name to continue.")
-            return false
-        } else if (etxtEmail.text.toString().trim() == "") {
+        }
+//        else if (etxtLName.text.toString().trim() == "") {
+//            Utilities.showToast(this, "Please enter last name to continue.")
+//            return false
+//        } else if (etxtLName.text.toString().trim().length < 3) {
+//            Utilities.showToast(this, "Last name is too short")
+//            return false
+//        }
+        else if (etxtEmail.text.toString().trim() == "") {
             Utilities.showToast(this, "Please enter email to continue.")
             return false
         } else if (!Utilities.isValidEmail(etxtEmail.text.toString().trim())) {
@@ -147,37 +151,43 @@ class RegisterAdultActivity : AppCompatActivity() {
         } else if (genderFlag == 0) {
             Utilities.showToast(this, "Please select gender to continue.")
             return false
-        } else if(txtBDate.text.toString().trim()==""){
+        } else if (txtBDate.text.toString().trim() == "") {
             Utilities.showToast(this, "Please enter birthdate to continue.")
             return false
         }/*else if (userTypeFlag == 0) { // for userType selection
             Utilities.showToast(this, "Please select user type to continue.")
             return false
-        }*/else if (etxtMiddleName.text.toString().trim()==""){
+        }*/
+        /*else if (etxtMiddleName.text.toString().trim()==""){
 
             Utilities.showToast(this,"Please enter middle name to continue.")
-        }
+        }*/
 
         registerObject = ParentRegisterObject()
 
-        registerObject!!.email=etxtEmail.text.toString().trim()
-        registerObject!!.password=etxtPassword.text.toString().trim()
-        registerObject!!.firstname=etxtFName.text.toString().trim()
-        registerObject!!.middlename=etxtMiddleName.text.toString().trim()
-        registerObject!!.lastname=etxtLName.text.toString().trim()
-        registerObject!!.contactNo=etxtPhNo.text.toString().trim()
-        if(genderFlag==1) registerObject!!.gender="m"
-        else if(genderFlag==2) registerObject!!.gender="f"
-        registerObject!!.birthdate=txtBDate.text.toString().trim()
+        registerObject!!.email = etxtEmail.text.toString().trim()
+        registerObject!!.password = etxtPassword.text.toString().trim()
+        registerObject!!.firstname = etxtFName.text.toString().trim()
+        registerObject!!.middlename = "0"
+        // registerObject!!.middlename=etxtMiddleName.text.toString().trim()
+        //registerObject!!.lastname=etxtLName.text.toString().trim()
+        registerObject!!.lastname = "0"
+      //  registerObject!!.contactNo = etxtPhNo.text.toString().trim()
+        registerObject!!.contactNo = etxtPhNo.text.toString().trim()+etxtPhNo1.text.toString().trim()+etxtPhNo2.text.toString().trim()
+        if (genderFlag == 1) registerObject!!.gender = "m"
+        else if (genderFlag == 2) registerObject!!.gender = "f"
+        registerObject!!.birthdate = txtBDate.text.toString().trim()
 
-        registerObject!!.userType="adult"
+        registerObject!!.userType = "adult"
 
-        registerObject!!.image= pickImage!!.getImage()!!
+        if (pickImage != null && pickImage!!.getImage() != null) {
+            registerObject!!.image = pickImage!!.getImage()!!
+        }
 
         return true
     }
 
-    var registerObject:ParentRegisterObject?=null
+    var registerObject: ParentRegisterObject? = null
     var genderFlag = 0
     private fun setGender(i: Int) {
         genderFlag = i
@@ -217,16 +227,16 @@ class RegisterAdultActivity : AppCompatActivity() {
         txtTitle.text = resources.getString(R.string.adult_register)
     }
 
-    class ParentRegisterObject{
-        var email=""
-        var password=""
-        var firstname=""
-        var middlename=""
-        var lastname=""
-        var contactNo=""
-        var gender=""
-        var birthdate=""
-        var userType=""
-        var image=""
+    class ParentRegisterObject {
+        var email = ""
+        var password = ""
+        var firstname = ""
+        var middlename = ""
+        var lastname = ""
+        var contactNo = ""
+        var gender = ""
+        var birthdate = ""
+        var userType = ""
+        var image = ""
     }
 }

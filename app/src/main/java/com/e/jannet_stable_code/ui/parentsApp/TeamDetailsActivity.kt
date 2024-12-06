@@ -178,7 +178,7 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
         Glide.with(this)
             .load(response!![0]!!.getImage())
             .apply(RequestOptions().override(600, 200))
-            .placeholder(R.drawable.user)
+            .placeholder(R.drawable.loader_background)
             .into(iv_main_team_image)
 
         tv_main_team_name.text = response[0]!!.getTeamName().toString()

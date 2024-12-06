@@ -232,7 +232,7 @@
 
 
                 </LinearLayout>
-  <TextView
+                <TextView
                     android:id="@+id/txtPassword"
                     style="@style/txtLoginScreen1"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -306,6 +306,7 @@
                     <EditText
                         android:id="@+id/etxtPhNo"
                         style="@style/etxtLoginScreen1"
+                        android:maxLength="10"
                         android:layout_marginEnd="@dimen/_30sdp"
                         android:inputType="phone" />
                 </LinearLayout>
@@ -463,7 +464,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_30sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:text="@string/edit" />
+                android:text="@string/update_profile_str" />
 
             <LinearLayout
                 android:id="@+id/llChild1"

@@ -48,7 +48,7 @@ class NotificationAdapter() : RecyclerView.Adapter<NotificationAdapter.MyViewHol
             Glide.with(holder.imgProfileUser.context)
                     .load(currentItem?.getUserImage())
                     .apply(RequestOptions().override(600, 200))
-                    .placeholder(R.drawable.user)
+                    .placeholder(R.drawable.loader_background)
                     .into(holder.imgProfileUser)
 
         }catch (e: Exception){

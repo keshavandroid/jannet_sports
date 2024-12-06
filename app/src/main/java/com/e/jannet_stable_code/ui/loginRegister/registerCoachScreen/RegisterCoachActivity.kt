@@ -92,13 +92,17 @@ class RegisterCoachActivity : AppCompatActivity() {
         }
         txtRegister.setOnClickListener {
             val data = CoachRegisterObject()
-            data.image = pickImage?.getImage()
+
+            if(pickImage!=null && pickImage!!.getImage()!=null){
+                data.image = pickImage?.getImage()
+            }
+
             data.name = etxtName.text.toString().trim()
             data.gender = genderFlag
             data.birthdate = txtBDate.text.toString().trim()
             data.email = etxtEmail.text.toString().trim()
             data.password = etxtPwd.text.toString().trim()
-            data.contactNo = etxtPhNo.text.toString().trim()
+            data.contactNo = etxtPhNo.text.toString().trim()+ etxtPhNo1.text.toString().trim()+ etxtPhNo2.text.toString().trim()
             data.location = "*"
             //etxtLocation.text.toString().trim()
 

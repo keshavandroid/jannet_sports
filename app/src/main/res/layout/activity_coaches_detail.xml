@@ -112,8 +112,25 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:text="@string/soccer"
+                            android:visibility="gone"
                             android:textColor="@color/grey2"
                             android:textSize="@dimen/_10ssp" />
+
+                        <HorizontalScrollView
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/llSportsType"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </LinearLayout>
+
+                        </HorizontalScrollView>
+
                     </LinearLayout>
 
                     <LinearLayout

@@ -127,6 +127,7 @@
 
                     <EditText
                         android:id="@+id/etxtPhNo"
+                        android:maxLength="10"
                         style="@style/etxtLoginScreen1"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"

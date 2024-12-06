@@ -109,13 +109,32 @@
                     android:layout_marginStart="@dimen/_16sdp"
                     android:src="@mipmap/locak" />
 
-                <EditText
+                <!--<EditText
                     android:id="@+id/etxtPassword"
                     style="@style/etxtLoginScreen1"
                     android:layout_marginEnd="@dimen/_25sdp"
                     android:layout_marginStart="@dimen/_2sdp"
                     android:paddingStart="@dimen/_7sdp"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword" />-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    app:boxBackgroundMode="none"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etxtPassword"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:inputType="textPassword"/> <!-- Input type for password -->
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <TextView

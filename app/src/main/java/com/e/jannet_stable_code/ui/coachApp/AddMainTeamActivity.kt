@@ -49,7 +49,6 @@ class AddMainTeamActivity : BaseActivity(), RegisterControllerInterface {
 
             if (etxtTeamName_addTeam_main.text.toString() == "") {
 
-
                 showToast("Please Enter TeamName")
 
             } else if (etxt_teams_description_main.text.toString() == "") {
@@ -73,10 +72,7 @@ class AddMainTeamActivity : BaseActivity(), RegisterControllerInterface {
         }
 
         imgProfile_add_team_main.setOnClickListener {
-
             pickImage = PickImage(this)
-
-
         }
 
 

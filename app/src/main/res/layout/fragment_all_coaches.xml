@@ -73,7 +73,7 @@
 
     </LinearLayout>
 
-    //team list
+    <!--team list-->
     <LinearLayout
         android:id="@+id/llJoinTeam"
         android:visibility="visible"

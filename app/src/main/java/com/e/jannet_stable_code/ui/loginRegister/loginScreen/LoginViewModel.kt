@@ -38,7 +38,7 @@ class LoginViewModel(val activity: LoginActivity) {
             context = activity,
             email = email,
             pwd = pwd,
-                userType= userType,
+            userType= userType,
             controllerInterface = object : ControllerInterface {
                 override fun onFail(error: String?) {
                     Utilities.showToast(activity, error)

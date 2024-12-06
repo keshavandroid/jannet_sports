@@ -46,7 +46,7 @@ class BookingListAdapter(): RecyclerView.Adapter<BookingListAdapter.MyViewHolder
         Glide.with(holder.ivImage.context)
             .load(currentItem?.getUserImage())
             .apply( RequestOptions().override(600, 200))
-            .placeholder(R.drawable.user)
+            .placeholder(R.drawable.loader_background)
             .into(holder.ivImage)
 
         holder.llMain.setOnClickListener {

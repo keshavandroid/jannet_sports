@@ -14,10 +14,10 @@ class RegisterCoachModel(val activity: RegisterCoachActivity) {
     fun registerValidation(
         data: RegisterCoachActivity.CoachRegisterObject
     ): Boolean {
-        if (data.image == null || data.image == "") {
+        /*if (data.image == null || data.image == "") {
             Utilities.showToast(activity, "Please select image to continue.")
             return false
-        } else if (data.name == "") {
+        } else */if (data.name == "") {
             Utilities.showToast(activity, "Please enter name to continue.")
             return false
         } else if (data.email == "") {

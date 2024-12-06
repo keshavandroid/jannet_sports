@@ -90,17 +90,19 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
         }
 
         txtLogin.setOnClickListener {
+            Log.e("TAG", "onLogin: " + intent.getStringExtra(Constants.USER_TYPE) )
+
             if (loginViewModel!!.dataValid(
                     email = etxtEmail.text.toString().trim(),
                     pwd = etxtPassword.text.toString().trim()
                 )
             ) {
                 if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.COACH)) {
-
                     Log.e("TAG", "onCreate: upside new coach api ", )
                     controller.callCoachLoginApi(etxtEmail.text.toString().trim(),etxtPassword.text.toString().trim())
                     showLoader()
-                }else if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.CHILD)){
+                }
+                else if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.CHILD)){
 
                     //child login
                     loginViewModel!!.proceedLogin("child")

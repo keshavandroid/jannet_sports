@@ -41,7 +41,8 @@
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_height="@dimen/_300sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
 </LinearLayout>

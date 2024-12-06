@@ -247,6 +247,7 @@
                 android:id="@+id/etxtPhNo"
                 android:layout_weight="1"
                 android:layout_width="0dp"
+                android:maxLength="10"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginStart="@dimen/_25sdp"
                 style="@style/etxtLoginScreen1"/>

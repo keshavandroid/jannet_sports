@@ -32,14 +32,7 @@ class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickLis
         setContentView(R.layout.activity_coaches_detail)
 
         setTopBar()
-//
-//        ll1.setOnClickListener { openTeamDetails() }
-//        ll2.setOnClickListener { openTeamDetails() }
 
-//        if (intent.getStringExtra("BOTTOM_COACH").trim().toString()=="bottom_coach"){
-//
-//
-//        }
         val userId = SharedPrefUserData(this).getSavedData().id
         val token = SharedPrefUserData(this).getSavedData().token
         coachTeamController = CoachTeamListController(this, this)

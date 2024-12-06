@@ -22,7 +22,9 @@ import java.util.concurrent.TimeoutException
 
 object RetrofitHelper {
 
-    private val SERVER_URL = "https://keshavinfotechdemo2.com/keshav/KG2/Jannet_new/api/"
+//    private val SERVER_URL = "https://keshavinfotechdemo2.com/keshav/KG2/Jannet_new/api/"
+    private val SERVER_URL = "http://www.x-trane.com/api/"
+
     private var gsonAPI: UserServices? = null
     private var connectionCallBack: ConnectionCallBack? = null
 

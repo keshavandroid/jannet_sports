@@ -91,7 +91,7 @@ class SharedPrefUserData(context: Activity) {
             val count = getString(SPORTS_COUNT).toInt()
 
             for( i in 0 until count){
-                val item=Sports()
+                val item = Sports()
                 item.sportId=getString(SPORTS_ID)
                 item.sportName=getString(SPORTS_NAME)
 

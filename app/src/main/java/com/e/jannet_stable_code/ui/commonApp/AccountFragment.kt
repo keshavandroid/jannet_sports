@@ -188,7 +188,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
             val intent = Intent(
                 Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto", "email@email.com", null
+                    "mailto", "giovanni.delarivamarshall@tchsprogress.com", null
                 )
             )
             intent.putExtra(Intent.EXTRA_SUBJECT, "Subject")

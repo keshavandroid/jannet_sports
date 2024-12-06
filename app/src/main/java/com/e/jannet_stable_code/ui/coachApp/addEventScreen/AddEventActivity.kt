@@ -210,9 +210,9 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 } else if (txtSportscoach.text.trim().toString() == "Select Sports") {
 
                     showToast("Select Sports ")
-                } else if (txtSelectedGrade.text.trim().toString() == "Select Grade") {
+                } else if (txtSelectedGrade.text.trim().toString() == "Select Starting Grade") {
 
-                    showToast("Select Grade")
+                    showToast("Select Starting Grade")
                 } else if (txtSelectedGradeMax.text.trim().toString() == "Select Maximum Grade") {
 
                     showToast("Select Maximum Grade")
@@ -254,7 +254,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         txtSelectedGradeMax.setOnClickListener {
 
             spinnerSelectGradeMax.performClick()
-            if (txtSelectedGrade.text.trim().toString() == "Select Grade") {
+            if (txtSelectedGrade.text.trim().toString() == "Select Starting Grade") {
 
                 showToast("Select Minimum Grade First")
             } else {
@@ -877,7 +877,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
         var tempGradeTypeList = ArrayList<GradeListResult?>()
         var lisBtHint = GradeListResult()
-        lisBtHint.setName("Select Grade")
+        lisBtHint.setName("Select Starting Grade")
         tempGradeTypeList.add(0, lisBtHint)
         tempGradeTypeList.addAll(gradeListResult!!)
 
