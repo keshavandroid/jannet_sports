@@ -40,6 +40,8 @@ class AddMainTeamController(var context: Activity, var registerControllerInterfa
             RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.teamName)
         var description: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.description)
 
+        var sports_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, "1")
+        var fees: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, "0")
 
         var image: MultipartBody.Part? = null
         val file_path: String = registerData.image!!
@@ -57,7 +59,7 @@ class AddMainTeamController(var context: Activity, var registerControllerInterfa
         }
 
         val call: Call<ResponseBody?>? = RetrofitHelper.getAPI()
-            .addMainTeamApi(id,token,coach_id,teamName,description,image)
+            .addMainTeamApi(id,token,coach_id,teamName,description,fees,sports_id,image)
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
@@ -80,7 +82,8 @@ class AddMainTeamController(var context: Activity, var registerControllerInterfa
 //                        SharedPrefUserData(context).saveRegisterCoach(response.getResult())
 //                        SharedPrefUserData(context).setRegisterStep("1")
                         registerControllerInterface.onSuccess(response)
-                    } else {
+                    }
+                    else {
                         Log.d("TAG", "onSuccess: 0 status")
                         Utilities.showToast(context, response.getMessage())
                         registerControllerInterface.onFail(response.getMessage())

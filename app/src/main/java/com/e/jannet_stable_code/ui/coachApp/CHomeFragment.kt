@@ -125,8 +125,7 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
         var clear = popupDialog.findViewById<TextView>(R.id.btn_clear)
 
 
-        val arrayAdapterLocation =
-            ArrayAdapter(requireContext(), R.layout.spinner_selected_item, locationResponse!!)
+        val arrayAdapterLocation = ArrayAdapter(requireContext(), R.layout.spinner_selected_item, locationResponse!!)
         arrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         location.adapter = arrayAdapterLocation
 
@@ -151,8 +150,7 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
 
         //sports
 
-        val arrayAdapterSports =
-            ArrayAdapter(requireContext(), R.layout.spinner_selected_item, sportsListResponse!!)
+        val arrayAdapterSports = ArrayAdapter(requireContext(), R.layout.spinner_selected_item, sportsListResponse!!)
         arrayAdapterSports.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sports.adapter = arrayAdapterSports
 
@@ -309,7 +307,7 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
     override fun onLocationListSuccess(response: List<LocationResult?>?) {
         hideLoader()
 
-        locationResponse = response!!
+         locationResponse = response!!
 
 
         Log.e("TAG", "onLocationListSuccess: location responde $locationResponse")

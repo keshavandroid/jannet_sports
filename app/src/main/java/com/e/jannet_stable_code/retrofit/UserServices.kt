@@ -573,6 +573,8 @@ interface UserServices {
         @Part("coach_id") coach_id: RequestBody,
         @Part("teamName") teamName: RequestBody,
         @Part("description") description: RequestBody,
+        @Part("fees") fees: RequestBody,
+        @Part("sports_id") sports_id: RequestBody,
         @Part image: MultipartBody.Part?,
     ): Call<ResponseBody?>?
 

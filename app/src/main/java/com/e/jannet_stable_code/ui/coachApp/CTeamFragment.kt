@@ -21,9 +21,10 @@ import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IGetMainTeamView
 import kotlinx.android.synthetic.main.activity_teams.*
 
-class CTeamFragment : Fragment(R.layout.fragment_team),IGetMainTeamView ,MainTeamListAdapter.IItemClickListner{
+class CTeamFragment : Fragment(R.layout.fragment_team), IGetMainTeamView,
+    MainTeamListAdapter.IItemClickListner {
 
-    lateinit var controller:IMainTeamListController
+    lateinit var controller: IMainTeamListController
     private var textLoadingDialog: CustomProgressDialog? = null
     private var loadingDialog: CustomProgressDialog? = null
 
@@ -33,18 +34,19 @@ class CTeamFragment : Fragment(R.layout.fragment_team),IGetMainTeamView ,MainTea
         setTopBar()
 
         val storedata = StoreUserData(requireContext())
-        val id =  storedata.getString(Constants.COACH_ID)
-        val token =storedata.getString(Constants.COACH_TOKEN)
-        controller=GetMainTeamListController(requireActivity(),this)
-        controller.callGetMainTeamLisApi(id,token)
+        val id = storedata.getString(Constants.COACH_ID)
+        val token = storedata.getString(Constants.COACH_TOKEN)
+        controller = GetMainTeamListController(requireActivity(), this)
+        controller.callGetMainTeamLisApi(id, token)
+
         showLoader()
+
         imgPlus.setOnClickListener {
 
             val intent = Intent(requireContext(), AddMainTeamActivity::class.java)
             startActivity(intent)
 
         }
-
 
 
 //        ll1.setOnClickListener { startActivity(Intent(requireContext(), TeamDetailsActivity::class.java).putExtra("from","coachTeamDetail")) }
@@ -70,7 +72,7 @@ class CTeamFragment : Fragment(R.layout.fragment_team),IGetMainTeamView ,MainTea
 
         var TeamAdapger = MainTeamListAdapter(requireContext(), response!!)
         rv_team_list_Main.adapter = TeamAdapger
-        TeamAdapger.iItemClickListner=this
+        TeamAdapger.iItemClickListner = this
         TeamAdapger.notifyDataSetChanged()
 
     }
@@ -110,16 +112,16 @@ class CTeamFragment : Fragment(R.layout.fragment_team),IGetMainTeamView ,MainTea
     override fun onFail(message: String?, e: Exception?) {
 
         hideLoader()
-        Toast.makeText(context,"$message",Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "$message", Toast.LENGTH_LONG).show()
     }
 
     override fun onItemClick(itemCLick: MainTeamListResult) {
 
         val intent = Intent(requireContext(), TeamDetailsActivity::class.java)
         intent.putExtra("TEAM_ID", itemCLick.getTeamId().toString())
-        intent.putExtra("TEAM_NAME",itemCLick.getTeamName().toString())
-        intent.putExtra("TEAM_DESCRIPTION",itemCLick.getDescription().toString())
-        intent.putExtra("TEAM_Image",itemCLick.getImage().toString())
+        intent.putExtra("TEAM_NAME", itemCLick.getTeamName().toString())
+        intent.putExtra("TEAM_DESCRIPTION", itemCLick.getDescription().toString())
+        intent.putExtra("TEAM_Image", itemCLick.getImage().toString())
 
         startActivity(intent)
     }
