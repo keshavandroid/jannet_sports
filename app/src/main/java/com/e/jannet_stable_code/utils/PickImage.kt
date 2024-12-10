@@ -3,9 +3,13 @@ package com.e.jannet_stable_code.utils
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -212,23 +216,35 @@ class PickImage(private val activity: Activity) {
 //                        startCropImageActivity(getImageUri(mImageBitmap!!)) //OLD AKSHAY
 
                         //NEW
-                        if (imageView != null)
+                        if (imageView != null){
                             Glide.with(activity)
                                 .load(imageUri)
                                 .into(imageView)
+
+                           // val bitmap = BitmapFactory.decodeFile(imageUri.toString())
+                            //val rotatedBitmap = rotateImageIfRequired(mImageBitmap!!, imageUri.toString())
+                            Glide.with(activity)
+                                .load(imageUri)
+                                .into(imageView)
+
+
+                        }
+
                     }
-                } else if (requestCode == GALLERY) {
+                }
+                else if (requestCode == GALLERY) {
                     if (data != null) {
                         val selectedImage = data.data
                         imageUri = selectedImage
-
-                        //                        startCropImageActivity(selectedImage)// OLD AKSHAY
-
-                        //NEW
                         if (imageView != null)
+                        {
+//                            val bitmap = BitmapFactory.decodeFile(imageUri.toString())
+//                            val rotatedBitmap = rotateImageIfRequired(bitmap, imageUri.toString())
                             Glide.with(activity)
                                 .load(imageUri)
                                 .into(imageView)
+                        }
+
 
 
                     }
@@ -284,5 +300,29 @@ class PickImage(private val activity: Activity) {
             e.printStackTrace()
             ""
         }
+    }
+    fun rotateImageIfRequired(bitmap: Bitmap, imagePath: String): Bitmap {
+        val exif = try {
+            ExifInterface(imagePath)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return bitmap
+        }
+
+        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        val rotationInDegrees = when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> 90
+            ExifInterface.ORIENTATION_ROTATE_180 -> 180
+            ExifInterface.ORIENTATION_ROTATE_270 -> 270
+            else -> 0
+        }
+
+        val matrix = Matrix()
+        if (rotationInDegrees != 0) {
+            matrix.postRotate(rotationInDegrees.toFloat())
+            return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        }
+
+        return bitmap
     }
 }
