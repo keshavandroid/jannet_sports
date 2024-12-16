@@ -1,6 +1,7 @@
 package com.e.jannet_stable_code.utils
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -157,10 +158,12 @@ class PickImage(private val activity: Activity) {
             }
             if (photoFile != null) {
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile))
-                } else {
-                    val file = File(Uri.fromFile(photoFile).path)
+                }
+                else {
+                    val file = File(Uri.fromFile(photoFile).path!!)
                     val photoUri = FileProvider.getUriForFile(
                         activity,
                         activity.packageName + ".provider",
@@ -169,6 +172,7 @@ class PickImage(private val activity: Activity) {
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                 }
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
                 if (intent.resolveActivity(activity.packageManager) != null) {
                     activity.startActivityForResult(intent, REQUEST_CAMERA)
                 }
@@ -176,6 +180,7 @@ class PickImage(private val activity: Activity) {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class)
     private fun createImageFile(): File? {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -211,22 +216,29 @@ class PickImage(private val activity: Activity) {
                         e.printStackTrace()
                     }
                     if (mImageBitmap != null) {
+
                         imageUri = getImageUri(mImageBitmap!!)
 
 //                        startCropImageActivity(getImageUri(mImageBitmap!!)) //OLD AKSHAY
 
                         //NEW
+
                         if (imageView != null){
-                            Glide.with(activity)
-                                .load(imageUri)
-                                .into(imageView)
 
-                           // val bitmap = BitmapFactory.decodeFile(imageUri.toString())
-                            //val rotatedBitmap = rotateImageIfRequired(mImageBitmap!!, imageUri.toString())
-                            Glide.with(activity)
-                                .load(imageUri)
-                                .into(imageView)
+//                            Glide.with(activity)
+//                                .load(imageUri)
+//                                .into(imageView)
 
+                            Log.e(javaClass.simpleName, "imageUri.toString()1: ${imageUri.toString()}  ")
+
+                            val bitmap = decodeBitmapFromUri(activity, imageUri!!)
+
+//
+                           val rotatedBitmap = rotateImageIfRequired(bitmap!!,imageUri.toString())
+
+                            Glide.with(activity)
+                                .load(rotatedBitmap)
+                                .into(imageView)
 
                         }
 
@@ -238,14 +250,16 @@ class PickImage(private val activity: Activity) {
                         imageUri = selectedImage
                         if (imageView != null)
                         {
-//                            val bitmap = BitmapFactory.decodeFile(imageUri.toString())
-//                            val rotatedBitmap = rotateImageIfRequired(bitmap, imageUri.toString())
+                            val bitmap = decodeBitmapFromUri(activity, imageUri!!)
+                            Log.e(javaClass.simpleName, "imageUri.toString()2: ${imageUri.toString()}  ")
+
+                       //     val rotatedBitmap = getCorrectlyOrientedBitmap(imageUri.toString())
+                            val rotatedBitmap = rotateImageIfRequired(bitmap!!,imageUri.toString())
+
                             Glide.with(activity)
-                                .load(imageUri)
+                                .load(rotatedBitmap)
                                 .into(imageView)
                         }
-
-
 
                     }
                 }
@@ -324,5 +338,39 @@ class PickImage(private val activity: Activity) {
         }
 
         return bitmap
+    }
+//    fun getCorrectlyOrientedBitmap(imagePath: String): Bitmap? {
+//        try {
+//            // Decode the image file into a Bitmap
+//            val bitmap = BitmapFactory.decodeFile(imagePath)
+//            // Read EXIF data
+//            val exif = ExifInterface(imagePath)
+//            val orientation = exif.getAttributeInt(
+//                ExifInterface.TAG_ORIENTATION,
+//                ExifInterface.ORIENTATION_NORMAL
+//            )
+//            // Rotate the image based on orientation
+//            val matrix = Matrix()
+//            when (orientation) {
+//                ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
+//                ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
+//                ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
+//            }
+//
+//            // Return the rotated bitmap
+//            return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//            return null
+//        }
+//    }
+    fun decodeBitmapFromUri(context: Context, uri: Uri): Bitmap? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            Log.e("ImageDecode", "Failed to decode image: ${e.message}", e)
+            null
+        }
     }
 }
