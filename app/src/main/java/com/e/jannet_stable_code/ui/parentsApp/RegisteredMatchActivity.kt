@@ -6,7 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.e.jannet_stable_code.R
-import kotlinx.android.synthetic.main.topbar_layout.*
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityRegisteredMatchBinding
 
 class RegisteredMatchActivity : AppCompatActivity() {
     var getTeamAName = ""
@@ -14,16 +15,23 @@ class RegisteredMatchActivity : AppCompatActivity() {
     var getTeamBName = ""
     var getTeamBImage = ""
     var date = ""
+    private lateinit var binding: ActivityRegisteredMatchBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registered_match)
+            //setContentView(R.layout.activity_registered_match)
+        binding = ActivityRegisteredMatchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         var txt_match_date_ped = findViewById<TextView>(R.id.txt_match_date_ped)
         var iv_team_a_ped = findViewById<ImageView>(R.id.iv_team_a_ped)
         var tv_taem_a_Name_ped = findViewById<TextView>(R.id.tv_taem_a_Name_ped)
         var iv_team_b_ped = findViewById<ImageView>(R.id.iv_team_b_ped)
         var tv_team_b_name_ped = findViewById<TextView>(R.id.tv_team_b_name_ped)
-        txtTitle.text = "MATCH LIST"
+
+        binding.topbarAddedMatch.txtTitle.text = "MATCH LIST"
+
         getTeamAName = intent.getStringExtra("getTeamAName").toString()
         getTeamAImage = intent.getStringExtra("getTeamAImage").toString()
         getTeamBName = intent.getStringExtra("getTeamBName").toString()
@@ -43,7 +51,7 @@ class RegisteredMatchActivity : AppCompatActivity() {
 
         tv_team_b_name_ped.text = getTeamBName
 
-        imgBack.setOnClickListener { finish() }
+        binding.topbarAddedMatch.imgBack.setOnClickListener { finish() }
 
     }
 }

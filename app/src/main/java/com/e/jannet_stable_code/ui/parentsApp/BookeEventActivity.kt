@@ -12,6 +12,8 @@ import android.widget.CompoundButton
 import android.widget.TextView
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.EventBookMatchListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityBookeEventBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.matchlistdata.MatchListResult
@@ -20,8 +22,7 @@ import com.e.jannet_stable_code.ui.BaseActivity
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.viewinterface.IBookTickitParentView
 import com.e.jannet_stable_code.viewinterface.IMatchListView
-import kotlinx.android.synthetic.main.activity_booke_event.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 
 class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView,
@@ -40,13 +41,18 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
     var token = ""
     var eventID = ""
     var fees = ""
+    private lateinit var binding: ActivityBookeEventBinding
+
     override fun getController(): IBaseController? {
         return null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_booke_event)
+        binding = ActivityBookeEventBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+       // setContentView(R.layout.activity_booke_event)
+
         id = SharedPrefUserData(this).getSavedData().id
         token = SharedPrefUserData(this).getSavedData().token
         eventID = intent.getStringExtra("EVENT_id").toString()
@@ -64,7 +70,7 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
         var etxt_contact = findViewById<TextView>(R.id.etxt_contact)
         val chkPertiMatch = findViewById<View>(R.id.chkPertiMatch) as CheckBox
 
-        etxtNo_tickets.addTextChangedListener(object : TextWatcher {
+        binding.etxtNoTickets.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -75,13 +81,13 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
 
             override fun afterTextChanged(p0: Editable?) {
 
-                if (etxtNo_tickets.text.trim().toString().isNullOrEmpty()) {
+                if (binding.etxtNoTickets.text.trim().toString().isNullOrEmpty()) {
 //                    etxtNo_tickets.setText("0")
                     txt_amount.setText("0")
 
                 } else {
 
-                    ttltickits = etxtNo_tickets.text.trim().toString()
+                    ttltickits = binding.etxtNoTickets.text.trim().toString()
 
                     var amt = successtotAmount.toInt() * ttltickits.toInt()
                     txt_amount.setText(amt.toString())
@@ -95,11 +101,11 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
         chkPertiMatch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             var totAmount: Int = 0
             if (isChecked) {
-                rv_match_list!!.visibility = View.VISIBLE
+                binding.rvMatchList!!.visibility = View.VISIBLE
                 selectMatch(adapter.getMatchList()!!, true)
             } else {
                 matchId = ""
-                rv_match_list!!.visibility = View.GONE
+                binding.rvMatchList!!.visibility = View.GONE
                 for (i in 0..matchListResponse!!.size - 1) {
                   /*  if (matchListResponse!!.get(i)!!.isCheck) {
                         matchListResponse!!.get(i)!!.isCheck = false
@@ -110,20 +116,20 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
                         matchId += "," + matchListResponse!!.get(i)!!.getMatchId()
                     }
 
-                    if (!etxtNo_tickets.text.trim().toString().isNullOrEmpty())
+                    if (!binding.etxtNoTickets.text.trim().toString().isNullOrEmpty())
                         if (matchListResponse!!.get(i)!!.getMatchPrice() != null)
                             totAmount += matchListResponse!!.get(i)!!.getMatchPrice()!!
-                                .toInt() * (etxtNo_tickets.text.trim().toString()).toInt()
+                                .toInt() * (binding.etxtNoTickets.text.trim().toString()).toInt()
                 }
                 txt_amount.setText(totAmount.toString())
             }
         })
-        txtBookEvent.setOnClickListener {
+        binding.txtBookEvent.setOnClickListener {
 
             if (etxt_your_Name.text.trim().toString().isEmpty()) {
 
                 showToast("'Please Enter Your Name to Continue...")
-            } else if (etxtNo_tickets.text.trim().toString().isEmpty()) {
+            } else if (binding.etxtNoTickets.text.trim().toString().isEmpty()) {
 
                 showToast("Please Enter Tickets to Continue...")
             } else if (etxt_contact.text.trim().toString().isEmpty()) {
@@ -143,7 +149,7 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
                     token.toString(),
                     eid.toString(),
                     txt_amount.text.toString(),
-                    etxtNo_tickets.text.trim().toString(),
+                    binding.etxtNoTickets.text.trim().toString(),
                     matchId,
                     etxt_your_Name.text.toString(),
                     etxt_contact.text.toString()
@@ -175,16 +181,16 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = "BOOK EVENT"
+        binding.topbar.imgBack.visibility = View.VISIBLE
+        binding.topbar.imgBack.setOnClickListener { finish() }
+        binding.topbar.txtTitle.text = "BOOK EVENT"
     }
 
     private fun setUserData(result: GetProfileParentApiResponse.Result) {
 
-        etxt_your_Name.setText(result.firstname + " " + result.middleName + " " + result.lastname)
+        binding.etxtYourName.setText(result.firstname + " " + result.middleName + " " + result.lastname)
 
-        etxt_contact.setText(result.contactNo)
+        binding.etxtContact.setText(result.contactNo)
 
     }
 
@@ -228,10 +234,10 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
                 successtotAmount += matchListResponse!!.get(i)!!.getMatchPrice()!!.toInt()
 
         }
-        txt_amount.setText(successtotAmount.toString())
+        binding.txtAmount.setText(successtotAmount.toString())
         adapter = EventBookMatchListAdapter(this, response)
         adapter.iSelectClickListner = this
-        rv_match_list.adapter = adapter
+        binding.rvMatchList.adapter = adapter
         adapter.notifyDataSetChanged()
 
     }
@@ -246,14 +252,14 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
     override fun selectMatch(matchList: List<MatchListResult?>, isCheck: Boolean) {
         var tot: Int = 0
         matchId = ""
-        if (!etxtNo_tickets.text.toString().isNullOrEmpty())
+        if (!binding.etxtNoTickets.text.toString().isNullOrEmpty())
             for (i in 0..matchList!!.size - 1) {
                 if (matchList!!.get(i)!!.isCheck) {
 
                     if(matchList!!.get(i)!!.getMatchPrice()==null){
-                        tot += 0 * (etxtNo_tickets.text.trim().toString()).toInt()
+                        tot += 0 * (binding.etxtNoTickets.text.trim().toString()).toInt()
                     }else{
-                        tot += matchList!!.get(i)!!.getMatchPrice()!!.toInt() * (etxtNo_tickets.text.trim().toString()).toInt()
+                        tot += matchList!!.get(i)!!.getMatchPrice()!!.toInt() * (binding.etxtNoTickets.text.trim().toString()).toInt()
                     }
 
 
@@ -265,7 +271,7 @@ class BookeEventActivity : BaseActivity(), IBookTickitParentView, IMatchListView
                 }
             }
 
-        txt_amount.setText(tot.toString())
+        binding.txtAmount.setText(tot.toString())
     }
 
 }

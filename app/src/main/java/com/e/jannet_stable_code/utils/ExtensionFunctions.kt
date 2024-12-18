@@ -9,9 +9,7 @@ import android.net.Uri
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
-import com.e.jannet_stable_code.R
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_parent_update_profile.*
+
 import java.util.*
 
 fun Intent.getUserType(): String {

@@ -12,6 +12,8 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.SliderAdapterExample
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityEventDetailsBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.response.EventDetailResponse
@@ -28,8 +30,7 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IDeleteEventView
 import com.e.jannet_stable_code.viewinterface.IProfileView
-import kotlinx.android.synthetic.main.activity_event_details.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
     var adapter: SliderAdapterExample? = null
@@ -44,6 +45,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 //    var eventResulArraylist: ArrayList<EventDetailResponse.Result> =
 //        ArrayList<EventDetailResponse.Result>()
 
+    private lateinit var binding: ActivityEventDetailsBinding
 
     lateinit var controller: IProfileController
     lateinit var iDeleteEventController: IDeleteEventController
@@ -53,7 +55,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_details)
+       // setContentView(R.layout.activity_event_details)
+        binding = ActivityEventDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setTopBar()
 
@@ -75,12 +79,12 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                     data.getResult()
                     if (res!![0]!!.child!!.isEmpty()) {
 
-                        ll1.isVisible = true
-                        cardRegister.isGone = true
+                        binding.ll1.isVisible = true
+                        binding.cardRegister.isGone = true
 
                     } else {
-                        ll1.isVisible = true
-                        cardRegister.isVisible = true
+                        binding.ll1.isVisible = true
+                        binding.cardRegister.isVisible = true
 
 
                     }
@@ -162,9 +166,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
         adapter = SliderAdapterExample(this)
-        imageSlider.setSliderAdapter(adapter!!)
+        binding.imageSlider.setSliderAdapter(adapter!!)
 
-        cardMatch.setOnClickListener {
+        binding.cardMatch.setOnClickListener {
 //            if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
 //                    .equals("coachPersonal")
 //            ) startActivity(
@@ -190,7 +194,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
             startActivity(intent)
         }
-        cardTeam.setOnClickListener {
+        binding.cardTeam.setOnClickListener {
 
             val eventid = intent.getStringExtra("eventId")
 
@@ -208,9 +212,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
         }
-        cardAbout.setOnClickListener { startActivity(Intent(this, EventAboutActivity::class.java)) }
+        binding.cardAbout.setOnClickListener { startActivity(Intent(this, EventAboutActivity::class.java)) }
 
-        cardVenue.setOnClickListener {
+        binding.cardVenue.setOnClickListener {
 
             val eventid = intent.getStringExtra("eventId")
 
@@ -224,7 +228,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
             startActivity(intent)
         }
-        cardRegister.setOnClickListener {
+        binding.cardRegister.setOnClickListener {
 
             val userType = SharedPrefUserData(this).getSavedData().usertype
             val eventid = intent.getStringExtra("eventId")
@@ -252,7 +256,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
         }
-        cardEdit.setOnClickListener {
+        binding.cardEdit.setOnClickListener {
 //            startActivity(
 //                Intent(this, EditEventActivity::class.java
 //                )
@@ -265,7 +269,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             startActivity(intent)
         }
 
-        cardTickets.setOnClickListener {
+        binding.cardTickets.setOnClickListener {
 
             val eventid = intent.getStringExtra("eventId")
             val fees = intent.getStringExtra("fees")
@@ -277,7 +281,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
         }
 
-        cardBookingDetails.setOnClickListener {
+        binding.cardBookingDetails.setOnClickListener {
 
             val parent = intent.getStringExtra("parent")
 
@@ -305,7 +309,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
         }
 
-        cardBookTickets.setOnClickListener {
+        binding.cardBookTickets.setOnClickListener {
 
             val EVENT_id = intent.getStringExtra("eventId")
             val fees = intent.getStringExtra("fees")
@@ -316,7 +320,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             startActivity(intent)
         }
 
-        cardDeleteEvent.setOnClickListener {
+        binding.cardDeleteEvent.setOnClickListener {
 
 //            val stordata = StoreUserData(this)
 //            val id = stordata.getString(Constants.COACH_ID)
@@ -435,54 +439,54 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             0 -> {
                 //from home screen
                 //from parent
-                cardRegister.visibility = View.VISIBLE
-                view1.visibility = View.GONE
-                view2.visibility = View.GONE
+                binding.cardRegister.visibility = View.VISIBLE
+                binding.view1.visibility = View.GONE
+                binding.view2.visibility = View.GONE
 
-                ll2.visibility = View.GONE
-                ll6.visibility = View.GONE
-                ll7.visibility = View.VISIBLE
-                ll9.visibility = View.VISIBLE
-                ll8.visibility = View.GONE
-                cardEdit.visibility = View.GONE
+                binding.ll2.visibility = View.GONE
+                binding.ll6.visibility = View.GONE
+                binding.ll7.visibility = View.VISIBLE
+                binding.ll9.visibility = View.VISIBLE
+                binding.ll8.visibility = View.GONE
+                binding.cardEdit.visibility = View.GONE
 
             }
             1 -> {
                 //from match screen
                 //from paent scren
-                cardRegister.visibility = View.GONE
-                view1.visibility = View.VISIBLE
-                view2.visibility = View.VISIBLE
-                ll2.visibility = View.VISIBLE
-                ll6.visibility = View.GONE
-                ll7.visibility = View.VISIBLE
-                cardEdit.visibility = View.GONE
+                binding.cardRegister.visibility = View.GONE
+                binding.view1.visibility = View.VISIBLE
+                binding.view2.visibility = View.VISIBLE
+                binding.ll2.visibility = View.VISIBLE
+                binding.ll6.visibility = View.GONE
+                binding.ll7.visibility = View.VISIBLE
+                binding.cardEdit.visibility = View.GONE
             }
             2 -> {
                 //from match screen
                 //from coach side
-                cardRegister.visibility = View.GONE
-                view1.visibility = View.VISIBLE
-                view2.visibility = View.VISIBLE
-                ll2.visibility = View.VISIBLE
+                binding.cardRegister.visibility = View.GONE
+                binding.view1.visibility = View.VISIBLE
+                binding.view2.visibility = View.VISIBLE
+                binding.ll2.visibility = View.VISIBLE
 //                ll2.isVisible=true
-                ll6.visibility = View.VISIBLE
-                ll8.visibility = View.VISIBLE
-                ll7.visibility = View.GONE
-                ll9.visibility = View.VISIBLE
-                cardDeleteEvent.visibility = View.VISIBLE
+                binding.ll6.visibility = View.VISIBLE
+                binding.ll8.visibility = View.VISIBLE
+                binding.ll7.visibility = View.GONE
+                binding.ll9.visibility = View.VISIBLE
+                binding.cardDeleteEvent.visibility = View.VISIBLE
 
-                cardEdit.visibility = View.VISIBLE
+                binding.cardEdit.visibility = View.VISIBLE
             }
         }
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.event_detail)
-        imgShare.isVisible = false
-        imgShare.setOnClickListener {
+        binding.toolBarPEventDetail.imgBack.visibility = View.VISIBLE
+        binding.toolBarPEventDetail.imgBack.setOnClickListener { finish() }
+        binding.toolBarPEventDetail.txtTitle.text = getString(R.string.event_detail)
+        binding.toolBarPEventDetail.imgShare.isVisible = false
+        binding.toolBarPEventDetail.imgShare.setOnClickListener {
 
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
@@ -505,12 +509,12 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         if (child?.size == null) {
             Log.e("EventDetail", "=========child size2===${child?.size.toString()}")
 
-            cardRegister.isGone = true
+            binding.cardRegister.isGone = true
 
         } else {
             Log.e("EventDetail", "=========child size3===${child?.size.toString()}")
 
-            cardRegister.isVisible = true
+            binding.cardRegister.isVisible = true
         }
 
 

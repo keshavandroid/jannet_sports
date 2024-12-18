@@ -12,6 +12,8 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityTeamDetailsBinding
+import com.e.jannet_stable_code.databinding.ActivityVenueBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.mainteamdetaildata.MainTeamDetailResult
 import com.e.jannet_stable_code.ui.BaseActivity
@@ -22,8 +24,7 @@ import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IDeleteTeamView
 import com.e.jannet_stable_code.viewinterface.IEditTeamView
 import com.e.jannet_stable_code.viewinterface.IMainTeamDetailView
-import kotlinx.android.synthetic.main.activity_team_details.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView, IEditTeamView {
 
@@ -34,6 +35,9 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
     lateinit var mainTeamDetail: String
     lateinit var mainTeamName: String
     var mainTeamIdd: String = ""
+
+    private lateinit var binding : ActivityTeamDetailsBinding
+
     override fun getController(): IBaseController? {
 
         return null
@@ -42,7 +46,9 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_team_details)
+       // setContentView(R.layout.activity_team_details)
+        binding = ActivityTeamDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
@@ -57,23 +63,23 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
 
         if (coachdetail?.trim().toString() == "coachdetail") {
 
-            iv_main_team_edit.isGone = true
-            iv_main_team_delete.isGone = true
-            tv_main_team_name.text = intent.getStringExtra("TEAMNAME").toString()
-            tv_main_team_coach_name.text = intent.getStringExtra("COACHNAME").toString()
-            tv_main_team_sports.text = intent.getStringExtra("SPORTSTYPE").toString()
-            tv_main_teamdescription.text = intent.getStringExtra("DESCRIPTION").toString()
-            tv_main_team_fees.text = intent.getStringExtra("FEES").toString()
+            binding.ivMainTeamEdit.isGone = true
+            binding.ivMainTeamDelete.isGone = true
+            binding.tvMainTeamName.text = intent.getStringExtra("TEAMNAME").toString()
+            binding.tvMainTeamCoachName.text = intent.getStringExtra("COACHNAME").toString()
+            binding.tvMainTeamSports.text = intent.getStringExtra("SPORTSTYPE").toString()
+            binding.tvMainTeamdescription.text = intent.getStringExtra("DESCRIPTION").toString()
+            binding.tvMainTeamFees.text = intent.getStringExtra("FEES").toString()
             val join = intent.getStringExtra("isJoin")
             val image = intent.getStringExtra("IMAGE")
             Glide.with(this)
                 .load(image)
-                .into(iv_main_team_image)
+                .into(binding.ivMainTeamImage)
             if (join?.trim().toString()=="1"){
-                txtJoin.isGone = true
+                binding.txtJoin.isGone = true
 
             }else{
-                txtJoin.isVisible = true
+                binding.txtJoin.isVisible = true
 
             }
 
@@ -88,7 +94,7 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
 
         setTopBar()
 
-        iv_main_team_delete.setOnClickListener {
+        binding.ivMainTeamDelete.setOnClickListener {
 
             if (coachdetail?.trim().toString() == "coachdetail") {
 
@@ -100,7 +106,7 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
 
         }
 
-        iv_main_team_edit.setOnClickListener {
+        binding.ivMainTeamEdit.setOnClickListener {
 
             if (coachdetail?.trim().toString() == "coachdetail") {
 
@@ -146,7 +152,7 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
 //            llPerson.visibility=View.VISIBLE
 //            txtParticipant.visibility=View.VISIBLE
 //        }
-        txtParticipant.setOnClickListener {
+        binding.txtParticipant.setOnClickListener {
             startActivity(
                 Intent(
                     this,
@@ -154,22 +160,22 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
                 )
             )
         }
-        txtJoin.setOnClickListener {
+        binding.txtJoin.setOnClickListener {
             val coach_id = intent.getStringExtra("CoachID")
             val teamId = intent.getStringExtra("team_id")
             val intent = Intent(this, BookSignatureActivity::class.java)
             intent.putExtra("COACH_JOIN", "coach_join")
             intent.putExtra("Team_id", teamId.toString())
             intent.putExtra("Coach_id", coach_id.toString())
-            intent.putExtra("fees", tv_main_team_fees.text.trim().toString())
+            intent.putExtra("fees",  binding.tvMainTeamFees.text.trim().toString())
             startActivity(intent)
         }
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.team_detail)
+        binding.topbar.imgBack.visibility = View.VISIBLE
+        binding.topbar.imgBack.setOnClickListener { finish() }
+        binding.topbar.txtTitle.text = getString(R.string.team_detail)
     }
 
     override fun onMianTeamDetailSuccessful(response: List<MainTeamDetailResult?>?) {
@@ -179,12 +185,12 @@ class TeamDetailsActivity : BaseActivity(), IMainTeamDetailView, IDeleteTeamView
             .load(response!![0]!!.getImage())
             .apply(RequestOptions().override(600, 200))
             .placeholder(R.drawable.loader_background)
-            .into(iv_main_team_image)
+            .into(binding.ivMainTeamImage)
 
-        tv_main_team_name.text = response[0]!!.getTeamName().toString()
-        tv_main_team_no_participant.text = response[0]!!.getParticipants()!!.size.toString()
-        tv_main_teamdescription.text = response[0]!!.getDescription().toString()
-        tv_main_team_coach_name.text = response[0]!!.getCoachName().toString()
+        binding.tvMainTeamName.text = response[0]!!.getTeamName().toString()
+        binding.tvMainTeamNoParticipant.text = response[0]!!.getParticipants()!!.size.toString()
+        binding.tvMainTeamdescription.text = response[0]!!.getDescription().toString()
+        binding.tvMainTeamCoachName.text = response[0]!!.getCoachName().toString()
 
         mainTeamDetail = response[0]!!.getDescription().toString()
         mainTeamName = response[0]!!.getTeamName().toString()

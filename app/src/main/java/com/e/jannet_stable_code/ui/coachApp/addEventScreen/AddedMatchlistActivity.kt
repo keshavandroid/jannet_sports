@@ -16,8 +16,6 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IDeleteMacthView
 import com.e.jannet_stable_code.viewinterface.IMatchListView
-import kotlinx.android.synthetic.main.activity_added_matchlist.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class AddedMatchlistActivity : BaseActivity(), IMatchListView,
     MatchListAdapter.IDeleteMatchClickListner, MatchListAdapter.IEditMatchClickListner,

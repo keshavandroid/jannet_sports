@@ -11,6 +11,8 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityAddMatchFBinding
+import com.e.jannet_stable_code.databinding.ActivityVenueBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.locationdata.Coat
 import com.e.jannet_stable_code.retrofit.locationdata.LocationResult
@@ -23,8 +25,7 @@ import com.e.jannet_stable_code.viewinterface.IAddMatchView
 import com.e.jannet_stable_code.viewinterface.ILocationView
 import com.e.jannet_stable_code.viewinterface.ITeamListView
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_add_match_f.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 import java.util.*
 
 
@@ -34,6 +35,7 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
     lateinit var addMatchController: IAddMatchController
     lateinit var locationController: ILocationController
     var locationId = "0"
+    private lateinit var binding : ActivityAddMatchFBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -41,22 +43,23 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_match_f)
+     //   setContentView(R.layout.activity_add_match_f)
+        binding = ActivityAddMatchFBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        binding.txtSelectTeamB.setOnClickListener {
 
-        txtSelectTeam_B.setOnClickListener {
-
-            spinnervs2.performClick()
+            binding.spinnervs2.performClick()
         }
-        txtSelectTeam_A.setOnClickListener {
+        binding.txtSelectTeamA.setOnClickListener {
 
-            spinnervs1.performClick()
+            binding.spinnervs1.performClick()
         }
 
 
 
-        txt_spinnerCoat_add.setOnClickListener {
-            spinnerCoat_add.performClick()
+        binding.txtSpinnerCoatAdd.setOnClickListener {
+            binding.spinnerCoatAdd.performClick()
         }
 
         var storeData = StoreUserData(this)
@@ -72,8 +75,8 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
 
         showLoader()
 
-        txtTitle.text = "ADD Match"
-        imgBack.setOnClickListener {
+        binding.topbar.txtTitle.text = "ADD Match"
+        binding.topbar.imgBack.setOnClickListener {
             onBackPressed()
         }
 
@@ -85,22 +88,22 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
 
         mTimePicker = TimePickerDialog(this, object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                etxtMatchTime.setText(String.format("%d : %d", hourOfDay, minute))
+                binding.etxtMatchTime.setText(String.format("%d : %d", hourOfDay, minute))
             }
         }, hour, minute, true)
 
 
-        etxtMatchTime.setOnClickListener({ v ->
+        binding.etxtMatchTime.setOnClickListener({ v ->
             mTimePicker.show()
         })
 
 
-        txtAdd_Fmatch_event.setOnClickListener {
+        binding.txtAddFmatchEvent.setOnClickListener {
 
 //            var selectedSpinnerAItem = spinnervs1.selectedItemId
-            var selectedSpinnerBItem = spinnervs2.selectedItem as TeamListResult
+            var selectedSpinnerBItem = binding.spinnervs2.selectedItem as TeamListResult
 
-            var selectedTeamAItem = spinnervs1.selectedItem as TeamListResult
+            var selectedTeamAItem = binding.spinnervs1.selectedItem as TeamListResult
 
 
             Log.e("TAG", "===A==$selectedTeamAItem======")
@@ -111,10 +114,12 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
 
 
                 showToast("Can't Create Match With Same Team!!")
-            } else if (etxtMatchTime.text.toString() == "" && etxtMatchTime.text.toString() == null) {
+            }
+            else if (binding.etxtMatchTime.text.toString() == "" && binding.etxtMatchTime.text.toString() == null) {
 
                 showToast("Please Select Match Time")
-            } else if (txt_spinnerCoat_add.text.toString() == "" && txt_spinnerCoat_add.text.toString() == null) {
+            }
+            else if (binding.txtSpinnerCoatAdd.text.toString() == "" && binding.txtSpinnerCoatAdd.text.toString() == null) {
 
                 showToast("Please Select Coat ")
 
@@ -130,8 +135,8 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
                         token,
                         event_id.toString(),
                         id,
-                        etxtMatchTime.text.trim().toString().filter { !it.isWhitespace() },
-                        txt_spinnerCoat_add.text.toString(),
+                        binding.etxtMatchTime.text.trim().toString().filter { !it.isWhitespace() },
+                        binding.txtSpinnerCoatAdd.text.toString(),
                         selectedTeamAItem.getTeamId().toString(),
                         selectedSpinnerBItem.getTeamId().toString()
                 )
@@ -164,22 +169,22 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
         val arrayAdapterTeamA =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, tempATypeList!!)
         arrayAdapterTeamA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnervs1.adapter = arrayAdapterTeamA
+        binding.spinnervs1.adapter = arrayAdapterTeamA
 
 
-        spinnervs1.onItemSelectedListener = object :
+        binding.spinnervs1.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                     parent: AdapterView<*>,
                     view: View, position: Int, id: Long
             ) {
 
-                var selectedTeamAItem = spinnervs1.selectedItem as TeamListResult
+                var selectedTeamAItem = binding.spinnervs1.selectedItem as TeamListResult
                 Log.d(
                         "TAG",
                         "onItemSelected: " + selectedTeamAItem.getTeamId() + "  " + selectedTeamAItem.getTeamName()
                 )
-                txtSelectTeam_A.text = selectedTeamAItem.getTeamName().toString()
+                binding.txtSelectTeamA.text = selectedTeamAItem.getTeamName().toString()
 
             }
 
@@ -192,24 +197,24 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
         val arrayAdapterTeamB =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, tempBTypeList)
         arrayAdapterTeamB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnervs2.adapter = arrayAdapterTeamB
+        binding. spinnervs2.adapter = arrayAdapterTeamB
 
 
 
 
-        spinnervs2.onItemSelectedListener = object :
+        binding.spinnervs2.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                     parent: AdapterView<*>,
                     view: View, position: Int, id: Long
             ) {
 
-                var selectedTeamBItem = spinnervs2.selectedItem as TeamListResult
+                var selectedTeamBItem = binding.spinnervs2.selectedItem as TeamListResult
                 Log.d(
                         "TAG",
                         "onItemSelected: " + selectedTeamBItem.getTeamId() + "  " + selectedTeamBItem.getTeamName()
                 )
-                txtSelectTeam_B.text = selectedTeamBItem.getTeamName().toString()
+                binding.txtSelectTeamB.text = selectedTeamBItem.getTeamName().toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -268,17 +273,17 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
             hideLoader()
             val adapterCoat = ArrayAdapter(this, android.R.layout.simple_spinner_item, response!!)
             adapterCoat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerCoat_add.adapter = adapterCoat
+            binding.spinnerCoatAdd.adapter = adapterCoat
 
 
-            spinnerCoat_add.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            binding.spinnerCoatAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                         parent: AdapterView<*>?,
                         view: View?,
                         position: Int,
                         id: Long
                 ) {
-                    var SelectedCoat = spinnerCoat_add.selectedItem as Coat
+                    var SelectedCoat = binding.spinnerCoatAdd.selectedItem as Coat
                     Log.d(
                             "TAG",
                             "onItemSelected: " + SelectedCoat.getId() + "  " + SelectedCoat.getCoatName()
@@ -286,7 +291,7 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
 
 
 
-                    txt_spinnerCoat_add.text = SelectedCoat.getId().toString()
+                    binding.txtSpinnerCoatAdd.text = SelectedCoat.getId().toString()
 
                 }
 

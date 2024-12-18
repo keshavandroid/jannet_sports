@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityAddTeamsBinding
+import com.e.jannet_stable_code.databinding.ActivityAddTeamsFinalBinding
 import com.e.jannet_stable_code.retrofit.controller.AddTeamController
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
 import com.e.jannet_stable_code.ui.BaseActivity
@@ -16,13 +18,11 @@ import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.PickImage
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.RegisterControllerInterface
-import kotlinx.android.synthetic.main.activity_add_teams_final.*
-import kotlinx.android.synthetic.main.activity_coach_register.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
     lateinit var controller: AddTeamController
     var pickImage: PickImage? = null
+    private lateinit var binding : ActivityAddTeamsFinalBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -30,12 +30,14 @@ class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_teams_final)
+        //setContentView(R.layout.activity_add_teams_final)
+        binding = ActivityAddTeamsFinalBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         controller = AddTeamController(this, this)
 
-        txtTitle.text = "ADD TEAM"
-        imgBack.setOnClickListener {
+        binding.includeHeader.txtTitle.text = "ADD TEAM"
+        binding.includeHeader.imgBack.setOnClickListener {
 
             val builder = AlertDialog.Builder(this)
             //set title for alert dialog
@@ -65,15 +67,15 @@ class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
-        txtAdd_teams_event.setOnClickListener {
+        binding.txtAddTeamsEvent.setOnClickListener {
 
 
-            if (etxtTeamName_addTeam.text.toString() == "") {
+            if (binding.etxtTeamNameAddTeam.text.toString() == "") {
 
 
                 showToast("Please Enter TeamName")
 
-            } else if (etxt_teams_description.text.toString() == "") {
+            } else if (binding.etxtTeamsDescription.text.toString() == "") {
 
                 showToast("Please Enter Description")
             } else if (pickImage?.getImage() == null) {
@@ -88,15 +90,15 @@ class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
                 var registerData = RegisterData()
                 registerData.event_id = event.toString()
                 registerData.coach_id = id.toString()
-                registerData.teamName = etxtTeamName_addTeam.text.toString()
-                registerData.description = etxt_teams_description.text.toString()
+                registerData.teamName = binding.etxtTeamNameAddTeam.text.toString()
+                registerData.description = binding.etxtTeamsDescription.text.toString()
                 registerData.image = pickImage?.getImage()!!
 
                 controller.addTeam(registerData)
             }
         }
 
-        imgProfile_add_team.setOnClickListener {
+        binding.imgProfileAddTeam.setOnClickListener {
 
             pickImage = PickImage(this)
 
@@ -110,7 +112,7 @@ class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
             requestCode,
             resultCode,
             data,
-            imgProfile_add_team
+            binding.imgProfileAddTeam
         )
     }
 

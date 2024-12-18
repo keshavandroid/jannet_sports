@@ -5,23 +5,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.MatchTabListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityMatchHistoryBinding
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.GetParentMatchController
 import com.e.jannet_stable_code.retrofit.matchlistdata.MatchListResult
 import com.e.jannet_stable_code.utils.Utilities
-import kotlinx.android.synthetic.main.activity_match_history.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class MatchHistoryActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMatchHistoryBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_match_history)
+       // setContentView(R.layout.activity_match_history)
+        binding = ActivityMatchHistoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
         initView()
     }
 
     private fun initView() {
-        txtTitle.text = "MATCH HISTORY"
-        imgBack.setOnClickListener { finish() }
+        binding.topbarMatchHistory.txtTitle.text = "MATCH HISTORY"
+        binding.topbarMatchHistory.imgBack.setOnClickListener { finish() }
 
         GetParentMatchController(this, object : ControllerInterface,
             MatchTabListAdapter.IMatchItemClickClickListner {
@@ -33,7 +42,7 @@ class MatchHistoryActivity : AppCompatActivity() {
 
                     val resp = response as  List<MatchListResult?>?
                     var adapter = MatchTabListAdapter(this@MatchHistoryActivity, resp)
-                    rv_match_history.adapter = adapter
+                    binding.rvMatchHistory.adapter = adapter
                     adapter.iMatchItemClickClickListner = this
                     adapter.notifyDataSetChanged()
 

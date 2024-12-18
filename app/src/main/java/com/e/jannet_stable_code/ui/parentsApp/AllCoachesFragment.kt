@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.*
+import com.e.jannet_stable_code.databinding.FragmentAllCoachesBinding
+import com.e.jannet_stable_code.databinding.FragmentTeamBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.alreadyjointeam.AlreadyJoinTeamResult
 import com.e.jannet_stable_code.retrofit.coachsportslistdata.CoachSportsListResult
@@ -30,12 +33,10 @@ import com.e.jannet_stable_code.retrofit.response.SportsListResponse
 import com.e.jannet_stable_code.utils.*
 import com.e.jannet_stable_code.viewinterface.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.fragment_all_coaches.*
-import kotlinx.android.synthetic.main.fragment_home_parent.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 
-class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBootomCoachesView,
+
+class AllCoachesFragment : Fragment(), IParentBootomCoachesView,
     ParentBottomCoachesAdapter.ICoachClickListner, ICoachTeamListView, IGetSportView,
     CoachTeamListAdapter.ITeamClickListner, ICoachAlreadyJoinTeamView,
     CoachAlreadyJoinTeamAdapter.ITeamClickListner, ILocationView {
@@ -62,7 +63,18 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
 
     var sharedPreference:SharedPreferences?=null
     var editor:SharedPreferences.Editor? = null
+    private lateinit var binding: FragmentAllCoachesBinding
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentAllCoachesBinding.inflate(layoutInflater)
+        return binding.root
+
+      //  return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,6 +82,7 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
         locationController = LocationController(requireActivity(), this)
         sharedPreference= this.requireActivity().getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         editor=sharedPreference!!.edit()
+
         setTopBar()
 
         coachRecyclerView = view.findViewById(R.id.rv_coach_list_parent)
@@ -94,10 +107,12 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
 
 
         showLoader()
-        txtAllCoaches.setOnClickListener {
+
+        binding.txtAllCoaches.setOnClickListener {
             setTab(1)
         }
-        txtChild.setOnClickListener {
+
+        binding.txtChild.setOnClickListener {
             setTab(2)
 //            (coachTeamController as CoachTeamListController).callCoachTeamListApi(id,token)
 
@@ -109,7 +124,7 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
         }
         setTab(1)
 
-        imgLoc.visibility = View.VISIBLE
+        binding.topbar.imgLoc.visibility = View.VISIBLE
 
     }
 
@@ -124,28 +139,28 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
 
     private fun setTab(i: Int) {
         if (i == 1) {
-            txtAllCoaches.setBackgroundResource(R.mipmap.button_small)
-            txtChild.setBackgroundResource(R.drawable.circle3)
-            txtAllCoaches.setTextColor(resources.getColor(R.color.white))
-            txtChild.setTextColor(resources.getColor(R.color.black))
-            llAllCoaches.visibility = View.VISIBLE
-            llJoinTeam.visibility = View.GONE
-            imgFilter.visibility = View.VISIBLE
+            binding.txtAllCoaches.setBackgroundResource(R.mipmap.button_small)
+            binding.txtChild.setBackgroundResource(R.drawable.circle3)
+            binding.txtAllCoaches.setTextColor(resources.getColor(R.color.white))
+            binding.txtChild.setTextColor(resources.getColor(R.color.black))
+            binding.llAllCoaches.visibility = View.VISIBLE
+            binding.llJoinTeam.visibility = View.GONE
+            binding.topbar.imgFilter.visibility = View.VISIBLE
 
             //AKSHAY VISIBLE this to show location button in title bar on top
-            imgLoc.visibility = View.GONE
+            binding.topbar.imgLoc.visibility = View.GONE
 
-            imgFilter.setOnClickListener(View.OnClickListener { showBottomSheetDialog() })
-            imgLoc.setOnClickListener { showLocationBottomSheetDialog() }
+            binding.topbar.imgFilter.setOnClickListener(View.OnClickListener { showBottomSheetDialog() })
+            binding.topbar.imgLoc.setOnClickListener { showLocationBottomSheetDialog() }
         } else if (i == 2) {
-            txtAllCoaches.setBackgroundResource(R.drawable.circle3)
-            txtChild.setBackgroundResource(R.mipmap.button_small)
-            txtAllCoaches.setTextColor(resources.getColor(R.color.black))
-            txtChild.setTextColor(resources.getColor(R.color.white))
-            llAllCoaches.visibility = View.GONE
-            llJoinTeam.visibility = View.VISIBLE
-            imgLoc.visibility = View.GONE
-            imgFilter.visibility = View.GONE
+            binding.txtAllCoaches.setBackgroundResource(R.drawable.circle3)
+            binding.txtChild.setBackgroundResource(R.mipmap.button_small)
+            binding.txtAllCoaches.setTextColor(resources.getColor(R.color.black))
+            binding.txtChild.setTextColor(resources.getColor(R.color.white))
+            binding.llAllCoaches.visibility = View.GONE
+            binding.llJoinTeam.visibility = View.VISIBLE
+            binding.topbar.imgLoc.visibility = View.GONE
+            binding.topbar.imgFilter.visibility = View.GONE
         }
     }
 
@@ -383,16 +398,16 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { (requireActivity() as ParentsMainActivity).onBackPressed() }
-        txtTitle.text = getString(R.string.all_coaches)
+        binding.topbar.imgBack.visibility = View.VISIBLE
+        binding.topbar.imgBack.setOnClickListener { (requireActivity() as ParentsMainActivity).onBackPressed() }
+        binding.topbar.txtTitle.text = getString(R.string.all_coaches)
     }
 
     override fun onBottomCoachesListSuccess(response: List<CoachListResult?>?) {
 
         hideLoader()
         val parentCoachAdapter = ParentBottomCoachesAdapter(requireContext(), response)
-        rv_coach_list_parent.adapter = parentCoachAdapter
+        binding.rvCoachListParent.adapter = parentCoachAdapter
         parentCoachAdapter.iCoachClickListner = this
         parentCoachAdapter.notifyDataSetChanged()
 
@@ -406,7 +421,7 @@ class AllCoachesFragment : Fragment(R.layout.fragment_all_coaches), IParentBooto
     override fun alredyJoinTeamSuccess(resonse: List<AlreadyJoinTeamResult?>?) {
 
         val parentCoachAdapter = CoachAlreadyJoinTeamAdapter(requireContext(), resonse!!)
-        rv_all_coach_join_team.adapter = parentCoachAdapter
+        binding.rvAllCoachJoinTeam.adapter = parentCoachAdapter
         parentCoachAdapter.iTeamClickListner = this
         parentCoachAdapter.notifyDataSetChanged()
         hideLoader()

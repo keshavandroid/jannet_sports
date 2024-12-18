@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityCoachRegisterBinding
+import com.e.jannet_stable_code.databinding.ActivityCoachesDetailBinding
+import com.e.jannet_stable_code.databinding.ActivityEditMainTeamBinding
 import com.e.jannet_stable_code.ui.coachApp.SeacrchLocationGoogleActivity
 import com.e.jannet_stable_code.ui.loginRegister.loginScreen.LoginActivity
 import com.e.jannet_stable_code.utils.Constants
@@ -31,9 +34,6 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 
-import kotlinx.android.synthetic.main.activity_coach_register.*
-import kotlinx.android.synthetic.main.topbar_layout.*
-
 class RegisterCoachActivity : AppCompatActivity() {
     var pickImage: PickImage? = null
     var genderFlag = 0
@@ -41,9 +41,15 @@ class RegisterCoachActivity : AppCompatActivity() {
 
     var model: RegisterCoachModel? = null
     var API_KEY = "AIzaSyDZz4wntacjlvQ3aEGb9eWpDPU6M71t_Vc"
+
+    private lateinit var binding: ActivityCoachRegisterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coach_register)
+      //  setContentView(R.layout.activity_coach_register)
+
+        binding = ActivityCoachRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         model = RegisterCoachModel(this)
 
@@ -59,7 +65,7 @@ class RegisterCoachActivity : AppCompatActivity() {
                   .build()
           )*/
 
-        tvLocation.setOnClickListener(View.OnClickListener {
+        binding.tvLocation.setOnClickListener(View.OnClickListener {
             /* intent = Intent(this, SeacrchLocationGoogleActivity::class.java)
              startActivity(intent)*/
             /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -79,19 +85,19 @@ class RegisterCoachActivity : AppCompatActivity() {
     }
 
     private fun clicks() {
-        imgMale.setOnClickListener {
+        binding.imgMale.setOnClickListener {
             genderFlag = 1
-            imgMale.setImageResource(R.mipmap.rad)
-            imgFemale.setImageResource(R.mipmap.rad1)
+            binding.imgMale.setImageResource(R.mipmap.rad)
+            binding.imgFemale.setImageResource(R.mipmap.rad1)
         }
-        imgFemale.setOnClickListener {
+        binding.imgFemale.setOnClickListener {
             genderFlag = 2
-            imgFemale.setImageResource(R.mipmap.rad)
-            imgMale.setImageResource(R.mipmap.rad1)
+            binding.imgFemale.setImageResource(R.mipmap.rad)
+            binding.imgMale.setImageResource(R.mipmap.rad1)
         }
-        txtMale.setOnClickListener { imgMale.performClick() }
-        txtFemale.setOnClickListener { imgFemale.performClick() }
-        txtLogin.setOnClickListener {
+        binding.txtMale.setOnClickListener {  binding.imgMale.performClick() }
+        binding.txtFemale.setOnClickListener {  binding.imgFemale.performClick() }
+        binding.txtLogin.setOnClickListener {
             startActivity(
                 Intent(this@RegisterCoachActivity, LoginActivity::class.java).putExtra(
                     Constants.USER_TYPE, Constants.COACH
@@ -99,20 +105,20 @@ class RegisterCoachActivity : AppCompatActivity() {
             )
             finish()
         }
-        txtRegister.setOnClickListener {
+        binding.txtRegister.setOnClickListener {
             val data = CoachRegisterObject()
 
             if (pickImage != null && pickImage!!.getImage() != null) {
                 data.image = pickImage?.getImage()
             }
 
-            data.name = etxtName.text.toString().trim()
+            data.name =  binding.etxtName.text.toString().trim()
             data.gender = genderFlag
-            data.birthdate = txtBDate.text.toString().trim()
-            data.email = etxtEmail.text.toString().trim()
-            data.password = etxtPwd.text.toString().trim()
-            data.contactNo = etxtPhNo.text.toString().trim() + etxtPhNo1.text.toString()
-                .trim() + etxtPhNo2.text.toString().trim()
+            data.birthdate =  binding.txtBDate.text.toString().trim()
+            data.email =  binding.etxtEmail.text.toString().trim()
+            data.password =  binding.etxtPwd.text.toString().trim()
+            data.contactNo =  binding.etxtPhNo.text.toString().trim() +  binding.etxtPhNo1.text.toString()
+                .trim() +  binding.etxtPhNo2.text.toString().trim()
             data.location = "*"
             //etxtLocation.text.toString().trim()
 
@@ -123,7 +129,7 @@ class RegisterCoachActivity : AppCompatActivity() {
             }
 
         }
-        imgProfile.setOnClickListener {
+        binding.imgProfile.setOnClickListener {
 
             if (isPermissionGranted()) {
                 Utilities.showLog(TAG, "isPermissionGranted1:=" + isPermissionGranted().toString())
@@ -137,9 +143,9 @@ class RegisterCoachActivity : AppCompatActivity() {
 
             }
         }
-        txtBDate.setOnClickListener {
+        binding.txtBDate.setOnClickListener {
             datePicker(
-                txtBDate, this, supportFragmentManager, object : DatePickerResult {
+                binding.txtBDate, this, supportFragmentManager, object : DatePickerResult {
                     override fun onSuccess(string: String) {
 
                     }
@@ -161,7 +167,7 @@ class RegisterCoachActivity : AppCompatActivity() {
              tvLocation.text = placeDetails.toString()
              Log.i(javaClass.simpleName, "onActivityResult: ${placeDetails}  ")
          }*/
-        if (pickImage != null) pickImage!!.activityResult(requestCode, resultCode, data, imgProfile)
+        if (pickImage != null) pickImage!!.activityResult(requestCode, resultCode, data,  binding.imgProfile)
     }
     /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
          super.onActivityResult(requestCode, resultCode, data)
@@ -171,12 +177,12 @@ class RegisterCoachActivity : AppCompatActivity() {
      }*/
 
     private fun setTopBar() {
-        imgBack.setOnClickListener {
+        binding.topBar.imgBack.setOnClickListener {
             onBackPressed()
         }
-        imgLogo.visibility = View.GONE
-        txtTitle.visibility = View.VISIBLE
-        txtTitle.text = resources.getString(R.string.coach_register)
+        binding.topBar.imgLogo.visibility = View.GONE
+        binding.topBar.txtTitle.visibility = View.VISIBLE
+        binding.topBar.txtTitle.text = resources.getString(R.string.coach_register)
     }
 
     class CoachRegisterObject {

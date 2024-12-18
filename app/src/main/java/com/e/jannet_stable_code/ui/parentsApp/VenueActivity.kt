@@ -14,7 +14,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 
 class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -23,6 +22,7 @@ class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityVenueBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -73,9 +73,9 @@ class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setTopBar() {
-        imgBack.visibility= View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text=getString(R.string.venue1)
+        binding.topbar.imgBack.visibility= View.VISIBLE
+        binding.topbar.imgBack.setOnClickListener { finish() }
+        binding.topbar.txtTitle.text=getString(R.string.venue1)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

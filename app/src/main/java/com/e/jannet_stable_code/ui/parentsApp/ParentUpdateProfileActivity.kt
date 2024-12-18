@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.AddChildListProfileAdapter
+import com.e.jannet_stable_code.databinding.ActivityParentUpdateProfileBinding
+import com.e.jannet_stable_code.databinding.ActivityRegisteredMatchBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.DeleteChildFromParentController
 import com.e.jannet_stable_code.retrofit.controller.EditProfileParentController
@@ -24,25 +26,23 @@ import com.e.jannet_stable_code.retrofit.response.GetProfileParentApiResponse
 import com.e.jannet_stable_code.ui.loginRegister.addChildScreen.AddChildActivity
 import com.e.jannet_stable_code.utils.*
 import com.e.jannet_stable_code.utils.Constants.topChildData
-import kotlinx.android.synthetic.main.activity_parent_update_profile.*
-import kotlinx.android.synthetic.main.activity_parent_update_profile.imgFemale
-import kotlinx.android.synthetic.main.activity_parent_update_profile.imgMale
-import kotlinx.android.synthetic.main.activity_parent_update_profile.imgProfile
-import kotlinx.android.synthetic.main.activity_parent_update_profile.txtBirthdate
-import kotlinx.android.synthetic.main.activity_parent_update_profile.txtMale
-import kotlinx.android.synthetic.main.item_child_list_profile.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 import java.util.*
 
 class ParentUpdateProfileActivity : AppCompatActivity() {
     var pickImage: PickImage? = null
     var addChildListAdapter: AddChildListProfileAdapter? = null
     var positionAdapter: Int = 0
+    private lateinit var binding: ActivityParentUpdateProfileBinding
 
     var tempUserData: ParentProfileObject? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_parent_update_profile)
+
+       // setContentView(R.layout.activity_parent_update_profile)
+        binding = ActivityParentUpdateProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         tempUserData = ParentProfileObject()
         setTopBar()
         onClicks()
@@ -53,16 +53,16 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
         Log.d("USERTYPE0", "" + userType)
 
         if (userType.equals("adult")) {
-            llSelectAccountType.visibility = View.GONE
+            binding.llSelectAccountType.visibility = View.GONE
         } else if (userType.equals("child")) {
-            llSelectAccountType.visibility = View.GONE
+            binding.llSelectAccountType.visibility = View.GONE
         } else if (userType.equals("parent")) {
 
         }
 
 
 
-        etxtName.addTextChangedListener(object : TextWatcher {
+        binding.etxtName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -70,23 +70,23 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                tempUserData!!.firstname = etxtName.text.toString().trim()
+                tempUserData!!.firstname = binding.etxtName.text.toString().trim()
             }
         })
-        etxtMiddleNameProfile.addTextChangedListener(object : TextWatcher {
+        binding.etxtMiddleNameProfile.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                tempUserData!!.middlename = etxtMiddleNameProfile.text.toString().trim()
+                tempUserData!!.middlename = binding.etxtMiddleNameProfile.text.toString().trim()
 
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
         })
-        etxtLastName.addTextChangedListener(object : TextWatcher {
+        binding.etxtLastName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -94,10 +94,10 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                tempUserData!!.lastname = etxtLastName.text.toString().trim()
+                tempUserData!!.lastname = binding.etxtLastName.text.toString().trim()
             }
         })
-        etxtEmail.addTextChangedListener(object : TextWatcher {
+        binding.etxtEmail.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -105,10 +105,10 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                tempUserData!!.email = etxtEmail.text.toString().trim()
+                tempUserData!!.email = binding.etxtEmail.text.toString().trim()
             }
         })
-        etxtPhNo.addTextChangedListener(object : TextWatcher {
+        binding.etxtPhNo.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -116,15 +116,15 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                tempUserData!!.phoneNumber = etxtPhNo.text.toString().trim()
+                tempUserData!!.phoneNumber = binding.etxtPhNo.text.toString().trim()
             }
         })
 
-        ivShowHide.setOnTouchListener(object : View.OnTouchListener {
+        binding.ivShowHide.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
                 when (p1?.action) {
-                    MotionEvent.ACTION_UP -> etxtPassword.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
-                    MotionEvent.ACTION_DOWN -> etxtPassword.setInputType(InputType.TYPE_CLASS_TEXT)
+                    MotionEvent.ACTION_UP -> binding.etxtPassword.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                    MotionEvent.ACTION_DOWN -> binding.etxtPassword.setInputType(InputType.TYPE_CLASS_TEXT)
                 }
                 return true
 
@@ -166,16 +166,16 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
 
     private fun setUserData(result: GetProfileParentApiResponse.Result) {
         if (tempUserData!!.firstname == "")
-            etxtName.setText(result.firstname)
+            binding.etxtName.setText(result.firstname)
         if (tempUserData!!.middlename == "")
-            etxtMiddleNameProfile.setText(result.middleName)
+            binding.etxtMiddleNameProfile.setText(result.middleName)
 
         if (tempUserData!!.lastname == "")
-            etxtLastName.setText(result.lastname)
+            binding.etxtLastName.setText(result.lastname)
         if (tempUserData!!.email == "")
-            etxtEmail.setText(result.email)
+            binding.etxtEmail.setText(result.email)
         if (tempUserData!!.phoneNumber == "")
-            etxtPhNo.setText(result.contactNo)
+            binding.etxtPhNo.setText(result.contactNo)
         if (tempUserData!!.gender == "") {
             if (result.gender == "m") setGender(1)
             else setGender(2)
@@ -184,14 +184,14 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
         else setUserType(1)
 
         if (tempUserData!!.birthdate == "")
-            txtBirthdate.text = result.birthdate
+            binding.txtBirthdate.text = result.birthdate
 
         if (!isImagePickFlag)
             Glide.with(this)
                 .load(result.image)
                 .placeholder(R.mipmap.cam)
                 .error(R.mipmap.cam)
-                .into(imgProfile)
+                .into(binding.imgProfile)
 
         setChildList(result.child!!)
     }
@@ -276,22 +276,22 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
                     }
 
                 })
-        rcvChildListProfile.adapter = addChildListAdapter
+        binding.rcvChildListProfile.adapter = addChildListAdapter
     }
 
     private fun onClicks() {
 
-        txtPersonal.setOnClickListener { setTab(1) }
-        txtChild.setOnClickListener { setTab(2) }
-        txtAddChild.setOnClickListener {
+        binding.txtPersonal.setOnClickListener { setTab(1) }
+        binding.txtChild.setOnClickListener { setTab(2) }
+        binding.txtAddChild.setOnClickListener {
             startActivity(Intent(this@ParentUpdateProfileActivity, AddChildActivity::class.java)
                 .putExtra(Constants.CHILD_FROM, Constants.ADD_CHILD)
             )
         }
-        imgProfile.setOnClickListener {
+        binding.imgProfile.setOnClickListener {
             pickImage = PickImage(this@ParentUpdateProfileActivity)
         }
-        txtEditPersonal.setOnClickListener {
+        binding.txtEditPersonal.setOnClickListener {
             if (isUserDataValid()) {
                 EditProfileParentController(this, object : ControllerInterface {
                     override fun onFail(error: String?) {
@@ -304,24 +304,24 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
                 }).callApi(parentProfileObject!!)
             }
         }
-        imgMale.setOnClickListener {
+        binding.imgMale.setOnClickListener {
             setGender(1)
         }
-        txtMale.setOnClickListener { imgMale.performClick() }
-        imgFemale.setOnClickListener {
+        binding.txtMale.setOnClickListener { binding.imgMale.performClick() }
+        binding.imgFemale.setOnClickListener {
             setGender(2)
         }
-        txtMale.setOnClickListener { imgFemale.performClick() }
+        binding.txtMale.setOnClickListener { binding.imgFemale.performClick() }
 
-        imgParent.setOnClickListener {
+        binding.imgParent.setOnClickListener {
             //setUserType(1)
         }
-        txtParent.setOnClickListener { imgParent.performClick() }
-        imgAdult.setOnClickListener {
+        binding.txtParent.setOnClickListener { binding.imgParent.performClick() }
+        binding.imgAdult.setOnClickListener {
             //setUserType(2)
         }
-        txtAdult.setOnClickListener { imgAdult.performClick() }
-        txtBirthdate.setOnClickListener {
+        binding.txtAdult.setOnClickListener { binding.imgAdult.performClick() }
+        binding.txtBirthdate.setOnClickListener {
             val maxCalendar = Calendar.getInstance()
             maxCalendar.add(Calendar.YEAR, -18)
             maxCalendar.add(Calendar.DAY_OF_MONTH, -1)
@@ -341,8 +341,8 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
                 @SuppressLint("SetTextI18n")
                 override fun onSetDate(month: Int, day: Int, year: Int) {
                     // "  (Month selected is 0 indexed {0 == January})"
-                    txtBirthdate.text = "$day-" + (month + 1) + "-$year"
-                    tempUserData!!.birthdate = txtBirthDate.text.toString().trim()
+                    binding.txtBirthdate.text = "$day-" + (month + 1) + "-$year"
+                    tempUserData!!.birthdate = binding.txtBirthDate.text.toString().trim()
                 }
 
                 override fun onCancel() {}
@@ -356,11 +356,11 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
     private fun setUserType(i: Int) {
         usertypeFlag = i
         if (i == 1) {
-            imgParent.setImageResource(R.mipmap.rad)
-            imgAdult.setImageResource(R.mipmap.rad1)
+            binding.imgParent.setImageResource(R.mipmap.rad)
+            binding.imgAdult.setImageResource(R.mipmap.rad1)
         } else if (i == 2) {
-            imgParent.setImageResource(R.mipmap.rad1)
-            imgAdult.setImageResource(R.mipmap.rad)
+            binding.imgParent.setImageResource(R.mipmap.rad1)
+            binding.imgAdult.setImageResource(R.mipmap.rad)
         }
     }
 
@@ -368,40 +368,40 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
     private fun setGender(i: Int) {
         genderFlag = i
         if (i == 1) {
-            imgMale.setImageResource(R.mipmap.rad)
-            imgFemale.setImageResource(R.mipmap.rad1)
+            binding.imgMale.setImageResource(R.mipmap.rad)
+            binding.imgFemale.setImageResource(R.mipmap.rad1)
             tempUserData!!.gender = "m"
         } else if (i == 2) {
-            imgMale.setImageResource(R.mipmap.rad1)
-            imgFemale.setImageResource(R.mipmap.rad)
+            binding.imgMale.setImageResource(R.mipmap.rad1)
+            binding.imgFemale.setImageResource(R.mipmap.rad)
             tempUserData!!.gender = "f"
         }
     }
 
     var parentProfileObject: ParentProfileObject? = null
     private fun isUserDataValid(): Boolean {
-        if (etxtName.text.toString().trim() == "") {
+        if (binding.etxtName.text.toString().trim() == "") {
             Utilities.showToast(this, "Please enter first name to continue.")
             return false
-        } else if (etxtLastName.text.toString().trim() == "") {
+        } else if (binding.etxtLastName.text.toString().trim() == "") {
             Utilities.showToast(this, "Please enter last name to continue.")
             return false
-        } else if (etxtEmail.text.toString().trim() == "") {
+        } else if (binding.etxtEmail.text.toString().trim() == "") {
             Utilities.showToast(this, "Please enter email to continue.")
             return false
-        } else if (!Utilities.isValidEmail(etxtEmail.text.toString().trim())) {
+        } else if (!Utilities.isValidEmail(binding.etxtEmail.text.toString().trim())) {
             Utilities.showToast(this, "Please enter a valid email to continue.")
             return false
-        } else if (etxtPhNo.text.toString().trim() == "") {
+        } else if (binding.etxtPhNo.text.toString().trim() == "") {
             Utilities.showToast(this, "Please enter phone number to continue.")
             return false
-        } else if (etxtPhNo.text.toString().trim().length < 6) {
+        } else if (binding.etxtPhNo.text.toString().trim().length < 6) {
             Utilities.showToast(this, "Please enter a valid phone number to continue.")
             return false
         } else if (genderFlag == 0) {
             Utilities.showToast(this, "Please select gender to continue.")
             return false
-        } else if (txtBirthdate.text.toString().trim() == "") {
+        } else if (binding.txtBirthdate.text.toString().trim() == "") {
             Utilities.showToast(this, "Please select birthday to continue.")
             return false
         } else if (usertypeFlag == 0) {
@@ -416,17 +416,17 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-        parentProfileObject!!.firstname = etxtName.text.toString().trim()
-        parentProfileObject!!.password = etxtPassword.text.toString().trim()
-        parentProfileObject!!.middlename = etxtMiddleNameProfile.text.toString().trim()
-        parentProfileObject!!.lastname = etxtLastName.text.toString().trim()
-        parentProfileObject!!.email = etxtEmail.text.toString().trim()
-        parentProfileObject!!.phoneNumber = etxtPhNo.text.toString().trim()
+        parentProfileObject!!.firstname = binding.etxtName.text.toString().trim()
+        parentProfileObject!!.password = binding.etxtPassword.text.toString().trim()
+        parentProfileObject!!.middlename = binding.etxtMiddleNameProfile.text.toString().trim()
+        parentProfileObject!!.lastname = binding.etxtLastName.text.toString().trim()
+        parentProfileObject!!.email = binding.etxtEmail.text.toString().trim()
+        parentProfileObject!!.phoneNumber = binding.etxtPhNo.text.toString().trim()
         if (genderFlag == 1)
             parentProfileObject!!.gender = "m"
         if (genderFlag == 2)
             parentProfileObject!!.gender = "f"
-        parentProfileObject!!.birthdate = txtBirthdate.text.toString().trim()
+        parentProfileObject!!.birthdate = binding.txtBirthdate.text.toString().trim()
         parentProfileObject!!.type = "parent"
         return true
     }
@@ -435,7 +435,7 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (pickImage != null) {
-            pickImage!!.activityResult(requestCode, resultCode, data, imgProfile)
+            pickImage!!.activityResult(requestCode, resultCode, data, binding.imgProfile)
 
             if (pickImage!!.getImage() != null && pickImage!!.getImage() != "" && pickImage!!.getImage() != "null") {
                 isImagePickFlag = true
@@ -445,30 +445,30 @@ class ParentUpdateProfileActivity : AppCompatActivity() {
 
     private fun setTab(i: Int) {
         if (i == 1) {//personal
-            txtPersonal.setBackgroundResource(R.mipmap.button_small)
-            txtPersonal.setTextColor(resources.getColor(R.color.white))
-            txtChild.setBackgroundResource(R.drawable.circle3)
-            txtChild.setTextColor(resources.getColor(R.color.grey2))
-            clPersonal.visibility = View.VISIBLE
-            txtEditPersonal.visibility = View.VISIBLE
-            llChild1.visibility = View.GONE
-            llChild2.visibility = View.GONE
+            binding.txtPersonal.setBackgroundResource(R.mipmap.button_small)
+            binding.txtPersonal.setTextColor(resources.getColor(R.color.white))
+            binding.txtChild.setBackgroundResource(R.drawable.circle3)
+            binding. txtChild.setTextColor(resources.getColor(R.color.grey2))
+            binding. clPersonal.visibility = View.VISIBLE
+            binding.txtEditPersonal.visibility = View.VISIBLE
+            binding.llChild1.visibility = View.GONE
+            binding.llChild2.visibility = View.GONE
         } else if (i == 2) {//child
-            txtPersonal.setBackgroundResource(R.drawable.circle3)
-            txtPersonal.setTextColor(resources.getColor(R.color.grey2))
-            txtChild.setBackgroundResource(R.mipmap.button_small)
-            txtChild.setTextColor(resources.getColor(R.color.white))
-            clPersonal.visibility = View.GONE
-            txtEditPersonal.visibility = View.GONE
-            llChild1.visibility = View.VISIBLE
-            llChild2.visibility = View.VISIBLE
+            binding.txtPersonal.setBackgroundResource(R.drawable.circle3)
+            binding.txtPersonal.setTextColor(resources.getColor(R.color.grey2))
+            binding.txtChild.setBackgroundResource(R.mipmap.button_small)
+            binding.txtChild.setTextColor(resources.getColor(R.color.white))
+            binding.clPersonal.visibility = View.GONE
+            binding.txtEditPersonal.visibility = View.GONE
+            binding. llChild1.visibility = View.VISIBLE
+            binding.llChild2.visibility = View.VISIBLE
         }
     }
 
     private fun setTopBar() {
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.edit_profile_personal)
-        txtTitle.textSize = 22F
+        binding.topbar.imgBack.setOnClickListener { finish() }
+        binding.topbar.txtTitle.text = getString(R.string.edit_profile_personal)
+        binding.topbar.txtTitle.textSize = 22F
     }
 }
 

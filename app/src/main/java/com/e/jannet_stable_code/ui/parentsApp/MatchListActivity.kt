@@ -11,6 +11,8 @@ import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.MatchListAdapter
 import com.e.jannet_stable_code.adapter.MatchListAdapterED
 import com.e.jannet_stable_code.adapter.ParticipantsMatchListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.matchlistdata.MatchListResult
 import com.e.jannet_stable_code.ui.BaseActivity
@@ -22,9 +24,7 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IDeleteMacthView
 import com.e.jannet_stable_code.viewinterface.IMatchListView
-import kotlinx.android.synthetic.main.activity_added_matchlist.*
-import kotlinx.android.synthetic.main.activity_match_list.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEditMatchClickListner,
     MatchListAdapterED.IDeleteMatchClickListner,
@@ -34,6 +34,7 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
     lateinit var deleteMatchController: IDeleteMatchController
     var id = ""
     var token = ""
+    private lateinit var binding: ActivityMatchListBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -41,7 +42,11 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_match_list)
+
+       // setContentView(R.layout.activity_match_list)
+        binding = ActivityMatchListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         var storeData = StoreUserData(this)
         val eventID = intent.getStringExtra("EVENT_ID")
@@ -57,13 +62,13 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
             token = SharedPrefUserData(this).getSavedData().token
             controller.callMatchListApi(id, token, eventID.toString())
 
-            txtAddMatch_event_detail.isGone=true
+            binding.txtAddMatchEventDetail.isGone=true
             showLoader()
         } else {
             id = storeData.getString(Constants.COACH_ID)
             token = storeData.getString(Constants.COACH_TOKEN)
             controller.callMatchListApi(id, token, eventID.toString())
-            txtAddMatch_event_detail.isVisible=true
+            binding.txtAddMatchEventDetail.isVisible=true
 
             showLoader()
 
@@ -71,8 +76,8 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
         deleteMatchController = DeleteMatchCOntroller(this, this)
 
 
-        txtTitle.text = "MATCH LIST"
-        imgBack.setOnClickListener {
+        binding.topbarAddedMatch.txtTitle.text = "MATCH LIST"
+        binding.topbarAddedMatch.imgBack.setOnClickListener {
            finish()
         }
 
@@ -90,7 +95,7 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
 
         setTopBar()
 
-        txtAddMatch_event_detail.setOnClickListener {
+        binding.txtAddMatchEventDetail.setOnClickListener {
 //            startActivity(Intent(this,
 //                AddMatchActivity::class.java))
 
@@ -107,9 +112,9 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.match_list)
+        binding.topbarAddedMatch.imgBack.visibility = View.VISIBLE
+        binding.topbarAddedMatch.imgBack.setOnClickListener { finish() }
+        binding.topbarAddedMatch.txtTitle.text = getString(R.string.match_list)
     }
 
     override fun onMatchListSuccess(response: ArrayList<MatchListResult?>?) {
@@ -122,13 +127,13 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
         ) {
 
             var MatchAdapger = ParticipantsMatchListAdapter(this, response)
-            rv_match_list_ed.adapter = MatchAdapger
+            binding.rvMatchListEd.adapter = MatchAdapger
             MatchAdapger.notifyDataSetChanged()
 
         }else {
 
             var MatchAdapger = MatchListAdapterED(this, response)
-            rv_match_list_ed.adapter = MatchAdapger
+            binding.rvMatchListEd.adapter = MatchAdapger
             MatchAdapger.iEditClickListner = this
             MatchAdapger.iDeleteClickListner = this
             MatchAdapger.notifyDataSetChanged()

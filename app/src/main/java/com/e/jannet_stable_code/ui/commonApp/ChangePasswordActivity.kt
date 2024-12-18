@@ -3,19 +3,24 @@ package com.e.jannet_stable_code.ui.commonApp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityChangePasswordBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.ChangePwdController
-import kotlinx.android.synthetic.main.activity_change_password.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 import com.e.jannet_stable_code.utils.Utilities
 
 class ChangePasswordActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityChangePasswordBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_change_password)
-
+        //setContentView(R.layout.activity_change_password)
+        binding = ActivityChangePasswordBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setTopBar()
-        txtUpdatePassword.setOnClickListener {
+
+
+        binding.txtUpdatePassword.setOnClickListener {
             if (dataValid()) {
                 ChangePwdController(this, object : ControllerInterface {
                     override fun onFail(error: String?) {
@@ -25,7 +30,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                     override fun <T> onSuccess(response: T, method: String) {
                         finish()
                     }
-                }).callApi(etxtPwd.text.toString().trim(), etxtConfirmPwd.text.toString().trim())
+                }).callApi(binding.etxtPwd.text.toString().trim(), binding.etxtConfirmPwd.text.toString().trim())
 
             }
         }
@@ -34,49 +39,49 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private fun dataValid(): Boolean {
         when {
-            etxtPwd.text.toString().trim() == "" -> {
+            binding.etxtPwd.text.toString().trim() == "" -> {
                 Utilities.showToast(
                     this@ChangePasswordActivity,
                     "Please enter current password to continue."
                 )
                 return false
             }
-            etxtPwd.text.toString().trim().length < 6 -> {
+            binding.etxtPwd.text.toString().trim().length < 6 -> {
                 Utilities.showToast(
                     this@ChangePasswordActivity,
                     "Current password is too short to continue."
                 )
                 return false
             }
-            etxtNewPwd.text.toString().trim() == "" -> {
+            binding.etxtNewPwd.text.toString().trim() == "" -> {
                 Utilities.showToast(
                     this@ChangePasswordActivity,
                     "Please enter new password to continue."
                 )
                 return false
             }
-            etxtNewPwd.text.toString().trim().length < 6 -> {
+            binding.etxtNewPwd.text.toString().trim().length < 6 -> {
                 Utilities.showToast(
                     this@ChangePasswordActivity,
                     "New password is too short to continue."
                 )
                 return false
             }
-            etxtConfirmPwd.text.toString().trim() == "" -> {
+            binding.etxtConfirmPwd.text.toString().trim() == "" -> {
                 Utilities.showToast(
                     this@ChangePasswordActivity,
                     "Please enter confirm password to continue."
                 )
                 return false
             }
-            etxtConfirmPwd.text.toString().trim().length < 6 -> {
+            binding.etxtConfirmPwd.text.toString().trim().length < 6 -> {
                 Utilities.showToast(
                     this@ChangePasswordActivity,
                     "Confirm password is too short to continue."
                 )
                 return false
             }
-            etxtNewPwd.text.toString().trim() != etxtConfirmPwd.text.toString().trim() -> {
+            binding.etxtNewPwd.text.toString().trim() != binding.etxtConfirmPwd.text.toString().trim() -> {
                 Utilities.showToast(
                     this@ChangePasswordActivity,
                     "New passwords doesn't matched. Try again."
@@ -88,7 +93,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     }
 
     private fun setTopBar() {
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.change_pwd)
+        binding.includeTopbar.imgBack.setOnClickListener { finish() }
+        binding.includeTopbar.txtTitle.text = getString(R.string.change_pwd)
     }
 }

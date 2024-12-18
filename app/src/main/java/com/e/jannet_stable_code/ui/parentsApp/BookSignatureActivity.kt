@@ -15,6 +15,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.canvasLib.CanvasView
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityBookSignatureBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.RetrofitHelper
 import com.e.jannet_stable_code.retrofit.controller.BookChildEventController
@@ -32,8 +34,6 @@ import com.stripe.android.PaymentConfiguration
 import com.stripe.android.Stripe
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
-import kotlinx.android.synthetic.main.activity_book_signature.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -61,6 +61,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     lateinit var paymentIntentClientSecret: String
     private var stripe: Stripe? = null
     private var alertCheckbox: CheckBox?=null
+    private lateinit var binding: ActivityBookSignatureBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -92,7 +93,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
                         if(!response.getPaymentIntentClientSecret().isNullOrEmpty()){
                             paymentIntentClientSecret = response.getPaymentIntentClientSecret().toString()
 
-                            runOnUiThread { txtBook.setEnabled(true) }
+                            runOnUiThread {binding.txtBook.setEnabled(true) }
 
 //                            PaymentConfiguration.init(this@BookSignatureActivity, response.getPaymentIntentClientSecret().toString())
                         }
@@ -139,7 +140,9 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_book_signature)
+       // setContentView(R.layout.activity_book_signature)
+        binding = ActivityBookSignatureBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         alertCheckbox = findViewById(R.id.alertCheckbox)
 
@@ -160,14 +163,14 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         controller = BookChildEventController(this, this)
         joinTeamController = JoinTeamFromParentController(this, this)
         childController = BookEventController(this, this)
-        imgPrivacy.setOnClickListener {
+        binding.imgPrivacy.setOnClickListener {
             privacyClicked()
         }
-        txtPrivacy.setOnClickListener { imgPrivacy.performClick() }
-        txtClear.setOnClickListener { canvasView!!.clearCanvas() }
+        binding.txtPrivacy.setOnClickListener {   binding.imgPrivacy.performClick() }
+        binding. txtClear.setOnClickListener { canvasView!!.clearCanvas() }
 
         canvasView = CanvasView(this)
-        rlSign.addView(canvasView)
+        binding.rlSign.addView(canvasView)
 //        Log.e("TAG", "onCreate:booksignature  ${rlSign.drawToBitmap()}")
 
         val coachId = intent.getStringExtra("Coach_id")
@@ -180,7 +183,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
         // Hook up the pay button
 
-        txtBook.setEnabled(false)
+        binding.txtBook.setEnabled(false)
         paymentSheet = PaymentSheet(this) { paymentSheetResult: PaymentSheetResult? ->
             onPaymentSheetResult(
                 paymentSheetResult!!
@@ -188,11 +191,11 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         }
         fetchPaymentIntentApi()
 
-        txtBook.setOnClickListener {
+        binding.txtBook.setOnClickListener {
 
             if (parentJoin?.trim().toString() == "coach_join") {
 
-                imageUri = getImageUri(getBitmapFromView(rlSign)!!)
+                imageUri = getImageUri(getBitmapFromView(binding.rlSign)!!)
                 //book team from parent side
                 var registerData = RegisterData()
                 registerData.coach_id = coachId?.trim().toString()
@@ -219,7 +222,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
             }
         }
 
-        txtSendRequestParent.setOnClickListener {
+        binding.txtSendRequestParent.setOnClickListener {
 
 
 
@@ -234,7 +237,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     }
 
     fun afterPaymentSuccess(){
-        imageUri = getImageUri(getBitmapFromView(rlSign)!!)
+        imageUri = getImageUri(getBitmapFromView(binding.rlSign)!!)
 
         val eventid = intent.getStringExtra("eventId")
         val childId = intent.getStringExtra("ChildId")
@@ -285,17 +288,17 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     var privacyFlag = 0
     private fun privacyClicked() {
         if (privacyFlag == 0) {
-            imgPrivacy.setImageResource(R.mipmap.check1)
+            binding.imgPrivacy.setImageResource(R.mipmap.check1)
         } else if (privacyFlag == 1) {
-            imgPrivacy.setImageResource(R.mipmap.check2)
+            binding.imgPrivacy.setImageResource(R.mipmap.check2)
         }
         privacyFlag = if (privacyFlag == 0) 1 else 0
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.book)
+        binding.topbar.imgBack.visibility = View.VISIBLE
+        binding.topbar.imgBack.setOnClickListener { finish() }
+        binding.topbar.txtTitle.text = getString(R.string.book)
     }
 
     override fun <T> onSuccess(response: T) {
@@ -308,7 +311,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         } else {
 
             if(userType.equals("child",ignoreCase = true)){
-                txtSendRequestParent.visibility = View.VISIBLE
+                binding.txtSendRequestParent.visibility = View.VISIBLE
                 Toast.makeText(this@BookSignatureActivity, "Send Request To Parent", Toast.LENGTH_SHORT)
                     .show()
             }

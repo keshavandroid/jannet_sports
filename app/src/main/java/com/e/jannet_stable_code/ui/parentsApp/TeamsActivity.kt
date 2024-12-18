@@ -10,6 +10,8 @@ import androidx.core.view.isVisible
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.TeamListAdapter
 import com.e.jannet_stable_code.adapter.TeamListEDAdapter
+import com.e.jannet_stable_code.databinding.ActivityTeamsBinding
+import com.e.jannet_stable_code.databinding.ActivityVenueBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.teamlistdata.TeamListResult
 import com.e.jannet_stable_code.ui.BaseActivity
@@ -21,9 +23,6 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IDeleteTeamView
 import com.e.jannet_stable_code.viewinterface.ITeamListView
-import kotlinx.android.synthetic.main.activity_added_team_list.*
-import kotlinx.android.synthetic.main.activity_teams.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeamClickListner,
     TeamListEDAdapter.IDeleteClickListner, IDeleteTeamView, TeamListEDAdapter.IItemClickListner {
@@ -38,11 +37,13 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
     lateinit var deleteTeamCOntroller: IDeleteTeamController
     lateinit var controller: ITeamListController
 
+    private lateinit var binding : ActivityTeamsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_teams)
-
+       // setContentView(R.layout.activity_teams)
+        binding = ActivityTeamsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 //        setTopBar()
 
 
@@ -59,14 +60,14 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
 
             controller = TeamListController(this, this)
             controller.callTeamLostApi(id, token, event_id.toString())
-            txtAdd_new_team_ed.isGone=true
+            binding.txtAddNewTeamEd.isGone=true
             showLoader()
         } else {
             id = storeData.getString(Constants.COACH_ID)
             token = storeData.getString(Constants.COACH_TOKEN)
             val event_id = intent.getStringExtra("EVENT_ID")
             Log.e("TAG", "onCreate:event id is ===$event_id ")
-            txtAdd_new_team_ed.isVisible=true
+            binding.txtAddNewTeamEd.isVisible=true
 
             controller = TeamListController(this, this)
             controller.callTeamLostApi(id, token, event_id.toString())
@@ -76,15 +77,15 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
         }
 
 //
-        txtTitle.text = "TEAM LIST"
-        imgBack.setOnClickListener {
+        binding.teamListEd.txtTitle.text = "TEAM LIST"
+        binding.teamListEd.imgBack.setOnClickListener {
 
             onBackPressed()
             finish()
         }
 
 
-        txtAdd_new_team_ed.setOnClickListener {
+        binding.txtAddNewTeamEd.setOnClickListener {
             val event_id = intent.getStringExtra("EVENT_ID")
 
             Log.e("TAG", "onCreate: ========$event_id")
@@ -108,7 +109,7 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
         hideLoader()
 
         var TeamAdapger = TeamListEDAdapter(this, response!!)
-        rv_team_list_ed.adapter = TeamAdapger
+        binding.rvTeamListEd.adapter = TeamAdapger
         TeamAdapger.iDeleteClickListner = this
         TeamAdapger.iItemClickListner = this
         TeamAdapger.notifyDataSetChanged()

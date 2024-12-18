@@ -9,6 +9,8 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.CoachTeamListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityCoachesDetailBinding
 import com.e.jannet_stable_code.retrofit.coachteamdata.CoachTeamResult
 import com.e.jannet_stable_code.retrofit.controller.CoachTeamListController
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
@@ -16,11 +18,10 @@ import com.e.jannet_stable_code.retrofit.controller.ICoachTeamListController
 import com.e.jannet_stable_code.ui.BaseActivity
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.viewinterface.ICoachTeamListView
-import kotlinx.android.synthetic.main.activity_coaches_detail.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickListner,
     ICoachTeamListView {
+    private lateinit var binding: ActivityCoachesDetailBinding
 
     lateinit var coachTeamController: ICoachTeamListController
     override fun getController(): IBaseController? {
@@ -29,7 +30,9 @@ class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coaches_detail)
+        //setContentView(R.layout.activity_coaches_detail)
+        binding = ActivityCoachesDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setTopBar()
 
@@ -48,13 +51,13 @@ class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickLis
         coachTeamController.callCoachTeamListApi(userId, token, id.toString())
         showLoader()
 
-        tv_coach_name.text = name.toString()
-        tv_coach_email.text = email.toString()
-        tv_coach_contact.text = contact.toString()
+        binding.tvCoachName.text = name.toString()
+        binding.tvCoachEmail.text = email.toString()
+        binding.tvCoachContact.text = contact.toString()
 
         Glide.with(this)
             .load(image)
-            .into(iv_cach_image)
+            .into(binding.ivCachImage)
     }
 
     private fun openTeamDetails() {
@@ -68,12 +71,12 @@ class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickLis
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener {
+        binding.topbar.imgBack.visibility = View.VISIBLE
+        binding.topbar.imgBack.setOnClickListener {
             onBackPressed()
             finish()
         }
-        txtTitle.text = getString(R.string.coaches_detail)
+        binding.topbar.txtTitle.text = getString(R.string.coaches_detail)
     }
 
     override fun onTeamClick(response: CoachTeamResult?) {
@@ -104,18 +107,18 @@ class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickLis
 
         if (response!=null){
 
-            rv_coach_team_list.isVisible=true
-            txt_teams_not_found.isGone=true
+            binding.rvCoachTeamList.isVisible=true
+            binding.txtTeamsNotFound.isGone=true
 
             val coachTeamAdapter = CoachTeamListAdapter(this, response!!)
             coachTeamAdapter.iTeamClickListner = this
-            rv_coach_team_list.adapter = coachTeamAdapter
+            binding.rvCoachTeamList.adapter = coachTeamAdapter
             coachTeamAdapter.notifyDataSetChanged()
 
         }else{
 
-            rv_coach_team_list.isGone=true
-            txt_teams_not_found.isVisible=true
+            binding.rvCoachTeamList.isGone=true
+            binding.txtTeamsNotFound.isVisible=true
 
         }
 
@@ -125,7 +128,7 @@ class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickLis
 
         hideLoader()
         showToast(message)
-        rv_coach_team_list.isGone=true
-        txt_teams_not_found.isVisible=true
+        binding.rvCoachTeamList.isGone=true
+        binding.txtTeamsNotFound.isVisible=true
     }
 }

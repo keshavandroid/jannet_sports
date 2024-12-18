@@ -7,16 +7,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.e.jannet_stable_code.R
-import kotlinx.android.synthetic.main.activity_add_teams.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+import com.e.jannet_stable_code.databinding.ActivityAddTeamsBinding
+import com.e.jannet_stable_code.databinding.ActivityTeamsBinding
+import com.e.jannet_stable_code.databinding.ActivityVenueBinding
+
 
 class AddTeamsActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityAddTeamsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_teams)
+        //setContentView(R.layout.activity_add_teams)
+        binding = ActivityAddTeamsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        txtTitle.text="ADD TEAM"
-        imgBack.setOnClickListener {
+        binding.includeAddTeams.txtTitle.text="ADD TEAM"
+        binding.includeAddTeams.imgBack.setOnClickListener {
 
             onBackPressed()
         }
@@ -25,7 +31,7 @@ class AddTeamsActivity : AppCompatActivity() {
         val eventid = bundle!!.getString("eid")
 //val eventid = intent.getStringExtra("eid")
         Log.e("TAG", "onCreate:addteam view event id ==$eventid ")
-        txtAdd_teams_event.setOnClickListener {
+        binding.txtAddTeamsEvent.setOnClickListener {
 
             val intent = Intent(this, AddTeamsFinalActivity::class.java)
             intent.putExtra("EVENT_ID",eventid.toString())

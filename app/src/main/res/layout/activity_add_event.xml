@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.coachApp.AddEventActivity">
+    >
 
     <include
+        android:id="@+id/topbar"
         layout="@layout/topbar_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -220,7 +221,6 @@
 
                 </LinearLayout>
 
-                // ffes
 
                 <TextView
                     android:id="@+id/txtFees"

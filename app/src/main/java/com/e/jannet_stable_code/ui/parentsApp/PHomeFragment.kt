@@ -32,9 +32,7 @@ import com.google.android.gms.tasks.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.android.synthetic.main.activity_add_match_f.*
-import kotlinx.android.synthetic.main.fragment_home_parent.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 import org.json.JSONObject
 
 

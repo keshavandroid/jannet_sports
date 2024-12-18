@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.AddChildListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddChildBinding
+import com.e.jannet_stable_code.databinding.ActivityVenueBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.EditChildOfParentController
 import com.e.jannet_stable_code.retrofit.controller.GetSportsListController
@@ -24,9 +26,7 @@ import com.e.jannet_stable_code.utils.Constants.topChildData
 import com.e.jannet_stable_code.utils.PickImage
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.Utilities
-import kotlinx.android.synthetic.main.activity_add_child.*
-import kotlinx.android.synthetic.main.item_add_child_list.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class AddChildActivity : AppCompatActivity() {
     private var fromStr = ""
@@ -36,11 +36,14 @@ class AddChildActivity : AppCompatActivity() {
     private var TAG = "AddChildActivity"
     var firstName: String = ""
     var image: String = ""
+    private lateinit var binding : ActivityAddChildBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_child)
 
+       // setContentView(R.layout.activity_add_child)
+        binding = ActivityAddChildBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         // firstName = intent.getStringExtra(Constants.CHILD_FIRSTNAME)!!
@@ -51,27 +54,27 @@ class AddChildActivity : AppCompatActivity() {
             var llPwd = findViewById<LinearLayout>(R.id.llPwd)
             when (fromStr) {
                 Constants.EDIT_CHILD -> {
-                    txtAdd.visibility = View.VISIBLE
-                    llAddFinish.visibility = View.GONE
-                    txtAdd.text = getString(R.string.save)
+                    binding.txtAdd.visibility = View.VISIBLE
+                    binding.llAddFinish.visibility = View.GONE
+                    binding.txtAdd.text = getString(R.string.save)
                     llPwd.visibility = View.VISIBLE
                     this.isEditFlag = true
                 }
                 Constants.ADD_CHILD -> {
-                    txtAdd.visibility = View.VISIBLE
+                    binding.txtAdd.visibility = View.VISIBLE
                     llPwd.visibility = View.VISIBLE
-                    llAddFinish.visibility = View.GONE
+                    binding.llAddFinish.visibility = View.GONE
                 }
                 Constants.EMAIL_VERIFICATION -> {
-                    txtAdd.visibility = View.GONE
-                    llAddFinish.visibility = View.VISIBLE
+                    binding.txtAdd.visibility = View.GONE
+                    binding.llAddFinish.visibility = View.VISIBLE
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
         setTopBar()
-        txtFinish.setOnClickListener {
+        binding.txtFinish.setOnClickListener {
             hideKeyboard()
             if (isListDataValid()) {
                 SaveChildsWithApi(addChildListAdapter!!.getListForApiCall(), this@AddChildActivity,
@@ -90,7 +93,7 @@ class AddChildActivity : AppCompatActivity() {
             }
 
         }
-        txtAdd.setOnClickListener {
+        binding.txtAdd.setOnClickListener {
             hideKeyboard()
 
             if (isEditFlag) {
@@ -126,7 +129,7 @@ class AddChildActivity : AppCompatActivity() {
             }
             //finish()
         }
-        txtAddAnotherChild.setOnClickListener {
+        binding.txtAddAnotherChild.setOnClickListener {
             if (addChildListAdapter != null) {
                 if (addChildListAdapter!!.itemCount <= 7)
                     addChildListAdapter!!.addNewItem()
@@ -147,7 +150,7 @@ class AddChildActivity : AppCompatActivity() {
                 }
 
             })
-        rcvChildList.adapter = addChildListAdapter
+        binding.rcvChildList.adapter = addChildListAdapter
 
 
         GetSportsListController(this, object : ControllerInterface {
@@ -166,8 +169,8 @@ class AddChildActivity : AppCompatActivity() {
 
         }).callApi()
 
-        if (isEditFlag)
-            etxtChildName.setText(firstName)
+//        if (isEditFlag)
+//            binding.topBar.etxtChildName.setText(firstName)
 
 //        setEditUserData()
     }
@@ -204,11 +207,11 @@ class AddChildActivity : AppCompatActivity() {
 
 
     private fun setTopBar() {
-        imgBack.setOnClickListener { onBackPressed() }
+        binding.topBar.imgBack.setOnClickListener { onBackPressed() }
         if (isEditFlag)
-            txtTitle.text = getString(R.string.edit_child1)
+            binding.topBar.txtTitle.text = getString(R.string.edit_child1)
         else
-            txtTitle.text = getString(R.string.add_child1)
+            binding.topBar.txtTitle.text = getString(R.string.add_child1)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

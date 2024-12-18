@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.EventRequestListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityEventRegisterRequestBinding
 import com.e.jannet_stable_code.retrofit.coacheventlistdata.CoachEventListResult
 import com.e.jannet_stable_code.retrofit.controller.AcceptRejectRequestController
 import com.e.jannet_stable_code.retrofit.controller.EventRegisterRequestController
@@ -20,8 +22,6 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.viewinterface.IAcceptRejectEventView
 import com.e.jannet_stable_code.viewinterface.IEventRegisterRequestView
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_event_register_request.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class EventRegisterRequestActivity : AppCompatActivity() , IEventRegisterRequestView, IAcceptRejectEventView {
 
@@ -32,10 +32,13 @@ class EventRegisterRequestActivity : AppCompatActivity() , IEventRegisterRequest
     private var id = "";
     private var token = "";
     private var spinnerValue = "";
+    private lateinit var binding: ActivityEventRegisterRequestBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_register_request)
+       // setContentView(R.layout.activity_event_register_request)
+        binding = ActivityEventRegisterRequestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         init()
 
@@ -48,18 +51,18 @@ class EventRegisterRequestActivity : AppCompatActivity() , IEventRegisterRequest
     }
 
     private fun init() {
-        imgBack.isVisible = true
-        txtTitle.text = "Event Register Request"
-        txtTitle.isVisible = true
+        binding.eventRegisteRequest.imgBack.isVisible = true
+        binding.eventRegisteRequest.txtTitle.text = "Event Register Request"
+        binding.eventRegisteRequest.txtTitle.isVisible = true
 
-        imgBack.setOnClickListener {
+        binding.eventRegisteRequest.imgBack.setOnClickListener {
 
             onBackPressed()
             finish()
         }
         val spinnerEventRequest = findViewById<Spinner>(R.id.spinner_event_request)
 
-        txt_event_request.setOnClickListener {
+        binding.txtEventRequest.setOnClickListener {
 
             spinnerEventRequest.performClick()
         }
@@ -79,7 +82,7 @@ class EventRegisterRequestActivity : AppCompatActivity() , IEventRegisterRequest
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
 
 
-                txt_event_request.text = arrayEventRequest[position]
+                binding.txtEventRequest.text = arrayEventRequest[position]
 
                 if (arrayEventRequest[position]=="Current Request"){
                     showLoader()
@@ -109,13 +112,13 @@ class EventRegisterRequestActivity : AppCompatActivity() , IEventRegisterRequest
 
     override fun onEventRegisterRequestSuccess(response: List<CoachEventListResult?>?, status: String) {
         Log.d("onSuccessRes",GsonBuilder().setPrettyPrinting().create().toJson(response))
-        txtNoData.visibility = View.GONE
-        rcvEventRequest.visibility = View.VISIBLE
+        binding.txtNoData.visibility = View.GONE
+        binding.rcvEventRequest.visibility = View.VISIBLE
         setListAdapter(response,status)
     }
 
     private fun setListAdapter(response: List<CoachEventListResult?>?, status: String) {
-        rcvEventRequest.adapter = EventRequestListAdapter(
+        binding.rcvEventRequest.adapter = EventRequestListAdapter(
             response,
             this,
             object : EventRequestListAdapter.AdapterListInterface {
@@ -190,8 +193,8 @@ class EventRegisterRequestActivity : AppCompatActivity() , IEventRegisterRequest
         hideLoader()
 
         try {
-            txtNoData.visibility = View.VISIBLE
-            rcvEventRequest.visibility = View.GONE
+            binding.txtNoData.visibility = View.VISIBLE
+            binding. rcvEventRequest.visibility = View.GONE
         }catch (e: java.lang.Exception){
             e.printStackTrace()
         }

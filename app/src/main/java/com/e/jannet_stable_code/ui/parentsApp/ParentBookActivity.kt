@@ -7,6 +7,8 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.ChildInfoAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityParentBookBinding
 import com.e.jannet_stable_code.multispinner.KeyPairBoolData
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.childinfodata.ChildInfoResult
@@ -20,29 +22,32 @@ import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.Utilities
 import com.e.jannet_stable_code.viewinterface.IChildInfoView
-import kotlinx.android.synthetic.main.activity_parent_book.*
-import kotlinx.android.synthetic.main.topbar_layout.*
-
 class ParentBookActivity : BaseActivity(), IChildInfoView {
     val arrayList = ArrayList<String>()
     val childList = ArrayList<GetProfileParentApiResponse.Child>()
     val TAG = "ParentBookActivity"
     lateinit var controller: IChildInfoController
     var selectChildId: String = "0"
+    private lateinit var binding: ActivityParentBookBinding
+
     override fun getController(): IBaseController? {
         return null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_parent_book)
+
+       // setContentView(R.layout.activity_parent_book)
+        binding = ActivityParentBookBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setTopBar()
+
         controller = ChildInfoController(this, this)
 
-        txtSelectChild.setOnClickListener { spinnerChildList.performClick() }
+        binding.txtSelectChild.setOnClickListener { binding.spinnerChildList.performClick() }
 
-        txtBook.setOnClickListener {
+        binding.txtBook.setOnClickListener {
 //            if (isDataValid()) {
             if (selectChildId == "0" && selectChildId == null) {
                 showToast("Please Select Child..")
@@ -58,7 +63,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 //                    )
 //                )
 
-                val fees = txt_fess.text.toString()
+                val fees = binding.txtFess.text.toString()
                 val intent = Intent(this, BookSignatureActivity::class.java)
                 intent.putExtra("eventId", eventid.toString())
                 intent.putExtra("ChildId", selectChildId.toString())
@@ -169,19 +174,19 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
 
 //                    Log.e(TAG,"==========name is =====${data.getResult()!![1]?.name}")
-        multipleItemSelectionSpinner.isSearchEnabled = false;
+        binding.multipleItemSelectionSpinner.isSearchEnabled = false;
 
         // A text that will display in search hint.
-        multipleItemSelectionSpinner.setSearchHint("Select");
+        binding.multipleItemSelectionSpinner.setSearchHint("Select");
         // Set text that will display when search result not found...
-        multipleItemSelectionSpinner.setEmptyTitle("Not Data Found!");
+        binding.multipleItemSelectionSpinner.setEmptyTitle("Not Data Found!");
 
         // If you will set the limit, this button will not display automatically.
-        multipleItemSelectionSpinner.setShowSelectAllButton(true);
+        binding.multipleItemSelectionSpinner.setShowSelectAllButton(true);
 
         //A text that will display in clear text button
-        multipleItemSelectionSpinner.setClearText("Close & Clear");
-        multipleItemSelectionSpinner.isSelected = false
+        binding.multipleItemSelectionSpinner.setClearText("Close & Clear");
+        binding.multipleItemSelectionSpinner.isSelected = false
 
 
 //            if (multipleItemSelectionSpinner.count == 0) {
@@ -189,7 +194,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 //
 //            } else {
 
-        multipleItemSelectionSpinner.setItems(listArray1) { childrenResult ->
+        binding.multipleItemSelectionSpinner.setItems(listArray1) { childrenResult ->
 
             try {
                 for (i in childrenResult.indices) {
@@ -201,7 +206,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
 //                     selectedLocationType = multipleItemSelectionSpinner.selectedItem
                         selectChildId =
-                            multipleItemSelectionSpinner.selectedIds.joinToString(",")
+                            binding.multipleItemSelectionSpinner.selectedIds.joinToString(",")
 
 //                    val str: String = java.lang.String.join(",", selectChildId as String)
 
@@ -216,8 +221,8 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
                         showLoader()
                         controller.callChildInfoAPI(id, token, selectChildId)
-                        ll_total_price.isVisible = true
-                        txtBook.isVisible = true
+                        binding. llTotalPrice.isVisible = true
+                        binding.txtBook.isVisible = true
 
                     }
 
@@ -239,34 +244,34 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
     private fun setGender(i: Int) {
         genderFlag = i
         if (i == 1) {
-            imgMale.setImageResource(R.mipmap.rad)
-            imgFemale.setImageResource(R.mipmap.rad1)
+            binding.imgMale.setImageResource(R.mipmap.rad)
+            binding.imgFemale.setImageResource(R.mipmap.rad1)
         } else if (i == 2) {
-            imgMale.setImageResource(R.mipmap.rad1)
-            imgFemale.setImageResource(R.mipmap.rad)
+            binding.imgMale.setImageResource(R.mipmap.rad1)
+            binding.imgFemale.setImageResource(R.mipmap.rad)
         }
     }
 
     private fun isDataValid(): Boolean {
-        if (spinnerChildList.selectedItemPosition == 0) {
+        if (binding.spinnerChildList.selectedItemPosition == 0) {
             Utilities.showToast(this@ParentBookActivity, "Please select child to continue.")
             return false
-        } else if (etxtName.text.toString().trim() == "") {
+        } else if (binding.etxtName.text.toString().trim() == "") {
             Utilities.showToast(this@ParentBookActivity, "Please enter name to continue.")
             return false
         } else if (genderFlag == 0) {
             Utilities.showToast(this@ParentBookActivity, "Please select gender to continue.")
             return false
-        } else if (etxtEmail.text.toString().trim() == "") {
+        } else if (binding.etxtEmail.text.toString().trim() == "") {
             Utilities.showToast(this@ParentBookActivity, "Please enter email to continue.")
             return false
-        } else if (!Utilities.isValidEmail(etxtEmail.text.toString().trim())) {
+        } else if (!Utilities.isValidEmail(binding.etxtEmail.text.toString().trim())) {
             Utilities.showToast(this@ParentBookActivity, "Please enter a valid email to continue.")
             return false
-        } else if (etxtPhNo.text.toString().trim() == "") {
+        } else if (binding.etxtPhNo.text.toString().trim() == "") {
             Utilities.showToast(this@ParentBookActivity, "Please enter phone number to continue.")
             return false
-        } else if (etxtPhNo.text.toString().trim().length < 6) {
+        } else if (binding.etxtPhNo.text.toString().trim().length < 6) {
             Utilities.showToast(
                 this@ParentBookActivity,
                 "Please enter a valid phone number to continue."
@@ -279,9 +284,9 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.parent_book)
+        binding.includeTopbar.imgBack.visibility = View.VISIBLE
+        binding.includeTopbar.imgBack.setOnClickListener { finish() }
+        binding.includeTopbar.txtTitle.text = getString(R.string.parent_book)
     }
 
     override fun onChildInfoSuccess(response: List<ChildInfoResult?>?) {
@@ -289,7 +294,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
         hideLoader()
         var childAdapter = ChildInfoAdapter(this, response)
-        rv_child_list.adapter = childAdapter
+        binding.rvChildList.adapter = childAdapter
         childAdapter.notifyDataSetChanged()
 
 

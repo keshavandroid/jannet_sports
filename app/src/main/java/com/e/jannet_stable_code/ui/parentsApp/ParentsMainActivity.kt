@@ -10,7 +10,6 @@ import com.e.jannet_stable_code.ui.commonApp.AccountFragment
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 
-import kotlinx.android.synthetic.main.activity_main_parent.*
 import android.util.Log
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.GetProfileController
@@ -25,6 +24,7 @@ class ParentsMainActivity : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main_parent)
 
         supportFragmentManager.beginTransaction().replace(
@@ -36,8 +36,7 @@ class ParentsMainActivity : AppCompatActivity() {
         bottomNavigationViewTop = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         bottomNavigationViewTop!!.setOnNavigationItemSelectedListener(navListener)
 
-
-        val menuView = bottom_navigatin_view.getChildAt(0) as BottomNavigationMenuView
+        val menuView = bottomNavigationViewTop!!.getChildAt(0) as BottomNavigationMenuView
 
         Log.d(TAG, "onCreate: test>>" + menuView.childCount)
 

@@ -10,8 +10,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jannet_stable_code.R
-import kotlinx.android.synthetic.main.custom_dialog_layout.*
-import kotlinx.android.synthetic.main.custom_sports_dialog_layout.imgSelectAll
+
 
 public class CustomListSportsDialog(
     var activity: Activity,
@@ -28,15 +27,15 @@ public class CustomListSportsDialog(
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.custom_sports_dialog_layout)
+        recyclerView=findViewById(R.id.recycler_view)
 
-        recyclerView = recycler_view
-        mImgSelectAll = imgSelectAll
-        llDone = ll_done
+        mImgSelectAll = findViewById(R.id.imgSelectAll)
+        llDone = findViewById(R.id.ll_done)
 
         mLayoutManager = LinearLayoutManager(activity)
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.adapter = adapter
-        ll_done!!.setOnClickListener(View.OnClickListener { listener!!.onItemSelected() })
+        llDone!!.setOnClickListener(View.OnClickListener { listener!!.onItemSelected() })
 
         mImgSelectAll?.setOnClickListener(View.OnClickListener { listener!!.onSelectAll() })
 

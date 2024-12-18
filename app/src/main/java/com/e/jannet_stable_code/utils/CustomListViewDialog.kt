@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jannet_stable_code.R
-import kotlinx.android.synthetic.main.custom_dialog_layout.*
 
 class CustomListViewDialog (var activity: Activity, internal var adapter: RecyclerView.Adapter<*>) : Dialog(activity)
 {
@@ -25,9 +24,8 @@ class CustomListViewDialog (var activity: Activity, internal var adapter: Recycl
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.custom_dialog_layout)
-
-        recyclerView = recycler_view
-        llDone=ll_done
+        recyclerView=findViewById(R.id.recycler_view)
+        llDone=findViewById(R.id.ll_done)
         mLayoutManager = LinearLayoutManager(activity)
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.adapter = adapter

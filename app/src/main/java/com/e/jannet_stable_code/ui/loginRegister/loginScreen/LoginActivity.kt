@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityEditMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityLoginBinding
 import com.e.jannet_stable_code.retrofit.coachlogindata.CoachLoginResult
 import com.e.jannet_stable_code.retrofit.controller.CoachLoginController
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
@@ -23,14 +25,13 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.utils.getUserType
 import com.e.jannet_stable_code.viewinterface.ICoachLoginView
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class LoginActivity : BaseActivity(),ICoachLoginView {
     var loginViewModel: LoginViewModel? = null
     lateinit var controller:ICoachLoginController
 
     lateinit var llRegisterBottom: LinearLayout
+    private lateinit var binding: ActivityLoginBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -38,7 +39,10 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+      //  setContentView(R.layout.activity_login)
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         findViews()
 
@@ -48,31 +52,25 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
 
 
         if (intent.getUserType() == Constants.COACH){
-            txtLoginType.text = getString(R.string.coach_login)
+            binding.txtLoginType.text = getString(R.string.coach_login)
 
             llRegisterBottom.visibility = View.VISIBLE
 
         }else if (intent.getUserType() == Constants.PARTICIPANT){
-            txtLoginType.text = getString(R.string.participant_login)
+            binding.txtLoginType.text = getString(R.string.participant_login)
 
             llRegisterBottom.visibility = View.VISIBLE
         }else if (intent.getUserType() == Constants.CHILD){
-            txtLoginType.text = getString(R.string.child_login)
+            binding.txtLoginType.text = getString(R.string.child_login)
 
             llRegisterBottom.visibility = View.GONE
         }else if (intent.getUserType() == Constants.ADULT){
-            txtLoginType.text = getString(R.string.adult_login)
+            binding.txtLoginType.text = getString(R.string.adult_login)
 
             llRegisterBottom.visibility = View.VISIBLE
         }
 
-
-
-
-
-
-
-        txtRegister.setOnClickListener {
+        binding.txtRegister.setOnClickListener {
             if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.COACH))
                 startActivity(
                     Intent(this@LoginActivity, RegisterCoachActivity::class.java)
@@ -89,17 +87,17 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
             }
         }
 
-        txtLogin.setOnClickListener {
+        binding.txtLogin.setOnClickListener {
             Log.e("TAG", "onLogin: " + intent.getStringExtra(Constants.USER_TYPE) )
 
             if (loginViewModel!!.dataValid(
-                    email = etxtEmail.text.toString().trim(),
-                    pwd = etxtPassword.text.toString().trim()
+                    email =   binding.etxtEmail.text.toString().trim(),
+                    pwd =   binding.etxtPassword.text.toString().trim()
                 )
             ) {
                 if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.COACH)) {
                     Log.e("TAG", "onCreate: upside new coach api ", )
-                    controller.callCoachLoginApi(etxtEmail.text.toString().trim(),etxtPassword.text.toString().trim())
+                    controller.callCoachLoginApi(  binding.etxtEmail.text.toString().trim(),  binding.etxtPassword.text.toString().trim())
                     showLoader()
                 }
                 else if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.CHILD)){
@@ -122,7 +120,7 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
             }
         }
 
-        tv_forgotPassword.setOnClickListener {
+        binding.tvForgotPassword.setOnClickListener {
 
 
             val intent = Intent(this,ForgotPasswordActivity::class.java)
@@ -140,11 +138,11 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
     }
 
     private fun setTopBar() {
-        imgBack.setOnClickListener {
+        binding.topbar.imgBack.setOnClickListener {
             onBackPressed()
         }
-        imgLogo.visibility = View.VISIBLE
-        txtTitle.visibility = View.GONE
+        binding.topbar.imgLogo.visibility = View.VISIBLE
+        binding.topbar.txtTitle.visibility = View.GONE
     }
 
     override fun onCoachLoginSuccess(response: CoachLoginResult) {

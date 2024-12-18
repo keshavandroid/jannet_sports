@@ -9,43 +9,47 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.SliderAdapterExample
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityEventAboutBinding
 import com.e.jannet_stable_code.retrofit.response.SliderItem
 import com.e.jannet_stable_code.utils.Constants.eventDetailTop
 import com.e.jannet_stable_code.utils.TAG
 import com.e.jannet_stable_code.utils.Utilities
-import kotlinx.android.synthetic.main.activity_event_about.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class EventAboutActivity : AppCompatActivity() {
     var adapter: SliderAdapterExample? = null
+    private lateinit var binding: ActivityEventAboutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_about)
+       // setContentView(R.layout.activity_event_about)
+        binding = ActivityEventAboutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setTopBar()
 
         adapter = SliderAdapterExample(this)
-        imageSlider.setSliderAdapter(adapter!!)
+        binding.imageSlider.setSliderAdapter(adapter!!)
 
 
         if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
                 .equals("match")
         ) {
 
-            imgEdit.isGone = true
+            binding.topbar.imgEdit.isGone = true
 
         } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
                 .equals("home")
         ) {
 
-            imgEdit.isGone = true
+            binding.topbar.imgEdit.isGone = true
 
         } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
                 .equals("coachPersonal")
         ) {
 
-            imgEdit.isVisible = true
+            binding.topbar.imgEdit.isVisible = true
         }
 
 
@@ -125,24 +129,24 @@ class EventAboutActivity : AppCompatActivity() {
 
         Log.e(TAG, "SportsList========$sportsNameS")
 
-        txtEventName.text = data?.getEventName()
-        txtEventDate.text = Utilities.convertDateFormat(data?.getEventDate()!!)
-        txtCoachName.text = data.getCreatorName().toString()
-        txtAgeRange.text = data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
+        binding.txtEventName.text = data?.getEventName()
+        binding.txtEventDate.text = Utilities.convertDateFormat(data?.getEventDate()!!)
+        binding.txtCoachName.text = data.getCreatorName().toString()
+        binding.txtAgeRange.text = data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
 
         if (!sportsNameS.isNullOrEmpty())
-            txtSportsName.text = android.text.TextUtils.join(",", sportsNameS)
+            binding.txtSportsName.text = android.text.TextUtils.join(",", sportsNameS)
         else
-            txtSportsName.text = sportsNameS.toString()
+            binding.txtSportsName.text = sportsNameS.toString()
 
-        txtParticipantsCount.text = data.getParticipants() + " " + "Participants"
-        txtGenderAccepted.text = data.getGenderApplicable().toString()
-        txtDescription.text = data.getDescription().toString()
-        txtFees.text = "$" + data.getFees()
+        binding.txtParticipantsCount.text = data.getParticipants() + " " + "Participants"
+        binding.txtGenderAccepted.text = data.getGenderApplicable().toString()
+        binding.txtDescription.text = data.getDescription().toString()
+        binding.txtFees.text = "$" + data.getFees()
 //        txtGrade_about.text = data.getGrade().toString()
 
         try {
-            txtGrade_about.text = data.getMinGrade().toString() +" - "+ data.getMaxGrade().toString() + " Grade"
+            binding.txtGradeAbout.text = data.getMinGrade().toString() +" - "+ data.getMaxGrade().toString() + " Grade"
         }catch (e: Exception){
             e.printStackTrace()
         }
@@ -167,12 +171,12 @@ class EventAboutActivity : AppCompatActivity() {
         sliderItem.description = string1
         sliderItem.imageUrl = string2
         adapter!!.addItem(sliderItem)
-        imageSlider.startAutoCycle()
+        binding.imageSlider.startAutoCycle()
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.about1)
+        binding.topbar.imgBack.visibility = View.VISIBLE
+        binding.topbar.imgBack.setOnClickListener { finish() }
+        binding.topbar.txtTitle.text = getString(R.string.about1)
     }
 }
