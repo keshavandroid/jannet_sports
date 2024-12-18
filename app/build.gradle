@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10" // Updated to a compatible version
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10" // Updated to a compatible version
     implementation 'androidx.core:core-ktx:1.8.0' // Compatible with SDK 33
 
     implementation 'androidx.appcompat:appcompat:1.6.1' // Downgraded to a version compatible with SDK 33
