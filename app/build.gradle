@@ -2,17 +2,18 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
+  //  id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
 
 }
 
 android {
-    compileSdkVersion 33 // Adjust this according to the AGP version compatibility
-
+    compileSdk 34 // Adjust this according to the AGP version compatibility
+    namespace "com.e.jannet_stable_code"
     defaultConfig {
         applicationId "com.e.jannet_stable_code"
         minSdkVersion 21
-        targetSdkVersion 33 // Adjust this according to the AGP version compatibility
+        targetSdk 34 // Adjust this according to the AGP version compatibility
         versionCode 1
         versionName "1.0"
 
@@ -26,11 +27,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_12
-        targetCompatibility JavaVersion.VERSION_12
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '12'
+       // jvmTarget = '12'
+        jvmTarget = '17'
     }
 
     buildFeatures {

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityEditMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityEditTeamBinding
 import com.e.jannet_stable_code.retrofit.controller.EditTeamController
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
 import com.e.jannet_stable_code.retrofit.controller.IEditTeamController
@@ -19,15 +22,13 @@ import com.e.jannet_stable_code.utils.PickImage
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IEditTeamView
 import com.e.jannet_stable_code.viewinterface.RegisterControllerInterface
-import kotlinx.android.synthetic.main.activity_add_main_team.*
-import kotlinx.android.synthetic.main.activity_add_teams_final.*
-import kotlinx.android.synthetic.main.activity_edit_main_team.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class EditMainTeamActivity : BaseActivity(), RegisterControllerInterface {
 
     lateinit var controller:EditTeamController
     var pickImage: PickImage? = null
+    private lateinit var binding: ActivityEditMainTeamBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -35,13 +36,14 @@ class EditMainTeamActivity : BaseActivity(), RegisterControllerInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_main_team)
-
+        //setContentView(R.layout.activity_edit_main_team)
+        binding = ActivityEditMainTeamBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         controller = EditTeamController(this,this)
 
-        txtTitle.text = "EDIT TEAM"
-        imgBack.setOnClickListener {
+        binding.topbar.txtTitle.text = "EDIT TEAM"
+        binding.topbar.imgBack.setOnClickListener {
 
           onBackPressed()
             finish()
@@ -54,17 +56,17 @@ class EditMainTeamActivity : BaseActivity(), RegisterControllerInterface {
         val teamImage = intent.getStringExtra("TEAM_Image")
 
         if (event_detail!= null){
-            etxtTeamName_addTeam_main_edit.hint = teamName.toString()
-            etxt_teams_description_main_edit.hint = teamDescription.toString()
+            binding.etxtTeamNameAddTeamMainEdit.hint = teamName.toString()
+            binding.etxtTeamsDescriptionMainEdit.hint = teamDescription.toString()
 
             Glide.with(this)
                 .load(teamImage)
                 .apply( RequestOptions().override(600, 200))
                 .placeholder(R.drawable.loader_background)
-                .into(imgProfile_add_team_main_edit)
+                .into(binding.imgProfileAddTeamMainEdit)
         }
 
-        txtAdd_teams_event_main_edit.setOnClickListener {
+        binding.txtAddTeamsEventMainEdit.setOnClickListener {
 
                 showLoader()
                 val teamId = intent.getStringExtra("TEAM_ID")
@@ -74,8 +76,8 @@ class EditMainTeamActivity : BaseActivity(), RegisterControllerInterface {
                 var registerData = RegisterData()
                 registerData.coach_id = id.toString()
                 registerData.teamId = teamId.toString()
-                registerData.teamName = etxtTeamName_addTeam_main_edit.text.toString()
-                registerData.description = etxt_teams_description_main_edit.text.toString()
+                registerData.teamName = binding.etxtTeamNameAddTeamMainEdit.text.toString()
+                registerData.description = binding.etxtTeamsDescriptionMainEdit.text.toString()
                 registerData.image = pickImage?.getImage()!!
 
                 controller.EditTeam(registerData)
@@ -89,7 +91,7 @@ class EditMainTeamActivity : BaseActivity(), RegisterControllerInterface {
             requestCode,
             resultCode,
             data,
-            imgProfile_add_team_main_edit
+            binding.imgProfileAddTeamMainEdit
         )
     }
 

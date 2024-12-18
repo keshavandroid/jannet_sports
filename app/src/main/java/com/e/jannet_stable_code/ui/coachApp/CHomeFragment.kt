@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.CoachFilterListAdapter
 import com.e.jannet_stable_code.adapter.EventListAdapter
+import com.e.jannet_stable_code.databinding.FragmentAllCoachesBinding
+import com.e.jannet_stable_code.databinding.FragmentHomeCoachBinding
+import com.e.jannet_stable_code.databinding.FragmentTeamBinding
 import com.e.jannet_stable_code.retrofit.coacheventlistdata.CoachEventListResult
 import com.e.jannet_stable_code.retrofit.coachfilterdata.CoachFilterResult
 import com.e.jannet_stable_code.retrofit.coachsportslistdata.CoachSportsListResult
@@ -21,15 +24,13 @@ import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.locationdata.Coat
 import com.e.jannet_stable_code.retrofit.locationdata.LocationResult
 import com.e.jannet_stable_code.ui.coachApp.addEventScreen.AddEventActivity
-import kotlinx.android.synthetic.main.fragment_home_coach.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 import com.e.jannet_stable_code.ui.parentsApp.EventDetailsActivity
 import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.CustomProgressDialog
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.*
 
-class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListView, ILocationView,
+class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
     ICoachSportsListVIew, ICoachFilterView {
 
     lateinit var controller: ICoachEventListController
@@ -40,6 +41,7 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
      var locationResponse: List<LocationResult?>? = null
      var sportsListResponse: List<CoachSportsListResult?>? = null
      lateinit var coachSportsListCOntroller: ICoachSportsListController
+    private lateinit var binding: FragmentHomeCoachBinding
 
     private var id = "";
     private var token = "";
@@ -49,17 +51,25 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentHomeCoachBinding.inflate(layoutInflater)
+
+
+     //   val view = super.onCreateView(inflater, container, savedInstanceState)
+
         val storedata = StoreUserData(requireContext())
+
         id = storedata.getString(Constants.COACH_ID)
         token = storedata.getString(Constants.COACH_TOKEN)
         val user_type = storedata.getString(Constants.COACH_TYPE)
 
         showLoader()
+
         controller = CoachEventListController(requireActivity(), this)
         controller.callCoachEventListApi(id, token, id)
 
-        return view
+        return binding.root
+
+//        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,15 +80,16 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
         val token = storedata.getString(Constants.COACH_TOKEN)
         val user_type = storedata.getString(Constants.COACH_TYPE)
         coachomeFilterController = CoachFilterController(requireActivity(), this)
+
         setTopBar()
 
-        imgHistory.setOnClickListener {
+        binding.topbar.imgHistory.setOnClickListener {
 
             filterPopUp()
 
         }
 
-        imgPlus.setOnClickListener {
+        binding.imgPlus.setOnClickListener {
             startActivity(
                 Intent(
                     requireActivity(),
@@ -230,7 +241,7 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
     }
 
     private fun setListAdapter(result: List<CoachEventListResult?>?) {
-        rcvEventList.adapter = EventListAdapter(result, requireActivity(),
+        binding.rcvEventList.adapter = EventListAdapter(result, requireActivity(),
             object : EventListAdapter.AdapterListInterface {
                 override fun onItemSelected(position: Int, data: CoachEventListResult) {
                     startActivity(
@@ -250,7 +261,7 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
 
 
     private fun setFilterListAdapter(result: List<CoachFilterResult?>?) {
-        rcvEventList.adapter = CoachFilterListAdapter(result, requireActivity(),
+        binding.rcvEventList.adapter = CoachFilterListAdapter(result, requireActivity(),
             object : CoachFilterListAdapter.AdapterListInterface {
                 override fun onItemSelected(position: Int, data: CoachFilterResult) {
                     startActivity(
@@ -270,10 +281,11 @@ class CHomeFragment : Fragment(R.layout.fragment_home_coach), ICoachEventListVie
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.GONE
-        imgLogo.visibility = View.VISIBLE
-        imgHistory.visibility = View.VISIBLE
-        txtTitle.visibility = View.GONE
+
+        binding.topbar.imgBack.visibility = View.GONE
+        binding.topbar.imgLogo.visibility = View.VISIBLE
+        binding.topbar.imgHistory.visibility = View.VISIBLE
+        binding.topbar.txtTitle.visibility = View.GONE
     }
 
     override fun onCoachEventListSuccess(response: List<CoachEventListResult?>?) {
