@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityAddNewLocationBinding
 import com.e.jannet_stable_code.retrofit.controller.AddNewLocationController
 import com.e.jannet_stable_code.retrofit.controller.IAddNewLocationController
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
@@ -17,8 +19,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_add_new_location.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocationView {
 
@@ -26,22 +26,24 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
     override fun getController(): IBaseController? {
         return null
     }
+    private lateinit var binding: ActivityAddNewLocationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_new_location)
-
+     //   setContentView(R.layout.activity_add_new_location)
+        binding = ActivityAddNewLocationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         controller = AddNewLocationController(this, this)
         setTopBar()
         setData()
 
-        txtAdd_new_location.setOnClickListener {
+        binding.txtAddNewLocation.setOnClickListener {
 
             val stordata = StoreUserData(this)
             val id = stordata.getString(Constants.COACH_ID)
             val token = stordata.getString(Constants.COACH_TOKEN)
 
-            if (etxt_location.text.trim().isEmpty()) {
+            if (binding.etxtLocation.text.trim().isEmpty()) {
 
                 showToast("Add Location Address")
             } else {
@@ -54,10 +56,10 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
                 controller.callAddNewLocationApi(
                     id,
                     token,
-                    etxt_location.text.trim().toString(),
+                    binding.etxtLocation.text.trim().toString(),
                     "22.25458",
                     "28.6547",
-                    etxt_coat_number.text.trim().toString()
+                    binding. etxtCoatNumber.text.trim().toString()
                 )
             }
 
@@ -95,9 +97,9 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = "ADD LOCATION"
+        binding.topbarAddLocation.imgBack.visibility = View.VISIBLE
+        binding.topbarAddLocation.imgBack.setOnClickListener { finish() }
+        binding.topbarAddLocation.txtTitle.text = "ADD LOCATION"
     }
 
     override fun onMapReady(p0: GoogleMap) {

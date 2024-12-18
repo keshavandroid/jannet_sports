@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.BookingListAdapter
 import com.e.jannet_stable_code.adapter.LocationListAdapter
-import kotlinx.android.synthetic.main.activity_booking_detail.*
 
 class SeacrchLocationGoogleActivity : AppCompatActivity() {
 

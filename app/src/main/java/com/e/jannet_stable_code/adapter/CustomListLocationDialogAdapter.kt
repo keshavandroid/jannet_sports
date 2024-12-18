@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.retrofit.locationdata.LocationResult
-import kotlinx.android.synthetic.main.dlg_list_item.view.*
+//import kotlinx.android.synthetic.main.dlg_list_item.view.*
 
 public class CustomListLocationDialogAdapter():
     RecyclerView.Adapter<CustomListLocationDialogAdapter.ViewHolder>() {

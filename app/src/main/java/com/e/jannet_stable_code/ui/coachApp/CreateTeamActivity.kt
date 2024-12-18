@@ -5,24 +5,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.e.jannet_stable_code.R
-import kotlinx.android.synthetic.main.activity_create_team.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityCreateTeamBinding
+import com.e.jannet_stable_code.databinding.ActivityTeamsBinding
+
 
 class CreateTeamActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityCreateTeamBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_team)
+       // setContentView(R.layout.activity_create_team)
+        binding = ActivityCreateTeamBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setTopBar()
 
-        txtCreateTeam.setOnClickListener {
+        binding.txtCreateTeam.setOnClickListener {
             startActivity(Intent(this,CreateLeagueActivity::class.java))
         }
     }
 
     private fun setTopBar() {
-        imgBack.visibility= View.VISIBLE
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text=getString(R.string.create_team1)
+        binding.headerinc.imgBack.visibility= View.VISIBLE
+        binding.headerinc.imgBack.setOnClickListener { finish() }
+        binding.headerinc.txtTitle.text=getString(R.string.create_team1)
     }
 }

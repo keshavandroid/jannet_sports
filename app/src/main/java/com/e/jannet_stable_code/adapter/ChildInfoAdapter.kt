@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.retrofit.childinfodata.ChildInfoResult
 import com.e.jannet_stable_code.retrofit.response.GetProfileParentApiResponse
-import kotlinx.android.synthetic.main.activity_parent_register.*
 
 class ChildInfoAdapter() : RecyclerView.Adapter<ChildInfoAdapter.MyViewHolder>() {
 
