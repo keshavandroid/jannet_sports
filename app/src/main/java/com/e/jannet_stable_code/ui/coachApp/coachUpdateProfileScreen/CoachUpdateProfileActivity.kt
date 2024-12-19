@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.SelectedSportsGridListAdapter
+import com.e.jannet_stable_code.databinding.ActivityCoachUpdateProfileBinding
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.GetProfileController
 import com.e.jannet_stable_code.retrofit.controller.GetSportsListController
@@ -27,8 +29,6 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import kotlinx.android.synthetic.main.activity_coach_update_profile.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,10 +39,14 @@ class CoachUpdateProfileActivity : BaseActivity() {
     override fun getController(): IBaseController? {
         return null
     }
+    private lateinit var bind: ActivityCoachUpdateProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coach_update_profile)
+       // setContentView(R.layout.activity_coach_update_profile)
+
+        bind = ActivityCoachUpdateProfileBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
         setTopBar()
 
@@ -58,12 +62,12 @@ class CoachUpdateProfileActivity : BaseActivity() {
 
             startActivityForResult(intent,100)
         }*/
-        txtlocation_update.setOnClickListener {
+        bind.txtlocationUpdate.setOnClickListener {
 
-            spinnerLocation_update.performClick()
+            bind.spinnerLocationUpdate.performClick()
         }
 
-        txtEdit.setOnClickListener {
+        bind.txtEdit.setOnClickListener {
             val coachUpdateProfileModel = CoachUpdateProfileModel(this)
 
             val imageStr = try {
@@ -75,10 +79,10 @@ class CoachUpdateProfileActivity : BaseActivity() {
 
             if (coachUpdateProfileModel.checkValidData(
                     image = imageStr,
-                    fname = etxtFName.text.toString().trim(),
-                    email = etxtEmail.text.toString().trim(),
-                    phNo = etxtPhNo.text.toString().trim(),
-                    bdate = txtBDate.text.toString().trim(),
+                    fname = bind.etxtFName.text.toString().trim(),
+                    email = bind.etxtEmail.text.toString().trim(),
+                    phNo = bind.etxtPhNo.text.toString().trim(),
+                    bdate = bind.txtBDate.text.toString().trim(),
                     gender = genderFlag.toString().trim(),
                     location = "" ,
                     sportsIds = sportsIds
@@ -88,19 +92,19 @@ class CoachUpdateProfileActivity : BaseActivity() {
                 coachUpdateProfileModel.updateCoachDetails()
             }
         }
-        imgMale.setOnClickListener {
+        bind.imgMale.setOnClickListener {
             genderFlag = 1
-            imgMale.setImageResource(R.mipmap.rad)
-            imgFemale.setImageResource(R.mipmap.rad1)
+            bind.imgMale.setImageResource(R.mipmap.rad)
+            bind.imgFemale.setImageResource(R.mipmap.rad1)
         }
-        txtMale.setOnClickListener { imgMale.performClick() }
-        imgFemale.setOnClickListener {
+        bind.txtMale.setOnClickListener { bind.imgMale.performClick() }
+        bind.imgFemale.setOnClickListener {
             genderFlag = 2
-            imgMale.setImageResource(R.mipmap.rad1)
-            imgFemale.setImageResource(R.mipmap.rad)
+            bind.imgMale.setImageResource(R.mipmap.rad1)
+            bind.imgFemale.setImageResource(R.mipmap.rad)
         }
-        txtFemale.setOnClickListener { imgFemale.performClick() }
-        txtBDate.setOnClickListener {
+        bind.txtFemale.setOnClickListener { bind.imgFemale.performClick() }
+        bind.txtBDate.setOnClickListener {
             val maxCalendar = Calendar.getInstance()
             maxCalendar.add(Calendar.YEAR, -18)
             maxCalendar.add(Calendar.DAY_OF_MONTH, -1)
@@ -120,7 +124,7 @@ class CoachUpdateProfileActivity : BaseActivity() {
                 @SuppressLint("SetTextI18n")
                 override fun onSetDate(month: Int, day: Int, year: Int) {
                     // "  (Month selected is 0 indexed {0 == January})"
-                    txtBDate.text="$day-"+(month+1)+"-$year"
+                    bind.txtBDate.text="$day-"+(month+1)+"-$year"
                 }
 
                 override fun onCancel() {}
@@ -146,19 +150,19 @@ class CoachUpdateProfileActivity : BaseActivity() {
             }
         })
 
-        etxtSports.setOnClickListener {
-            multispinner.setDataList(sportsStrList)
-            multispinner.performClick()
+        bind.etxtSports.setOnClickListener {
+            bind.multispinner.setDataList(sportsStrList)
+            bind.multispinner.performClick()
         }
 
-        multispinner.setMultiSpinnerListener {
+        bind.multispinner.setMultiSpinnerListener {
             if (firstTimeSports) {
                 firstTimeSports = false
             }
 
             var string = ""
             val list = it
-            etxtSports.text = ""
+            bind.etxtSports.text = ""
             sportsIds = ""
             val listImageStr = ArrayList<String>()
             for (i in list.indices) {
@@ -182,15 +186,15 @@ class CoachUpdateProfileActivity : BaseActivity() {
 
 
             selectedSportsGridListAdapter!!.setListData(listImageStr)
-            etxtSports.text = string
+            bind.etxtSports.text = string
         }
 
-        imgProfile.setOnClickListener {
+        bind.imgProfile.setOnClickListener {
             pickImage = PickImage(this@CoachUpdateProfileActivity)
         }
 
         selectedSportsGridListAdapter = SelectedSportsGridListAdapter(this)
-        rcvSelectedSportsList.adapter = selectedSportsGridListAdapter
+        bind.rcvSelectedSportsList.adapter = selectedSportsGridListAdapter
     }
 
     private var selectedSportsGridListAdapter: SelectedSportsGridListAdapter? = null
@@ -221,7 +225,7 @@ class CoachUpdateProfileActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (pickImage != null) pickImage!!.activityResult(requestCode, resultCode, data, imgProfile)
+        if (pickImage != null) pickImage!!.activityResult(requestCode, resultCode, data, bind.imgProfile)
 
 
         if (requestCode==100 && resultCode== RESULT_OK){
@@ -230,7 +234,7 @@ class CoachUpdateProfileActivity : BaseActivity() {
             val place = Autocomplete.getPlaceFromIntent(data)
 
             // set address on our edit text
-            txtlocation_update.setText(place.address)
+            bind.txtlocationUpdate.setText(place.address)
 
             Log.e("Lating","=======Address is ====${place.address}")
 
@@ -258,17 +262,17 @@ class CoachUpdateProfileActivity : BaseActivity() {
                 .load(data!!.image)
                 .apply( RequestOptions().override(600, 200))
                 .placeholder(R.drawable.loader_background)
-                .into(imgProfile)
+                .into(bind.imgProfile)
 
             Log.d(TAG, "setData: testNAME>>" + data.name)
-            etxtFName.setText(data.name)
-            etxtEmail.text = data.email
-            etxtPhNo.setText(data.contactNo)
-            txtBDate.text = data.birthdate
-            txtlocation_update.text=(data.location)
+            bind. etxtFName.setText(data.name)
+            bind.etxtEmail.text = data.email
+            bind.etxtPhNo.setText(data.contactNo)
+            bind.txtBDate.text = data.birthdate
+            bind.txtlocationUpdate.text=(data.location)
 //            spinnerLocation_update.setEmptyTitle(data.location.toString())
-            if (data.gender == "m") imgMale.performClick()
-            if (data.gender == "f") imgFemale.performClick()
+            if (data.gender == "m") bind.imgMale.performClick()
+            if (data.gender == "f") bind.imgFemale.performClick()
             //etxtLocation.setText(data!!.a)
 
             var str = ""
@@ -289,7 +293,7 @@ class CoachUpdateProfileActivity : BaseActivity() {
             }
             sportsIds=tempSportsIds
             Log.d(TAG, "setData: test>>$str")
-            etxtSports.text = str
+            bind.etxtSports.text = str
 
 
             selectedSportsGridListAdapter!!.setListData(imageStrList)
@@ -303,8 +307,8 @@ class CoachUpdateProfileActivity : BaseActivity() {
     private val TAG = "CoachUpdateProfileActiv"
 
     private fun setTopBar() {
-        imgBack.setOnClickListener { finish() }
-        txtTitle.text = getString(R.string.coach_profile)
-        txtTitle.textSize = 22F
+        bind.topbar.imgBack.setOnClickListener { finish() }
+        bind.topbar.txtTitle.text = getString(R.string.coach_profile)
+        bind.topbar.txtTitle.textSize = 22F
     }
 }

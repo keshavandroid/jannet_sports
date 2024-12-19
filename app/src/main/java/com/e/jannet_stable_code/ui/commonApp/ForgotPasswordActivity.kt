@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityForgotPasswordBinding
+import com.e.jannet_stable_code.databinding.ActivityStaticBinding
 import com.e.jannet_stable_code.retrofit.controller.ForgotPasswordControllerr
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
 import com.e.jannet_stable_code.retrofit.controller.IForgotPasswordController
@@ -11,8 +13,6 @@ import com.e.jannet_stable_code.retrofit.forgotpassworddata
 import com.e.jannet_stable_code.ui.BaseActivity
 import com.e.jannet_stable_code.ui.loginRegister.loginScreen.LoginActivity
 import com.e.jannet_stable_code.viewinterface.iForgotPasswordView
-import kotlinx.android.synthetic.main.activity_forgot_password.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class ForgotPasswordActivity : BaseActivity(), iForgotPasswordView {
 
@@ -20,24 +20,26 @@ class ForgotPasswordActivity : BaseActivity(), iForgotPasswordView {
     override fun getController(): IBaseController? {
         return null
     }
+    private lateinit var binding: ActivityForgotPasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forgot_password)
+        //setContentView(R.layout.activity_forgot_password)
+        binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         controller = ForgotPasswordControllerr(this, this)
         setTopBar()
 
-        btnSend.setOnClickListener {
+        binding. btnSend.setOnClickListener {
 
-            if (etxtEmailForgot.text.toString().trim().isEmpty() && etxtEmailForgot.text.toString().trim() == null
-            ) {
-
+            if (binding.etxtEmailForgot.text.toString().trim().isEmpty() && binding.etxtEmailForgot.text.toString().trim() == null
+            )
+            {
                 showToast("Please Enter Email Address")
-            } else {
-
-
-                controller.callForgotPasswordApi(etxtEmailForgot.text.toString().trim())
+            }
+            else {
+                controller.callForgotPasswordApi(binding.etxtEmailForgot.text.toString().trim())
                 showLoader()
             }
 
@@ -48,8 +50,8 @@ class ForgotPasswordActivity : BaseActivity(), iForgotPasswordView {
     fun setTopBar() {
 
 
-        txtTitle.text = "FORGOT PASSWORD"
-        imgBack.setOnClickListener {
+        binding.include.txtTitle.text = "FORGOT PASSWORD"
+        binding.include.imgBack.setOnClickListener {
             onBackPressed()
         }
 

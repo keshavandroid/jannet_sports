@@ -7,6 +7,8 @@ import android.view.View
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.ui.coachApp.CoachMainActivity
 import com.e.jannet_stable_code.adapter.SportsGridListAdapter
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
+import com.e.jannet_stable_code.databinding.ActivitySelectSportsBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.coachsportslistdata.CoachSportsListResult
 import com.e.jannet_stable_code.retrofit.controller.*
@@ -19,8 +21,6 @@ import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.utils.Utilities
 import com.e.jannet_stable_code.viewinterface.ICoachSportsListVIew
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_select_sports.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 import kotlin.Exception
 
 class SelectSportsActivity : BaseActivity(), ICoachSportsListVIew {
@@ -32,15 +32,19 @@ class SelectSportsActivity : BaseActivity(), ICoachSportsListVIew {
     override fun getController(): IBaseController? {
         return null
     }
+    private lateinit var binding: ActivitySelectSportsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_sports)
+        ///setContentView(R.layout.activity_select_sports)
+        binding = ActivitySelectSportsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         coachSportsListCOntroller = CoachSportsListController(this, this)
 
         setTopBar()
 
-        txtFinish.setOnClickListener {
+        binding.txtFinish.setOnClickListener {
 
             if(adapter!=null) {
                 val list=adapter!!.getList()
@@ -137,7 +141,7 @@ class SelectSportsActivity : BaseActivity(), ICoachSportsListVIew {
                     Log.d("sportsGet"," Data : " + GsonBuilder().setPrettyPrinting().create().toJson(data));
 
                     adapter=SportsGridListAdapter(data!!, this@SelectSportsActivity)
-                    rcvSportsGridList.adapter = adapter
+                    binding.rcvSportsGridList.adapter = adapter
 
 
 //                    try {
@@ -177,7 +181,7 @@ class SelectSportsActivity : BaseActivity(), ICoachSportsListVIew {
 
 
                     e.printStackTrace()
-                    rcvSportsGridList.adapter = SportsGridListAdapter(ArrayList(), this@SelectSportsActivity)
+                    binding.rcvSportsGridList.adapter = SportsGridListAdapter(ArrayList(), this@SelectSportsActivity)
                 }
             }
         }).callApi()
@@ -185,12 +189,12 @@ class SelectSportsActivity : BaseActivity(), ICoachSportsListVIew {
     }
 
     private fun setTopBar() {
-        imgBack.setOnClickListener {
+        binding.topBar.imgBack.setOnClickListener {
             onBackPressed()
         }
-        imgLogo.visibility = View.GONE
-        txtTitle.visibility = View.VISIBLE
-        txtTitle.text = resources.getString(R.string.select_sports)
+        binding.topBar.imgLogo.visibility = View.GONE
+        binding.topBar.txtTitle.visibility = View.VISIBLE
+        binding.topBar.txtTitle.text = resources.getString(R.string.select_sports)
     }
 
     override fun onGetSportsListSuccess(response: List<CoachSportsListResult?>?) {
@@ -220,7 +224,7 @@ class SelectSportsActivity : BaseActivity(), ICoachSportsListVIew {
                 }
                 Log.e("TAG", "onGetSportsListSuccess: selected sorts list is ${selectedSportsId[0].getId()}",)
                 adapter=SportsGridListAdapter(data!!, this@SelectSportsActivity)
-                rcvSportsGridList.adapter = adapter
+                binding.rcvSportsGridList.adapter = adapter
             } else{
                 showToast("data list empty")
             }

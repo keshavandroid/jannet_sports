@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
+import com.e.jannet_stable_code.databinding.ActivityUserTypeSelectionBinding
 import com.e.jannet_stable_code.ui.coachApp.CoachMainActivity
 import com.e.jannet_stable_code.ui.loginRegister.loginScreen.LoginActivity
 import com.e.jannet_stable_code.ui.loginRegister.addChildScreen.AddChildActivity
@@ -12,14 +14,16 @@ import com.e.jannet_stable_code.ui.parentsApp.ParentsMainActivity
 import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
-import kotlinx.android.synthetic.main.activity_user_type_selection.*
 
 class UserTypeSelectionActivity : AppCompatActivity() {
     private val TAG = "UserTypeSelectionActivi"
+    private lateinit var binding: ActivityUserTypeSelectionBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_type_selection)
-
+       // setContentView(R.layout.activity_user_type_selection)
+        binding = ActivityUserTypeSelectionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Log.d(TAG, "onCreate: test>>>" + isUserLoggedIn())
 
@@ -111,7 +115,7 @@ class UserTypeSelectionActivity : AppCompatActivity() {
     }
 
     private fun initiateUI() {
-        txtParticipant.setOnClickListener {
+        binding.txtParticipant.setOnClickListener {
             startActivity(
                 Intent(
                     this@UserTypeSelectionActivity,
@@ -121,7 +125,7 @@ class UserTypeSelectionActivity : AppCompatActivity() {
                 )
             )
         }
-        txtCoach.setOnClickListener {
+        binding.txtCoach.setOnClickListener {
             startActivity(
                 Intent(
                     this@UserTypeSelectionActivity,
@@ -132,7 +136,7 @@ class UserTypeSelectionActivity : AppCompatActivity() {
             )
         }
 
-        txtChild.setOnClickListener {
+        binding.txtChild.setOnClickListener {
             startActivity(
                     Intent(
                             this@UserTypeSelectionActivity,
@@ -143,7 +147,7 @@ class UserTypeSelectionActivity : AppCompatActivity() {
             )
         }
 
-        txtAdult.setOnClickListener {
+        binding.txtAdult.setOnClickListener {
             startActivity(
                 Intent(
                     this@UserTypeSelectionActivity,

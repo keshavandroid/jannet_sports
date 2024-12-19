@@ -8,6 +8,8 @@ import androidx.core.view.isVisible
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.NonParticipentSelectionListAdapter
 import com.e.jannet_stable_code.adapter.TicketsAdapter
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
+import com.e.jannet_stable_code.databinding.ActivityTickitsCoachBinding
 import com.e.jannet_stable_code.retrofit.controller.GetTicketController
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
 import com.e.jannet_stable_code.retrofit.controller.IGetTicketsCOntroller
@@ -16,9 +18,6 @@ import com.e.jannet_stable_code.ui.BaseActivity
 import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IGetTicketsView
-import kotlinx.android.synthetic.main.activity_add_participant.*
-import kotlinx.android.synthetic.main.activity_tickits_coach.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
 class TickitsActivityCoach : BaseActivity(),IGetTicketsView {
 
@@ -26,15 +25,18 @@ class TickitsActivityCoach : BaseActivity(),IGetTicketsView {
     override fun getController(): IBaseController? {
         return null
     }
+    private lateinit var bind: ActivityTickitsCoachBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tickits_coach)
+       // setContentView(R.layout.activity_tickits_coach)
+        bind = ActivityTickitsCoachBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
-        txtTitle.text = "TICKETS"
-        imgEdit.isGone=true
-        imgBack.visibility= View.VISIBLE
-        imgBack.setOnClickListener { finish() }
+        bind.topbar.txtTitle.text = "TICKETS"
+        bind.topbar.imgEdit.isGone=true
+        bind.topbar.imgBack.visibility= View.VISIBLE
+        bind.topbar.imgBack.setOnClickListener { finish() }
 
         var storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
@@ -56,7 +58,7 @@ class TickitsActivityCoach : BaseActivity(),IGetTicketsView {
         hideLoader()
 
         var TicketsAdapter = TicketsAdapter(this, response!!)
-        rv_ticket_list.adapter = TicketsAdapter
+        bind.rvTicketList.adapter = TicketsAdapter
         TicketsAdapter.notifyDataSetChanged()
 
     }

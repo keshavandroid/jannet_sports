@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.MatchListAdapter
 import com.e.jannet_stable_code.adapter.TeamListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddedMatchlistBinding
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.matchlistdata.MatchListResult
 import com.e.jannet_stable_code.ui.BaseActivity
@@ -22,14 +24,18 @@ class AddedMatchlistActivity : BaseActivity(), IMatchListView,
     IDeleteMacthView {
     lateinit var controller: IMatchListController
     lateinit var deleteMatchController: IDeleteMatchController
+    private lateinit var binding: ActivityAddedMatchlistBinding
+
     override fun getController(): IBaseController? {
         return null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_added_matchlist)
 
+       // setContentView(R.layout.activity_added_matchlist)
+        binding = ActivityAddedMatchlistBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         var storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
@@ -39,13 +45,14 @@ class AddedMatchlistActivity : BaseActivity(), IMatchListView,
         deleteMatchController = DeleteMatchCOntroller(this, this)
         controller.callMatchListApi(id, token, eventid.toString())
         showLoader()
-        txtTitle.text = "MATCH LIST"
-        imgBack.setOnClickListener {
+
+        binding.topbarAddedMatch.txtTitle.text = "MATCH LIST"
+        binding.topbarAddedMatch.imgBack.setOnClickListener {
 
             onBackPressed()
         }
 
-        txtAdd_new_match.setOnClickListener {
+        binding.txtAddNewMatch.setOnClickListener {
 
             val intent = Intent(this, AddMatchFActivity::class.java)
             intent.putExtra("EVENT_ID", eventid)
@@ -53,7 +60,7 @@ class AddedMatchlistActivity : BaseActivity(), IMatchListView,
             finish()
         }
 
-        txtDone_match.setOnClickListener {
+        binding.txtDoneMatch.setOnClickListener {
 
             val event_id = intent.getStringExtra("EVENT_ID")
             val intent = Intent(
@@ -69,7 +76,7 @@ class AddedMatchlistActivity : BaseActivity(), IMatchListView,
     override fun onMatchListSuccess(response: ArrayList<MatchListResult?>?) {
 
         var MatchAdapger = MatchListAdapter(this, response)
-        rv_match_list.adapter = MatchAdapger
+        binding.rvMatchList.adapter = MatchAdapger
         MatchAdapger.iEditClickListner = this
         MatchAdapger.iDeleteClickListner = this
         MatchAdapger.notifyDataSetChanged()

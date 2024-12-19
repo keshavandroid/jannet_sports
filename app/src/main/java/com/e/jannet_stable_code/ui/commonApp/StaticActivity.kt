@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
+import com.e.jannet_stable_code.databinding.ActivityStaticBinding
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
 import com.e.jannet_stable_code.retrofit.controller.IStaticDataController
 import com.e.jannet_stable_code.retrofit.controller.StaticDataController
@@ -14,13 +16,12 @@ import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IStaticPageView
-import kotlinx.android.synthetic.main.activity_static.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 import java.util.*
 
 class StaticActivity : BaseActivity(), IStaticPageView {
     private var type = "user_id"
     lateinit var controller: IStaticDataController
+    private lateinit var binding: ActivityStaticBinding
 
     companion object {
         fun newIntent(context: Context, type: String): Intent {
@@ -37,7 +38,10 @@ class StaticActivity : BaseActivity(), IStaticPageView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_static)
+     //   setContentView(R.layout.activity_static)
+
+        binding = ActivityStaticBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val id = SharedPrefUserData(this).getSavedData().id
         val token = SharedPrefUserData(this).getSavedData().token
@@ -61,7 +65,7 @@ class StaticActivity : BaseActivity(), IStaticPageView {
 //            })
 
 
-            txtPrivacy.text = "Privacy Policy for X-Trane\n" +
+            binding.txtPrivacy.text = "Privacy Policy for X-Trane\n" +
                     "Effective Date: October 9th 2024\n" +
                     "\n" +
                     "Thank you for choosing X-Trane. This Privacy Policy explains how we collect, use, and protect your personal information when you use our mobile application (the \"App\"). We are committed to protecting your privacy and ensuring that your personal data is handled securely and responsibly.\n" +
@@ -146,19 +150,19 @@ class StaticActivity : BaseActivity(), IStaticPageView {
     }
 
     private fun setTopBar() {
-        txtTitle.visibility = View.VISIBLE
-        imgBack.visibility = View.GONE
-        closeBack.visibility = View.VISIBLE
+        binding.topbar.txtTitle.visibility = View.VISIBLE
+        binding.topbar.imgBack.visibility = View.GONE
+        binding.topbar.closeBack.visibility = View.VISIBLE
 
         var title = type
 
         if(title.equals("privacy")){
-            txtTitle.text = "Privacy Policy"
+            binding.topbar.txtTitle.text = "Privacy Policy"
         }else if (title.equals("terms")){
-            txtTitle.text = "Terms and Conditions"
+            binding.topbar.txtTitle.text = "Terms and Conditions"
         }
 
-        closeBack.setOnClickListener {
+        binding.topbar.closeBack.setOnClickListener {
             onBackPressed()
         }
     }
@@ -167,8 +171,8 @@ class StaticActivity : BaseActivity(), IStaticPageView {
         hideLoader()
 
 
-        txtTitle.text = Response.getTitle().toString()
-        txtPrivacy.text = Response.getContent().toString()
+        binding.topbar.txtTitle.text = Response.getTitle().toString()
+        binding.txtPrivacy.text = Response.getContent().toString()
 
 
 

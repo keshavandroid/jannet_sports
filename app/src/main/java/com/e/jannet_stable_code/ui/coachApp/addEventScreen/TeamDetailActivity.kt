@@ -7,6 +7,8 @@ import android.util.Log
 import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
+import com.e.jannet_stable_code.databinding.ActivityTeamDetailBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.teamdetaildata.TeamDetailResult
 import com.e.jannet_stable_code.ui.BaseActivity
@@ -16,8 +18,7 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IDeleteTeamView
 import com.e.jannet_stable_code.viewinterface.TeamDetailView
-import kotlinx.android.synthetic.main.activity_team_detail.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
     lateinit var controller: ITeamDetailController
@@ -27,10 +28,13 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
     override fun getController(): IBaseController? {
         return null
     }
+    private lateinit var bind: ActivityTeamDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_team_detail)
+      // setContentView(R.layout.activity_team_detail)
+        bind = ActivityTeamDetailBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
         var storeData = StoreUserData(this)
         id = storeData.getString(Constants.COACH_ID)
@@ -42,8 +46,8 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
         val team_image = intent.getStringExtra("TEAM_Image")
 
 
-        txtTitle.text = "TEAM Detail"
-        imgBack.setOnClickListener {
+        bind.teamDetail.txtTitle.text = "TEAM Detail"
+        bind.teamDetail.imgBack.setOnClickListener {
 
             onBackPressed()
             finish()
@@ -59,9 +63,9 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
         if (storeData.getString(Constants.COACH_ID)
                 .trim() == null || storeData.getString(Constants.COACH_ID).trim().isEmpty()
         ) {
-            iv_edit_team_event_detail.isGone = true
-            iv_delete_team_event_detail.isGone = true
-            tv_participent.isGone = true
+            bind.ivEditTeamEventDetail.isGone = true
+            bind.ivDeleteTeamEventDetail.isGone = true
+            bind.tvParticipent.isGone = true
 
             val data = SharedPrefUserData(this).getSavedData()
 
@@ -76,7 +80,7 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
         }
         deleteTeamController = DeleteTeamCOntroller(this, this)
 
-        tv_participent.setOnClickListener {
+        bind.tvParticipent.setOnClickListener {
             val intent = Intent(this, AddMemberInTeamActivity::class.java)
 //            intent.putExtra("EVENT_ID", eventid.toString())
 //            intent.putExtra("TEAM_ID", team_id.toString())
@@ -86,7 +90,7 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
         }
 
 
-        iv_edit_team_event_detail.setOnClickListener {
+        bind.ivEditTeamEventDetail.setOnClickListener {
 
             val event_id = intent.getStringExtra("EVENT_ID")
             val teamId = intent.getStringExtra("TEAM_ID")
@@ -108,7 +112,7 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
 
         }
 
-        iv_delete_team_event_detail.setOnClickListener {
+        bind.ivDeleteTeamEventDetail.setOnClickListener {
 
             showLoader()
             var storeData = StoreUserData(this)
@@ -129,10 +133,10 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
     override fun onTeamDetailSuccess(response: List<TeamDetailResult?>?) {
 
         hideLoader()
-        tv_team_name_event_detail.text = response!![0]!!.getTeamName().toString()
-        tv_sports_type_team_Detail.text = response!![0]!!.getSportsName().toString()
-        tv_participent_team_detail.text = response!![0]!!.getParticipants().toString()
-        tv_team_detail_description.text = response!![0]!!.getDescription().toString()
+        bind.tvTeamNameEventDetail.text = response!![0]!!.getTeamName().toString()
+        bind.tv_sports_type_team_Detail.text = response!![0]!!.getSportsName().toString()
+        bind.tv_participent_team_detail.text = response!![0]!!.getParticipants().toString()
+        bind.tv_team_detail_description.text = response!![0]!!.getDescription().toString()
 
         Glide.with(this)
             .load(response!![0]!!.getImage())

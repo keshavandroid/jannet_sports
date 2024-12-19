@@ -4,16 +4,22 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.e.jannet_stable_code.R
-import kotlinx.android.synthetic.main.activity_teams_detail_and_add_participent.*
+import com.e.jannet_stable_code.databinding.ActivityTeamsDetailAndAddParticipentBinding
+import com.e.jannet_stable_code.databinding.ActivityTickitsCoachBinding
 
 class TeamsDetailAndAddParticipentActivity : AppCompatActivity() {
+
+    private lateinit var bind: ActivityTeamsDetailAndAddParticipentBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_teams_detail_and_add_participent)
+        //setContentView(R.layout.activity_teams_detail_and_add_participent)
+        bind = ActivityTeamsDetailAndAddParticipentBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
 
-
-        tv_add_member.setOnClickListener {
+        bind.tvAddMember.setOnClickListener {
 
 
             val eventid = intent.getStringExtra("EVENT_ID")
@@ -27,7 +33,7 @@ class TeamsDetailAndAddParticipentActivity : AppCompatActivity() {
         }
 
 
-        tv_view_detail.setOnClickListener {
+        bind.tvViewDetail.setOnClickListener {
 
             val eventid = intent.getStringExtra("EVENT_ID")
             val team_id = intent.getStringExtra("TEAM_ID")

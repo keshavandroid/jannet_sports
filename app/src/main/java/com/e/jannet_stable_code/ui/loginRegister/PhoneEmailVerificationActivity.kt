@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.view.View
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.utils.Constants
-import kotlinx.android.synthetic.main.activity_phone_email_varification.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 import android.text.Editable
 
 import android.text.TextWatcher
@@ -18,6 +16,8 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.e.jannet_stable_code.databinding.ActivityMatchListBinding
+import com.e.jannet_stable_code.databinding.ActivityPhoneEmailVarificationBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.controller.CheckPhEmailOtpController
 import com.e.jannet_stable_code.retrofit.controller.SendPhEmailOtpController
@@ -37,11 +37,14 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
     var email=""
     var id = ""
     var phone = ""
+    private lateinit var binding: ActivityPhoneEmailVarificationBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_email_varification)
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-
+        binding = ActivityPhoneEmailVarificationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setTopBar()
         setClicks()
@@ -88,8 +91,8 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
                         phoneOtp = resp.getPhoneOtp().toString()
 
 
-                        txtPhoneOtp.text = phoneOtp
-                        txtEmailOtp.text = emailOtp
+                        binding.txtPhoneOtp.text = phoneOtp
+                        binding.txtEmailOtp.text = emailOtp
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -99,7 +102,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
         Log.d(TAG, "continueFlow: test>>"+SharedPrefUserData(this).getSavedData().usertype)
 
 
-        tv_resend_Code_phone.setOnClickListener {
+        binding.tvResendCodePhone.setOnClickListener {
 
             SendPhEmailOtpController(
                 context = this,
@@ -119,7 +122,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
                             phoneOtp = resp.getPhoneOtp().toString()
 
 
-                            txtPhoneOtp.text = phoneOtp
+                            binding.txtPhoneOtp.text = phoneOtp
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
@@ -129,7 +132,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
 
         }
 
-        tv_resend_code_email.setOnClickListener {
+        binding.tvResendCodeEmail.setOnClickListener {
 
 
             SendPhEmailOtpController(
@@ -150,7 +153,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
                             phoneOtp = resp.getPhoneOtp().toString()
 
 
-                            txtEmailOtp.text = emailOtp
+                            binding.txtEmailOtp.text = emailOtp
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
@@ -166,15 +169,15 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
 
 
     private fun setOtpInputs() {
-        singleInputStyle(null, etxtNo1, etxtNo2, 1)
-        singleInputStyle(etxtNo1, etxtNo2, etxtNo3, 1)
-        singleInputStyle(etxtNo2, etxtNo3, etxtNo4, 1)
-        singleInputStyle(etxtNo3, etxtNo4, null, 1)
+        singleInputStyle(null, binding.etxtNo1, binding.etxtNo2, 1)
+        singleInputStyle(binding.etxtNo1, binding.etxtNo2, binding.etxtNo3, 1)
+        singleInputStyle(binding.etxtNo2, binding.etxtNo3, binding.etxtNo4, 1)
+        singleInputStyle(binding.etxtNo3, binding.etxtNo4, null, 1)
 
-        singleInputStyle(null, etxtNo11, etxtNo12, 2)
-        singleInputStyle(etxtNo11, etxtNo12, etxtNo13, 2)
-        singleInputStyle(etxtNo12, etxtNo13, etxtNo14, 2)
-        singleInputStyle(etxtNo13, etxtNo14, null, 2)
+        singleInputStyle(null, binding.etxtNo11, binding.etxtNo12, 2)
+        singleInputStyle(binding.etxtNo11, binding.etxtNo12, binding.etxtNo13, 2)
+        singleInputStyle(binding.etxtNo12, binding.etxtNo13, binding.etxtNo14, 2)
+        singleInputStyle(binding.etxtNo13, binding.etxtNo14, null, 2)
     }
 
     private fun singleInputStyle(
@@ -207,10 +210,10 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setClicks() {
 
-        txtVerifyEmail.isEnabled=false
-        txtVerifyEmail.isClickable=false
-        txtVerifyEmail.setOnClickListener { txtVerifyPh.performClick() }
-        txtVerifyPh.setOnClickListener {
+        binding.txtVerifyEmail.isEnabled=false
+        binding.txtVerifyEmail.isClickable=false
+        binding.txtVerifyEmail.setOnClickListener { binding.txtVerifyPh.performClick() }
+        binding.txtVerifyPh.setOnClickListener {
             if (phoneVarified) {
                 Utilities.showToast(this, "Phone number already verified.")
                 continueFlow()
@@ -218,7 +221,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
             }
 
             val otpPhone =
-                etxtNo1.text.toString() + etxtNo2.text.toString() + etxtNo3.text.toString() + etxtNo4.text.toString()
+                binding.etxtNo1.text.toString() + binding.etxtNo2.text.toString() + binding.etxtNo3.text.toString() + binding.etxtNo4.text.toString()
             when {
                 otpPhone.length < 4 -> Utilities.showToast(
                     this,
@@ -227,17 +230,17 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
                 otpPhone != phoneOtp -> Utilities.showToast(this, "Incorrect Otp.")
                 else -> {
                     phoneVarified=true
-                    txtVerifyPh.text="Verified"
+                    binding.txtVerifyPh.text="Verified"
                     Utilities.showToast(this, "Phone number verified successfully.")
                     continueFlow()
-                    txtVerifyPh.isEnabled=false
-                    txtVerifyPh.isClickable = false
-                    tv_resend_Code_phone.isEnabled = false
-                    tv_resend_Code_phone.visibility = View.GONE
-                    tv_resend_Code_phone.isClickable = false
+                    binding.txtVerifyPh.isEnabled=false
+                    binding.txtVerifyPh.isClickable = false
+                    binding.tvResendCodePhone.isEnabled = false
+                    binding.tvResendCodePhone.visibility = View.GONE
+                    binding.tvResendCodePhone.isClickable = false
 
-                    txtVerifyEmail.isEnabled=true
-                    txtVerifyEmail.isClickable=true
+                    binding.txtVerifyEmail.isEnabled=true
+                    binding.txtVerifyEmail.isClickable=true
 //                    val storData = StoreUserData(this)
 //                    val email = storData.getString(Constants.COACH_Email)
 //                    val phone = storData.getString(Constants.COACH_PHONE)
@@ -261,7 +264,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
                                     phoneOtp = resp.getPhoneOtp().toString()
 
 
-                                    txtEmailOtp.text = emailOtp
+                                    binding.txtEmailOtp.text = emailOtp
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
@@ -272,14 +275,14 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
                 }
             }
         }
-        txtVerifyEmail.setOnClickListener {
+        binding.txtVerifyEmail.setOnClickListener {
             if (emailVarified) {
                 Utilities.showToast(this, "Email already verified.")
                 continueFlow()
                 return@setOnClickListener
             }
             val otpEmail =
-                etxtNo11.text.toString() + etxtNo12.text.toString() + etxtNo13.text.toString() + etxtNo14.text.toString()
+                binding.etxtNo11.text.toString() + binding.etxtNo12.text.toString() + binding.etxtNo13.text.toString() + binding.etxtNo14.text.toString()
             when {
                 otpEmail.length < 4 -> Utilities.showToast(
                     this,
@@ -288,7 +291,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
                 otpEmail != emailOtp -> Utilities.showToast(this, "Incorrect Otp.")
                 else -> {
                     emailVarified=true
-                    txtVerifyEmail.text="Verified"
+                    binding.txtVerifyEmail.text="Verified"
                     Utilities.showToast(this, "Email verified successfully.")
                     continueFlow()
                 }
@@ -356,12 +359,12 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
     }
 
     private fun setTopBar() {
-        imgBack.setOnClickListener {
+        binding.topBar.imgBack.setOnClickListener {
             onBackPressed()
         }
-        imgLogo.visibility = View.GONE
-        txtTitle.visibility = View.VISIBLE
-        txtTitle.text = resources.getString(R.string.verification)
+        binding.topBar.imgLogo.visibility = View.GONE
+        binding.topBar.txtTitle.visibility = View.VISIBLE
+        binding.topBar.txtTitle.text = resources.getString(R.string.verification)
     }
 
     fun Fragment.hideKeyboard() {
