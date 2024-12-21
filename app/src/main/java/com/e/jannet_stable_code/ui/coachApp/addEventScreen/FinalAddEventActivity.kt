@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.MatchListAdapter
 import com.e.jannet_stable_code.adapter.MatchPriceAdapter
+import com.e.jannet_stable_code.databinding.ActivityEditMatchBinding
+import com.e.jannet_stable_code.databinding.ActivityFinalAddEventBinding
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
 import com.e.jannet_stable_code.retrofit.controller.IMatchListController
 import com.e.jannet_stable_code.retrofit.controller.MatchListController
@@ -18,12 +20,11 @@ import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IMatchListView
-import kotlinx.android.synthetic.main.activity_added_matchlist.*
-import kotlinx.android.synthetic.main.activity_final_add_event.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class FinalAddEventActivity : BaseActivity(), IMatchListView {
     lateinit var controller: IMatchListController
+    private lateinit var bind: ActivityFinalAddEventBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -31,7 +32,9 @@ class FinalAddEventActivity : BaseActivity(), IMatchListView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_final_add_event)
+        //setContentView(R.layout.activity_final_add_event)
+        bind = ActivityFinalAddEventBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
         var storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
@@ -43,8 +46,8 @@ class FinalAddEventActivity : BaseActivity(), IMatchListView {
         showLoader()
 
 
-        txtTitle.text = "ADD MATCH PRICE"
-        imgBack.setOnClickListener {
+        bind.topbarAddedMatch.txtTitle.text = "ADD MATCH PRICE"
+        bind.topbarAddedMatch.imgBack.setOnClickListener {
 
             val eventId = intent.getStringExtra("EVENT_ID")
 
@@ -54,10 +57,10 @@ class FinalAddEventActivity : BaseActivity(), IMatchListView {
             finish()
         }
 
-        txt_finish_event.setOnClickListener {
+        bind.txtFinishEvent.setOnClickListener {
 
             showLoader()
-            txt_finish_event.postDelayed({
+            bind.txtFinishEvent.postDelayed({
 
                 val intent = Intent(this, CoachMainActivity::class.java)
                 startActivity(intent)
@@ -73,7 +76,7 @@ class FinalAddEventActivity : BaseActivity(), IMatchListView {
         hideLoader()
 
         var MatchAdapger = MatchPriceAdapter(this, response)
-        rv_add_match_price_list.adapter = MatchAdapger
+        bind.rvAddMatchPriceList.adapter = MatchAdapger
         MatchAdapger.notifyDataSetChanged()
 
 

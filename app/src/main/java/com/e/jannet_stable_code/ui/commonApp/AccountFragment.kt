@@ -4,11 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.FragmentAccountBinding
+import com.e.jannet_stable_code.databinding.FragmentMatchBinding
 import com.e.jannet_stable_code.ui.coachApp.CoachMainActivity
 import com.e.jannet_stable_code.ui.coachApp.coachUpdateProfileScreen.CoachUpdateProfileActivity
 import com.e.jannet_stable_code.ui.loginRegister.SelectSportsActivity
@@ -21,12 +25,22 @@ import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.Dialogs
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
-import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 import kotlin.math.log
 
 
 class AccountFragment : Fragment(R.layout.fragment_account) {
+    private lateinit var binding: FragmentAccountBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentAccountBinding.inflate(layoutInflater)
+        return binding.root
+//        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,27 +68,27 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         //new logic
         if(userType.isNotEmpty()){
             if (userType.equals("coach")){
-                llevent_register_request.isVisible = true
-                ll_ticket_booking_request.isVisible = true
-                llselectSports.isVisible = true
+                binding.lleventRegisterRequest.isVisible = true
+                binding.llTicketBookingRequest.isVisible = true
+                binding.llselectSports.isVisible = true
             }else if (userType.equals("child")){
-                llselectSports.isGone = true
-                llevent_register_request.isGone = true
-                ll_ticket_booking_request.isGone = true
+                binding.llselectSports.isGone = true
+                binding.lleventRegisterRequest.isGone = true
+                binding.llTicketBookingRequest.isGone = true
             }else if (userType.equals("parent")){
-                llselectSports.isGone=true
-                llevent_register_request.isVisible = true
-                ll_ticket_booking_request.isVisible = true
+                binding.llselectSports.isGone=true
+                binding.lleventRegisterRequest.isVisible = true
+                binding.llTicketBookingRequest.isVisible = true
             }else if(userType.equals("adult")){
-                llselectSports.isGone=true
-                llevent_register_request.isGone = true
-                ll_ticket_booking_request.isGone = true
+                binding.llselectSports.isGone=true
+                binding.lleventRegisterRequest.isGone = true
+                binding.llTicketBookingRequest.isGone = true
             }
         }
 
 
 
-        llselectSports.setOnClickListener {
+        binding.llselectSports.setOnClickListener {
 
             val intent = Intent(requireActivity(), SelectSportsActivity::class.java)
             intent.putExtra("COACH","coach")
@@ -82,7 +96,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
         }
 
-        llChangePwd.setOnClickListener {
+        binding.llChangePwd.setOnClickListener {
             startActivity(
                 Intent(
                     requireActivity(),
@@ -90,7 +104,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 )
             )
         }
-        llProfile.setOnClickListener {
+        binding.llProfile.setOnClickListener {
             val storData = StoreUserData(requireContext())
 
             if (storData.getString(Constants.COACH_ID).trim().isEmpty() || storData.getString(
@@ -143,7 +157,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
         }
 
-        llNotifications.setOnClickListener {
+        binding.llNotifications.setOnClickListener {
             startActivity(
                     Intent(
                             requireActivity(),
@@ -152,7 +166,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             )
         }
 
-        llLogout.setOnClickListener {
+        binding.llLogout.setOnClickListener {
             Dialogs.showImageYesNoDialog(requireActivity(), object : Dialogs.DialogResp {
                 override fun myDialogResponse(string: String, string1: String) {
                     if (string == "yes") {
@@ -174,17 +188,17 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             })
 
         }
-        llPrivacyPolicy.setOnClickListener {
+        binding.llPrivacyPolicy.setOnClickListener {
             startActivity(StaticActivity.newIntent(requireContext(), "privacy"))
         }
 
-        llTermsCondition.setOnClickListener {
+        binding.llTermsCondition.setOnClickListener {
             startActivity(StaticActivity.newIntent(requireContext(), "terms"))
 
 
         }
 
-        llContactUs.setOnClickListener {
+        binding.llContactUs.setOnClickListener {
 
             val intent = Intent(
                 Intent.ACTION_SENDTO, Uri.fromParts(
@@ -196,24 +210,24 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
         }
 
-        llevent_register_request.setOnClickListener {
+        binding.lleventRegisterRequest.setOnClickListener {
 
             val intent = Intent(requireContext(),EventRegisterRequestActivity::class.java)
             startActivity(intent)
         }
 
-        ll_ticket_booking_request.setOnClickListener {
+        binding.llTicketBookingRequest.setOnClickListener {
             val intent = Intent(requireContext(),TicketBookingRequest::class.java)
             startActivity(intent)
         }
     }
 
     private fun setTopBar() {
-        txtTitle.visibility = View.GONE
-        imgBack.visibility = View.GONE
-        closeBack.visibility = View.VISIBLE
+        binding.topBar.txtTitle.visibility = View.GONE
+        binding.topBar.imgBack.visibility = View.GONE
+        binding.topBar.closeBack.visibility = View.VISIBLE
 
-        closeBack.setOnClickListener {
+        binding.topBar.closeBack.setOnClickListener {
 
             try {
                 (requireActivity() as ParentsMainActivity).onBackPressed()

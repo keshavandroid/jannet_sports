@@ -84,7 +84,9 @@ class EventDetailController(var context: Activity, internal var controllerInterf
                         Utilities.showToast(context, response.getMessage())
                         controllerInterface.onFail(response.getMessage())
                     }
-                } catch (e: Exception) {
+                }
+                catch (e: Exception) {
+                    Utilities.dismissProgress()
                     Log.d(TAG, "onSuccess: insuccess>>" + e.message + "<")
                     Utilities.showToast(context, "Something went wrong.")
                     e.printStackTrace()

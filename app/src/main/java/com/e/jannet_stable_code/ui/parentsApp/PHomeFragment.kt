@@ -11,12 +11,14 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.CustomListLocationDialogAdapter
 import com.e.jannet_stable_code.adapter.CustomListViewDialogAdapter
 import com.e.jannet_stable_code.adapter.ParticipentListAdapter
+import com.e.jannet_stable_code.databinding.FragmentHomeParentBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.coachsportslistdata.CoachSportsListResult
 import com.e.jannet_stable_code.retrofit.controller.*
@@ -33,10 +35,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 
-import org.json.JSONObject
 
-
-class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IGetSportView,
+class PHomeFragment : Fragment(), ILocationView, IGetSportView,
     IAddMatchView {
     var sportsListTop = ArrayList<SportsListResponse.Result>()
     var sportsListStings = ArrayList<String>()
@@ -60,6 +60,19 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
 
     var newToken: String? = null
 
+    private lateinit var binding: FragmentHomeParentBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+
+        binding = FragmentHomeParentBinding.inflate(layoutInflater)
+        return binding.root
+
+        // return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -89,15 +102,14 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
 
 
         //DEVICE REGISTER FOR PUSH NOTIFICATION
-            Handler().postDelayed({
-                callDeviceRegister(id, email)
-            }, 5000)
+        Handler().postDelayed({
+            callDeviceRegister(id, email)
+        }, 5000)
 
 
     }
 
     private fun callDeviceRegister(id: String, email: String) {
-
 
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token: String? ->
@@ -107,8 +119,7 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
             } else {
                 /*Log.w(TAG, "token should not be null...");*/
             }
-        }.addOnFailureListener {
-                e: java.lang.Exception? ->
+        }.addOnFailureListener { e: java.lang.Exception? ->
 
         }.addOnCanceledListener {
 
@@ -119,7 +130,10 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
             try {
 
 
-                val deviceID = Settings.Secure.getString(requireActivity().contentResolver, Settings.Secure.ANDROID_ID)
+                val deviceID = Settings.Secure.getString(
+                    requireActivity().contentResolver,
+                    Settings.Secure.ANDROID_ID
+                )
                 Log.d("FireToken", "TOKEN : " + newToken + "  deviceID :" + deviceID)
 
 //                 jsonObject.put("regId", newToken)
@@ -127,7 +141,7 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
 //                 jsonObject.put("device_id", deviceID)
 //                 jsonObject.put("email", email)
 
-                deviceRegisterController.callDeviceRegister(newToken!!,id,deviceID,email)
+                deviceRegisterController.callDeviceRegister(newToken!!, id, deviceID, email)
 
 
             } catch (e: java.lang.Exception) {
@@ -173,115 +187,115 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
             }).callApi()
         } else {
             PFilterEventListController(
-                    requireActivity(),
-                    strIDSports1,
-                    strIDLocation1,
-                    object : ControllerInterface {
-                        override fun onFail(error: String?) {
+                requireActivity(),
+                strIDSports1,
+                strIDLocation1,
+                object : ControllerInterface {
+                    override fun onFail(error: String?) {
 
-                        }
+                    }
 
-                        override fun <T> onSuccess(response: T, method: String) {
-                            try {
+                    override fun <T> onSuccess(response: T, method: String) {
+                        try {
 
-                                val resp = response as EventListResponse
-                                val respon: EventListResponse = EventListResponse()
-                                if (resp.getResult() == null) {
-                                    editor!!.clear()
-                                    editor!!.commit()
-                                    strIDLocation = "";
-                                    strIDSports = "";
-                                    for (i in 0..sportsResponse!!.size - 1) {
-                                        if (sportsResponse!!.get(i)!!.isCheck.equals("1")) {
-                                            sportsResponse!!.get(i)!!.isCheck = "0"
-                                        }
+                            val resp = response as EventListResponse
+                            val respon: EventListResponse = EventListResponse()
+                            if (resp.getResult() == null) {
+                                editor!!.clear()
+                                editor!!.commit()
+                                strIDLocation = "";
+                                strIDSports = "";
+                                for (i in 0..sportsResponse!!.size - 1) {
+                                    if (sportsResponse!!.get(i)!!.isCheck.equals("1")) {
+                                        sportsResponse!!.get(i)!!.isCheck = "0"
                                     }
-                                    for (i in 0..locationResponse!!.size - 1) {
-                                        if (locationResponse!!.get(i)!!.getisCheck().equals("1")) {
-                                            locationResponse!!.get(i)!!.setisCheck("0")
-                                        }
-                                    }
-                                    rcvEventList.visibility = View.GONE
-                                    var dialog =
-                                            Dialog(requireActivity(), R.style.MyBottomSheetDialogTheme)
-                                    val dialogview = LayoutInflater.from(context)
-                                            .inflate(R.layout.dlg_confirm, null, false)
-                                    val tv_title = dialogview.findViewById<TextView>(R.id.tv_title)
-                                    val tv_ok = dialogview.findViewById<TextView>(R.id.tv_ok)
-                                    tv_title.setText(R.string.NoEventFound)
-                                    tv_ok.setOnClickListener(View.OnClickListener {
-                                        dialog.dismiss()
-
-                                        PFilterEventListController(
-                                                requireActivity(),
-                                                "",
-                                                "",
-                                                object : ControllerInterface {
-                                                    override fun onFail(error: String?) {
-                                                    }
-
-                                                    override fun <T> onSuccess(
-                                                            response: T,
-                                                            method: String
-                                                    ) {
-                                                        try {
-                                                            rcvEventList.visibility = View.VISIBLE
-                                                            val resp = response as EventListResponse
-                                                            setListAdapter(resp.getResult()!!.reversed())
-                                                        } catch (e: Exception) {
-                                                            e.printStackTrace()
-                                                        }
-                                                    }
-                                                }).callApi()
-                                    })
-                                    dialog?.setCancelable(true)
-                                    dialog?.setContentView(dialogview)
-                                    dialog?.show()
-
-                                } else {
-
-                                    setListAdapter(resp.getResult()!!.reversed())
-
                                 }
+                                for (i in 0..locationResponse!!.size - 1) {
+                                    if (locationResponse!!.get(i)!!.getisCheck().equals("1")) {
+                                        locationResponse!!.get(i)!!.setisCheck("0")
+                                    }
+                                }
+                                binding.rcvEventList.visibility = View.GONE
+                                var dialog =
+                                    Dialog(requireActivity(), R.style.MyBottomSheetDialogTheme)
+                                val dialogview = LayoutInflater.from(context)
+                                    .inflate(R.layout.dlg_confirm, null, false)
+                                val tv_title = dialogview.findViewById<TextView>(R.id.tv_title)
+                                val tv_ok = dialogview.findViewById<TextView>(R.id.tv_ok)
+                                tv_title.setText(R.string.NoEventFound)
+                                tv_ok.setOnClickListener(View.OnClickListener {
+                                    dialog.dismiss()
 
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+                                    PFilterEventListController(
+                                        requireActivity(),
+                                        "",
+                                        "",
+                                        object : ControllerInterface {
+                                            override fun onFail(error: String?) {
+                                            }
+
+                                            override fun <T> onSuccess(
+                                                response: T,
+                                                method: String,
+                                            ) {
+                                                try {
+                                                    binding.rcvEventList.visibility = View.VISIBLE
+                                                    val resp = response as EventListResponse
+                                                    setListAdapter(resp.getResult()!!.reversed())
+                                                } catch (e: Exception) {
+                                                    e.printStackTrace()
+                                                }
+                                            }
+                                        }).callApi()
+                                })
+                                dialog?.setCancelable(true)
+                                dialog?.setContentView(dialogview)
+                                dialog?.show()
+
+                            } else {
+
+                                setListAdapter(resp.getResult()!!.reversed())
+
                             }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
-                    }).callApi()
+                    }
+                }).callApi()
         }
 
     }
 
     private fun setListAdapter(result: List<EventListResponse.Result?>) {
-        rcvEventList.adapter = ParticipentListAdapter(
-                result,
-                requireActivity(),
-                object : ParticipentListAdapter.AdapterListInterface {
-                    override fun onItemSelected(position: Int, data: EventListResponse.Result?) {
+        binding.rcvEventList.adapter = ParticipentListAdapter(
+            result,
+            requireActivity(),
+            object : ParticipentListAdapter.AdapterListInterface {
+                override fun onItemSelected(position: Int, data: EventListResponse.Result?) {
 
-                        startActivity(
-                                Intent(
-                                        requireActivity(),
-                                        EventDetailsActivity::class.java
-                                ).putExtra("from", "home")
-                                        .putExtra("eventId", data?.getId().toString())
-                                        .putExtra("fees", data!!.getFees())
-                                        .putExtra("parent", "parent")
-                        )
-                        Log.e("CHome", "==event id====${data?.getId().toString()}")
+                    startActivity(
+                        Intent(
+                            requireActivity(),
+                            EventDetailsActivity::class.java
+                        ).putExtra("from", "home")
+                            .putExtra("eventId", data?.getId().toString())
+                            .putExtra("fees", data!!.getFees())
+                            .putExtra("parent", "parent")
+                    )
+                    Log.e("CHome", "==event id====${data?.getId().toString()}")
 
-                    }
+                }
 
-                })
+            })
     }
 
     private fun setTopBar() {
-        imgBack.visibility = View.GONE
-        imgLogo.visibility = View.VISIBLE
-        imgFilter.visibility = View.VISIBLE
-        txtTitle.visibility = View.GONE
-        imgFilter.setOnClickListener(View.OnClickListener { showBottomSheetDialog() })
+        binding.topBar.imgBack.visibility = View.GONE
+        binding.topBar.imgLogo.visibility = View.VISIBLE
+        binding.topBar.imgFilter.visibility = View.VISIBLE
+        binding.topBar.txtTitle.visibility = View.GONE
+        binding.topBar.imgFilter.setOnClickListener(View.OnClickListener { showBottomSheetDialog() })
     }
 
     private fun showBottomSheetDialog() {
@@ -355,13 +369,13 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
         tv_sport?.setOnClickListener(View.OnClickListener {
 
             val adapter = CustomListViewDialogAdapter(
-                    sportsResponse,
-                    object : CustomListViewDialogAdapter.AdapterListInterface {
-                        override fun onItemSelected(position: Int, data: String) {
-                            Log.d("sports..:", data)
-                            //customDialogSports!!.dismiss()
-                        }
-                    })
+                sportsResponse,
+                object : CustomListViewDialogAdapter.AdapterListInterface {
+                    override fun onItemSelected(position: Int, data: String) {
+                        Log.d("sports..:", data)
+                        //customDialogSports!!.dismiss()
+                    }
+                })
             customDialogSports = CustomListSportsDialog(this.requireActivity(), adapter)
 
             customDialogSports!!.setDoneInterface(object : CustomListSportsDialog.DoneInterface {
@@ -399,13 +413,13 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
         tvLocation?.setOnClickListener(View.OnClickListener {
 
             val adapter = CustomListLocationDialogAdapter(
-                    locationResponse,
-                    object : CustomListLocationDialogAdapter.AdapterListInterface {
-                        override fun onItemSelected(position: Int, data: String) {
-                            Log.d("Location..:", data)
-                            //customDialog!!.dismiss();
-                        }
-                    })
+                locationResponse,
+                object : CustomListLocationDialogAdapter.AdapterListInterface {
+                    override fun onItemSelected(position: Int, data: String) {
+                        Log.d("Location..:", data)
+                        //customDialog!!.dismiss();
+                    }
+                })
             customDialog = CustomListViewDialog(this.requireActivity(), adapter)
             customDialog!!.setDoneInterface(object : CustomListViewDialog.DoneInterface {
                 override fun onItemSelected() {
@@ -419,7 +433,7 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
 
                                 str = str + "," + locationResponse!!.get(i)!!.getName()
                                 strIDLocation =
-                                        strIDLocation + "," + locationResponse!!.get(i)!!.getId()
+                                    strIDLocation + "," + locationResponse!!.get(i)!!.getId()
                             } else {
                                 str += locationResponse!!.get(i)!!.getName()
                                 strIDLocation += locationResponse!!.get(i)!!.getId()
@@ -440,87 +454,87 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
 
         txtApply?.setOnClickListener(View.OnClickListener {
             PFilterEventListController(
-                    requireActivity(),
-                    strIDSports,
-                    strIDLocation,
-                    object : ControllerInterface {
-                        override fun onFail(error: String?) {
+                requireActivity(),
+                strIDSports,
+                strIDLocation,
+                object : ControllerInterface {
+                    override fun onFail(error: String?) {
 
-                        }
+                    }
 
-                        override fun <T> onSuccess(response: T, method: String) {
-                            try {
+                    override fun <T> onSuccess(response: T, method: String) {
+                        try {
 
-                                val resp = response as EventListResponse
-                                val respon: EventListResponse = EventListResponse()
-                                if (resp.getResult() == null) {
+                            val resp = response as EventListResponse
+                            val respon: EventListResponse = EventListResponse()
+                            if (resp.getResult() == null) {
 
-                                    rcvEventList.visibility = View.GONE
-                                    var dialog =
-                                            Dialog(requireActivity(), R.style.MyBottomSheetDialogTheme)
-                                    val dialogview = LayoutInflater.from(context)
-                                            .inflate(R.layout.dlg_confirm, null, false)
-                                    val tv_title = dialogview.findViewById<TextView>(R.id.tv_title)
-                                    val tv_ok = dialogview.findViewById<TextView>(R.id.tv_ok)
-                                    tv_title.setText(R.string.NoEventFound)
-                                    tv_ok.setOnClickListener(View.OnClickListener {
-                                        dialog.dismiss()
-                                        editor!!.clear()
-                                        editor!!.commit()
-                                        strIDLocation = "";
-                                        strIDSports = "";
-                                        for (i in 0..sportsResponse!!.size - 1) {
-                                            if (sportsResponse!!.get(i)!!.isCheck.equals("1")) {
-                                                sportsResponse!!.get(i)!!.isCheck = "0"
-                                            }
-                                        }
-                                        for (i in 0..locationResponse!!.size - 1) {
-                                            if (locationResponse!!.get(i)!!.getisCheck().equals("1")) {
-                                                locationResponse!!.get(i)!!.setisCheck("0")
-                                            }
-                                        }
-                                        PFilterEventListController(
-                                                requireActivity(),
-                                                "",
-                                                "",
-                                                object : ControllerInterface {
-                                                    override fun onFail(error: String?) {
-                                                    }
-
-                                                    override fun <T> onSuccess(
-                                                            response: T,
-                                                            method: String
-                                                    ) {
-                                                        try {
-                                                            rcvEventList.visibility = View.VISIBLE
-                                                            val resp = response as EventListResponse
-                                                            setListAdapter(resp.getResult()!!.reversed())
-                                                            bottomSheetDialog.dismiss()
-                                                        } catch (e: Exception) {
-                                                            e.printStackTrace()
-                                                        }
-                                                    }
-                                                }).callApi()
-                                    })
-                                    dialog?.setCancelable(true)
-                                    dialog?.setContentView(dialogview)
-                                    dialog?.show()
-
-
-                                } else {
-                                    editor!!.putString("strIDSportsHome", strIDSports)
-                                    editor!!.putString("strIDLocation", strIDLocation)
+                                binding.rcvEventList.visibility = View.GONE
+                                var dialog =
+                                    Dialog(requireActivity(), R.style.MyBottomSheetDialogTheme)
+                                val dialogview = LayoutInflater.from(context)
+                                    .inflate(R.layout.dlg_confirm, null, false)
+                                val tv_title = dialogview.findViewById<TextView>(R.id.tv_title)
+                                val tv_ok = dialogview.findViewById<TextView>(R.id.tv_ok)
+                                tv_title.setText(R.string.NoEventFound)
+                                tv_ok.setOnClickListener(View.OnClickListener {
+                                    dialog.dismiss()
+                                    editor!!.clear()
                                     editor!!.commit()
-                                    setListAdapter(resp.getResult()!!.reversed())
+                                    strIDLocation = "";
+                                    strIDSports = "";
+                                    for (i in 0..sportsResponse!!.size - 1) {
+                                        if (sportsResponse!!.get(i)!!.isCheck.equals("1")) {
+                                            sportsResponse!!.get(i)!!.isCheck = "0"
+                                        }
+                                    }
+                                    for (i in 0..locationResponse!!.size - 1) {
+                                        if (locationResponse!!.get(i)!!.getisCheck().equals("1")) {
+                                            locationResponse!!.get(i)!!.setisCheck("0")
+                                        }
+                                    }
+                                    PFilterEventListController(
+                                        requireActivity(),
+                                        "",
+                                        "",
+                                        object : ControllerInterface {
+                                            override fun onFail(error: String?) {
+                                            }
 
-                                }
-                                bottomSheetDialog.dismiss()
+                                            override fun <T> onSuccess(
+                                                response: T,
+                                                method: String,
+                                            ) {
+                                                try {
+                                                    binding.rcvEventList.visibility = View.VISIBLE
+                                                    val resp = response as EventListResponse
+                                                    setListAdapter(resp.getResult()!!.reversed())
+                                                    bottomSheetDialog.dismiss()
+                                                } catch (e: Exception) {
+                                                    e.printStackTrace()
+                                                }
+                                            }
+                                        }).callApi()
+                                })
+                                dialog?.setCancelable(true)
+                                dialog?.setContentView(dialogview)
+                                dialog?.show()
 
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+
+                            } else {
+                                editor!!.putString("strIDSportsHome", strIDSports)
+                                editor!!.putString("strIDLocation", strIDLocation)
+                                editor!!.commit()
+                                setListAdapter(resp.getResult()!!.reversed())
+
                             }
+                            bottomSheetDialog.dismiss()
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
-                    }).callApi()
+                    }
+                }).callApi()
         })
 
         txtClear!!.setOnClickListener(View.OnClickListener {
@@ -540,23 +554,23 @@ class PHomeFragment : Fragment(R.layout.fragment_home_parent), ILocationView, IG
             }
 
             PFilterEventListController(
-                    requireActivity(),
-                    "",
-                    "",
-                    object : ControllerInterface {
-                        override fun onFail(error: String?) {
-                        }
+                requireActivity(),
+                "",
+                "",
+                object : ControllerInterface {
+                    override fun onFail(error: String?) {
+                    }
 
-                        override fun <T> onSuccess(response: T, method: String) {
-                            try {
-                                val resp = response as EventListResponse
-                                setListAdapter(resp.getResult()!!.reversed())
-                                bottomSheetDialog.dismiss()
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
+                    override fun <T> onSuccess(response: T, method: String) {
+                        try {
+                            val resp = response as EventListResponse
+                            setListAdapter(resp.getResult()!!.reversed())
+                            bottomSheetDialog.dismiss()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
-                    }).callApi()
+                    }
+                }).callApi()
         })
         bottomSheetDialog.show()
     }

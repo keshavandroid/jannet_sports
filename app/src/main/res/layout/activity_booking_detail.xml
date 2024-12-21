@@ -9,6 +9,7 @@
 
 
     <include
+        android:id="@+id/topBar"
         layout="@layout/topbar_layout"
         app:layout_constraintTop_toTopOf="parent" />
 

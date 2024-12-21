@@ -13,7 +13,6 @@ import com.e.jannet_stable_code.retrofit.coacheventlistdata.CoachEventListResult
 import com.e.jannet_stable_code.retrofit.locationdata.LocationResult
 import com.e.jannet_stable_code.retrofit.response.SportsListResponse
 import com.e.jannet_stable_code.ui.parentsApp.PHomeFragment
-import kotlinx.android.synthetic.main.dlg_list_item.view.*
 import okhttp3.internal.notify
 
 public class CustomListViewDialogAdapter() :
@@ -60,9 +59,9 @@ public class CustomListViewDialogAdapter() :
         lateinit var iv_check:ImageView
 
         init {
-            mTextView = v.tv_item
-            main_ll = v.ll_
-            iv_check=v.iv_check
+            mTextView = v.findViewById(R.id.tv_item)
+            main_ll = v.findViewById(R.id.ll_)
+            iv_check= v.findViewById(R.id.iv_check)
             main_ll.setOnClickListener(View.OnClickListener {
                 try {
                     listner!!.onItemSelected(adapterPosition, mDataset!!.get(adapterPosition)!!.sportsName!!)

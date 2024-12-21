@@ -152,10 +152,8 @@ object Utilities {
             progressDialog = Dialog(activity!!)
 
             progressDialog!!.setCancelable(false)
-            progressDialog!!.window!!
-                .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            progressDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             progressDialog!!.setContentView(R.layout.progress_dialog)
-
             try {
                 progressDialog!!.show()
             } catch (e: WindowManager.BadTokenException) {

@@ -56,9 +56,9 @@ public class CustomListLocationDialogAdapter():
         lateinit var iv_check: ImageView
 
         init {
-            mTextView = v.tv_item
-            main_ll = v.ll_
-            iv_check=v.iv_check
+            mTextView = v.findViewById(R.id.tv_item)
+            main_ll = v.findViewById(R.id.ll_)
+            iv_check=v.findViewById(R.id.iv_check)
             main_ll.setOnClickListener(View.OnClickListener {
                 try {
                     listner!!.onItemSelected(adapterPosition, mDataset!!.get(adapterPosition)!!.getName()!!)

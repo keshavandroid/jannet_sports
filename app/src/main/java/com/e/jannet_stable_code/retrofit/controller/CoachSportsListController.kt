@@ -32,6 +32,7 @@ class CoachSportsListController(var context: Activity, internal var view: ICoach
                 Log.e("Sports", "callCoachSportsListApi:>>2 ", )
 
                 view.hideLoader()
+
                 try {
                     val resp = body!!.body()!!.string()
                     val reader: Reader = StringReader(resp)

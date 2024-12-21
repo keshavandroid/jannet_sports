@@ -1,10 +1,13 @@
 package com.e.jannet_stable_code.ui.coachApp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.location.Geocoder
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.e.jannet_stable_code.R
-import com.e.jannet_stable_code.databinding.ActivityAddMainTeamBinding
 import com.e.jannet_stable_code.databinding.ActivityAddNewLocationBinding
 import com.e.jannet_stable_code.retrofit.controller.AddNewLocationController
 import com.e.jannet_stable_code.retrofit.controller.IAddNewLocationController
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.Locale
 
 class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocationView {
 
@@ -26,16 +30,71 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
     override fun getController(): IBaseController? {
         return null
     }
-    private lateinit var binding: ActivityAddNewLocationBinding
 
+    private lateinit var binding: ActivityAddNewLocationBinding
+    var latitude = "22.261080858237882"
+    var longitude = "70.7804374167259"
+    var address = ""
+    lateinit var gmap: GoogleMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     //   setContentView(R.layout.activity_add_new_location)
+        //   setContentView(R.layout.activity_add_new_location)
         binding = ActivityAddNewLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         controller = AddNewLocationController(this, this)
         setTopBar()
         setData()
+
+//        binding.etxtLocation.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                // Optional: Actions before text is changed
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                val locationName = s.toString().trim()
+//                address = locationName
+//                if (locationName.length > 3) { // Fetch lat-long for input longer than 3 characters
+//                    val latLong = getLatLongFromAddress(locationName)
+//                    latLong?.let {
+//                        Log.d("LatLong", "Latitude: ${it.first}, Longitude: ${it.second}")
+//
+//                        latitude = it.first.toString()
+//                        longitude = it.second.toString()
+//
+//                    }
+//                }
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                // Optional: Actions after text is changed
+//            }
+//        })
+
+        binding.etxtLocation.setOnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val locationName = textView.text.toString().trim()
+                if (locationName.isNotEmpty()) {
+                    address = locationName
+                    if (locationName.length > 3) { // Fetch lat-long for input longer than 3 characters
+                        val latLong = getLatLongFromAddress(locationName)
+                        latLong?.let {
+                            Log.d("LatLong", "Latitude: ${it.first}, Longitude: ${it.second}")
+                            latitude = it.first.toString()
+                            longitude = it.second.toString()
+                            val placeLocation = LatLng(latitude.toDouble(), longitude.toDouble())
+                            gmap.addMarker(MarkerOptions().position(placeLocation).title(address))
+                            gmap.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
+                            gmap.animateCamera(CameraUpdateFactory.zoomTo(10F), 1000, null);
+                        }
+                    }
+                } else {
+                    Log.e("Location", "Input is empty")
+                }
+                true // Return true to indicate the action has been handled
+            } else {
+                false // Return false to let the system handle other actions
+            }
+        }
 
         binding.txtAddNewLocation.setOnClickListener {
 
@@ -51,15 +110,21 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
 //
 //                showToast("Select Coat Number")
 //            }
-
+                val latLong = getLatLongFromAddress(binding.etxtLocation.text.toString())
+                latLong?.let {
+                    Log.d("LatLong", "Latitude: ${it.first}, Longitude: ${it.second}")
+                    latitude = it.first.toString()
+                    longitude = it.second.toString()
+                }
                 showLoader()
+
                 controller.callAddNewLocationApi(
                     id,
                     token,
                     binding.etxtLocation.text.trim().toString(),
-                    "22.25458",
-                    "28.6547",
-                    binding. etxtCoatNumber.text.trim().toString()
+                    latitude,
+                    longitude,
+                    binding.etxtCoatNumber.text.trim().toString()
                 )
             }
 
@@ -69,30 +134,30 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
     }
 
 
-    var lat: Double = 0.0
-    var long: Double = 0.0
-    var address: String = ""
+//    var lat: Double = 0.0
+//    var long: Double = 0.0
+//    var address: String = ""
 
     private fun setData() {
 
-        val mapFragment: SupportMapFragment =
-            supportFragmentManager.findFragmentById(R.id.map_location) as SupportMapFragment
+        val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map_location) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        if (Constants.eventDetailTop == null) return
+        if (Constants.eventDetailTop == null)
+            return
 
-        val data = Constants.eventDetailTop
-
-        val addresss = intent.getStringExtra("ADDRESS")
-        val description = intent.getStringExtra("DESCRIPTION")
-        val eventName = intent.getStringExtra("EVENT_NAME")
-
-//        txtField1.text= address.toString()
-//        txtField2.text=description.toString()
-
-        lat = 12.22222
-        long = 22.25211
-        address = "Dummy Address"
+//        val data = Constants.eventDetailTop
+//
+//        val addresss = intent.getStringExtra("ADDRESS")
+//        val description = intent.getStringExtra("DESCRIPTION")
+//        val eventName = intent.getStringExtra("EVENT_NAME")
+//
+////        txtField1.text= address.toString()
+////        txtField2.text=description.toString()
+//
+//        lat = latitude
+//        long = longitude
+//        address = "Dummy Address"
 
     }
 
@@ -103,14 +168,15 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
     }
 
     override fun onMapReady(p0: GoogleMap) {
+        gmap=p0
 
-        val placeLocation = LatLng(lat, long)
-        p0.addMarker(
-            MarkerOptions().position(placeLocation)
-                .title(address)
-        )
-        p0.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
-//        p0.animateCamera(CameraUpdateFactory.zoomTo(10F), 1000, null);
+        gmap.uiSettings.isZoomControlsEnabled = true
+        gmap.uiSettings.isZoomGesturesEnabled = true
+
+        val placeLocation = LatLng(latitude.toDouble(), longitude.toDouble())
+        gmap.addMarker(MarkerOptions().position(placeLocation).title(address))
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
+        gmap.animateCamera(CameraUpdateFactory.zoomTo(10F), 1, null);
 
 //        p0.mapType = GoogleMap.MAP_TYPE_NORMAL;
 //        try {
@@ -163,4 +229,21 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
 
     }
 
+    private fun getLatLongFromAddress(address: String): Pair<Double, Double>? {
+        return try {
+            val geocoder = Geocoder(this, Locale.getDefault())
+            val addresses = geocoder.getFromLocationName(address, 1)
+
+            if (addresses != null && addresses.isNotEmpty()) {
+                val latitude = addresses[0].latitude
+                val longitude = addresses[0].longitude
+                Pair(latitude, longitude)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

@@ -134,13 +134,13 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
 
         hideLoader()
         bind.tvTeamNameEventDetail.text = response!![0]!!.getTeamName().toString()
-        bind.tv_sports_type_team_Detail.text = response!![0]!!.getSportsName().toString()
-        bind.tv_participent_team_detail.text = response!![0]!!.getParticipants().toString()
-        bind.tv_team_detail_description.text = response!![0]!!.getDescription().toString()
+        bind.tvSportsTypeTeamDetail.text = response!![0]!!.getSportsName().toString()
+        bind.tvParticipentTeamDetail.text = response!![0]!!.getParticipants().toString()
+        bind.tvTeamDetailDescription.text = response!![0]!!.getDescription().toString()
 
         Glide.with(this)
             .load(response!![0]!!.getImage())
-            .into(iv_team_image_ed)
+            .into(bind.ivTeamImageEd)
 
     }
 

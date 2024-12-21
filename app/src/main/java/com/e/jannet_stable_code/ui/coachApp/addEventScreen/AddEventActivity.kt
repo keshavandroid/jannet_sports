@@ -95,9 +95,12 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 //        gradeController = GetGradeListController(this,this)
 //        gradeController.callGetGradeListApi(id,token)
         minMaxAgeController = MinMaxAgeController(this, this)
+
         locationController = LocationController(this, this)
         locationController.callLocationApi(id, token)
+
         Log.e(TAG, "=====$id=======$token")
+
         binding.txtlocation.text = "Select Location"
 
 
@@ -742,11 +745,11 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             tempLocationTypeList.add(0, lisBtHint)
             tempLocationTypeList.addAll(response)
 
-            val adapterLoction =
-                ArrayAdapter(this, android.R.layout.simple_spinner_item, tempLocationTypeList!!)
+            val adapterLoction = ArrayAdapter(this, android.R.layout.simple_spinner_item, tempLocationTypeList!!)
             adapterLoction.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
             binding.spinnerLocation.adapter = adapterLoction
+
             binding.spinnerLocation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parentView: AdapterView<*>?,
@@ -765,7 +768,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                         locationId = selectedSprefrenceItem.getId().toString()
                         binding.txtlocation.text = selectedSprefrenceItem.getName().toString()
 
-                    } catch (e: Exception) {
+                    }
+                    catch (e: Exception) {
                         e.printStackTrace()
                         binding.txtlocation.text = ""
 
@@ -777,8 +781,11 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                     binding.txtlocation.text = "Select Location"
                 }
             }
-        } else {
+        }
+        else {
+
             hideLoader()
+
         }
 
         val storeData = StoreUserData(this)
@@ -786,6 +793,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         val token = storeData.getString(Constants.COACH_TOKEN)
 
         showLoader()
+
         gradeController = GetGradeListController(this, this)
         gradeController.callGetGradeListApi(id, token)
 
@@ -1071,6 +1079,18 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         override fun toString(): String {
             return "$applicablegenderName"
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val storeData = StoreUserData(this)
+        val id = storeData.getString(Constants.COACH_ID)
+        val token = storeData.getString(Constants.COACH_TOKEN)
+
+        locationController = LocationController(this, this)
+        locationController.callLocationApi(id, token)
 
     }
 }

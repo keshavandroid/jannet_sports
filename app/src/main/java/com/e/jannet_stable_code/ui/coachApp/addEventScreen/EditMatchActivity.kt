@@ -10,6 +10,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TimePicker
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityBookingDetail2Binding
+import com.e.jannet_stable_code.databinding.ActivityEditMatchBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.locationdata.Coat
 import com.e.jannet_stable_code.retrofit.locationdata.LocationResult
@@ -23,16 +25,14 @@ import com.e.jannet_stable_code.viewinterface.IAddMatchView
 import com.e.jannet_stable_code.viewinterface.IEditMatchView
 import com.e.jannet_stable_code.viewinterface.ILocationView
 import com.e.jannet_stable_code.viewinterface.ITeamListView
-import kotlinx.android.synthetic.main.activity_add_event.*
-import kotlinx.android.synthetic.main.activity_add_match_f.*
-import kotlinx.android.synthetic.main.activity_edit_match.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 import java.util.*
 import kotlin.collections.ArrayList
 
 class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocationView {
     lateinit var teamListController: ITeamListController
     lateinit var addMatchController: IEditMatchController
+    private lateinit var bind: ActivityEditMatchBinding
 
     private var teamListTemp: List<TeamListResult?>? = null
     override fun getController(): IBaseController? {
@@ -41,8 +41,9 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_match)
-
+     //   setContentView(R.layout.activity_edit_match)
+        bind = ActivityEditMatchBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
         var storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
@@ -54,38 +55,38 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
         val coat = intent.getStringExtra("COAT")
 
         Log.e("EitMatch", "onCreate:team a name$team_a_name ")
-        txt_spinnervs1.setOnClickListener {
+        bind.txtSpinnervs1.setOnClickListener {
 
-            spinnervs1_edit.performClick()
+            bind.spinnervs1Edit.performClick()
         }
 
-        txt_spinnervs2.setOnClickListener {
+        bind.txtSpinnervs2.setOnClickListener {
 
-            spinnervs2_edit.performClick()
+            bind.spinnervs2Edit.performClick()
         }
 
         if (team_a_name != null) {
 
-            txt_spinnervs1.text = team_a_name
+            bind.txtSpinnervs1.text = team_a_name
         }
 
         if (team_b_name != null) {
 
-            txt_spinnervs2.text = team_b_name
+            bind.txtSpinnervs2.text = team_b_name
         }
 
         if (time != null) {
 
-            etxtMatchTime_edit.text = time
+            bind.etxtMatchTimeEdit.text = time
         }
 
         if (coat != null) {
 
-            txt_spinnerCoat.text = coat
+            bind.txtSpinnerCoat.text = coat
         }
 
-        txt_spinnerCoat.setOnClickListener {
-            spinnerCoat_edit.performClick()
+        bind.txtSpinnerCoat.setOnClickListener {
+            bind.spinnerCoatEdit.performClick()
         }
 
         Log.e("EditMatch", "event id ==$event_id ")
@@ -94,8 +95,8 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
         teamListController.callTeamLostApi(id, token, event_id.toString())
         showLoader()
 
-        txtTitle.text = "EDIT Match"
-        imgBack.setOnClickListener {
+        bind.topBar.txtTitle.text = "EDIT Match"
+        bind.topBar.imgBack.setOnClickListener {
             onBackPressed()
         }
 
@@ -106,20 +107,20 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
 
         mTimePicker = TimePickerDialog(this, object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                etxtMatchTime_edit.setText(String.format("%d : %d", hourOfDay, minute))
+                bind.etxtMatchTimeEdit.setText(String.format("%d : %d", hourOfDay, minute))
             }
         }, hour, minute, false)
 
 
-        etxtMatchTime_edit.setOnClickListener({ v ->
+        bind.etxtMatchTimeEdit.setOnClickListener({ v ->
             mTimePicker.show()
         })
 
 
-        txtAdd_Fmatch_event_edit.setOnClickListener {
+        bind.txtAddFmatchEventEdit.setOnClickListener {
 
-            var selectedSpinnerAItem = spinnervs1_edit.selectedItem as TeamListResult
-            var selectedSpinnerBItem = spinnervs2_edit.selectedItem as TeamListResult
+            var selectedSpinnerAItem =  bind.spinnervs1Edit.selectedItem as TeamListResult
+            var selectedSpinnerBItem =  bind.spinnervs2Edit.selectedItem as TeamListResult
 
             var teamAid = selectedSpinnerAItem.getTeamId().toString()
             var teamBid = selectedSpinnerBItem.getTeamId().toString()
@@ -131,14 +132,14 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
 
 
                 showToast("Can't Create Match With Same Team!!")
-            } else if (etxtMatchTime_edit.text.toString() == "" && etxtMatchTime_edit.text.toString() == null) {
+            } else if ( bind.etxtMatchTimeEdit.text.toString() == "" &&  bind.etxtMatchTimeEdit.text.toString() == null) {
 
                 showToast("Please Select Match Time")
-            } else if (txt_spinnerCoat.text.toString() == "" && txt_spinnerCoat.text.toString() == null) {
+            } else if (bind.txtSpinnerCoat.text.toString() == "" &&  bind.txtSpinnerCoat.text.toString() == null) {
 
                 showToast("Please Select Coat ")
 
-            } else if (txt_spinnervs1.text.trim().toString() == txt_spinnervs2.text.trim()
+            } else if (bind.txtSpinnervs1.text.trim().toString() == bind.txtSpinnervs2.text.trim()
                     .toString()
             ) {
 
@@ -164,8 +165,8 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
                 showLoader()
                 addMatchController.callEditMatchApi(
                     id, token, matchid.toString(), teamAid.toString(),
-                    teamBid.toString(), txt_spinnerCoat.text.toString(),
-                    etxtMatchTime_edit.text.toString().filter { !it.isWhitespace() }
+                    teamBid.toString(), bind.txtSpinnerCoat.text.toString(),
+                    bind.etxtMatchTimeEdit.text.toString().filter { !it.isWhitespace() }
                 )
             }
 
@@ -257,20 +258,20 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
         val arrayAdapterTeamA =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, tempTeamTypeList)
         arrayAdapterTeamA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnervs1_edit.adapter = arrayAdapterTeamA
+        bind.spinnervs1Edit.adapter = arrayAdapterTeamA
 
 
 //temp
 
 
-        spinnervs1_edit.onItemSelectedListener = object :
+        bind.spinnervs1Edit.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View, position: Int, id: Long
             ) {
 
-                var selectedTeamAItem = spinnervs1_edit.selectedItem as TeamListResult
+                var selectedTeamAItem = bind.spinnervs1Edit.selectedItem as TeamListResult
                 Log.d(
                     "TAG",
                     "onItemSelected: " + selectedTeamAItem.getTeamId() + "  " + selectedTeamAItem.getTeamName()
@@ -278,7 +279,7 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
 
 
 
-                txt_spinnervs1.text = selectedTeamAItem.getTeamName()
+                bind.txtSpinnervs1.text = selectedTeamAItem.getTeamName()
 
             }
 
@@ -291,24 +292,24 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
         val arrayAdapterTeamB =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, tempTeamBTypeList)
         arrayAdapterTeamB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnervs2_edit.adapter = arrayAdapterTeamB
+        bind.spinnervs2Edit.adapter = arrayAdapterTeamB
 
 
 
 
-        spinnervs2_edit.onItemSelectedListener = object :
+        bind.spinnervs2Edit.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View, position: Int, id: Long
             ) {
 
-                var selectedTeamBItem = spinnervs2_edit.selectedItem as TeamListResult
+                var selectedTeamBItem =  bind.spinnervs2Edit.selectedItem as TeamListResult
                 Log.d(
                     "TAG",
                     "onItemSelected: " + selectedTeamBItem.getTeamId() + "  " + selectedTeamBItem.getTeamName()
                 )
-                txt_spinnervs2.text = selectedTeamBItem.getTeamName()
+                bind.txtSpinnervs2.text = selectedTeamBItem.getTeamName()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -354,17 +355,17 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
         val adapterCoat =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, response!!)
         adapterCoat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCoat_edit.adapter = adapterCoat
+        bind.spinnerCoatEdit.adapter = adapterCoat
 
 
-        spinnerCoat_edit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        bind.spinnerCoatEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                var SelectedCoat = spinnerCoat_edit.selectedItem as Coat
+                var SelectedCoat = bind.spinnerCoatEdit.selectedItem as Coat
                 Log.d(
                     "TAG",
                     "onItemSelected: " + SelectedCoat.getId() + "  " + SelectedCoat.getCoatName()
@@ -372,7 +373,7 @@ class EditMatchActivity : BaseActivity(), ITeamListView, IEditMatchView, ILocati
 
 
 
-                txt_spinnerCoat.text = SelectedCoat.getId().toString()
+                bind.txtSpinnerCoat.text = SelectedCoat.getId().toString()
 
             }
 

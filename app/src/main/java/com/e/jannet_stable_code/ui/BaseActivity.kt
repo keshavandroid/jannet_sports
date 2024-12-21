@@ -9,8 +9,7 @@ import com.e.jannet_stable_code.retrofit.controller.IBaseController
 import com.e.jannet_stable_code.utils.CustomProgressDialog
 import java.util.concurrent.atomic.AtomicBoolean
 
-open abstract class BaseActivity :  AppCompatActivity()
-{
+open abstract class BaseActivity : AppCompatActivity() {
     var blockEvents = AtomicBoolean(false)
 
     abstract fun getController(): IBaseController?
@@ -76,15 +75,17 @@ open abstract class BaseActivity :  AppCompatActivity()
     }
 
     open fun hideLoader() {
-        if (loadingDialog != null && loadingDialog!!.isShowing()) try {
-            loadingDialog!!.dismiss()
-        } catch (e: Exception) {
-            //e.printStackTrace();
-        }
+
+        if (loadingDialog != null && loadingDialog!!.isShowing())
+            try {
+                loadingDialog!!.dismiss()
+            } catch (e: Exception) {
+                e.printStackTrace();
+            }
         if (textLoadingDialog != null && textLoadingDialog!!.isShowing()) try {
             textLoadingDialog!!.dismiss()
         } catch (e: Exception) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -102,7 +103,6 @@ open abstract class BaseActivity :  AppCompatActivity()
         } catch (e: java.lang.Exception) {
         }
     }
-
 
 
 //    open fun showDialog(
@@ -123,7 +123,7 @@ open abstract class BaseActivity :  AppCompatActivity()
 //    }
 
 
-        //end
+    //end
 
 
 }

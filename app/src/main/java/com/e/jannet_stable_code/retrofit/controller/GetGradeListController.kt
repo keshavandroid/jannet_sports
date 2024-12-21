@@ -18,6 +18,7 @@ import java.lang.reflect.Modifier
 
 class GetGradeListController(var context: Activity, internal var view: IGetGradeListView):IGetGradeListController {
     override fun callGetGradeListApi(id: String, token: String) {
+
         view.showLoader()
 
 

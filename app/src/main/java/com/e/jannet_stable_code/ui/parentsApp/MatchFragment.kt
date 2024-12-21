@@ -2,11 +2,15 @@ package com.e.jannet_stable_code.ui.parentsApp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.MatchTabListAdapter
 import com.e.jannet_stable_code.adapter.RegisterListAdapter
+import com.e.jannet_stable_code.databinding.FragmentHomeParentBinding
+import com.e.jannet_stable_code.databinding.FragmentMatchBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.coacheventlistdata.CoachEventListResult
 import com.e.jannet_stable_code.retrofit.controller.GetParentMatchController
@@ -16,11 +20,20 @@ import com.e.jannet_stable_code.retrofit.matchlistdata.RegisterListResponse
 import com.e.jannet_stable_code.retrofit.matchlistdata.RegisterResult
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.Utilities
-import kotlinx.android.synthetic.main.fragment_match.*
-import kotlinx.android.synthetic.main.topbar_layout.*
 
-class MatchFragment : Fragment(R.layout.fragment_match) {
 
+class MatchFragment : Fragment() {
+    private lateinit var binding: FragmentMatchBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMatchBinding.inflate(layoutInflater)
+        return binding.root
+//        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTopBar()
@@ -33,13 +46,13 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
     }
 
     private fun setClickListener() {
-        txtRegisterEvent.setOnClickListener {
+        binding.txtRegisterEvent.setOnClickListener {
             setTab(1)
         }
-        txtChildBookEvent.setOnClickListener{
+        binding.txtChildBookEvent.setOnClickListener{
             setTab(2)
         }
-        imgHistory.setOnClickListener{
+        binding.topBar.imgHistory.setOnClickListener{
             startActivity(
                 Intent(activity, MatchHistoryActivity::class.java)
             )
@@ -48,21 +61,21 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
     private fun setTab(i: Int) {
         if (i == 1) {
-            txtRegisterEvent.setBackgroundResource(R.mipmap.button_small)
-            txtChildBookEvent.setBackgroundResource(R.drawable.circle3)
-            txtRegisterEvent.setTextColor(resources.getColor(R.color.white))
-            txtChildBookEvent.setTextColor(resources.getColor(R.color.black))
+            binding.txtRegisterEvent.setBackgroundResource(R.mipmap.button_small)
+            binding.txtChildBookEvent.setBackgroundResource(R.drawable.circle3)
+            binding.txtRegisterEvent.setTextColor(resources.getColor(R.color.white))
+            binding.txtChildBookEvent.setTextColor(resources.getColor(R.color.black))
 
-            rcvRegisterEvent.visibility = View.VISIBLE
-            rcvChildBookEvent.visibility = View.GONE
+            binding.rcvRegisterEvent.visibility = View.VISIBLE
+            binding.rcvChildBookEvent.visibility = View.GONE
         } else if (i == 2) {
-            txtRegisterEvent.setBackgroundResource(R.drawable.circle3)
-            txtChildBookEvent.setBackgroundResource(R.mipmap.button_small)
-            txtRegisterEvent.setTextColor(resources.getColor(R.color.black))
-            txtChildBookEvent.setTextColor(resources.getColor(R.color.white))
+            binding.txtRegisterEvent.setBackgroundResource(R.drawable.circle3)
+            binding.txtChildBookEvent.setBackgroundResource(R.mipmap.button_small)
+            binding.txtRegisterEvent.setTextColor(resources.getColor(R.color.black))
+            binding.txtChildBookEvent.setTextColor(resources.getColor(R.color.white))
 
-            rcvRegisterEvent.visibility = View.GONE
-            rcvChildBookEvent.visibility = View.VISIBLE
+            binding.rcvRegisterEvent.visibility = View.GONE
+            binding.rcvChildBookEvent.visibility = View.VISIBLE
         }
     }
 
@@ -109,16 +122,16 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
         val userType= SharedPrefUserData(requireActivity()).getSavedData().usertype
         if(userType.equals("child",ignoreCase = true) || userType.equals("adult",ignoreCase = true)){
-            txtRegisterEvent.visibility = View.GONE
-            txtChildBookEvent.visibility = View.GONE
-            rcvRegisterEvent.visibility = View.GONE
-            rcvChildBookEvent.visibility = View.GONE
+            binding.txtRegisterEvent.visibility = View.GONE
+            binding.txtChildBookEvent.visibility = View.GONE
+            binding.rcvRegisterEvent.visibility = View.GONE
+            binding.rcvChildBookEvent.visibility = View.GONE
 
-            rcvMatchList.visibility = View.VISIBLE
+            binding.rcvMatchList.visibility = View.VISIBLE
             childAndAdultMatchList()
         }else if (userType.equals("parent",ignoreCase = true)){
-            txtRegisterEvent.visibility = View.VISIBLE
-            txtChildBookEvent.visibility = View.VISIBLE
+            binding.txtRegisterEvent.visibility = View.VISIBLE
+            binding.txtChildBookEvent.visibility = View.VISIBLE
 
 
             //new api call in  this screen
@@ -138,7 +151,7 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
                     val resp = response as  List<MatchListResult?>?
                     var adapter = MatchTabListAdapter(requireContext(), resp)
-                    rcvMatchList.adapter = adapter
+                    binding.rcvMatchList.adapter = adapter
                     adapter.iMatchItemClickClickListner = this
                     adapter.notifyDataSetChanged()
 
@@ -174,10 +187,10 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
                     val resp = response as RegisterResult
                     var adapter = RegisterListAdapter(requireContext(), resp.getEventData(),"event")
-                    rcvRegisterEvent.adapter = adapter
+                    binding.rcvRegisterEvent.adapter = adapter
 
                     var adapter2 = RegisterListAdapter(requireContext(), resp.getTicketData(),"ticket")
-                    rcvChildBookEvent.adapter = adapter2
+                    binding.rcvChildBookEvent.adapter = adapter2
 
 
                 } catch (e: Exception) {
@@ -192,10 +205,10 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
 
     private fun setTopBar() {
-        imgBack.visibility=View.VISIBLE
-        imgHistory.visibility=View.VISIBLE
-        imgBack.setOnClickListener { (requireActivity() as ParentsMainActivity).onBackPressed() }
-        txtTitle.text=getString(R.string.match1)
+        binding.topBar.imgBack.visibility=View.VISIBLE
+        binding.topBar.imgHistory.visibility=View.VISIBLE
+        binding.topBar.imgBack.setOnClickListener { (requireActivity() as ParentsMainActivity).onBackPressed() }
+        binding.topBar.txtTitle.text=getString(R.string.match1)
     }
 
 }

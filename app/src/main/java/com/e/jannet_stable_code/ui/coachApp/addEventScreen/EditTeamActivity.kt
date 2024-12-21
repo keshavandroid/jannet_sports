@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityEditMatchBinding
+import com.e.jannet_stable_code.databinding.ActivityEditTeamBinding
 import com.e.jannet_stable_code.retrofit.controller.AddTeamController
 import com.e.jannet_stable_code.retrofit.controller.EditTeamController
 import com.e.jannet_stable_code.retrofit.controller.IBaseController
@@ -15,13 +17,12 @@ import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.PickImage
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.RegisterControllerInterface
-import kotlinx.android.synthetic.main.activity_add_teams_final.*
-import kotlinx.android.synthetic.main.activity_edit_team.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class EditTeamActivity : BaseActivity(), RegisterControllerInterface {
     lateinit var controller: EditTeamController
     var pickImage: PickImage? = null
+    private lateinit var bind: ActivityEditTeamBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -29,20 +30,22 @@ class EditTeamActivity : BaseActivity(), RegisterControllerInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_team)
+    //    setContentView(R.layout.activity_edit_team)
+        bind = ActivityEditTeamBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
         val team_desriptiom = intent.getStringExtra("TEAM_DESCRIPTION")
         val team_name = intent.getStringExtra("TEAM_NAME")
         val team_image = intent.getStringExtra("TEAM_Image")
 
         if (team_desriptiom!=null){
-            etxt_teams_description_edit.hint = team_desriptiom.toString()
+            bind.etxtTeamsDescriptionEdit.hint = team_desriptiom.toString()
 
         }
 
         if (team_name!=null){
 
-            etxtTeamName_EditTeam.hint = team_name
+            bind.etxtTeamNameEditTeam.hint = team_name
         }
 
 //        if (team_image!=null) {
@@ -50,17 +53,17 @@ class EditTeamActivity : BaseActivity(), RegisterControllerInterface {
             Glide.with(this)
                 .load(team_image.toString())
                 .placeholder(R.drawable.loader_background)
-                .into(imgProfile_edit_team)
+                .into(bind.imgProfileEditTeam)
 //        }
         controller = EditTeamController(this, this)
-        txtTitle.text = "EDIT TEAM"
-        imgBack.setOnClickListener {
+        bind.topbar.txtTitle.text = "EDIT TEAM"
+        bind.topbar.imgBack.setOnClickListener {
 
             onBackPressed()
             finish()
         }
 
-        txtedit_teams_event.setOnClickListener {
+        bind.txteditTeamsEvent.setOnClickListener {
 
 
 //            if (etxtTeamName_EditTeam.text.toString() == "") {
@@ -83,8 +86,8 @@ class EditTeamActivity : BaseActivity(), RegisterControllerInterface {
                 Log.e("AddTeam", "onCreate:$teamID ")
                 var registerData = RegisterData()
                 registerData.teamId = teamID.toString()
-                registerData.teamName = etxtTeamName_EditTeam.text.toString()
-                registerData.description = etxt_teams_description_edit.text.toString()
+                registerData.teamName = bind.etxtTeamNameEditTeam.text.toString()
+                registerData.description = bind.etxtTeamsDescriptionEdit.text.toString()
                 registerData.image = pickImage?.getImage()!!
 
                 controller.EditTeam(registerData)
@@ -92,7 +95,7 @@ class EditTeamActivity : BaseActivity(), RegisterControllerInterface {
 
 
         }
-        imgProfile_edit_team.setOnClickListener {
+        bind.imgProfileEditTeam.setOnClickListener {
 
             pickImage = PickImage(this)
 
@@ -108,7 +111,7 @@ class EditTeamActivity : BaseActivity(), RegisterControllerInterface {
             requestCode,
             resultCode,
             data,
-            imgProfile_edit_team
+            bind.imgProfileEditTeam
         )
     }
 

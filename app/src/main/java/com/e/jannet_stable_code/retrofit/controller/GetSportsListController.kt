@@ -22,6 +22,7 @@ class GetSportsListController(var context: Activity, internal var controllerInte
     var id = ""
     var token = ""
     fun callApi() {
+
         Utilities.showProgress(context)
 
         val data = SharedPrefUserData(context).getSavedData()

@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.TeamListAdapter
+import com.e.jannet_stable_code.databinding.ActivityAddTeamsBinding
+import com.e.jannet_stable_code.databinding.ActivityAddedMatchlistBinding
+import com.e.jannet_stable_code.databinding.ActivityAddedTeamListBinding
 import com.e.jannet_stable_code.retrofit.controller.*
 import com.e.jannet_stable_code.retrofit.teamlistdata.TeamListResult
 import com.e.jannet_stable_code.ui.BaseActivity
@@ -16,8 +19,7 @@ import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
 import com.e.jannet_stable_code.viewinterface.IDeleteTeamView
 import com.e.jannet_stable_code.viewinterface.ITeamListView
-import kotlinx.android.synthetic.main.activity_added_team_list.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 
 class AddedTeamListActivity : BaseActivity(), ITeamListView, TeamListAdapter.IEditTeamClickListner,
     TeamListAdapter.IDeleteClickListner, IDeleteTeamView {
@@ -28,10 +30,13 @@ class AddedTeamListActivity : BaseActivity(), ITeamListView, TeamListAdapter.IEd
 
     lateinit var deleteTeamCOntroller: IDeleteTeamController
     lateinit var controller: ITeamListController
+    private lateinit var bind: ActivityAddedTeamListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_added_team_list)
+      //  setContentView(R.layout.activity_added_team_list)
+        bind = ActivityAddedTeamListBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
         var storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
@@ -42,14 +47,14 @@ class AddedTeamListActivity : BaseActivity(), ITeamListView, TeamListAdapter.IEd
         controller.callTeamLostApi(id, token, event_id.toString())
         showLoader()
 
-        txtTitle.text = "TEAM LIST"
-        imgBack.setOnClickListener {
+        bind.topbarAddedTeams.txtTitle.text = "TEAM LIST"
+        bind.topbarAddedTeams.imgBack.setOnClickListener {
 
             onBackPressed()
 
         }
 
-        txtAdd_new_team.setOnClickListener {
+        bind.txtAddNewTeam.setOnClickListener {
             val event_id = intent.getStringExtra("EVENT_ID")
 
             Log.e("TAG", "onCreate: ========$event_id")
@@ -59,7 +64,7 @@ class AddedTeamListActivity : BaseActivity(), ITeamListView, TeamListAdapter.IEd
             finish()
         }
 
-        txtDone_team.setOnClickListener {
+        bind.txtDoneTeam.setOnClickListener {
             val intent = Intent(this, AddMatchActivity::class.java)
             intent.putExtra("EVENT_ID", event_id.toString())
             startActivity(intent)
@@ -71,7 +76,7 @@ class AddedTeamListActivity : BaseActivity(), ITeamListView, TeamListAdapter.IEd
     override fun onTeamListSuccess(response: List<TeamListResult?>?) {
 
         var TeamAdapger = TeamListAdapter(this, response!!)
-        rv_team_list.adapter = TeamAdapger
+        bind.rvTeamList.adapter = TeamAdapger
         TeamAdapger.iEditClickListner = this
         TeamAdapger.iDeleteClickListner = this
         TeamAdapger.notifyDataSetChanged()

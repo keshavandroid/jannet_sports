@@ -13,6 +13,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.setPadding
 import com.bumptech.glide.Glide
 import com.e.jannet_stable_code.R
+import com.e.jannet_stable_code.databinding.ActivityBookingDetail2Binding
+import com.e.jannet_stable_code.databinding.ActivityEditEventBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.coachsportslistdata.CoachSportsListResult
 import com.e.jannet_stable_code.retrofit.controller.*
@@ -26,10 +28,7 @@ import com.e.jannet_stable_code.ui.coachApp.AddImageViewModel
 import com.e.jannet_stable_code.ui.coachApp.AddNewLocationActivity
 import com.e.jannet_stable_code.utils.*
 import com.e.jannet_stable_code.viewinterface.*
-import kotlinx.android.synthetic.main.activity_add_event.*
-import kotlinx.android.synthetic.main.activity_edit_event.*
-import kotlinx.android.synthetic.main.item_add_child_list.*
-import kotlinx.android.synthetic.main.topbar_layout.*
+
 import java.util.*
 
 //IGetSportView
@@ -76,6 +75,7 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
     var minAge = 1
     var maxAge = 100
 
+    private lateinit var bind: ActivityEditEventBinding
 
     override fun getController(): IBaseController? {
         return null
@@ -84,19 +84,24 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_event)
+       // setContentView(R.layout.activity_edit_event)
+        bind = ActivityEditEventBinding.inflate(layoutInflater)
+        setContentView(bind.root)
+        Log.e("EditEventActivity", "Welcome: =========")
 
         setTopBar()
-        imgGrade_edit.setImageResource(R.mipmap.rad)
+
+        bind.imgGradeEdit.setImageResource(R.mipmap.rad)
         val storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
         val token = storeData.getString(Constants.COACH_TOKEN)
-        showLoader()
+
+      //  showLoader()
 
         locationController = LocationController(this, this)
         locationController.callLocationApi(id, token)
 
-        btn_add_location_edit.setOnClickListener {
+        bind.btnAddLocationEdit.setOnClickListener {
 
             AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -112,9 +117,9 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
         }
 
-        txtDate_edit.setOnClickListener {
+        bind.txtDateEdit.setOnClickListener {
             datePicker(
-                txtDate_edit, this, this.supportFragmentManager,
+                bind.txtDateEdit, this, this.supportFragmentManager,
                 object : DatePickerResult {
                     override fun onSuccess(string: String) {
 
@@ -130,13 +135,12 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
         if (intent.getStringExtra("EVENT_ID") != null &&
             !intent.getStringExtra("EVENT_ID").equals("null") &&
             !intent.getStringExtra("EVENT_ID").equals("")
-        ) {
+        )
+        {
             EventDetailController(this@EditEventActivity, object : ControllerInterface {
                 override fun onFail(error: String?) {
-
                     Log.e("TAG", "onFail: fail ==========$error")
                 }
-
                 @RequiresApi(Build.VERSION_CODES.O)
                 override fun <T> onSuccess(response: T, method: String) {
                     try {
@@ -148,19 +152,19 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                         val event_name = resp.getResult()!![0]!!.getEventName().toString()
                         val description = resp.getResult()!![0]!!.getDescription().toString()
                         selectedSportList =resp.getResult()!![0]!!.getSportsId().toString()
-                        txtSelectedApplicableGender_edit.hint =
+                        bind.txtSelectedApplicableGenderEdit.hint =
                             resp.getResult()!![0]!!.getGenderApplicable().toString()
-                        etxtEventName_edit.hint = resp.getResult()!![0]!!.getEventName().toString()
-                        etxtEventDiscription_edit.hint =
+                        bind. etxtEventNameEdit.hint = resp.getResult()!![0]!!.getEventName().toString()
+                        bind.etxtEventDiscriptionEdit.hint =
                             resp.getResult()!![0]!!.getDescription().toString()
-                        etxtFees_edit.hint = resp.getResult()!![0]!!.getFees().toString()
-                        txtDate_edit.hint = resp.getResult()!![0]!!.getEventDate().toString()
-                        etxtNoParticipants_edit.hint =
+                        bind.etxtFeesEdit.hint = resp.getResult()!![0]!!.getFees().toString()
+                        bind.txtDateEdit.hint = resp.getResult()!![0]!!.getEventDate().toString()
+                        bind.etxtNoParticipantsEdit.hint =
                             resp.getResult()!![0]!!.getParticipants().toString()
-                        txtlocation_edit.hint = resp.getResult()!![0]!!.getAddress().toString()
-                        txtSelectedGrade_edit.hint = resp.getResult()!![0]!!.getGrade().toString()
-                        txtSelectMinRange_edit.hint = resp.getResult()!![0]!!.getMinAge().toString()
-                        txtSelectMaxRange_edit.hint = resp.getResult()!![0]!!.getMaxAge().toString()
+                        bind.txtlocationEdit.hint = resp.getResult()!![0]!!.getAddress().toString()
+                        bind.txtSelectedGradeEdit.hint = resp.getResult()!![0]!!.getGrade().toString()
+                        bind.txtSelectMinRangeEdit.hint = resp.getResult()!![0]!!.getMinAge().toString()
+                        bind.txtSelectMaxRangeEdit.hint = resp.getResult()!![0]!!.getMaxAge().toString()
                         var tempList = resp.getResult()!![0]!!.getSportsName()
                         var sportslist = ArrayList<String>()
 
@@ -177,31 +181,32 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                         Log.e(TAG, "onSuccess: sportslist on edit event===$sportslist")
                         val listString: String = java.lang.String.join(", ", sportslist)
 
-                        txtSportscoach_edit.text = listString
+                        bind.txtSportscoachEdit.text = listString
+
                         Glide.with(this@EditEventActivity)
                             .load(resp.getResult()!![0]!!.getMainimage())
-                            .into(img1_edit)
+                            .into(bind.img1Edit)
 
 
                         Glide.with(this@EditEventActivity)
                             .load(resp.getResult()!![0]!!.getImages()!![0]?.getImage())
-                            .into(img2_edit)
+                            .into(bind.img2Edit)
 
                         Glide.with(this@EditEventActivity)
                             .load(resp.getResult()!![0]!!.getImages()!![1]?.getImage())
-                            .into(img3_edit)
+                            .into(bind.img3Edit)
 
                         Glide.with(this@EditEventActivity)
                             .load(resp.getResult()!![0]!!.getImages()!![2]?.getImage())
-                            .into(img4_edit)
+                            .into(bind.img4Edit)
 
                         Glide.with(this@EditEventActivity)
                             .load(resp.getResult()!![0]!!.getImages()!![3]?.getImage())
-                            .into(img5_edit)
+                            .into(bind.img5Edit)
 
                         Glide.with(this@EditEventActivity)
                             .load(resp.getResult()!![0]!!.getImages()!![4]?.getImage())
-                            .into(img6_edit)
+                            .into(bind.img6Edit)
 
                         if (resp.getResult()!![0]!!.getImages()!![0]?.getId() != null || resp.getResult()!![0]!!.getImages()!![0]?.getId() != 0) {
 
@@ -304,12 +309,12 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
 
 
-        img1_edit.setOnClickListener {
+        bind.img1Edit.setOnClickListener {
 
             imagePickFlag = 1
             pickImage = PickImage(this@EditEventActivity)
         }
-        img2_edit.setOnClickListener {
+        bind.img2Edit.setOnClickListener {
 
             if (image1id == null) {
 
@@ -323,25 +328,25 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
             }
 
         }
-        img3_edit.setOnClickListener {
+        bind.img3Edit.setOnClickListener {
 
 
             imagePickFlag = 3
             pickImage = PickImage(this@EditEventActivity)
         }
-        img4_edit.setOnClickListener {
+        bind.img4Edit.setOnClickListener {
 
 
             imagePickFlag = 4
             pickImage = PickImage(this@EditEventActivity)
         }
-        img5_edit.setOnClickListener {
+        bind.img5Edit.setOnClickListener {
 
 
             imagePickFlag = 5
             pickImage = PickImage(this@EditEventActivity)
         }
-        img6_edit.setOnClickListener {
+        bind.img6Edit.setOnClickListener {
 
 
             imagePickFlag = 6
@@ -349,7 +354,7 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
         }
 
 
-        txtAdd_edit.setOnClickListener {
+        bind.txtAgeEdit.setOnClickListener {
 
             val eventID = intent.getStringExtra("EVENT_ID")
 
@@ -386,13 +391,13 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
             }
 
             allData.event_id = eventID.toString()
-            allData.event_name = etxtEventName_edit.text.toString()
-            allData.description = etxtEventDiscription_edit.text.toString()
-            allData.fees = etxtFees_edit.text.toString()
+            allData.event_name = bind.etxtEventNameEdit.text.toString()
+            allData.description = bind.etxtEventDiscriptionEdit.text.toString()
+            allData.fees = bind.etxtFeesEdit.text.toString()
             allData.location = locationId.toString()
             allData.sportTypes = selectedSportList.trim()
-            allData.date = txtDate_edit.text.toString().trim()
-            allData.noParticipants = etxtNoParticipants_edit.text.toString()
+            allData.date = bind.txtDateEdit.text.toString().trim()
+            allData.noParticipants = bind.etxtNoParticipantsEdit.text.toString()
             allData.gender_applicable = "m/f"
             allData.grade_id = selectedgradeID.toString().trim()
             allData.minimum_age = minRangeSelected.toString()
@@ -430,26 +435,26 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
         initiateApiCalls()
 
-        txtSportscoach_edit.setOnClickListener {
+        bind.txtSportscoachEdit.setOnClickListener {
 
-            multispinner_edit.performClick()
+            bind.multispinnerEdit.performClick()
             showToast("Sports Field")
         }
 
     }
 
     private fun gradeAgeRangeFunction() {
-        imgGrade_edit.setOnClickListener {
+        bind.imgGradeEdit.setOnClickListener {
             selectType(1)
         }
-        txtGrade1_edit.setOnClickListener {
-            imgGrade_edit.performClick()
+        bind.txtGrade1Edit.setOnClickListener {
+            bind.imgGradeEdit.performClick()
         }
-        imgAge_edit.setOnClickListener {
+        bind.imgAgeEdit.setOnClickListener {
             selectType(2)
         }
-        txtAge_edit.setOnClickListener {
-            imgAge_edit.performClick()
+        bind.txtAgeEdit.setOnClickListener {
+            bind.txtAgeEdit.performClick()
         }
 
         val aplicableList = resources.getStringArray(R.array.ApplicableGender)
@@ -460,8 +465,8 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
             aplicableList
         )
         adapterApplicableGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerGender_edit.adapter = adapterApplicableGender
-        spinnerGender_edit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        bind.spinnerGenderEdit.adapter = adapterApplicableGender
+        bind.spinnerGenderEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -474,7 +479,7 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
                 val name = aplicableList[position]
 
-                txtSelectedApplicableGender_edit.text = name
+                bind.txtSelectedApplicableGenderEdit.text = name
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -496,8 +501,8 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                 ageList
             )
         adapterMinRange.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerSelectMinRange_edit.adapter = adapterMinRange
-        spinnerSelectMinRange_edit.onItemSelectedListener =
+        bind.spinnerSelectMinRangeEdit.adapter = adapterMinRange
+        bind.spinnerSelectMinRangeEdit.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parentView: AdapterView<*>?,
@@ -506,34 +511,33 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                     id: Long
                 ) {
                     try {
-                        if (txtSelectMaxRange_edit.text.toString() == "") {
-                            txtSelectMinRange_edit.text = ageList[0]
+                        if (bind.txtSelectMaxRangeEdit.text.toString() == "") {
+                            bind.txtSelectMinRangeEdit.text = ageList[0]
                         } else {
                             val minRangeSelected: Int = ageList[position].toInt()
-                            val maxRangeSelected: Int =
-                                txtSelectMaxRange_edit.text.toString().toInt()
+                            val maxRangeSelected: Int = bind.txtSelectMaxRangeEdit.text.toString().toInt()
                             if (minRangeSelected > maxRangeSelected) {
                                 Utilities.showToast(
                                     this@EditEventActivity,
                                     "Minimum age cant be more than Maximum age."
                                 )
                             } else {
-                                txtSelectMinRange_edit.text = ageList[position]
+                                bind.txtSelectMinRangeEdit.text = ageList[position]
                             }
                         }
 
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        txtSelectMinRange_edit.text = ""
+                        bind.txtSelectMinRangeEdit.text = ""
                     }
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {
-                    txtSelectMinRange_edit.text = ""
+                    bind.txtSelectMinRangeEdit.text = ""
                 }
             }
-        txtSelectMinRange_edit.setOnClickListener {
-            spinnerSelectMinRange_edit.performClick()
+        bind.txtSelectMinRangeEdit.setOnClickListener {
+            bind.spinnerSelectMinRangeEdit.performClick()
         }
 
         val adapterMaxRange: ArrayAdapter<String> =
@@ -543,8 +547,8 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                 ageList
             )
         adapterMaxRange.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerSelectMaxRange_edit.adapter = adapterMaxRange
-        spinnerSelectMaxRange_edit.onItemSelectedListener =
+        bind.spinnerSelectMaxRangeEdit.adapter = adapterMaxRange
+        bind.spinnerSelectMaxRangeEdit.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parentView: AdapterView<*>?,
@@ -554,10 +558,10 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                 ) {
                     try {
                         if (firstTimeMaxSelected) {
-                            txtSelectMaxRange_edit.text = ageList[(ageList.size - 1)]
+                            bind.txtSelectMaxRangeEdit.text = ageList[(ageList.size - 1)]
                             firstTimeMaxSelected = false
                         } else {
-                            minRangeSelected = txtSelectMinRange_edit.text.toString().toInt()
+                            minRangeSelected = bind.txtSelectMinRangeEdit.text.toString().toInt()
                             maxRangeSelected = ageList[position].toInt()
                             if (maxRangeSelected < minRangeSelected) {
                                 Utilities.showToast(
@@ -565,38 +569,38 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                                     "Maximum age cant be less than Minimum age."
                                 )
                             } else {
-                                txtSelectMaxRange_edit.text = ageList[position]
+                                bind.txtSelectMaxRangeEdit.text = ageList[position]
                             }
                         }
 
 
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        txtSelectMaxRange_edit.text = ""
+                        bind.txtSelectMaxRangeEdit.text = ""
                     }
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {
-                    txtSelectMaxRange_edit.text = ""
+                    bind.txtSelectMaxRangeEdit.text = ""
                 }
             }
-        txtSelectMaxRange_edit.setOnClickListener {
-            spinnerSelectMaxRange_edit.performClick()
+        bind.txtSelectMaxRangeEdit.setOnClickListener {
+            bind.spinnerSelectMaxRangeEdit.performClick()
         }
 
-        txtSelectedGrade_edit.setOnClickListener {
-            spinnerSelectGrade_edit.performClick()
+        bind.txtSelectedGradeEdit.setOnClickListener {
+            bind.spinnerSelectGradeEdit.performClick()
         }
 
-        txtlocation_edit.setOnClickListener {
+        bind.txtlocationEdit.setOnClickListener {
 
-            spinnerLocation_edit.performClick()
+            bind.spinnerLocationEdit.performClick()
         }
 
 
-        txtSelectedApplicableGender_edit.setOnClickListener {
+        bind.txtSelectedApplicableGenderEdit.setOnClickListener {
 
-            spinnerGender_edit.performClick()
+            bind.spinnerGenderEdit.performClick()
         }
 //
 
@@ -611,19 +615,19 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
         selectedType = i
         if (i == 1) {
             //Grade
-            imgGrade_edit.setImageResource(R.mipmap.rad)
-            imgAge_edit.setImageResource(R.mipmap.rad1)
-            llGradeMain_edit.visibility = View.VISIBLE
-            llMinmumAgeRange_edit.visibility = View.GONE
-            llMaxAgeRange_edit.visibility = View.GONE
+            bind.imgGradeEdit.setImageResource(R.mipmap.rad)
+            bind.imgAgeEdit.setImageResource(R.mipmap.rad1)
+            bind.llGradeMainEdit.visibility = View.VISIBLE
+            bind.llMinmumAgeRangeEdit.visibility = View.GONE
+            bind.llMaxAgeRangeEdit.visibility = View.GONE
 
         } else if (i == 2) {
             //Age
-            imgGrade_edit.setImageResource(R.mipmap.rad1)
-            imgAge_edit.setImageResource(R.mipmap.rad)
-            llGradeMain_edit.visibility = View.GONE
-            llMinmumAgeRange_edit.visibility = View.VISIBLE
-            llMaxAgeRange_edit.visibility = View.VISIBLE
+            bind.imgGradeEdit.setImageResource(R.mipmap.rad1)
+            bind.imgAgeEdit.setImageResource(R.mipmap.rad)
+            bind.llGradeMainEdit.visibility = View.GONE
+            bind.llMinmumAgeRangeEdit.visibility = View.VISIBLE
+            bind.llMaxAgeRangeEdit.visibility = View.VISIBLE
         }
     }
 
@@ -681,33 +685,33 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
         if (pickImage != null) {
             when (imagePickFlag) {
                 1 -> {
-                    img1_edit.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data, img1_edit)
+                    bind.img1Edit.setPadding(0)
+                    pickImage!!.activityResult(requestCode, resultCode, data, bind.img1Edit)
                     imgString1 = pickImage!!.getImage()!!
                 }
                 2 -> {
-                    img2_edit.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data, img2_edit)
+                    bind.img2Edit.setPadding(0)
+                    pickImage!!.activityResult(requestCode, resultCode, data, bind.img2Edit)
                     imgString2 = pickImage!!.getImage()!!
                 }
                 3 -> {
-                    img3_edit.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data, img3_edit)
+                    bind.img3Edit.setPadding(0)
+                    pickImage!!.activityResult(requestCode, resultCode, data, bind.img3Edit)
                     imgString3 = pickImage!!.getImage()!!
                 }
                 4 -> {
-                    img4_edit.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data, img4_edit)
+                    bind.img4Edit.setPadding(0)
+                    pickImage!!.activityResult(requestCode, resultCode, data, bind.img4Edit)
                     imgString4 = pickImage!!.getImage()!!
                 }
                 5 -> {
-                    img5_edit.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data, img5_edit)
+                    bind.img5Edit.setPadding(0)
+                    pickImage!!.activityResult(requestCode, resultCode, data, bind.img5Edit)
                     imgString5 = pickImage!!.getImage()!!
                 }
                 6 -> {
-                    img6_edit.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data, img6_edit)
+                    bind.img6Edit.setPadding(0)
+                    pickImage!!.activityResult(requestCode, resultCode, data, bind.img6Edit)
                     imgString6 = pickImage!!.getImage()!!
                 }
             }
@@ -767,9 +771,9 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
     }
 
     private fun setTopBar() {
-        txtTitle.text = "EDIT EVENT"
-        imgBack.visibility = View.VISIBLE
-        imgBack.setOnClickListener {
+        bind.topBar.txtTitle.text = "EDIT EVENT"
+        bind.topBar.imgBack.visibility = View.VISIBLE
+        bind.topBar.imgBack.setOnClickListener {
             onBackPressed()
         }
     }
@@ -780,7 +784,7 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
 
         if (response!=null) {
-            hideLoader()
+           // hideLoader()
             Log.e(TAG, "onLocationListSuccess: ====${response.toString()}")
 
 
@@ -788,8 +792,8 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                 ArrayAdapter(this, android.R.layout.simple_spinner_item, response!!)
             adapterLoction.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-            spinnerLocation_edit.adapter = adapterLoction
-            spinnerLocation_edit.onItemSelectedListener =
+            bind.spinnerLocationEdit.adapter = adapterLoction
+            bind.spinnerLocationEdit.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         parentView: AdapterView<*>?,
@@ -799,15 +803,11 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                     ) {
                         try {
 
-                            var selectedSprefrenceItem =
-                                spinnerLocation.selectedItem as LocationResult
-                            Log.d(
-                                TAG,
-                                "onItemSelected: " + selectedSprefrenceItem.getId() + "  " + selectedSprefrenceItem.getName()
-                            )
+                            var selectedSprefrenceItem = bind.spinnerLocationEdit.selectedItem as LocationResult
+                            Log.d(TAG, "onItemSelected: " + selectedSprefrenceItem.getId() + "  " + selectedSprefrenceItem.getName())
 
                             locationId = selectedSprefrenceItem.getId().toString()
-                            txtlocation_edit.text = selectedSprefrenceItem.getName().toString()
+                            bind.txtlocationEdit.text = selectedSprefrenceItem.getName().toString()
 
                         } catch (e: Exception) {
                             e.printStackTrace()
@@ -821,12 +821,13 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                 }
 
         }else{
-            hideLoader()
+            //hideLoader()
         }
         val storeData = StoreUserData(this)
         val id = storeData.getString(Constants.COACH_ID)
         val token = storeData.getString(Constants.COACH_TOKEN)
-        showLoader()
+
+       // showLoader()
 
         coachSportsListCOntroller = CoachSportsListController(this, this)
         coachSportsListCOntroller.callCoachSportsListApi(id, token, id)
@@ -835,7 +836,7 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
     override fun onCoatListSuccess(response: List<Coat?>?) {
 
-                hideLoader()
+                //hideLoader()
     }
 
 
@@ -846,12 +847,12 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
         val token = storeData.getString(Constants.COACH_TOKEN)
 
         if (response!=null) {
-            hideLoader()
+            Log.e("Sports", "onGetSportsListSuccess:>>7 "+response.toString()+"" )
+            //hideLoader()
             val adapterSports = ArrayAdapter(this, android.R.layout.simple_spinner_item, response!!)
             adapterSports.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-            multispinner_edit.adapter = adapterSports
-            multispinner_edit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            bind.multispinnerEdit.adapter = adapterSports
+            bind.multispinnerEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parentView: AdapterView<*>?,
                     selectedItemView: View?,
@@ -860,16 +861,10 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                 ) {
                     try {
 //                    txtSportscoach.text = response!![position]?.getSportsName().toString()
-
-                        var selectedSprefrenceItem =
-                            multispinner_edit.selectedItem as CoachSportsListResult
-                        Log.d(
-                            TAG,
-                            "onItemSelected: " + selectedSprefrenceItem.getId() + "  " + selectedSprefrenceItem.getSportsName()
-                        )
-
+                        var selectedSprefrenceItem = bind.multispinnerEdit.selectedItem as CoachSportsListResult
+                        Log.d(TAG, "onItemSelected: " + selectedSprefrenceItem.getId() + "  " + selectedSprefrenceItem.getSportsName())
                         selectedSportList = selectedSprefrenceItem.getId().toString()
-                        txtSportscoach_edit.text = selectedSprefrenceItem.getSportsName().toString()
+                        bind.txtSportscoachEdit.text = selectedSprefrenceItem.getSportsName().toString()
 
 
                     } catch (e: Exception) {
@@ -879,13 +874,15 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {
 
-                    txtSportscoach_edit.text = "Select Sports"
+                    bind.txtSportscoachEdit.text = "Select Sports"
                 }
             }
-        }else{
-            hideLoader()
         }
-        showLoader()
+        else{
+           // hideLoader()
+        }
+       // showLoader()
+
         gradeController = GetGradeListController(this,this)
         gradeController.callGetGradeListApi(id,token)
 
@@ -894,12 +891,12 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
     }
 
     override fun onGradeListSuccess(gradeList: List<GradeListResult?>?) {
-        hideLoader()
+       // hideLoader()
         val adapterGrade = ArrayAdapter(this, android.R.layout.simple_spinner_item, gradeList!!)
         adapterGrade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        spinnerSelectGrade_edit.adapter = adapterGrade
-        spinnerSelectGrade_edit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        bind.spinnerSelectGradeEdit.adapter = adapterGrade
+        bind.spinnerSelectGradeEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View?,
@@ -907,15 +904,14 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
                 id: Long
             ) {
                 try {
-
-                    var selectedGradeItem = spinnerSelectGrade_edit.selectedItem as GradeListResult
+                    var selectedGradeItem = bind.spinnerSelectGradeEdit.selectedItem as GradeListResult
                     selectedgradeID = selectedGradeItem.getId().toString()
                     Log.d(
                         TAG,
                         "onItemSelected: " + selectedGradeItem.getId() + "  " + selectedGradeItem.getName()
                     )
 
-                    txtSelectedGrade_edit.text = selectedGradeItem.getName().toString()
+                    bind.txtSelectedGradeEdit.text = selectedGradeItem.getName().toString()
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -931,7 +927,7 @@ class EditEventActivity : BaseActivity(),IGetGradeListView, ILocationView,
 
     override fun onFail(message: String?, e: Exception?) {
 
-        hideLoader()
+       // hideLoader()
         showToast(message)
     }
 
