@@ -106,14 +106,11 @@ class EditEventActivity : BaseActivity(), IGetGradeListView, ILocationView,
         setTopBar()
 
         bind.imgGradeEdit.setImageResource(R.mipmap.rad)
-        val storeData = StoreUserData(this)
-        val id = storeData.getString(Constants.COACH_ID)
-        val token = storeData.getString(Constants.COACH_TOKEN)
+
 
         //  showLoader()
 
-        locationController = LocationController(this, this)
-        locationController.callLocationApi(id, token)
+
 
         bind.btnAddLocationEdit.setOnClickListener {
 
@@ -145,11 +142,13 @@ class EditEventActivity : BaseActivity(), IGetGradeListView, ILocationView,
         val eventID = intent.getStringExtra("EVENT_ID")
         var eventDetailResponse = intent.getSerializableExtra("EVENT_RESULT")
 
-        Log.d("TAG", "onCreate: test447>>" + intent.getStringExtra("EVENT_ID"))
+        Log.e("TAG", "onCreate: test447>>" + intent.getStringExtra("EVENT_ID"))
+
         if (intent.getStringExtra("EVENT_ID") != null &&
             !intent.getStringExtra("EVENT_ID").equals("null") &&
             !intent.getStringExtra("EVENT_ID").equals("")
-        ) {
+        )
+        {
             EventDetailController(this@EditEventActivity, object : ControllerInterface {
                 override fun onFail(error: String?) {
                     Log.e("TAG", "onFail: fail ==========$error")
@@ -165,7 +164,8 @@ class EditEventActivity : BaseActivity(), IGetGradeListView, ILocationView,
 
                         val address = resp.getResult()!![0]!!.getAddress().toString()
                         val event_name = resp.getResult()!![0]!!.getEventName().toString()
-                        Log.e("TAG", "EventDetailResponse: =event_name=$event_name")
+
+                        Log.e("TAG", "EventDetailResponse:=event_name=$event_name")
 
                         bind.txtEventNameEdit.text=event_name
                         val description = resp.getResult()!![0]!!.getDescription().toString()
@@ -289,7 +289,8 @@ class EditEventActivity : BaseActivity(), IGetGradeListView, ILocationView,
         }
 
 
-        editEventObject = EditEventActivity.EditEventObject()
+
+        editEventObject = EditEventObject()
         editEventViewModel = EditEventViewModel(this)
         addImageViewmodel = AddImageViewModel(this)
         addImageObject = AddImageObject()
@@ -936,5 +937,13 @@ class EditEventActivity : BaseActivity(), IGetGradeListView, ILocationView,
         showToast(message)
     }
 
+    override fun onResume() {
+        super.onResume()
+        val storeData = StoreUserData(this)
+        val id = storeData.getString(Constants.COACH_ID)
+        val token = storeData.getString(Constants.COACH_TOKEN)
+        locationController = LocationController(this, this)
+        locationController.callLocationApi(id, token)
+    }
 
 }

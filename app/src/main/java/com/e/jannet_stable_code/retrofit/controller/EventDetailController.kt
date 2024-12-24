@@ -37,7 +37,7 @@ class EventDetailController(var context: Activity, internal var controllerInterf
 
         val storedata = StoreUserData(context)
 
-        if (storedata.getString(Constants.COACH_ID).trim()==null||storedata.getString(Constants.COACH_ID).trim().isEmpty()||storedata.getString(Constants.COACH_ID).trim()==""){
+        if (storedata.getString(Constants.COACH_ID).trim().isEmpty() || storedata.getString(Constants.COACH_ID).trim()==""){
 
             id = SharedPrefUserData(context).getSavedData().id
             token = SharedPrefUserData(context).getSavedData().token
@@ -45,7 +45,8 @@ class EventDetailController(var context: Activity, internal var controllerInterf
 
             Log.e(TAG, "callApi: parent id token is $id", )
 
-        }else {
+        }
+        else {
 
 
             id = storedata.getString(Constants.COACH_ID)
@@ -68,6 +69,8 @@ class EventDetailController(var context: Activity, internal var controllerInterf
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
                // Utilities.dismissProgress()
+                Log.d(TAG, "RetrofitHelper: insuccess>>$body<")
+
                 try {
                     val resp = body!!.body()!!.string()
                     Log.d(TAG, "onSuccess: insuccess>>$resp<")
@@ -79,6 +82,7 @@ class EventDetailController(var context: Activity, internal var controllerInterf
                     Log.d(TAG, "onSuccess: insuccess>>" + response.getStatus() + "<")
 
                     if (response.getStatus() == 1) {
+
                         controllerInterface.onSuccess(response, "AddChildSuccess")
                     }
                     else {

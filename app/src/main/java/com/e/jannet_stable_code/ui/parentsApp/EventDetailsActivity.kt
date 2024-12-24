@@ -380,14 +380,8 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                         eventDetairesponse = resp
                         Log.e(TAG, "onSuccess: event detil success===${resp.getResult()}")
 
-                        Log.e(
-                            "EventDetail",
-                            "=========main iamge===${
-                                resp.getResult()!![0]?.getMainimage().toString()
-                            }")
-                        Log.e(
-                            "EventDetail",
-                            "=========images===${resp.getResult()!![0]?.getImages().toString()}")
+                        Log.e("EventDetail", "=========main iamge===${resp.getResult()!![0]?.getMainimage().toString()}")
+                        Log.e("EventDetail", "=========images===${resp.getResult()!![0]?.getImages().toString()}")
 
                     } catch (e: Exception) {
                         e.printStackTrace()

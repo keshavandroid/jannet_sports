@@ -42,10 +42,14 @@ class LocationController(var context: Activity, internal var view: ILocationView
                     val response = gson.fromJson(reader, LocationBaseResponse::class.java)
 
                     if (response.getStatus() == 1) {
-                        Log.e(Location, "callLocationApi:>>3 success status 1 " )
+                        Log.e(Location, "callLocationApi:>>1 success status 1 " )
 
                         var data = response.getResult()
+                        Log.e(Location, "callLocationApi:>>3"+data )
+
                         var coat =  response.getResult()!![1]?.getCoat()
+                        Log.e(Location, "callLocationApi:>>4"+coat )
+
                         view.onLocationListSuccess(data!!)
                         view.onCoatListSuccess(coat)
 
