@@ -28,7 +28,7 @@ class EventDetailController(var context: Activity, internal var controllerInterf
     private  var id = ""
     private var token =""
     fun callApi(eventId: String) {
-        Utilities.showProgress(context)
+       // Utilities.showProgress(context)
 
         val imgList=ArrayList<String>()
         val imgId=ArrayList<String>()
@@ -67,7 +67,7 @@ class EventDetailController(var context: Activity, internal var controllerInterf
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
-                Utilities.dismissProgress()
+               // Utilities.dismissProgress()
                 try {
                     val resp = body!!.body()!!.string()
                     Log.d(TAG, "onSuccess: insuccess>>$resp<")
@@ -77,16 +77,18 @@ class EventDetailController(var context: Activity, internal var controllerInterf
                     val gson = builder.create()
                     val response: EventDetailResponse = gson.fromJson(reader, EventDetailResponse::class.java)
                     Log.d(TAG, "onSuccess: insuccess>>" + response.getStatus() + "<")
+
                     if (response.getStatus() == 1) {
                         controllerInterface.onSuccess(response, "AddChildSuccess")
-                    } else {
+                    }
+                    else {
                         Log.d(TAG, "onSuccess: 0 status")
                         Utilities.showToast(context, response.getMessage())
                         controllerInterface.onFail(response.getMessage())
                     }
                 }
                 catch (e: Exception) {
-                    Utilities.dismissProgress()
+                 //   Utilities.dismissProgress()
                     Log.d(TAG, "onSuccess: insuccess>>" + e.message + "<")
                     Utilities.showToast(context, "Something went wrong.")
                     e.printStackTrace()
@@ -96,7 +98,7 @@ class EventDetailController(var context: Activity, internal var controllerInterf
 
 
             override fun onError(code: Int, error: String?) {
-                Utilities.dismissProgress()
+               // Utilities.dismissProgress()
                 //Utilities.showToast(context, "Server error")
                 Log.d(TAG, "onError: ====")
                 controllerInterface.onFail(error)

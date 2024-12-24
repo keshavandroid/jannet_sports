@@ -28,6 +28,7 @@ import com.e.jannet_stable_code.utils.Constants
 import com.e.jannet_stable_code.utils.Constants.eventDetailTop
 import com.e.jannet_stable_code.utils.SharedPrefUserData
 import com.e.jannet_stable_code.utils.StoreUserData
+import com.e.jannet_stable_code.utils.Utilities
 import com.e.jannet_stable_code.viewinterface.IDeleteEventView
 import com.e.jannet_stable_code.viewinterface.IProfileView
 
@@ -60,7 +61,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         setContentView(binding.root)
 
         setTopBar()
-
+        Utilities.dismissProgress()
         //use get profile controller for check child is avail or not for hiding register button
         GetProfileController(this, true, object : ControllerInterface {
             override fun onFail(error: String?) {
