@@ -92,6 +92,9 @@ dependencies {
 
     implementation 'com.stripe:stripe-android:18.2.0'
 //    implementation 'com.stripe:stripe-android:19.0.0'
+    // Google Places API dependencies
+    implementation 'com.google.android.libraries.places:places:3.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
 }
 

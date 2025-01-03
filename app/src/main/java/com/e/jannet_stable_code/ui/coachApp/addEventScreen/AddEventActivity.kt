@@ -10,13 +10,23 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.setPadding
+import androidx.core.widget.addTextChangedListener
 import com.e.jannet_stable_code.R
 import com.e.jannet_stable_code.adapter.NothingSelectedSpinnerAdapter
 import com.e.jannet_stable_code.databinding.ActivityAddEventBinding
-import com.e.jannet_stable_code.databinding.ActivityVenueBinding
 import com.e.jannet_stable_code.retrofit.ControllerInterface
 import com.e.jannet_stable_code.retrofit.coachsportslistdata.CoachSportsListResult
-import com.e.jannet_stable_code.retrofit.controller.*
+import com.e.jannet_stable_code.retrofit.controller.CoachSportsListController
+import com.e.jannet_stable_code.retrofit.controller.GetGradeListController
+import com.e.jannet_stable_code.retrofit.controller.GetSportsListController
+import com.e.jannet_stable_code.retrofit.controller.IBaseController
+import com.e.jannet_stable_code.retrofit.controller.ICoachSportsListController
+import com.e.jannet_stable_code.retrofit.controller.IGetGradeListController
+import com.e.jannet_stable_code.retrofit.controller.IGetSportController
+import com.e.jannet_stable_code.retrofit.controller.ILocationController
+import com.e.jannet_stable_code.retrofit.controller.IMinMaxAgeController
+import com.e.jannet_stable_code.retrofit.controller.LocationController
+import com.e.jannet_stable_code.retrofit.controller.MinMaxAgeController
 import com.e.jannet_stable_code.retrofit.gradlistdata.GradeListResult
 import com.e.jannet_stable_code.retrofit.locationdata.Coat
 import com.e.jannet_stable_code.retrofit.locationdata.LocationResult
@@ -25,12 +35,19 @@ import com.e.jannet_stable_code.retrofit.response.GetChildGroupListResponse
 import com.e.jannet_stable_code.retrofit.response.SportsListResponse
 import com.e.jannet_stable_code.ui.BaseActivity
 import com.e.jannet_stable_code.ui.coachApp.AddNewLocationActivity
-import com.e.jannet_stable_code.utils.*
+import com.e.jannet_stable_code.utils.Constants
+import com.e.jannet_stable_code.utils.DatePickerResult
+import com.e.jannet_stable_code.utils.PickImage
+import com.e.jannet_stable_code.utils.StoreUserData
+import com.e.jannet_stable_code.utils.TAG
+import com.e.jannet_stable_code.utils.datePicker
 import com.e.jannet_stable_code.viewinterface.ICoachSportsListVIew
 import com.e.jannet_stable_code.viewinterface.IGetGradeListView
 import com.e.jannet_stable_code.viewinterface.ILocationView
 import com.e.jannet_stable_code.viewinterface.IMinMAxAgeView
-
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 
 
 class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IGetGradeListView,
@@ -71,7 +88,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
     private var gradeListResult: List<GradeListResult?>? = null
     lateinit var adapterMaxRange: ArrayAdapter<String>
     private var tempGradeMaxList: ArrayList<GradeListResult?>? = null
-    private lateinit var binding : ActivityAddEventBinding
+    private lateinit var binding: ActivityAddEventBinding
 
     override fun getController(): IBaseController? {
 
@@ -81,7 +98,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       // setContentView(R.layout.activity_add_event)
+        // setContentView(R.layout.activity_add_event)
         binding = ActivityAddEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // location spnner
@@ -127,6 +144,39 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 .show()
 
         }
+        // Initialize Places
+        Places.initialize(applicationContext, "AIzaSyCl7SGfKSyWLEqVkpiUtur0tZ_yqJzED7I")
+
+        // Set up autocomplete for address field
+
+        val placesClient = Places.createClient(this)
+        val sessionToken = AutocompleteSessionToken.newInstance()
+
+        binding.etxtAddress.addTextChangedListener { text ->
+            val query = text.toString()
+
+            if (query.isNotEmpty()) {
+                val request = FindAutocompletePredictionsRequest.builder()
+                    .setQuery(query)
+                    .setSessionToken(sessionToken)
+                    .build()
+
+                placesClient.findAutocompletePredictions(request)
+                    .addOnSuccessListener { response ->
+                        val suggestions = response.autocompletePredictions.map { it.getFullText(null).toString() }
+
+                        Log.e("suggestion==", suggestions.toString())
+//                        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, suggestions)
+//                        listViewSuggestions.adapter = adapter
+
+                    }
+                    .addOnFailureListener { exception ->
+                        exception.printStackTrace()
+                    }
+            }
+
+
+        }
 
 
         addEventObject = AddEventObject()
@@ -158,7 +208,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             pickImage = PickImage(this@AddEventActivity)
         }
         binding.txtDate.setOnClickListener {
-            datePicker(binding.txtDate, this, this.supportFragmentManager,
+            datePicker(
+                binding.txtDate, this, this.supportFragmentManager,
                 object : DatePickerResult {
                     override fun onSuccess(string: String) {
 
@@ -176,18 +227,18 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             allData.img4 = imgString4
             allData.img5 = imgString5
             allData.img6 = imgString6
-            allData.event_name =  binding.etxtEventName.text.toString().trim()
-            allData.description =  binding.etxtEventDiscription.text.toString()
+            allData.event_name = binding.etxtEventName.text.toString().trim()
+            allData.description = binding.etxtEventDiscription.text.toString()
 
-            allData.fees =  binding.etxtFees.text.toString().trim()
+            allData.fees = binding.etxtFees.text.toString().trim()
             allData.location = locationId.toString()
             allData.sportTypes = selectedSportList.trim()
             allData.coach_id = id.toString()
 
-            allData.date =  binding.txtDate.text.toString().trim()
+            allData.date = binding.txtDate.text.toString().trim()
 
             allData.noParticipants = binding.etxtNoParticipants.text.toString().trim()
-            allData.gender_applicable =  binding.txtSelectedApplicableGender.text.toString()
+            allData.gender_applicable = binding.txtSelectedApplicableGender.text.toString()
             allData.grade_id = selectedgradeID.toString().trim()
             Log.e("TAG", "onCreate: selected grade id is ==$selectedgradeID")
             allData.minimum_age = minRangeSelected.toString()
@@ -205,7 +256,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                     Toast.makeText(this, "Please Enter Event Description", Toast.LENGTH_LONG).show()
 
 
-                } else if ( binding.txtSelectedApplicableGender.text.trim()
+                } else if (binding.txtSelectedApplicableGender.text.trim()
                         .toString() == "Select Applicable Gender"
                 ) {
 
@@ -216,10 +267,14 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 } else if (binding.txtSportscoach.text.trim().toString() == "Select Sports") {
 
                     showToast("Select Sports ")
-                } else if (binding.txtSelectedGrade.text.trim().toString() == "Select Starting Grade") {
+                } else if (binding.txtSelectedGrade.text.trim()
+                        .toString() == "Select Starting Grade"
+                ) {
 
                     showToast("Select Starting Grade")
-                } else if (binding.txtSelectedGradeMax.text.trim().toString() == "Select Maximum Grade") {
+                } else if (binding.txtSelectedGradeMax.text.trim()
+                        .toString() == "Select Maximum Grade"
+                ) {
 
                     showToast("Select Maximum Grade")
 
@@ -642,32 +697,37 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             when (imagePickFlag) {
                 1 -> {
                     binding.img1.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data,  binding.img1)
+                    pickImage!!.activityResult(requestCode, resultCode, data, binding.img1)
                     imgString1 = pickImage!!.getImage()!!
                 }
+
                 2 -> {
                     binding.img2.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data,  binding.img2)
+                    pickImage!!.activityResult(requestCode, resultCode, data, binding.img2)
                     imgString2 = pickImage!!.getImage()!!
                 }
+
                 3 -> {
                     binding.img3.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data,  binding.img3)
+                    pickImage!!.activityResult(requestCode, resultCode, data, binding.img3)
                     imgString3 = pickImage!!.getImage()!!
                 }
+
                 4 -> {
                     binding.img4.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data,  binding.img4)
+                    pickImage!!.activityResult(requestCode, resultCode, data, binding.img4)
                     imgString4 = pickImage!!.getImage()!!
                 }
+
                 5 -> {
                     binding.img5.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data,  binding.img5)
+                    pickImage!!.activityResult(requestCode, resultCode, data, binding.img5)
                     imgString5 = pickImage!!.getImage()!!
                 }
+
                 6 -> {
                     binding.img6.setPadding(0)
-                    pickImage!!.activityResult(requestCode, resultCode, data,  binding.img6)
+                    pickImage!!.activityResult(requestCode, resultCode, data, binding.img6)
                     imgString6 = pickImage!!.getImage()!!
                 }
             }
@@ -745,44 +805,45 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             tempLocationTypeList.add(0, lisBtHint)
             tempLocationTypeList.addAll(response)
 
-            val adapterLoction = ArrayAdapter(this, android.R.layout.simple_spinner_item, tempLocationTypeList!!)
+            val adapterLoction =
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, tempLocationTypeList!!)
             adapterLoction.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
             binding.spinnerLocation.adapter = adapterLoction
 
-            binding.spinnerLocation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parentView: AdapterView<*>?,
-                    selectedItemView: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    try {
+            binding.spinnerLocation.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parentView: AdapterView<*>?,
+                        selectedItemView: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                        try {
 
-                        var selectedSprefrenceItem =  binding.spinnerLocation.selectedItem as LocationResult
-                        Log.d(
-                            TAG,
-                            "onItemSelected: " + selectedSprefrenceItem.getId() + "  " + selectedSprefrenceItem.getName()
-                        )
+                            var selectedSprefrenceItem =
+                                binding.spinnerLocation.selectedItem as LocationResult
+                            Log.d(
+                                TAG,
+                                "onItemSelected: " + selectedSprefrenceItem.getId() + "  " + selectedSprefrenceItem.getName()
+                            )
 
-                        locationId = selectedSprefrenceItem.getId().toString()
-                        binding.txtlocation.text = selectedSprefrenceItem.getName().toString()
+                            locationId = selectedSprefrenceItem.getId().toString()
+                            binding.txtlocation.text = selectedSprefrenceItem.getName().toString()
 
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            binding.txtlocation.text = ""
+
+                        }
                     }
-                    catch (e: Exception) {
-                        e.printStackTrace()
-                        binding.txtlocation.text = ""
 
+                    override fun onNothingSelected(parentView: AdapterView<*>?) {
+
+                        binding.txtlocation.text = "Select Location"
                     }
                 }
-
-                override fun onNothingSelected(parentView: AdapterView<*>?) {
-
-                    binding.txtlocation.text = "Select Location"
-                }
-            }
-        }
-        else {
+        } else {
 
             hideLoader()
 
@@ -830,7 +891,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             ) {
                 try {
 
-                    var selectedSprefrenceItem =  binding.multispinner.selectedItem as CoachSportsListResult
+                    var selectedSprefrenceItem =
+                        binding.multispinner.selectedItem as CoachSportsListResult
                     Log.d(
                         TAG,
                         "onItemSelected: " + selectedSprefrenceItem.getId() + "  " + selectedSprefrenceItem.getSportsName()
@@ -968,7 +1030,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
                                         Log.d(
                                             TAG,
-                                            "onItemSelectedd  after select max from drop down ${ binding.txtSelectedGradeMax.text}"
+                                            "onItemSelectedd  after select max from drop down ${binding.txtSelectedGradeMax.text}"
                                         )
 
                                     } catch (e: Exception) {
