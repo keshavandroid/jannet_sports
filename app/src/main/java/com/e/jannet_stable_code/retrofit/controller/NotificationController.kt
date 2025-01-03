@@ -27,6 +27,7 @@ class NotificationController(var context: Activity, internal var view: INotifica
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
+                Log.e("sucess1", body.toString())
 
                 try {
                     val resp = body!!.body()!!.string()
@@ -45,15 +46,19 @@ class NotificationController(var context: Activity, internal var view: INotifica
                         val data = response.getResult()!!
                         view.hideLoader()
                         view.onNotificationSuccess(data)
+                        Log.e("sucess2", response.getMessage().toString())
                         Utilities.showToast(context, response.getMessage())
-
-                    } else {
+                    }
+                    else {
+                        Log.e("Nosucess3", response.getMessage().toString())
 
                         view.hideLoader()
 
-                        Utilities.showToast(context, response.getMessage())
+                        Utilities.showToast(context, "No new notifications")
                     }
                 } catch (e: IOException) {
+                    Log.e("IOException4", e.message!!)
+
                     e.printStackTrace()
                     view.hideLoader()
 
@@ -62,7 +67,7 @@ class NotificationController(var context: Activity, internal var view: INotifica
 
 
             override fun onError(code: Int, error: String?) {
-                Log.d("TAG", "onError: ===" + error)
+                Log.d("TAG", "onError5: ===" + error)
                 //                Utils.showAlert((Activity) activity, error);
                 view.hideLoader()
 

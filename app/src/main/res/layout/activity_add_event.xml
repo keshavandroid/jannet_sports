@@ -194,7 +194,7 @@
                     style="@style/txtLoginScreen1"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="Description"
+                    android:text="Description of Event"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
 
