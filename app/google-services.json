@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:888061771490:android:127d95a81a3f22a0c068bb",
         "android_client_info": {
-          "package_name": "com.e.jannet_stable_code"
+          "package_name": "com.xtrane"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "888061771490-snod67jmd6k93dsnupta9pe8a3t8h5oj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.e.jannet_stable_code",
+            "package_name": "com.xtrane",
             "certificate_hash": "73566fd6653aca5fc4de84f717723406e0f0a494"
           }
         },

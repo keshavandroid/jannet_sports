@@ -413,7 +413,7 @@
                     android:orientation="vertical">
 
 
-                    <com.e.jannet_stable_code.utils.MultiSpinner
+                    <com.xtrane.utils.MultiSpinner
                         android:id="@+id/multispinner"
                         android:layout_width="@dimen/_500sdp"
                         android:layout_height="0dp"

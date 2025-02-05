@@ -269,7 +269,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/txtFees">
 
-                    <com.e.jannet_stable_code.multispinner.SingleSpinnerSearch
+                    <com.xtrane.multispinner.SingleSpinnerSearch
                         android:id="@+id/spinnerLocation_update"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -320,7 +320,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/txtLocation">
 
-                    <com.e.jannet_stable_code.utils.MultiSpinner
+                    <com.xtrane.utils.MultiSpinner
                         android:id="@+id/multispinner"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
