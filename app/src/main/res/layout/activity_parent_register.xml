@@ -276,13 +276,22 @@
                         android:gravity="center_vertical"
                         android:layout_margin="@dimen/_5sdp">
 
+                        <Spinner
+                            android:id="@+id/spnCountryCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/countrycode"
+                            android:visibility="gone">
+
+                        </Spinner>
+
                         <EditText
                             android:id="@+id/etxtPhNo"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:inputType="phone"
                             android:maxLength="3"
-                            android:text="000"
+                            android:hint="000"
                             android:textSize="@dimen/_11ssp"
                             android:gravity="center"
                             android:background="@null"
@@ -301,7 +310,7 @@
                             android:maxLength="3"
                             android:gravity="center"
                             android:textSize="@dimen/_11ssp"
-                            android:text="000"
+                            android:hint="000"
                             android:layout_margin="@dimen/_5sdp"
                             android:background="@null"/>
 
@@ -318,7 +327,7 @@
                             android:inputType="phone"
                             android:maxLength="4"
                             android:textSize="@dimen/_11ssp"
-                            android:text="0000"
+                            android:hint="0000"
                             android:layout_margin="@dimen/_5sdp"
                             android:gravity="center"
                             android:background="@null"/>

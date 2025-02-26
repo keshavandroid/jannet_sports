@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.xtrane.R
 import com.xtrane.adapter.NothingSelectedSpinnerAdapter
 import com.xtrane.databinding.ActivityAddEventBinding
@@ -45,9 +48,6 @@ import com.xtrane.viewinterface.ICoachSportsListVIew
 import com.xtrane.viewinterface.IGetGradeListView
 import com.xtrane.viewinterface.ILocationView
 import com.xtrane.viewinterface.IMinMAxAgeView
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 
 
 class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IGetGradeListView,
@@ -153,9 +153,11 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         val sessionToken = AutocompleteSessionToken.newInstance()
 
         binding.etxtAddress.addTextChangedListener { text ->
+
             val query = text.toString()
 
             if (query.isNotEmpty()) {
+
                 val request = FindAutocompletePredictionsRequest.builder()
                     .setQuery(query)
                     .setSessionToken(sessionToken)
@@ -163,9 +165,12 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
                 placesClient.findAutocompletePredictions(request)
                     .addOnSuccessListener { response ->
-                        val suggestions = response.autocompletePredictions.map { it.getFullText(null).toString() }
+                        val suggestions = response.autocompletePredictions.map {
+                            it.getFullText(null).toString()
+                        }
 
                         Log.e("suggestion==", suggestions.toString())
+
 //                        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, suggestions)
 //                        listViewSuggestions.adapter = adapter
 
@@ -219,7 +224,6 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         }
         binding.txtAdd.setOnClickListener {
 
-
             val allData = AddEventObject()
             allData.img1 = imgString1
             allData.img2 = imgString2
@@ -249,38 +253,64 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             if (addEventViewModel!!.checkValidData(allData)) {
 
                 if (binding.etxtEventName.text == null) {
-
                     Toast.makeText(this, "Please Enter Event Name", Toast.LENGTH_LONG).show()
                 } else if (binding.etxtEventDiscription.text == null) {
-
                     Toast.makeText(this, "Please Enter Event Description", Toast.LENGTH_LONG).show()
-
-
                 } else if (binding.txtSelectedApplicableGender.text.trim()
                         .toString() == "Select Applicable Gender"
                 ) {
-
                     showToast("Selcet Applicable Gender")
                 } else if (binding.txtlocation.text.trim().toString() == "Select Location") {
-
                     showToast("Select Location")
                 } else if (binding.txtSportscoach.text.trim().toString() == "Select Sports") {
-
                     showToast("Select Sports ")
-                } else if (binding.txtSelectedGrade.text.trim()
-                        .toString() == "Select Starting Grade"
-                ) {
+                }
+                else {
 
-                    showToast("Select Starting Grade")
-                } else if (binding.txtSelectedGradeMax.text.trim()
-                        .toString() == "Select Maximum Grade"
-                ) {
+                    Log.e("TAG", "onCreate:selectedType1==$selectedType")
 
-                    showToast("Select Maximum Grade")
+                    if (selectedType == 1) {
 
-                } else {
+                        Log.e("TAG", "onCreate:selectedType2==$selectedType")
 
-                    addEventViewModel!!.callAddEventApi()
+                        if (binding.txtSelectedGrade.text.trim()
+                                .toString() == "Select Minimum Grade")
+                        {
+                            showToast("Select Starting Grade")
+                        }
+                        else if (binding.txtSelectedGradeMax.text.trim()
+                                .toString() == "Select Maximum Grade")
+                        {
+                            showToast("Select Maximum Grade")
+                        }
+                        else{
+
+                            Log.e("TAG", "onCreate:selectedType3==$selectedType")
+
+                            addEventViewModel!!.callAddEventApi()
+
+                        }
+                    }
+                    else if (selectedType == 2)
+                    {
+                        if (binding.txtSelectMinRange.text.trim()
+                                .toString() == "Select Minimum Age")
+                        {
+                            showToast("Select Minimum Age")
+                        }
+                        else if (binding.txtSelectMaxRange.text.trim()
+                                .toString() == "Select Maximum Age")
+                        {
+                            showToast("Select Maximum Age")
+                        }
+                        else{
+
+                            addEventViewModel!!.callAddEventApi()
+
+                        }
+                    }
+
+
                 }
             }
 
@@ -622,9 +652,11 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
     }
 
     var firstTimeMaxSelected = true
-    var selectedType = 0
+    var selectedType = 1
     private fun selectType(i: Int) {
+
         selectedType = i
+
         if (i == 1) {
             //Grade
             binding.imgGrade.setImageResource(R.mipmap.rad)
