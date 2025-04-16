@@ -58,7 +58,8 @@
         android:text="@string/adult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtChild" />
+        app:layout_constraintTop_toBottomOf="@+id/txtChild"
+        android:visibility="gone"/>
 
     <View
         android:background="@drawable/shape_top_left_rounded"

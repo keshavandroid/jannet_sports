@@ -95,6 +95,7 @@ dependencies {
     // Google Places API dependencies
     implementation 'com.google.android.libraries.places:places:3.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.android.billingclient:billing:6.0.1'
 
 }
 
