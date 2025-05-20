@@ -20,6 +20,7 @@
     <string name="coach_register">COACH REGISTER</string>
     <string name="participant_register">PARTICIPANT REGISTER</string>
     <string name="adult_register">ADULT REGISTER</string>
+    <string name="wallet">Wallet</string>
 
     <string name="your_name">Your Name</string>
     <string name="phone_number">Phone Number</string>
@@ -183,6 +184,7 @@
     <string name="please_select_location">Please Select Location Type</string>
     <string name="update_profile_str">Update Profile</string>
 
+    <string name="buy_coins">Buy Coins</string>
 
     <string-array name="Languages">
         <item>Grade 1</item>

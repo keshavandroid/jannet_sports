@@ -10,7 +10,7 @@
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
         android:layout_marginStart="@dimen/_10sdp"
-        android:padding="@dimen/_12sdp"
+        android:padding="@dimen/_8sdp"
         android:src="@mipmap/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

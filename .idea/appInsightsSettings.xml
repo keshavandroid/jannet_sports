@@ -8,7 +8,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.e.jannet_stable_code" />
+                  <option name="appId" value="com.xtrane" />
                   <option name="mobileSdkAppId" value="1:888061771490:android:127d95a81a3f22a0c068bb" />
                   <option name="projectId" value="jannet-tchs" />
                   <option name="projectNumber" value="888061771490" />

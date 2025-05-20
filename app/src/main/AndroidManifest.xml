@@ -185,6 +185,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.parentsApp.BalanceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.parentsApp.BuyCoinsActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.FirebaseApp
+import com.stripe.android.PaymentConfiguration
 
 
 class MainApplication:Application(), LifecycleObserver,
@@ -57,6 +58,10 @@ class MainApplication:Application(), LifecycleObserver,
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
+        PaymentConfiguration.init(
+            applicationContext,
+            "pk_test_YourPublicKeyHere" // Replace with your publishable key
+        )
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

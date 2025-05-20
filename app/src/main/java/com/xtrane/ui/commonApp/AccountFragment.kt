@@ -12,11 +12,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.xtrane.R
 import com.xtrane.databinding.FragmentAccountBinding
-import com.xtrane.databinding.FragmentMatchBinding
 import com.xtrane.ui.coachApp.CoachMainActivity
 import com.xtrane.ui.coachApp.coachUpdateProfileScreen.CoachUpdateProfileActivity
 import com.xtrane.ui.loginRegister.SelectSportsActivity
 import com.xtrane.ui.loginRegister.UserTypeSelectionActivity
+import com.xtrane.ui.parentsApp.BalanceActivity
 import com.xtrane.ui.parentsApp.EventRegisterRequestActivity
 import com.xtrane.ui.parentsApp.ParentUpdateProfileActivity
 import com.xtrane.ui.parentsApp.ParentsMainActivity
@@ -26,8 +26,6 @@ import com.xtrane.utils.Dialogs
 import com.xtrane.utils.SharedPrefUserData
 import com.xtrane.utils.StoreUserData
 
-import kotlin.math.log
-
 
 class AccountFragment : Fragment(R.layout.fragment_account) {
     private lateinit var binding: FragmentAccountBinding
@@ -35,12 +33,13 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentAccountBinding.inflate(layoutInflater)
         return binding.root
 //        return super.onCreateView(inflater, container, savedInstanceState)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,8 +49,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         val id = storedata.getString(Constants.COACH_ID)
         val token = storedata.getString(Constants.COACH_TOKEN)
 
-        val userType= SharedPrefUserData(requireActivity()).getSavedData().usertype
-        Log.d("USERTYPE0", "" +userType)
+        val userType = SharedPrefUserData(requireActivity()).getSavedData().usertype
+        Log.d("USERTYPE0", "" + userType)
 
         //old logic
         /*if (id.trim().toString().isEmpty()){
@@ -66,21 +65,21 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         }*/
 
         //new logic
-        if(userType.isNotEmpty()){
-            if (userType.equals("coach")){
+        if (userType.isNotEmpty()) {
+            if (userType.equals("coach")) {
                 binding.lleventRegisterRequest.isVisible = true
                 binding.llTicketBookingRequest.isVisible = true
                 binding.llselectSports.isVisible = true
-            }else if (userType.equals("child")){
+            } else if (userType.equals("child")) {
                 binding.llselectSports.isGone = true
                 binding.lleventRegisterRequest.isGone = true
                 binding.llTicketBookingRequest.isGone = true
-            }else if (userType.equals("parent")){
-                binding.llselectSports.isGone=true
+            } else if (userType.equals("parent")) {
+                binding.llselectSports.isGone = true
                 binding.lleventRegisterRequest.isVisible = true
                 binding.llTicketBookingRequest.isVisible = true
-            }else if(userType.equals("adult")){
-                binding.llselectSports.isGone=true
+            } else if (userType.equals("adult")) {
+                binding.llselectSports.isGone = true
                 binding.lleventRegisterRequest.isGone = true
                 binding.llTicketBookingRequest.isGone = true
             }
@@ -91,7 +90,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         binding.llselectSports.setOnClickListener {
 
             val intent = Intent(requireActivity(), SelectSportsActivity::class.java)
-            intent.putExtra("COACH","coach")
+            intent.putExtra("COACH", "coach")
             startActivity(intent)
 
         }
@@ -159,10 +158,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
         binding.llNotifications.setOnClickListener {
             startActivity(
-                    Intent(
-                            requireActivity(),
-                            NotificationsActivity::class.java
-                    )
+                Intent(
+                    requireActivity(),
+                    NotificationsActivity::class.java
+                )
             )
         }
 
@@ -212,12 +211,16 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
         binding.lleventRegisterRequest.setOnClickListener {
 
-            val intent = Intent(requireContext(),EventRegisterRequestActivity::class.java)
+            val intent = Intent(requireContext(), EventRegisterRequestActivity::class.java)
             startActivity(intent)
         }
 
         binding.llTicketBookingRequest.setOnClickListener {
-            val intent = Intent(requireContext(),TicketBookingRequest::class.java)
+            val intent = Intent(requireContext(), TicketBookingRequest::class.java)
+            startActivity(intent)
+        }
+        binding.llWallet.setOnClickListener {
+            val intent = Intent(requireContext(), BalanceActivity::class.java)
             startActivity(intent)
         }
     }
