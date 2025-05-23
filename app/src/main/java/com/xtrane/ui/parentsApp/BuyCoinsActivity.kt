@@ -100,12 +100,12 @@ class BuyCoinsActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
 
-       //     val userId = SharedPrefUserData(this@BuyCoinsActivity).getSavedData().id
+            val userId = SharedPrefUserData(this@BuyCoinsActivity).getSavedData().id
 
-//            Log.e("startCheckout", "userId: $userId")
+            Log.e("startCheckout", "userId: $userId")
 
             val response = withContext(Dispatchers.IO) {
-                val url = URL("https://www.x-trane.com/api/createPaymentIntent?userId="+"99"+"&amount=10"+"&eventId=1"+"&currency=usd"+"&bookType=Bookevent")
+                val url = URL("https://www.x-trane.com/api/createCoinPaymentIntent?userId="+"99"+"&amount=10"+"&currency=usd"+"&coin=10")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
 
@@ -115,7 +115,7 @@ class BuyCoinsActivity : AppCompatActivity() {
 
 //            val customerId = response.getString("customer")
 //            val ephemeralKey = response.getString("ephemeralKey")
-            paymentIntentClientSecret = response.getString("payment_intent_client_secret")
+            paymentIntentClientSecret = response.getString("paymentIntentClientSecret")
 
 //            customerConfig = PaymentSheet.CustomerConfiguration(
 //                id = customerId,

@@ -93,8 +93,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         getSportsController = GetSportsController(requireActivity(), this)
         getSportsController.callGetSportsApi(id, token)
         locationController.callLocationApi(id, token)
-        sharedPreference =
-            this.requireActivity().getSharedPreferences("PREFERENCE_NAME1", Context.MODE_PRIVATE)
+        sharedPreference = this.requireActivity().getSharedPreferences("PREFERENCE_NAME1", Context.MODE_PRIVATE)
         editor = sharedPreference!!.edit()
 
 
