@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/topbar"
@@ -308,6 +307,7 @@
 
 
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
@@ -400,6 +400,75 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/txtSelectEventType"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Select Event Type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/multispinnerforEventType"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:background="@null" />
+
+                        <!--                        <Spinner-->
+                        <!--                            android:id="@+id/multispinner"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="0dp"-->
+                        <!--                            android:layout_marginStart="@dimen/_10sdp"-->
+                        <!--                            android:layout_marginEnd="@dimen/_10sdp"-->
+                        <!--                            android:background="@null" />-->
+
+                        <TextView
+                            android:id="@+id/txtEventType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="Select Event Type"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <TextView
                     android:id="@+id/txtDate1"
                     style="@style/txtLoginScreen1"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -434,8 +503,6 @@
                         android:singleLine="true"
                         android:textColor="@color/grey1"
                         android:textSize="@dimen/_11ssp" />
-
-                    style="@style/txtLoginScreen2"
 
                     <ImageView
                         android:layout_width="@dimen/_20sdp"
@@ -717,6 +784,7 @@
                 </LinearLayout>
 
                 //max grade
+
                 <LinearLayout
                     android:id="@+id/llGradeMainMax"
                     android:layout_width="match_parent"
@@ -856,8 +924,8 @@
                             android:layout_height="match_parent"
                             android:background="@color/transparent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/grey1"
                             android:text="Select Maximum Age"
+                            android:textColor="@color/grey1"
                             android:textSize="@dimen/_11ssp" />
 
                         <ImageView

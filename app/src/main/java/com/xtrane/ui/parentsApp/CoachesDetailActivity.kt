@@ -48,7 +48,7 @@ class CoachesDetailActivity : BaseActivity(), CoachTeamListAdapter.ITeamClickLis
         val id = intent.getStringExtra("CoachID")
         val image = intent.getStringExtra("IMAGE")
 
-        coachTeamController.callCoachTeamListApi(userId, token, id.toString())
+        coachTeamController.callCoachTeamListApi(userId!!, token!! , id.toString())
         showLoader()
 
         binding.tvCoachName.text = name.toString()

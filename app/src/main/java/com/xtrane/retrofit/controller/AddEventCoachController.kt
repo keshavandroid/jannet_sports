@@ -58,26 +58,16 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
 
 
         val date: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.date)
-        val participants: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.noParticipants)
+        val participants: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.noParticipants)
 
-        val gender_applicable: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.gender_applicable)
-        val grade_id: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.grade_id)
-        val min_age: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.minimum_age)
-        val max_age: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.max_age)
-        val min_grade: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.min_grade)
-        val max_grade: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.max_grade)
-
-
-
-        val imgCount: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.imgCount)
+        val gender_applicable: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.gender_applicable)
+        val grade_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.grade_id)
+        val min_age: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.minimum_age)
+        val max_age: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.max_age)
+        val min_grade: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.min_grade)
+        val max_grade: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.max_grade)
+        val matchType: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.eventType)
+        val imgCount: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.imgCount)
 
 
 //        val lat: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, "19.00")
@@ -158,6 +148,9 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
             image6 = MultipartBody.Part.createFormData("image5", file.name, reqFile)
         }
 
+        Log.e("TAG", "Controller: minimum_age =="+min_age)
+        Log.e("TAG", "Controller: max_age =="+max_age)
+
         val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().addEventApi(
             id = id,
             token = token,
@@ -175,6 +168,7 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
             max_age=max_age,
             min_grade=min_grade,
             max_grade=max_grade,
+            matchType=matchType,
             mainimage = image1,
             image1 = image2,
             image2 = image3,

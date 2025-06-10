@@ -272,53 +272,27 @@
                         android:gravity="center_vertical"
                         android:layout_margin="@dimen/_5sdp">
 
+                        <com.hbb20.CountryCodePicker
+                            android:id="@+id/countryCodePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:ccp_defaultNameCode="IN"
+                            app:ccp_showFlag="false"
+                            app:ccp_showFullName="false"
+                            app:ccp_showNameCode="false"
+                            app:ccp_textSize="@dimen/_11ssp"/>
+
                         <EditText
                             android:id="@+id/etxtPhNo"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:inputType="phone"
-                            android:maxLength="3"
-                            android:text="000"
-                            android:textSize="@dimen/_11ssp"
-                            android:gravity="center"
+                            android:layout_height="match_parent"
                             android:background="@null"
-                            android:layout_margin="@dimen/_5sdp"/>
-
-                        <View
-                            android:layout_width="10dp"
-                            android:layout_height="1dp"
-                            android:background="@color/black">
-                        </View>
-
-                        <EditText
-                            android:id="@+id/etxtPhNo1"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
+                            android:hint="0000000000"
                             android:inputType="phone"
-                            android:maxLength="3"
-                            android:gravity="center"
-                            android:textSize="@dimen/_11ssp"
-                            android:text="000"
-                            android:layout_margin="@dimen/_5sdp"
-                            android:background="@null"/>
+                            android:maxLength="10"
+                            android:textSize="@dimen/_11ssp" />
 
-                        <View
-                            android:layout_width="10dp"
-                            android:layout_height="1dp"
-                            android:background="@color/black">
-                        </View>
 
-                        <EditText
-                            android:id="@+id/etxtPhNo2"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:inputType="phone"
-                            android:maxLength="4"
-                            android:textSize="@dimen/_11ssp"
-                            android:text="0000"
-                            android:layout_margin="@dimen/_5sdp"
-                            android:gravity="center"
-                            android:background="@null"/>
                     </LinearLayout>
 
 

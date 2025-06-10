@@ -174,7 +174,8 @@ class RegisterAdultActivity : AppCompatActivity() {
         //registerObject!!.lastname=etxtLName.text.toString().trim()
         registerObject!!.lastname = "0"
       //  registerObject!!.contactNo = etxtPhNo.text.toString().trim()
-        registerObject!!.contactNo =  binding.etxtPhNo.text.toString().trim()+ binding.etxtPhNo1.text.toString().trim()+binding.etxtPhNo2.text.toString().trim()
+        registerObject!!.contactNo = binding.countryCodePicker.selectedCountryCode+binding.etxtPhNo.text.toString().trim()
+
         if (genderFlag == 1) registerObject!!.gender = "m"
         else if (genderFlag == 2) registerObject!!.gender = "f"
         registerObject!!.birthdate =  binding.txtBDate.text.toString().trim()

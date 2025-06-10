@@ -32,10 +32,12 @@ class AddNewLocationActivity : BaseActivity(), OnMapReadyCallback, IAddNewLocati
     }
 
     private lateinit var binding: ActivityAddNewLocationBinding
-    var latitude = "22.261080858237882"
-    var longitude = "70.7804374167259"
+    var latitude = "25.761681"
+    var longitude = "-80.191788"
     var address = ""
+
     lateinit var gmap: GoogleMap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //   setContentView(R.layout.activity_add_new_location)

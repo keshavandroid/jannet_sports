@@ -89,6 +89,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
     lateinit var adapterMaxRange: ArrayAdapter<String>
     private var tempGradeMaxList: ArrayList<GradeListResult?>? = null
     private lateinit var binding: ActivityAddEventBinding
+    var spnEventType = ""
 
     override fun getController(): IBaseController? {
 
@@ -135,7 +136,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Add Location")
                 .setMessage("You Wan to Add New Location?")
-                .setPositiveButton("Yes",
+                .setPositiveButton(
+                    "Yes",
                     DialogInterface.OnClickListener { dialog, which ->
                         var intent = Intent(this, AddNewLocationActivity::class.java)
                         startActivity(intent)
@@ -186,8 +188,9 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
         addEventObject = AddEventObject()
         addEventViewModel = AddEventViewModel(this)
-        setTopBar()
 
+        setTopBar()
+        SetEventTypeSpinner()
         binding.img1.setOnClickListener {
             imagePickFlag = 1
             pickImage = PickImage(this@AddEventActivity)
@@ -237,6 +240,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             allData.fees = binding.etxtFees.text.toString().trim()
             allData.location = locationId.toString()
             allData.sportTypes = selectedSportList.trim()
+            allData.eventType = spnEventType
             allData.coach_id = id.toString()
 
             allData.date = binding.txtDate.text.toString().trim()
@@ -249,6 +253,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             allData.max_age = maxRangeSelected.toString()
             allData.min_grade = selectedgradeID.toString()
             allData.max_grade = selectedMaxgradeID.toString()
+            Log.e("TAG", "onCreate: minimum_age ==" + allData.minimum_age)
+            Log.e("TAG", "onCreate: max_age ==" + allData.max_age)
 
             if (addEventViewModel!!.checkValidData(allData)) {
 
@@ -263,9 +269,10 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 } else if (binding.txtlocation.text.trim().toString() == "Select Location") {
                     showToast("Select Location")
                 } else if (binding.txtSportscoach.text.trim().toString() == "Select Sports") {
-                    showToast("Select Sports ")
-                }
-                else {
+                    showToast("Select Sports")
+                } else if (spnEventType == "") {
+                    showToast("Select Event Type")
+                } else {
 
                     Log.e("TAG", "onCreate:selectedType1==$selectedType")
 
@@ -274,43 +281,35 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                         Log.e("TAG", "onCreate:selectedType2==$selectedType")
 
                         if (binding.txtSelectedGrade.text.trim()
-                                .toString() == "Select Minimum Grade")
-                        {
+                                .toString() == "Select Minimum Grade"
+                        ) {
                             showToast("Select Starting Grade")
-                        }
-                        else if (binding.txtSelectedGradeMax.text.trim()
-                                .toString() == "Select Maximum Grade")
-                        {
+                        } else if (binding.txtSelectedGradeMax.text.trim()
+                                .toString() == "Select Maximum Grade"
+                        ) {
                             showToast("Select Maximum Grade")
-                        }
-                        else{
+                        } else {
 
                             Log.e("TAG", "onCreate:selectedType3==$selectedType")
 
                             addEventViewModel!!.callAddEventApi()
 
                         }
-                    }
-                    else if (selectedType == 2)
-                    {
+                    } else if (selectedType == 2) {
                         if (binding.txtSelectMinRange.text.trim()
-                                .toString() == "Select Minimum Age")
-                        {
+                                .toString() == "Select Minimum Age"
+                        ) {
                             showToast("Select Minimum Age")
-                        }
-                        else if (binding.txtSelectMaxRange.text.trim()
-                                .toString() == "Select Maximum Age")
-                        {
+                        } else if (binding.txtSelectMaxRange.text.trim()
+                                .toString() == "Select Maximum Age"
+                        ) {
                             showToast("Select Maximum Age")
-                        }
-                        else{
+                        } else {
 
                             addEventViewModel!!.callAddEventApi()
 
                         }
                     }
-
-
                 }
             }
 
@@ -325,6 +324,10 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             binding.multispinner.performClick()
         }
 
+        binding.txtEventType.setOnClickListener{
+
+            binding.multispinnerforEventType.performClick()
+        }
         binding.txtlocation.setOnClickListener {
 
             binding.spinnerLocation.performClick()
@@ -360,6 +363,39 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         binding.txtSelectMinRange.setOnClickListener {
             binding.spinnerSelectMinRange.performClick()
         }
+
+    }
+
+    private fun SetEventTypeSpinner() {
+
+        var eventtype = ArrayList<String?>()
+        eventtype.add("Single Match")
+        eventtype.add("Tournament")
+        eventtype.add("Practice")
+
+
+        val adapterSports = ArrayAdapter(this, android.R.layout.simple_spinner_item, eventtype!!)
+        adapterSports.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.multispinnerforEventType.adapter = adapterSports
+
+
+        binding.multispinnerforEventType.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
+
+                    Log.e("Spinner=", "onItemSelected called")
+                    spnEventType = p0!!.getItemAtPosition(pos).toString()
+                    Log.e("Spinner=", spnEventType + "==")
+                    binding.txtEventType.text = spnEventType
+                    Log.e(TAG, "onItemSelected: ")
+
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    Log.e("Spinner=", "onNothingSelected=" + p0 + "==")
+                }
+
+            }
     }
 
     private fun AgerangeFunction() {
@@ -397,8 +433,10 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                         try {
                             binding.txtSelectMinRange.text = tempminAgeList[position]
                             val minimumselectedAge = tempminAgeList[position]
+                            minRangeSelected = minimumselectedAge!!.toInt()
 
                             temparraylist = ArrayList<String>()
+
                             for (i in minimumselectedAge?.toInt()
                                 ?.plus(1)!!..minMaxgeResult!![0]!!.getMaxAgeEnd()
                                 ?.toInt()!!) {
@@ -497,6 +535,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 //                            }
 
                                             binding.txtSelectMaxRange.text = temparraylist[position]
+                                            maxRangeSelected = temparraylist[position].toInt()
 
                                         } catch (e: Exception) {
                                             e.printStackTrace()
@@ -909,8 +948,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         tempSportsTypeList.add(0, lisBtHint)
         tempSportsTypeList.addAll(response!!)
 
-        val adapterSports =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, tempSportsTypeList!!)
+        val adapterSports = ArrayAdapter(this, android.R.layout.simple_spinner_item, tempSportsTypeList!!)
         adapterSports.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.multispinner.adapter = adapterSports
@@ -1133,6 +1171,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         var fees = ""
         var location = ""
         var sportTypes = ""
+        var eventType = ""
         var date = ""
         var noParticipants = ""
         var childGroup = ""

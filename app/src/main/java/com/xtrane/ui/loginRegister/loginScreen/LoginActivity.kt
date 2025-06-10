@@ -97,7 +97,7 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
             ) {
                 if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.COACH)) {
                     Log.e("TAG", "onCreate: upside new coach api ", )
-                    controller.callCoachLoginApi(  binding.etxtEmail.text.toString().trim(),  binding.etxtPassword.text.toString().trim())
+                    controller.callCoachLoginApi(binding.etxtEmail.text.toString().trim(),  binding.etxtPassword.text.toString().trim())
                     showLoader()
                 }
                 else if (intent.getStringExtra(Constants.USER_TYPE).equals(Constants.CHILD)){
@@ -161,7 +161,7 @@ class LoginActivity : BaseActivity(),ICoachLoginView {
         storeData.setString(Constants.COACH_PHONE,phone.toString())
 
         if (userType != null) {
-            SharedPrefUserData(this).saveCoachLoginResp(userType)
+            SharedPrefUserData(this).saveUserTypeLoginResp(userType)
         }
 
 

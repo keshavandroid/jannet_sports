@@ -25,8 +25,8 @@ class EditChildOfParentController(var context: Activity, internal var controller
     fun callApi(registerObj: AddChildActivity.ChildObject) {
         Utilities.showProgress(context)
 
-        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id)
-        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token)
+        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id!!)
+        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token!!)
         val childName: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.firstName)
         val password: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.password)
         val childMiddleName: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.middleName)

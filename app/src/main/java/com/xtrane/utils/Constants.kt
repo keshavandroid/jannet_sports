@@ -15,6 +15,7 @@ object Constants {
     val COACH = "coach"
     val CHILD = "child"
     val ADULT = "adult"
+    val PARENT = "parent"
 
 
     //Add child activity

@@ -88,7 +88,8 @@ class AddMatchFActivity : BaseActivity(), ITeamListView, IAddMatchView, ILocatio
 
         mTimePicker = TimePickerDialog(this, object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                binding.etxtMatchTime.setText(String.format("%d : %d", hourOfDay, minute))
+
+                binding.etxtMatchTime.setText(String.format("%02d : %02d", hourOfDay, minute))
             }
         }, hour, minute, true)
 

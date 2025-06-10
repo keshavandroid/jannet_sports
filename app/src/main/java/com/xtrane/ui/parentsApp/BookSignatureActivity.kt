@@ -70,7 +70,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     //PAYMENT STRIPE
     private fun fetchPaymentIntentApi() {
 
-        id = SharedPrefUserData(this).getSavedData().id
+        id = SharedPrefUserData(this).getSavedData().id!!
         val eventid = intent.getStringExtra("eventId")
 
         val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().createPaymentIntentApi("350","INR",eventid,id,"Bookevent")
@@ -226,8 +226,8 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
 
 
-            id = SharedPrefUserData(this).getSavedData().id
-            token = SharedPrefUserData(this).getSavedData().token
+            id = SharedPrefUserData(this).getSavedData().id!!
+            token = SharedPrefUserData(this).getSavedData().token!!
             val eventid = intent.getStringExtra("eventId")
             val childId = intent.getStringExtra("ChildId")
 

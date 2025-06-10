@@ -30,8 +30,8 @@ class JoinTeamFromParentController(var context: Activity, var registerController
         val storedata = SharedPrefUserData(context)
         val idd = storedata.getSavedData().id
         val tokenn = storedata.getSavedData().token
-        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, idd)
-        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!,tokenn)
+        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, idd!!)
+        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!,tokenn!!)
 
         var coach_id: RequestBody =
             RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.coach_id)

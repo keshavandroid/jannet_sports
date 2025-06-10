@@ -141,7 +141,7 @@ class StaticActivity : BaseActivity(), IStaticPageView {
 
         } else if (type == "terms") {
 
-            controller.callStaticDataApi("2", id, token)
+            controller.callStaticDataApi("2", id!!, token!!)
             showLoader()
 
         }

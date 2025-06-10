@@ -67,11 +67,25 @@ class SharedPrefUserData(context: Activity) {
     fun clearAllData() {
         pref?.edit()?.clear()?.apply()
     }
-
-    fun getSavedData(): SavedData {
-        val data = SavedData()
+    fun saveLoginResp(data: LoginResponse.Result) {
+        saveString(ID, data.id.toString())
+        saveString(FIRSTNAME, data.firstname)
+        saveString(LASTNAME, data.lastname)
+        saveString(GENDER, data.gender)
+        saveString(BIRTHDATE, data.birthdate)
+        saveString(EMAIL, data.email)
+        saveString(PASSWORD, data.password)
+        saveString(CONTACTNO, data.contactNo)
+        saveString(USERTYPE, data.userType)
+        saveString(IMAGE, data.image)
+        saveString(USERTOKEN, data.userToken)
+        saveString(REGISTER_STEP, data.status)
+    }
+    fun getSavedData(): LoginResponse.SavedData {
+        val data = LoginResponse.SavedData()
 
         data.id = getString(ID)
+        Log.e("id=",data.id.toString())
         data.firstname = getString(FIRSTNAME)
         data.lastname = getString(LASTNAME)
         data.gender = getString(GENDER)
@@ -108,23 +122,13 @@ class SharedPrefUserData(context: Activity) {
         saveString(REGISTER_STEP, s)
     }
 
-    fun saveLoginResp(data: LoginResponse.Result) {
-        saveString(ID, data.id.toString())
-        saveString(FIRSTNAME, data.firstname)
-        saveString(LASTNAME, data.lastname)
-        saveString(GENDER, data.gender)
-        saveString(BIRTHDATE, data.birthdate)
-        saveString(EMAIL, data.email)
-        saveString(PASSWORD, data.password)
-        saveString(CONTACTNO, data.contactNo)
-        saveString(USERTYPE, data.userType)
-        saveString(IMAGE, data.image)
-        saveString(USERTOKEN, data.userToken)
-        saveString(REGISTER_STEP, data.status)
-    }
 
-    fun saveCoachLoginResp(userType: String) {
+
+    fun saveUserTypeLoginResp(userType: String) {
         saveString(USERTYPE, userType)
+    }
+    fun getUserTypeLoginResp() {
+        getString(USERTYPE)
     }
 
     fun saveProfileResp(result: GetProfileParentApiResponse.Result?) {
@@ -234,23 +238,23 @@ class SharedPrefUserData(context: Activity) {
 
 
 
-    class SavedData {
-        var id = ""
-        var firstname = ""
-        var lastname = ""
-        var gender = ""
-        var birthdate = ""
-        var email = ""
-        var password = ""
-        var contactno = ""
-        var usertype = ""
-        var image = ""
-        var token = ""
-        var registerStep = ""
-        var location = ""
-
-        var sportList: ArrayList<Sports>? = null
-    }
+//    class SavedData {
+//        var id = ""
+//        var firstname = ""
+//        var lastname = ""
+//        var gender = ""
+//        var birthdate = ""
+//        var email = ""
+//        var password = ""
+//        var contactno = ""
+//        var usertype = ""
+//        var image = ""
+//        var token = ""
+//        var registerStep = ""
+//        var location = ""
+//
+//        var sportList: ArrayList<Sports>? = null
+//    }
 
     class Sports {
         var sportId = ""

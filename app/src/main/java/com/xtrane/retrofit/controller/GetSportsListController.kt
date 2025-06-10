@@ -32,8 +32,8 @@ class GetSportsListController(var context: Activity, internal var controllerInte
 //        val token= SharedPrefUserData(context).getSavedData().token
         if (storData.getString(Constants.COACH_ID).trim().isEmpty()||storData.getString(Constants.COACH_ID).trim()==""||storData.getString(Constants.COACH_ID).trim()=="") {
 
-            id = data.id
-            token = data.token
+            id = data.id.toString()
+            token = data.token.toString()
 
         }else{
 

@@ -39,7 +39,7 @@ class NotificationsActivity : BaseActivity(),INotificationView {
         val user_type = storedata.getString(Constants.COACH_TYPE)
 
         Log.e("USER_TYPE1=", user_type)
-        Log.e("USER_TYPE2=", SharedPrefUserData(this).getSavedData().usertype)
+        Log.e("USER_TYPE2=", SharedPrefUserData(this).getSavedData().usertype!!)
 
         if (user_type.length>0 && user_type.equals(Constants.COACH))
         {
@@ -48,8 +48,8 @@ class NotificationsActivity : BaseActivity(),INotificationView {
         }
         else
         {
-            id = SharedPrefUserData(this).getSavedData().id
-            token =SharedPrefUserData(this).getSavedData().token
+            id = SharedPrefUserData(this).getSavedData().id!!
+            token =SharedPrefUserData(this).getSavedData().token!!
         }
 
         showLoader()

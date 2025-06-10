@@ -91,7 +91,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
 
         locationController = LocationController(requireActivity(), this)
         getSportsController = GetSportsController(requireActivity(), this)
-        getSportsController.callGetSportsApi(id, token)
+        getSportsController.callGetSportsApi(id!!, token!!)
         locationController.callLocationApi(id, token)
         sharedPreference = this.requireActivity().getSharedPreferences("PREFERENCE_NAME1", Context.MODE_PRIVATE)
         editor = sharedPreference!!.edit()
@@ -102,7 +102,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
 
         //DEVICE REGISTER FOR PUSH NOTIFICATION
         Handler().postDelayed({
-            callDeviceRegister(id, email)
+            callDeviceRegister(id!!, email!!)
         }, 5000)
 
 

@@ -124,9 +124,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 .isEmpty() || storedata.getString(Constants.COACH_ID).trim() == ""
         ) {
 
-            id = SharedPrefUserData(this).getSavedData().id
-            token = SharedPrefUserData(this).getSavedData().token
-            val userType: String = SharedPrefUserData(this).getSavedData().usertype
+            id = SharedPrefUserData(this).getSavedData().id!!
+            token = SharedPrefUserData(this).getSavedData().token!!
+            val userType: String = SharedPrefUserData(this).getSavedData().usertype!!
 
 
             controller = ProfileController(this, this)

@@ -81,7 +81,7 @@ class CoachUpdateProfileActivity : BaseActivity() {
                     image = imageStr,
                     fname = bind.etxtFName.text.toString().trim(),
                     email = bind.etxtEmail.text.toString().trim(),
-                    phNo = bind.etxtPhNo.text.toString().trim(),
+                    phNo = bind.countryCodePicker.selectedCountryCode+bind.etxtPhNo.text.toString().trim(),
                     bdate = bind.txtBDate.text.toString().trim(),
                     gender = genderFlag.toString().trim(),
                     location = "" ,

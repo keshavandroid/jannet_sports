@@ -53,8 +53,8 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
                 .trim() == null || storeData.getString(Constants.COACH_ID).trim().isEmpty()
         ) {
 
-            id = SharedPrefUserData(this).getSavedData().id
-            token = SharedPrefUserData(this).getSavedData().token
+            id = SharedPrefUserData(this).getSavedData().id!!
+            token = SharedPrefUserData(this).getSavedData().token!!
             val event_id = intent.getStringExtra("EVENT_ID")
 
 

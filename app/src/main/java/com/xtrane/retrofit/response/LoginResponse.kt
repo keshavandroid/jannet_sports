@@ -2,6 +2,7 @@ package com.xtrane.retrofit.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.xtrane.utils.SharedPrefUserData
 
 class LoginResponse{
     @SerializedName("status")
@@ -89,4 +90,20 @@ class LoginResponse{
         @Expose
         var status: String? = null
     }
+    data class SavedData(
+        var id: String? = null,
+        var firstname: String? = null,
+        var lastname: String? = null,
+        var gender: String? = null,
+        var birthdate: String? = null,
+        var email: String? = null,
+        var password: String? = null,
+        var contactno: String? = null,
+        var usertype: String? = null,
+        var image: String? = null,
+        var token: String? = null,
+        var registerStep: String? = null,
+        var location: String? = null,
+        var sportList: ArrayList<SharedPrefUserData.Sports>? = null
+    )
 }

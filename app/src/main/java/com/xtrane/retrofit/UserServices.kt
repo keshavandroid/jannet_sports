@@ -56,6 +56,11 @@ interface UserServices {
         @Query("id") id: String?, @Query("token") token: String?,
     ): Call<ResponseBody?>?
 
+    @GET("getPurchaseHistory")
+    fun getPurchaseHistory(
+        @Query("userId") id: String?, @Query("userToken") token: String?,
+    ): Call<ResponseBody?>?
+
     @GET("parentHomeFilter")
     fun parentHomeFilter(
         @Query("id") id: String?,
@@ -281,6 +286,7 @@ interface UserServices {
         @Part("max_age") max_age: RequestBody,
         @Part("min_grade") min_grade: RequestBody,
         @Part("max_grade") max_grade: RequestBody,
+        @Part("matchType") matchType: RequestBody,
         @Part("image") image: RequestBody,
         @Part mainimage: MultipartBody.Part?,
         @Part image1: MultipartBody.Part?,

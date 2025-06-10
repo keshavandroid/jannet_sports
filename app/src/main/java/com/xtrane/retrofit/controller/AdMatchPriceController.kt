@@ -19,8 +19,12 @@ class AdMatchPriceController(
 
 
 
-        var userId: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), storeusedata.getSavedData().id)
-        var user_token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), storeusedata.getSavedData().token)
+        var userId: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),
+            storeusedata.getSavedData().id!!
+        )
+        var user_token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),
+            storeusedata.getSavedData().token!!
+        )
         var match_id: RequestBody =
             RequestBody.create("text/plain".toMediaTypeOrNull(), registerData.matchId1)
         var match_price: RequestBody =

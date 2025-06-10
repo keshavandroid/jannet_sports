@@ -52,6 +52,30 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         val userType = SharedPrefUserData(requireActivity()).getSavedData().usertype
         Log.d("USERTYPE0", "" + userType)
 
+        if (userType.equals("coach"))
+        {
+            Log.e("AccountFragment=userType=","Gone")
+
+            binding.llWallet.visibility=View.GONE
+            binding.lleventRegisterRequest.visibility=View.GONE
+            binding.llTicketBookingRequest.visibility=View.GONE
+            binding.view1.visibility=View.GONE
+            binding.view2.visibility=View.GONE
+            binding.view3.visibility=View.GONE
+
+        }
+        else{
+
+            Log.e("AccountFragment=userType=","Visibility")
+            binding.llWallet.visibility=View.VISIBLE
+            binding.lleventRegisterRequest.visibility=View.VISIBLE
+            binding.llTicketBookingRequest.visibility=View.VISIBLE
+            binding.view1.visibility=View.VISIBLE
+            binding.view2.visibility=View.VISIBLE
+            binding.view3.visibility=View.VISIBLE
+
+        }
+
         //old logic
         /*if (id.trim().toString().isEmpty()){
 
@@ -65,26 +89,26 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         }*/
 
         //new logic
-        if (userType.isNotEmpty()) {
-            if (userType.equals("coach")) {
-                binding.lleventRegisterRequest.isVisible = true
-                binding.llTicketBookingRequest.isVisible = true
-                binding.llselectSports.isVisible = true
-            } else if (userType.equals("child")) {
-                binding.llselectSports.isGone = true
-                binding.lleventRegisterRequest.isGone = true
-                binding.llTicketBookingRequest.isGone = true
-            } else if (userType.equals("parent")) {
-                binding.llselectSports.isGone = true
-                binding.lleventRegisterRequest.isVisible = true
-                binding.llTicketBookingRequest.isVisible = true
-            } else if (userType.equals("adult")) {
-                binding.llselectSports.isGone = true
-                binding.lleventRegisterRequest.isGone = true
-                binding.llTicketBookingRequest.isGone = true
-            }
-        }
-
+//        if (userType!!.isNotEmpty()) {
+//            if (userType.equals("coach")) {
+//                binding.lleventRegisterRequest.isVisible = true
+//                binding.llTicketBookingRequest.isVisible = true
+//                binding.llselectSports.isVisible = true
+//            } else if (userType.equals("child")) {
+//                binding.llselectSports.isGone = true
+//                binding.lleventRegisterRequest.isGone = true
+//                binding.llTicketBookingRequest.isGone = true
+//            } else if (userType.equals("parent")) {
+//                binding.llselectSports.isGone = true
+//                binding.lleventRegisterRequest.isVisible = true
+//                binding.llTicketBookingRequest.isVisible = true
+//            } else if (userType.equals("adult")) {
+//                binding.llselectSports.isGone = true
+//                binding.lleventRegisterRequest.isGone = true
+//                binding.llTicketBookingRequest.isGone = true
+//            }
+//        }
+//
 
 
         binding.llselectSports.setOnClickListener {

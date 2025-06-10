@@ -35,9 +35,9 @@ class GetProfileController(val context: Activity, val isParent:Boolean,internal 
         if (storedata.getString(Constants.COACH_ID).trim()==null||storedata.getString(Constants.COACH_ID).trim().isEmpty()||storedata.getString(Constants.COACH_ID).trim()==""){
 
 
-            id = SharedPrefUserData(context).getSavedData().id
-            token = SharedPrefUserData(context).getSavedData().token
-            userType = SharedPrefUserData(context).getSavedData().usertype
+            id = SharedPrefUserData(context).getSavedData().id!!
+            token = SharedPrefUserData(context).getSavedData().token!!
+            userType = SharedPrefUserData(context).getSavedData().usertype!!
 
             Log.e(TAG, "callApi: profile controller cll parent====$id", )
 

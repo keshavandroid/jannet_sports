@@ -58,9 +58,9 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
 
         if (storData.getString(Constants.COACH_ID).trim().isEmpty()||storData.getString(Constants.COACH_ID).trim()==""||storData.getString(Constants.COACH_ID).trim()==""){
 
-             email = data.email
-            phone = data.contactno
-             id = data.id
+             email = data.email.toString()
+            phone = data.contactno.toString()
+             id = data.id.toString()
             Log.e(TAG, "onCreate: partcipent  login", )
 
         }else{
@@ -300,7 +300,7 @@ class PhoneEmailVerificationActivity : AppCompatActivity() {
     }
     private val TAG = "PhoneEmailVerificationA"
     private fun continueFlow() {
-        val usertype:String= SharedPrefUserData(this).getSavedData().usertype
+        val usertype:String= SharedPrefUserData(this).getSavedData().usertype.toString()
 
         val stordata =  StoreUserData(this)
 //        val id  = stordata.getString(Constants.COACH_ID)

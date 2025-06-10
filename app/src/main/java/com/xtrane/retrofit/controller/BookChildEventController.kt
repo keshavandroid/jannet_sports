@@ -25,8 +25,8 @@ class BookChildEventController(var context: Activity, var registerControllerInte
 
     fun bookEvent(registerData: RegisterData){
 
-        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id)
-        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token)
+        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id!!)
+        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token!!)
         var child_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.child_id)
         var fees: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.fees)
         var event_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.event_id)

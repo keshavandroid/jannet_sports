@@ -30,11 +30,11 @@ class EditProfileParentController(
 
         val id: RequestBody = RequestBody.create(
             "text/plain".toMediaTypeOrNull()!!,
-            SharedPrefUserData(context).getSavedData().id
+            SharedPrefUserData(context).getSavedData().id!!
         )
         val token: RequestBody = RequestBody.create(
             "text/plain".toMediaTypeOrNull()!!,
-            SharedPrefUserData(context).getSavedData().token
+            SharedPrefUserData(context).getSavedData().token!!
         )
         val name: RequestBody =
             RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.firstname)

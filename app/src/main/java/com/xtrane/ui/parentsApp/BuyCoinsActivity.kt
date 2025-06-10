@@ -15,7 +15,10 @@ import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.xtrane.R
 import com.xtrane.databinding.ActivityBuyCoinsBinding
+import com.xtrane.utils.Constants
+import com.xtrane.utils.Constants.userType
 import com.xtrane.utils.SharedPrefUserData
+import com.xtrane.utils.StoreUserData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -97,15 +100,20 @@ class BuyCoinsActivity : AppCompatActivity() {
         finish()
     }
     private fun startCheckout(coins: Int) {
-
+        var userId=""
         lifecycleScope.launch {
 
-            val userId = SharedPrefUserData(this@BuyCoinsActivity).getSavedData().id
+            if (SharedPrefUserData(this@BuyCoinsActivity).getSavedData().usertype.equals(Constants.PARENT))
+            {
 
-            Log.e("startCheckout", "userId: $userId")
+                userId = SharedPrefUserData(this@BuyCoinsActivity).getSavedData().id.toString()
 
+                Log.e("startCheckout", "userId: $userId")
+
+            }
             val response = withContext(Dispatchers.IO) {
-                val url = URL("https://www.x-trane.com/api/createCoinPaymentIntent?userId="+"99"+"&amount=10"+"&currency=usd"+"&coin=10")
+                val url = URL("https://www.x-trane.com/api/createCoinPaymentIntent?userId="+userId+"&amount="+coins+"&currency=USD")
+                Log.e("startCheckout", "url: $url")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
 

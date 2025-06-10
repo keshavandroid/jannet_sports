@@ -34,10 +34,10 @@ class EventBookMatchListAdapter() : RecyclerView.Adapter<EventBookMatchListAdapt
 
         var currentItem = datalist!![position]
 
-        if(currentItem?.getMatchPrice() == null){
+        if(currentItem?.getEventPrice() == null){
             holder.txt_match_price.text = "0"
         }else{
-            holder.txt_match_price.text = currentItem?.getMatchPrice()
+            holder.txt_match_price.text = currentItem.getEventPrice()
         }
 
 

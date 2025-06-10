@@ -220,7 +220,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
                         val token = SharedPrefUserData(this@ParentBookActivity).getSavedData().token
 
                         showLoader()
-                        controller.callChildInfoAPI(id, token, selectChildId)
+                        controller.callChildInfoAPI(id!!, token!!, selectChildId)
                         binding. llTotalPrice.isVisible = true
                         binding.txtBook.isVisible = true
 

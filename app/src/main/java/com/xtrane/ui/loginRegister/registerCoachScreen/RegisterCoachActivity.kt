@@ -53,8 +53,10 @@ class RegisterCoachActivity : AppCompatActivity() {
 
         model = RegisterCoachModel(this)
 
+
         setTopBar()
         clicks()
+
         /*  val intent = Intent(this, SearchPlaceActivity::class.java)
           intent.putExtra(
               SearchPlacesStatusCodes.CONFIG,
@@ -66,9 +68,9 @@ class RegisterCoachActivity : AppCompatActivity() {
           )*/
 
         binding.tvLocation.setOnClickListener(View.OnClickListener {
-            /* intent = Intent(this, SeacrchLocationGoogleActivity::class.java)
-             startActivity(intent)*/
-            /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+           /* *//* intent = Intent(this, SeacrchLocationGoogleActivity::class.java)
+             startActivity(intent)*//*
+            *//* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                  val pair = Pair.create(
                      (tvLocation as? View),
                      SearchPlacesStatusCodes.PLACEHOLDER_TRANSITION
@@ -117,8 +119,9 @@ class RegisterCoachActivity : AppCompatActivity() {
             data.birthdate =  binding.txtBDate.text.toString().trim()
             data.email =  binding.etxtEmail.text.toString().trim()
             data.password =  binding.etxtPwd.text.toString().trim()
-            data.contactNo =  binding.etxtPhNo.text.toString().trim() +  binding.etxtPhNo1.text.toString()
-                .trim() +  binding.etxtPhNo2.text.toString().trim()
+            data.contactNo =  binding.countryCodePicker.selectedCountryCode+binding.etxtPhNo.text.toString().trim()
+
+            Log.e("contact number=",data.contactNo)
             data.location = "*"
             //etxtLocation.text.toString().trim()
 

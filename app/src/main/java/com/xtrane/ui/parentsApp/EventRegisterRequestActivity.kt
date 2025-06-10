@@ -43,8 +43,8 @@ class EventRegisterRequestActivity : AppCompatActivity() , IEventRegisterRequest
         init()
 
 
-        id = SharedPrefUserData(this).getSavedData().id
-        token = SharedPrefUserData(this).getSavedData().token
+        id = SharedPrefUserData(this).getSavedData().id!!
+        token = SharedPrefUserData(this).getSavedData().token!!
 
 
 

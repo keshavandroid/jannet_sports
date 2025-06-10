@@ -90,8 +90,8 @@ class AllCoachesFragment : Fragment(), IParentBootomCoachesView,
 
 
         val storeData = StoreUserData(requireContext())
-        id = SharedPrefUserData(requireActivity()).getSavedData().id
-        token = SharedPrefUserData(requireActivity()).getSavedData().token
+        id = SharedPrefUserData(requireActivity()).getSavedData().id!!
+        token = SharedPrefUserData(requireActivity()).getSavedData().token!!
         var idSports = sharedPreference!!.getString("strIDSports", "")
         if (idSports!!.isEmpty()) {
             coachController = ParentCoachesListController(requireActivity(), this)
@@ -118,7 +118,7 @@ class AllCoachesFragment : Fragment(), IParentBootomCoachesView,
 
             val id = SharedPrefUserData(requireActivity()).getSavedData().id
             val token = SharedPrefUserData(requireActivity()).getSavedData().token
-            coachJoinTeamController.callCoachJoinTeamApi(id, token)
+            coachJoinTeamController.callCoachJoinTeamApi(id!!, token!!)
             showLoader()
 
         }

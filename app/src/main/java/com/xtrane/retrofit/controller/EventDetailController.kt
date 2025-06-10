@@ -39,9 +39,9 @@ class EventDetailController(var context: Activity, internal var controllerInterf
 
         if (storedata.getString(Constants.COACH_ID).trim().isEmpty() || storedata.getString(Constants.COACH_ID).trim()==""){
 
-            id = SharedPrefUserData(context).getSavedData().id
-            token = SharedPrefUserData(context).getSavedData().token
-            val userType: String = SharedPrefUserData(context).getSavedData().usertype
+            id = SharedPrefUserData(context).getSavedData().id!!
+            token = SharedPrefUserData(context).getSavedData().token!!
+            val userType: String = SharedPrefUserData(context).getSavedData().usertype!!
 
             Log.e(TAG, "callApi: parent id token is $id", )
 

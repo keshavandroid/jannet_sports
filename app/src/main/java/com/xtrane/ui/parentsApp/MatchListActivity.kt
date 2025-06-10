@@ -58,8 +58,8 @@ class MatchListActivity : BaseActivity(), IMatchListView, MatchListAdapterED.IEd
                 .trim() == null || storeData.getString(Constants.COACH_ID).trim().isEmpty()
         ) {
 
-            id = SharedPrefUserData(this).getSavedData().id
-            token = SharedPrefUserData(this).getSavedData().token
+            id = SharedPrefUserData(this).getSavedData().id!!
+            token = SharedPrefUserData(this).getSavedData().token!!
             controller.callMatchListApi(id, token, eventID.toString())
 
             binding.txtAddMatchEventDetail.isGone=true

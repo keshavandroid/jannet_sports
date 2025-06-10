@@ -1,6 +1,7 @@
 package com.xtrane.ui.loginRegister.loginScreen
 
 import android.content.Intent
+import android.util.Log
 import com.xtrane.retrofit.ControllerInterface
 import com.xtrane.retrofit.controller.LoginController
 import com.xtrane.retrofit.response.LoginResponse
@@ -34,6 +35,10 @@ class LoginViewModel(val activity: LoginActivity) {
     }
 
     fun proceedLogin(userType: String) {
+        if (userType != null && userType.length>0) {
+            SharedPrefUserData(activity).saveUserTypeLoginResp(userType)
+        }
+
         LoginController(
             context = activity,
             email = email,
@@ -49,6 +54,9 @@ class LoginViewModel(val activity: LoginActivity) {
                         try {
                             val data = response as LoginResponse
                             SharedPrefUserData(activity).saveLoginResp(data.getResult()!!)
+                            Log.e("LoginResp=",data.getResult().toString())
+                            Log.e("LoginResp=ID", data.getResult()!!.id.toString())
+                            Log.e("LoginResp=firstname", data.getResult()!!.firstname.toString())
 
 //                            if (activity.intent.getStringExtra(Constants.USER_TYPE).equals(Constants.COACH)) {
 //                                activity.startActivity(

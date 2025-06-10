@@ -69,8 +69,8 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
 
             val data = SharedPrefUserData(this).getSavedData()
 
-            id = data.id
-            token = data.token
+            id = data.id.toString()
+            token = data.token.toString()
             controller.callEventDetailApi(id, token, teamId.toString(), event_id.toString())
             showLoader()
         } else {

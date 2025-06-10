@@ -27,8 +27,8 @@ class AddChildToParentController(var context: Activity, internal var controllerI
 
         val allowBook: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, "1")
 
-        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id)
-        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token)
+        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id!!)
+        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token!!)
         val password: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.password)
         val childName: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.firstName)
         val middleName:RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.middleName)

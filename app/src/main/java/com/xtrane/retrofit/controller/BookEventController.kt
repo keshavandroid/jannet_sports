@@ -25,8 +25,8 @@ class BookEventController(var context: Activity, internal var controllerInterfac
     fun callApi(childIdStr:String,feesStr:String,eventIdStr:String,imageStr:String) {
         Utilities.showProgress(context)
 
-        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id)
-        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token)
+        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().id!!)
+        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, SharedPrefUserData(context).getSavedData().token!!)
         val child_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, childIdStr)
         val fees: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, feesStr)
         val event_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, eventIdStr)
