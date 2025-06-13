@@ -20,9 +20,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/_17sdp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="@dimen/_95sdp"
@@ -69,27 +69,73 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@mipmap/line" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_1sdp"-->
+<!--            android:background="@mipmap/line" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:id="@+id/rcvEventList"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_event_list"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/lrfilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+               >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="All"
+                    android:textColor="@color/blue1"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/square1"
+                    android:padding="@dimen/_10sdp"/>
+
+<!--                <View-->
+<!--                    android:layout_width="@dimen/_2sdp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@mipmap/line"-->
+<!--                    android:layout_marginTop="@dimen/_2sdp"/>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="My Events"
+                    android:layout_weight="1"
+                    android:textColor="@color/blue1"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvEventList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/lrfilter"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_event_list" />
+        </RelativeLayout>
+
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_20sdp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -117,14 +163,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_20sdp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"

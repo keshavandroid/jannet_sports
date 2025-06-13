@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import com.google.android.libraries.places.api.Places
@@ -110,8 +111,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         val id = storeData.getString(Constants.COACH_ID)
         val token = storeData.getString(Constants.COACH_TOKEN)
 
-//        gradeController = GetGradeListController(this,this)
-//        gradeController.callGetGradeListApi(id,token)
+
         minMaxAgeController = MinMaxAgeController(this, this)
 
         locationController = LocationController(this, this)
@@ -191,25 +191,55 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
         setTopBar()
         SetEventTypeSpinner()
+
         binding.img1.setOnClickListener {
             imagePickFlag = 1
             pickImage = PickImage(this@AddEventActivity)
+        }
+
+        binding.deleteIconImg1.setOnClickListener {
+            imgString1=""
+            binding.img1.setImageResource(R.mipmap.plus) // Reset to default or hide
         }
         binding.img2.setOnClickListener {
             imagePickFlag = 2
             pickImage = PickImage(this@AddEventActivity)
         }
+        binding.deleteIconImg2.setOnClickListener {
+            imgString2=""
+            binding.img2.setImageResource(R.mipmap.plus) // Reset to default or hide
+        }
+        binding.img2.setOnClickListener {
+            imagePickFlag = 2
+            pickImage = PickImage(this@AddEventActivity)
+        }
+        binding.deleteIconImg3.setOnClickListener {
+            imgString3=""
+            binding.img3.setImageResource(R.mipmap.plus) // Reset to default or hide
+        }
         binding.img3.setOnClickListener {
             imagePickFlag = 3
             pickImage = PickImage(this@AddEventActivity)
+        }
+        binding.deleteIconImg4.setOnClickListener {
+            imgString4=""
+            binding.img4.setImageResource(R.mipmap.plus) // Reset to default or hide
         }
         binding.img4.setOnClickListener {
             imagePickFlag = 4
             pickImage = PickImage(this@AddEventActivity)
         }
+        binding.deleteIconImg5.setOnClickListener {
+            imgString5=""
+            binding.img5.setImageResource(R.mipmap.plus) // Reset to default or hide
+        }
         binding.img5.setOnClickListener {
             imagePickFlag = 5
             pickImage = PickImage(this@AddEventActivity)
+        }
+        binding.deleteIconImg6.setOnClickListener {
+            imgString6=""
+            binding.img6.setImageResource(R.mipmap.plus) // Reset to default or hide
         }
         binding.img6.setOnClickListener {
             imagePickFlag = 6
@@ -324,7 +354,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             binding.multispinner.performClick()
         }
 
-        binding.txtEventType.setOnClickListener{
+        binding.txtEventType.setOnClickListener {
 
             binding.multispinnerforEventType.performClick()
         }
@@ -399,9 +429,15 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
     }
 
     private fun AgerangeFunction() {
+
+        binding.txtSelectMinRange.text = "Select Minimum Age"
+        binding.txtSelectMaxRange.text = "Select Maximum Age"
+
+        Log.e("txtSelectMinRange.isvisible=", binding.txtSelectMinRange.isVisible.toString())
+        Log.e("txtSelectMaxRange.isvisible=", binding.txtSelectMaxRange.isVisible.toString())
+        val tempminAgeListNew = ArrayList<String?>()
+
         if (minMaxgeResult!!.isNotEmpty()) {
-
-
             val tempminAgeList = ArrayList<String?>()
 
             for (i in minMaxgeResult!![0]!!.getMinAgeStart()!!
@@ -411,6 +447,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 tempminAgeList.add("$i")
 
             }
+            tempminAgeListNew.add(0, "Select Minimum Age")
+            tempminAgeListNew.addAll(1, tempminAgeList)
 
             Log.e(TAG, "onMinMaxAgeSuccess: minmimum age list $tempminAgeList")
 
@@ -418,7 +456,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 ArrayAdapter<String>(
                     applicationContext,
                     android.R.layout.simple_spinner_item,
-                    tempminAgeList
+                    tempminAgeListNew
                 )
             adapterMinRange.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerSelectMinRange.adapter = adapterMinRange
@@ -431,31 +469,52 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                         id: Long,
                     ) {
                         try {
-                            binding.txtSelectMinRange.text = tempminAgeList[position]
-                            val minimumselectedAge = tempminAgeList[position]
-                            minRangeSelected = minimumselectedAge!!.toInt()
+                            binding.txtSelectMinRange.text = tempminAgeListNew[position]
 
-                            temparraylist = ArrayList<String>()
+                            val minimumselectedAge = tempminAgeListNew[position]
 
-                            for (i in minimumselectedAge?.toInt()
-                                ?.plus(1)!!..minMaxgeResult!![0]!!.getMaxAgeEnd()
-                                ?.toInt()!!) {
+                            Log.e("Select Minimum Age==", minimumselectedAge.toString())
+//                            if (minimumselectedAge != "Select Minimum Age") {
+//                                binding.txtSelectMinRange.text = minimumselectedAge
+//                                minRangeSelected = minimumselectedAge!!.toInt()
+//                            }
+//                            else
+//                            {
+//                                binding.txtSelectMinRange.text = "Select Minimum Age"
+//
+//                            }
 
-                                tempmaxAgeList.add("$i")
-                                temparraylist.add("$i")
+                            if (position == 0) {
+                                // Show default text
+                                binding.txtSelectMinRange.text = "Select Minimum Age"
+                            } else {
+                                val selected = tempminAgeList[position]
+                                binding.txtSelectMinRange.text = selected
+                                minRangeSelected = selected!!.toInt()
+                                // Build max age list here
+
+                                temparraylist = ArrayList<String>()
+                                temparraylist.add(0, "Select Maximum Age")
+
+                                for (i in minimumselectedAge?.toInt()
+                                    ?.plus(1)!!..minMaxgeResult!![0]!!.getMaxAgeEnd()
+                                    ?.toInt()!!) {
 
 
+                                    temparraylist.add("$i")
+                                    tempmaxAgeList.add("$i")
 
-                                Log.e(
-                                    TAG,
-                                    "onMinMaxAgeSuccess: after mimimum age temp array listselection $temparraylist  "
-                                )
+                                    Log.e(
+                                        TAG,
+                                        "onMinMaxAgeSuccess: after mimimum age temp array listselection $temparraylist  "
+                                    )
 
-                                Log.e(
-                                    TAG,
-                                    "onMinMaxAgeSuccess:tempmap age list  minimiiiii $tempmaxAgeList"
-                                )
+                                    Log.e(
+                                        TAG,
+                                        "onMinMaxAgeSuccess:tempmap age list  minimiiiii $tempmaxAgeList"
+                                    )
 
+                                }
                             }
 
 
@@ -501,12 +560,14 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 //                            }
 
 //maxagelist insied minimum item selection
+
                             val adapterMaxRange = ArrayAdapter<String>(
                                 applicationContext,
                                 android.R.layout.simple_spinner_item,
                                 temparraylist
                             )
                             Log.e(TAG, "onMinMaxAgeSuccess:tempmap age list   $temparraylist")
+
                             adapterMaxRange.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                             binding.spinnerSelectMaxRange.adapter = adapterMaxRange
                             binding.spinnerSelectMaxRange.onItemSelectedListener =
@@ -533,9 +594,17 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 //                                    txtSelectMaxRange.text = tempmaxAgeList[position]
 //                                }
 //                            }
+                                            if (position == 0) {
+                                                // Show default text
+                                                binding.txtSelectMaxRange.text = "Select Maximum Age"
+                                            }
+                                            else
+                                            {
 
-                                            binding.txtSelectMaxRange.text = temparraylist[position]
-                                            maxRangeSelected = temparraylist[position].toInt()
+                                                binding.txtSelectMaxRange.text = temparraylist[position]
+                                                maxRangeSelected = temparraylist[position].toInt()
+
+                                            }
 
                                         } catch (e: Exception) {
                                             e.printStackTrace()
@@ -562,47 +631,47 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
             //select max range
 
-            var minmum_age = binding.txtSelectMinRange.text.toString()
-
-
-            for (i in minMaxgeResult!![0]!!.getMaxAgeStart()!!
-                .toInt()..minMaxgeResult!![0]!!.getMaxAgeEnd()!!
-                .toInt()) {
-
-//                tempmaxAgeList.add("$i")
-//            if (minmum_age.trim() == "Select Minimum Age") {
-//
-//                minmum_age = "0"
-//                if (minmum_age.toInt() < i) {
-//
-//                    tempmaxAgeList.add("$i")
-//                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age ceck if $tempmaxAgeList  ")
-//
-//                } else {
-//                    tempmaxAgeList.add("$i")
-//                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age  not check if   $tempmaxAgeList")
+//            var minmum_age = binding.txtSelectMinRange.text.toString()
 //
 //
-//                }
-//            } else {
+//            for (i in minMaxgeResult!![0]!!.getMaxAgeStart()!!
+//                .toInt()..minMaxgeResult!![0]!!.getMaxAgeEnd()!!
+//                .toInt()) {
 //
+////                tempmaxAgeList.add("$i")
+////            if (minmum_age.trim() == "Select Minimum Age") {
+////
+////                minmum_age = "0"
+////                if (minmum_age.toInt() < i) {
+////
+////                    tempmaxAgeList.add("$i")
+////                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age ceck if $tempmaxAgeList  ")
+////
+////                } else {
+////                    tempmaxAgeList.add("$i")
+////                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age  not check if   $tempmaxAgeList")
+////
+////
+////                }
+////            } else {
+////
+////
+////                if (minmum_age.toInt() < i) {
+////
+////                    tempmaxAgeList.add("$i")
+////                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age ceck else $tempmaxAgeList  ")
+////
+////                } else {
+////                    tempmaxAgeList.add("$i")
+////                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age  not check else  $tempmaxAgeList")
+////
+////
+////                }
+////            }
 //
-//                if (minmum_age.toInt() < i) {
-//
-//                    tempmaxAgeList.add("$i")
-//                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age ceck else $tempmaxAgeList  ")
-//
-//                } else {
-//                    tempmaxAgeList.add("$i")
-//                    Log.e(TAG, "onMinMaxAgeSuccess:mimimum age  not check else  $tempmaxAgeList")
-//
-//
-//                }
 //            }
-
-            }
-
-            Log.e(TAG, "onMinMaxAgeSuccess: maximum age list $tempmaxAgeList")
+//
+//            Log.e(TAG, "onMinMaxAgeSuccess: maximum age list $tempmaxAgeList")
 
 //            val adapterMaxRange: ArrayAdapter<String> =
 //                ArrayAdapter<String>(
@@ -948,7 +1017,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         tempSportsTypeList.add(0, lisBtHint)
         tempSportsTypeList.addAll(response!!)
 
-        val adapterSports = ArrayAdapter(this, android.R.layout.simple_spinner_item, tempSportsTypeList!!)
+        val adapterSports =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, tempSportsTypeList!!)
         adapterSports.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.multispinner.adapter = adapterSports

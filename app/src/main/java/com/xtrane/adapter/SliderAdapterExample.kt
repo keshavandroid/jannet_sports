@@ -2,6 +2,7 @@ package com.xtrane.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,18 +19,21 @@ class SliderAdapterExample(context: Context) :
     SliderViewAdapter<SliderAdapterExample.SliderAdapterVH>() {
     private val context: Context
     private var mSliderItems: MutableList<SliderItem> = ArrayList()
+
     fun renewItems(sliderItems: MutableList<SliderItem>) {
         mSliderItems = sliderItems
         notifyDataSetChanged()
     }
 
-    fun deleteItem(position: Int) {
-        mSliderItems.removeAt(position)
-        notifyDataSetChanged()
-    }
+//    fun deleteItem(position: Int) {
+//        mSliderItems.removeAt(position)
+//        notifyDataSetChanged()
+//    }
 
     fun addItem(sliderItem: SliderItem) {
         mSliderItems.add(sliderItem)
+        Log.e("slideritem=", mSliderItems.size.toString())
+
         notifyDataSetChanged()
     }
 

@@ -1,5 +1,8 @@
 package com.xtrane.ui.parentsApp
 
+import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,11 +17,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.Locale
 
 
 class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var binding : ActivityVenueBinding
+    private lateinit var binding: ActivityVenueBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,8 @@ class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.d(TAG, "onCreate: test447>>" + intent.getStringExtra("eventId"))
         if (intent.getStringExtra("eventId") != null &&
             !intent.getStringExtra("eventId").equals("null") &&
-            !intent.getStringExtra("eventId").equals("")) {
+            !intent.getStringExtra("eventId").equals("")
+        ) {
 
             var latitude = intent.getStringExtra(Constants.LATITUDE)
             var longitude = intent.getStringExtra(Constants.LONGITUDE)
@@ -42,26 +47,35 @@ class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
             if (!longitude.isNullOrEmpty())
                 long = longitude.toDouble()
 
+            if (intent.getStringExtra("ADDRESS") != null) {
+                val addres = intent.getStringExtra("ADDRESS").toString()
+                val latlon: LatLng = getLatLongFromAddress(this, addres)!!
+                lat = latlon.latitude
+                long = latlon.longitude
+
+            }
+
         }
 
 
         setData()
     }
 
-    var lat:Double=0.0
-    var long:Double=0.0
-    var address:String=""
+    var lat: Double = 0.0
+    var long: Double = 0.0
+    var address: String = ""
 
     private fun setData() {
 
-        val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment: SupportMapFragment =
+            supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        if(eventDetailTop==null) return
+        if (eventDetailTop == null) return
 
-        val data= eventDetailTop
+        val data = eventDetailTop
 
-        val addresss  = intent.getStringExtra("ADDRESS")
+        val addresss = intent.getStringExtra("ADDRESS")
         val description = intent.getStringExtra("DESCRIPTION")
         val eventName = intent.getStringExtra("EVENT_NAME")
 
@@ -69,23 +83,28 @@ class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
 //        txtField2.text=description.toString()
         address = addresss.toString()
 
-        binding.txtField1.text= addresss
+        binding.txtField1.text = addresss
     }
 
     private fun setTopBar() {
-        binding.topbar.imgBack.visibility= View.VISIBLE
+        binding.topbar.imgBack.visibility = View.VISIBLE
         binding.topbar.imgBack.setOnClickListener { finish() }
-        binding.topbar.txtTitle.text=getString(R.string.venue1)
+        binding.topbar.txtTitle.text = getString(R.string.venue1)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
 
         Log.d(TAG, "onMapReady: lat $lat long= $long")
-        val placeLocation = LatLng(lat,long)
-        googleMap.addMarker(MarkerOptions().position(placeLocation)
-            .title(address))
+        val placeLocation = LatLng(lat, long)
+
+        googleMap.addMarker(
+            MarkerOptions().position(placeLocation)
+                .title(address)
+        )
+
         val location = CameraUpdateFactory.newLatLngZoom(
-            placeLocation, 15f)
+            placeLocation, 15f
+        )
         googleMap.animateCamera(location)
 
 //        p0.animateCamera(CameraUpdateFactory.zoomTo(10F), 1000, null);
@@ -123,5 +142,23 @@ class VenueActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     }
+
     private val TAG = "VenueActivity"
+}
+
+fun getLatLongFromAddress(context: Context, addressString: String): LatLng? {
+    try {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        val addresses: List<Address>? = geocoder.getFromLocationName(addressString, 1)
+
+        if (!addresses.isNullOrEmpty()) {
+            val address = addresses[0]
+            val latitude = address.latitude
+            val longitude = address.longitude
+            return LatLng(latitude, longitude)
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return null
 }
