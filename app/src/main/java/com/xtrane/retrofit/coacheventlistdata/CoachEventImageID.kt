@@ -12,6 +12,7 @@ class CoachEventImageID {
     @SerializedName("id")
     @Expose
     private var id: Int? = null
+    private var image: String? = null
 
     fun getId(): Int? {
         return id
@@ -19,5 +20,12 @@ class CoachEventImageID {
 
     fun setId(id: Int?) {
         this.id = id
+    }
+    fun getImage(): String? {
+        return image
+    }
+
+    fun setImage(id: String?) {
+        this.image = id
     }
 }

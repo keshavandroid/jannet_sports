@@ -87,16 +87,18 @@
                >
 
                 <TextView
+                    android:id="@+id/txtAllEvents"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="All"
+                    android:text="@string/all"
                     android:textColor="@color/blue1"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/square1"
-                    android:padding="@dimen/_10sdp"/>
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:paddingHorizontal="@dimen/_5sdp"/>
 
 <!--                <View-->
 <!--                    android:layout_width="@dimen/_2sdp"-->
@@ -105,15 +107,16 @@
 <!--                    android:layout_marginTop="@dimen/_2sdp"/>-->
 
                 <TextView
+                    android:id="@+id/txtMyEvents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="My Events"
                     android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:paddingHorizontal="@dimen/_5sdp"                    android:text="My Events"
                     android:textColor="@color/blue1"
                     android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold"
-                    android:padding="@dimen/_10sdp"
-                    android:gravity="center"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

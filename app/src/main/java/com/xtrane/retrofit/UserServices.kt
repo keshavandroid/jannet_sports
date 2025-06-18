@@ -91,6 +91,7 @@ interface UserServices {
         @Query("id") id: String?,
         @Query("token") token: String?,
         @Query("coach_id") coach_id: String?,
+        @Query("type") type: String?,
     ): Call<ResponseBody?>?
 
     //second tab API in Participant

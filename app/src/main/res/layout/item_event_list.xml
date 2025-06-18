@@ -46,19 +46,24 @@
                 android:layout_alignParentRight="true"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="@dimen/_100sdp" />-->
-
-            <com.xtrane.autoimageslider.SliderView
+            <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/imgEvent"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:sliderAnimationDuration="600"
-                app:sliderAutoCycleDirection="right"
-                app:sliderAutoCycleEnabled="false"
-                app:sliderIndicatorEnabled="false"
-                app:sliderScrollTimeInSec="1"
-                app:sliderStartAutoCycle="false"
                 android:layout_below="@+id/txtDate"/>
+<!--            <com.xtrane.autoimageslider.SliderView-->
+<!--                android:id="@+id/imgEvent"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_150sdp"-->
+<!--                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                app:sliderAnimationDuration="600"-->
+<!--                app:sliderAutoCycleDirection="right"-->
+<!--                app:sliderAutoCycleEnabled="false"-->
+<!--                app:sliderIndicatorEnabled="false"-->
+<!--                app:sliderScrollTimeInSec="1"-->
+<!--                app:sliderStartAutoCycle="false"-->
+<!--                android:layout_below="@+id/txtDate"-->
+<!--                />-->
             <!--            <ImageView-->
             <!--                android:id="@+id/imgEvent"-->
             <!--                android:layout_width="@dimen/_100sdp"-->

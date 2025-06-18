@@ -185,6 +185,7 @@
     <string name="update_profile_str">Update Profile</string>
 
     <string name="buy_coins">Buy Coins</string>
+    <string name="all">All</string>
 
     <string-array name="Languages">
         <item>Grade 1</item>

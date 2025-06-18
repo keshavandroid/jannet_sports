@@ -19,10 +19,11 @@ import java.io.StringReader
 import java.lang.reflect.Modifier
 
 class CoachEventListController(var context: Activity, internal var view: ICoachEventListView):ICoachEventListController {
-    override fun callCoachEventListApi(id: String, token: String, coach_id: String) {
+
+    override fun callCoachEventListApi(id: String, token: String, coach_id: String,type:String) {
 
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
-        val call: Call<ResponseBody?>? = apiInterface.coachEventList(id,token,coach_id)
+        val call: Call<ResponseBody?>? = apiInterface.coachEventList(id,token,coach_id,type)
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack{
             override fun onSuccess(body: Response<ResponseBody?>?) {

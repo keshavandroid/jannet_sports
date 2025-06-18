@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.xtrane.R
 import com.xtrane.autoimageslider.SliderView
@@ -61,11 +62,29 @@ class EventListAdapter() : RecyclerView.Adapter<EventListAdapter.ChildListAdapte
             val sliderItem = SliderItem()
             sliderItem.description = arrayList?.get(position)!!.getEventName()!!
             sliderItem.imageUrl = arrayList!![position]!!.getImage()!!
-            holder.imgEvent.setAutoCycle(false)
-            holder.imgEvent.stopAutoCycle()
-            adapter = SliderAdapterExample(context)
-            adapter!!.addItem(sliderItem)
-            holder.imgEvent.setSliderAdapter(adapter!!)
+
+//            var imageUrls: List<String>? = null
+//            imageUrls = listOf(sliderItem.imageUrl)
+//
+//            Log.e("imageurl.size1=", arrayList!!.get(position)!!.getImageId()!!.size.toString());
+//
+//            for (imgstr in arrayList!!.get(position)!!.getImageId()!!.indices) {
+//                imageUrls = listOf(arrayList!!.get(position)!!.getImageId()!!.get(imgstr)?.getImage()!!)
+//            }
+
+
+            val imageIdList = arrayList!![position]?.getImageId()
+            val imageUrls: List<String> = buildList {
+                add(arrayList!![position]!!.getImage()!!) // Add the extra image manually
+                imageIdList?.mapNotNull { it?.getImage() }?.let { addAll(it) }
+            }
+
+
+
+            Log.e("imageurl.size2=", imageUrls!!.size.toString());
+            val adapter = ImageSliderAdapter(imageUrls)
+            holder.imgEvent.adapter = adapter
+
 
 //            if (adapter!!.count > 1) {
 //                holder.imgEvent.setAutoCycle(true)
@@ -81,7 +100,7 @@ class EventListAdapter() : RecyclerView.Adapter<EventListAdapter.ChildListAdapte
 
     inner class ChildListAdapterVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtDate: TextView = itemView.findViewById(R.id.txtDate)
-        val imgEvent: SliderView = itemView.findViewById(R.id.imgEvent)
+        val imgEvent: ViewPager2 = itemView.findViewById(R.id.imgEvent)
         val txtEventName: TextView = itemView.findViewById(R.id.txtEventName)
         private val llMain: LinearLayout = itemView.findViewById(R.id.llMain)
 

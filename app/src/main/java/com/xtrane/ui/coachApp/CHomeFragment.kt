@@ -38,9 +38,9 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
     private var textLoadingDialog: CustomProgressDialog? = null
     lateinit var locationController: ILocationController
     private var loadingDialog: CustomProgressDialog? = null
-     var locationResponse: List<LocationResult?>? = null
-     var sportsListResponse: List<CoachSportsListResult?>? = null
-     lateinit var coachSportsListCOntroller: ICoachSportsListController
+    var locationResponse: List<LocationResult?>? = null
+    var sportsListResponse: List<CoachSportsListResult?>? = null
+    lateinit var coachSportsListCOntroller: ICoachSportsListController
     private lateinit var binding: FragmentHomeCoachBinding
 
     private var id = "";
@@ -54,7 +54,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         binding = FragmentHomeCoachBinding.inflate(layoutInflater)
 
 
-     //   val view = super.onCreateView(inflater, container, savedInstanceState)
+        //   val view = super.onCreateView(inflater, container, savedInstanceState)
 
         val storedata = StoreUserData(requireContext())
 
@@ -65,7 +65,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         showLoader()
 
         controller = CoachEventListController(requireActivity(), this)
-        controller.callCoachEventListApi(id, token, id)
+        controller.callCoachEventListApi(id, token, id, "all")
 
         return binding.root
 
@@ -96,6 +96,18 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
                     AddEventActivity::class.java
                 )
             )
+        }
+        binding.txtAllEvents.setOnClickListener {
+            binding.txtMyEvents.setBackgroundResource(R.drawable.background_white_radius_4dp)
+            binding.txtAllEvents.setBackgroundResource(R.drawable.square1)
+            controller = CoachEventListController(requireActivity(), this)
+            controller.callCoachEventListApi(id, token, id, "all")
+        }
+        binding.txtMyEvents.setOnClickListener {
+            binding.txtMyEvents.setBackgroundResource(R.drawable.square1)
+            binding.txtAllEvents.setBackgroundResource(R.drawable.background_white_radius_4dp)
+            controller = CoachEventListController(requireActivity(), this)
+            controller.callCoachEventListApi(id, token, id, "my")
         }
 
 //        if (rcvEventList == null) {
@@ -136,7 +148,8 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         var clear = popupDialog.findViewById<TextView>(R.id.btn_clear)
 
 
-        val arrayAdapterLocation = ArrayAdapter(requireContext(), R.layout.spinner_selected_item, locationResponse!!)
+        val arrayAdapterLocation =
+            ArrayAdapter(requireContext(), R.layout.spinner_selected_item, locationResponse!!)
         arrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         location.adapter = arrayAdapterLocation
 
@@ -161,7 +174,8 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
         //sports
 
-        val arrayAdapterSports = ArrayAdapter(requireContext(), R.layout.spinner_selected_item, sportsListResponse!!)
+        val arrayAdapterSports =
+            ArrayAdapter(requireContext(), R.layout.spinner_selected_item, sportsListResponse!!)
         arrayAdapterSports.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sports.adapter = arrayAdapterSports
 
@@ -192,7 +206,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
             val id = storData.getString(Constants.COACH_ID)
             val token = storData.getString(Constants.COACH_TOKEN)
 
-            Log.e("TAG", "filterPopUp: sportsId===${SportsItem.getId().toString()} ", )
+            Log.e("TAG", "filterPopUp: sportsId===${SportsItem.getId().toString()} ")
             coachomeFilterController.callCoachFilterApi(
                 id,
                 token,
@@ -210,7 +224,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
         clear.setOnClickListener {
             popupDialog.dismiss()
-            controller.callCoachEventListApi(id, token, id)
+            controller.callCoachEventListApi(id, token, id, "all")
         }
 
         popupDialog.show()
@@ -241,7 +255,8 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
     }
 
     private fun setListAdapter(result: List<CoachEventListResult?>?) {
-        binding.rcvEventList.adapter = EventListAdapter(result, requireActivity(),
+        binding.rcvEventList.adapter = EventListAdapter(
+            result, requireActivity(),
             object : EventListAdapter.AdapterListInterface {
                 override fun onItemSelected(position: Int, data: CoachEventListResult) {
                     startActivity(
@@ -261,7 +276,8 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
 
     private fun setFilterListAdapter(result: List<CoachFilterResult?>?) {
-        binding.rcvEventList.adapter = CoachFilterListAdapter(result, requireActivity(),
+        binding.rcvEventList.adapter = CoachFilterListAdapter(
+            result, requireActivity(),
             object : CoachFilterListAdapter.AdapterListInterface {
                 override fun onItemSelected(position: Int, data: CoachFilterResult) {
                     startActivity(
@@ -319,7 +335,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
     override fun onLocationListSuccess(response: List<LocationResult?>?) {
         hideLoader()
 
-         locationResponse = response!!
+        locationResponse = response!!
 
 
         Log.e("TAG", "onLocationListSuccess: location responde $locationResponse")
@@ -344,7 +360,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
     override fun onCoachFilterSuccess(response: List<CoachFilterResult?>?) {
 
-            hideLoader()
+        hideLoader()
         setFilterListAdapter(response)
 
     }
