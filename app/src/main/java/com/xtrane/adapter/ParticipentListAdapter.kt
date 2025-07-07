@@ -36,7 +36,7 @@ class ParticipentListAdapter() : RecyclerView.Adapter<ParticipentListAdapter.Chi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildListAdapterVH {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_event_list, parent, false)
+            .inflate(R.layout.item_participant_event_list, parent, false)
 
         return ChildListAdapterVH(view)
     }
