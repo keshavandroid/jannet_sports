@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.google.android.material.datepicker.MaterialDatePicker
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import com.google.android.libraries.places.api.Places
@@ -46,6 +47,7 @@ import com.xtrane.utils.StoreUserData
 import com.xtrane.utils.TAG
 import com.xtrane.utils.datePicker
 import com.xtrane.viewinterface.ICoachSportsListVIew
+import java.text.SimpleDateFormat
 import com.xtrane.viewinterface.IGetGradeListView
 import com.xtrane.viewinterface.ILocationView
 import com.xtrane.viewinterface.IMinMAxAgeView
@@ -246,15 +248,26 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             pickImage = PickImage(this@AddEventActivity)
         }
         binding.txtDate.setOnClickListener {
-            datePicker(
-                binding.txtDate, this, this.supportFragmentManager,
-                object : DatePickerResult {
-                    override fun onSuccess(string: String) {
-
-                    }
-                }, false, futureDatesOnly = true
-            )
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setTheme(R.style.ThemeOverlay_App_DatePicker)
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build()
+            datePicker.addOnPositiveButtonClickListener {
+                // Respond to positive button click.
+                val selectedDate = datePicker.selection
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                if (selectedDate != null) {
+                    binding.txtDate.text = sdf.format(selectedDate)
+                }
+            }
+            datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
         }
+
+
+
+
         binding.txtAdd.setOnClickListener {
 
             val allData = AddEventObject()

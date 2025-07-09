@@ -24,10 +24,11 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/green1</item>
-        <item name="colorPrimaryDark">@color/green2</item>
-        <item name="colorAccent">@color/green3</item>
+
+    <style name="ThemeOverlay.App.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/green2</item> <!-- Header background -->
+        <item name="colorOnPrimary">@color/white</item> <!-- Header text -->
+        <item name="colorAccent">@color/green3</item> <!-- Selected day -->
     </style>
 
     <style name="txtButton1" parent="Widget.AppCompat.TextView">

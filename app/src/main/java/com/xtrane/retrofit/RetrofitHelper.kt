@@ -22,8 +22,8 @@ import java.util.concurrent.TimeoutException
 
 object RetrofitHelper {
 
-//    private val SERVER_URL = "https://keshavinfotechdemo2.com/keshav/KG2/Jannet_new/api/"
-    private val SERVER_URL = "http://www.x-trane.com/api/"
+    //    private val SERVER_URL = "https://keshavinfotechdemo2.com/keshav/KG2/Jannet_new/api/"
+    val SERVER_URL = "http://www.x-trane.com/api/"
 
     private var gsonAPI: UserServices? = null
     private var connectionCallBack: ConnectionCallBack? = null
@@ -32,12 +32,14 @@ object RetrofitHelper {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
-        val arraList=ArrayList<ConnectionSpec>()
+        val arraList = ArrayList<ConnectionSpec>()
         arraList.add(ConnectionSpec.CLEARTEXT)
-        arraList.add(ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-            .allEnabledTlsVersions()
-            .allEnabledCipherSuites()
-            .build())
+        arraList.add(
+            ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .allEnabledTlsVersions()
+                .allEnabledCipherSuites()
+                .build()
+        )
 
         val okHttpClient = OkHttpClient.Builder()
             .connectionSpecs(arraList)

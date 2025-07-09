@@ -31,6 +31,7 @@ class EventListController(var context: Activity, internal var controllerInterfac
         val id= SharedPrefUserData(context).getSavedData().id
         val token= SharedPrefUserData(context).getSavedData().token
 
+        Log.d(TAG, "API URL: ${RetrofitHelper.SERVER_URL}eventList?id=$id&token=$token")
         val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().eventList(id,token)
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
