@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/iv_auto_image_slider"
             app:riv_corner_radius="@dimen/_15sdp"
-           android:contentDescription="xyz"
+            android:contentDescription="xyz"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

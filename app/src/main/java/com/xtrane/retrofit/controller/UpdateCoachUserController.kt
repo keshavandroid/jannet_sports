@@ -86,7 +86,11 @@ class UpdateCoachUserController(
             location = location,
             image = image
         )
+//
+        Log.e(TAG, "callApi: call data = ${call?.request()?.body.toString()}")
+        Log.e(TAG, "callApi: request param = id: $idd, token: $tokenn, firstname: ${fname.toString()}, sports: ${sportsIds.toString()}, gender: ${gender.toString()}, birthdate: ${bdate.toString()}, email: ${email.toString()}, contactNo: ${phNo.toString()}, location: ${location.toString()}, image: ${image.toString()}")
 
+      //  Log.e("call=",call.toString())
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
                 Utilities.dismissProgress()

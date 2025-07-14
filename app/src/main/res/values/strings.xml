@@ -152,6 +152,7 @@
     <string name="add_match">Add Match</string>
     <string name="add_match1">ADD MATCH</string>
     <string name="date">Date</string>
+    <string name="selectdate">Select Date</string>
     <string name="select_team_a">Select Team A</string>
     <string name="select_team">Select Team</string>
     <string name="select_team_b">Select Team B</string>

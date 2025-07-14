@@ -1,5 +1,6 @@
 package com.xtrane.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xtrane.R
 import com.xtrane.retrofit.bookinglistdata.BookTicketDetailResult
 import com.xtrane.retrofit.bookinglistdata.BookingListResult
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class PBookingListAdapter() : RecyclerView.Adapter<PBookingListAdapter.MyViewHolder>() {
     var datalist: List<BookTicketDetailResult?> = ArrayList()
@@ -32,6 +36,7 @@ class PBookingListAdapter() : RecyclerView.Adapter<PBookingListAdapter.MyViewHol
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PBookingListAdapter.MyViewHolder, position: Int) {
         var currentItem = datalist[position]
 
@@ -40,7 +45,10 @@ class PBookingListAdapter() : RecyclerView.Adapter<PBookingListAdapter.MyViewHol
         holder.tv_price_tickets.setText(currentItem?.getamount())
         holder.tv_num_tik.setText(currentItem?.gettotalTickets())
         if(currentItem!!.getMatchData()!!.size>0){
-            holder.tv_time_tickets.text=currentItem!!.getMatchData()!!.get(0)!!.getDate()+" "+currentItem!!.getMatchData()!!.get(0)!!.getTime()
+//            holder.tv_time_tickets.text=
+//                currentItem.getMatchData()!!.get(0)!!.getDate()+" "+ currentItem.getMatchData()!!.get(0)!!.getTime()
+
+            holder.tv_time_tickets.text=convertDateFormat(currentItem.getMatchData()!!.get(0)!!.getDate()!!)+" "+ currentItem.getMatchData()!!.get(0)!!.getTime()
             holder.team_a_name_tickets.setText(currentItem.getMatchData()!!.get(0)!!.getTeamAName())
             holder.tv_team_b_name_tickets.setText(currentItem.getMatchData()!!.get(0)!!.getTeamBName())
             holder.tv_coat_tickets.setText(currentItem.getMatchData()!!.get(0)!!.getCoat())
@@ -89,5 +97,28 @@ class PBookingListAdapter() : RecyclerView.Adapter<PBookingListAdapter.MyViewHol
 
     }
 
+    fun convertDateFormat(strDate: String): String {
+        try {
+            val inputPattern = "yyyy-MM-dd"
+            val outputPattern = "dd MMM yyyy"
+            val inputFormat = SimpleDateFormat(inputPattern)
+            val outputFormat = SimpleDateFormat(outputPattern)
+
+            var date: Date? = null
+            var str: String? = null
+
+            try {
+                date = inputFormat.parse(strDate)
+                str = outputFormat.format(date)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            return str!!
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return ""
+    }
 
 }

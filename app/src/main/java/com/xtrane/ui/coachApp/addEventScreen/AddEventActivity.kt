@@ -51,6 +51,8 @@ import java.text.SimpleDateFormat
 import com.xtrane.viewinterface.IGetGradeListView
 import com.xtrane.viewinterface.ILocationView
 import com.xtrane.viewinterface.IMinMAxAgeView
+import java.text.ParseException
+import java.util.Date
 
 
 class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IGetGradeListView,
@@ -259,7 +261,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 val selectedDate = datePicker.selection
                 val sdf = SimpleDateFormat("yyyy-MM-dd")
                 if (selectedDate != null) {
-                    binding.txtDate.text = sdf.format(selectedDate)
+                    binding.txtDate.text = convertDateFormat(sdf.format(selectedDate))
                 }
             }
             datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
@@ -1309,4 +1311,28 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         locationController.callLocationApi(id, token)
 
     }
+    fun convertDateFormat(strDate: String): String {
+        try {
+            val inputPattern = "yyyy-MM-dd"
+            val outputPattern = "dd MMM yyyy"
+            val inputFormat = SimpleDateFormat(inputPattern)
+            val outputFormat = SimpleDateFormat(outputPattern)
+
+            var date: Date? = null
+            var str: String? = null
+
+            try {
+                date = inputFormat.parse(strDate)
+                str = outputFormat.format(date)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            return str!!
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return ""
+    }
+
 }

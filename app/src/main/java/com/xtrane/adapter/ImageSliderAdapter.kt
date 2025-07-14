@@ -2,6 +2,7 @@ package com.xtrane.adapter
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.app.Dialog
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -14,6 +15,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
@@ -49,6 +51,26 @@ class ImageSliderAdapter(private val imageUrls: List<String>) :
             .load(imageUrls[position])
             .centerCrop()
             .into(holder.imageView)
+
+        holder.imageView.setOnClickListener {
+
+            val dialog = Dialog(holder.itemView.context, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+            dialog.setContentView(R.layout.dialog_fullimage)
+
+            val imageView = dialog.findViewById<ImageView>(R.id.iv_auto_image_slider)
+            val iv_close = dialog.findViewById<ImageView>(R.id.iv_close)
+
+            Glide.with(holder.itemView.context)
+                .load(imageUrls[position])
+                .centerCrop()
+                .into(imageView)
+
+            iv_close.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
     }
 
     override fun getItemCount(): Int = imageUrls.size

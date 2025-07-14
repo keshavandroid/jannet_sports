@@ -70,6 +70,33 @@
             tools:ignore="TextFields" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_selectDate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:background="@drawable/background_white_radius_4dp"
+        android:elevation="@dimen/_5sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/txt_selectdate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/selectdate"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_10sdp"
+            android:textColor="@color/grey1"
+            android:textColorHint="@color/grey1"
+            android:scrollbars = "vertical"
+            tools:ignore="TextFields" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtApply"

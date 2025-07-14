@@ -1,6 +1,7 @@
 package com.xtrane.ui.parentsApp
 
 import android.app.Dialog
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.xtrane.R
@@ -34,6 +36,8 @@ import com.google.android.gms.tasks.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 
 class PHomeFragment : Fragment(), ILocationView, IGetSportView,
@@ -57,7 +61,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
     var sportsListResponse: List<CoachSportsListResult?>? = null
     var sharedPreference: SharedPreferences? = null
     var editor: SharedPreferences.Editor? = null
-
+    var formattedDate: String = ""
     var newToken: String? = null
 
     private lateinit var binding: FragmentHomeParentBinding
@@ -307,6 +311,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         val tvLocation = bottomSheetDialog.findViewById<TextView>(R.id.tv_Location)
         val txtApply = bottomSheetDialog.findViewById<TextView>(R.id.txtApply)
         val txtClear = bottomSheetDialog.findViewById<TextView>(R.id.txtClear)
+        val ll_selectDate = bottomSheetDialog.findViewById<LinearLayout>(R.id.ll_selectDate)
 
 
         var idSports = sharedPreference!!.getString("strIDSportsHome", "")
@@ -340,7 +345,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         if (strIDLoc!!.isEmpty()) {
             strIDSports = ""
 
-        } else {
+        }
+        else {
             var strLoc: String = ""
             val list: List<String> = listOf(*strIDLoc.split(",").toTypedArray())
             for (i in 0..locationResponse!!.size - 1) {
@@ -365,7 +371,24 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
             tvLocation!!.setText(strLoc)
         }
 
-        tv_sport?.setOnClickListener(View.OnClickListener {
+        ll_selectDate!!.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, selectedYear, selectedMonth, selectedDay ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(selectedYear, selectedMonth, selectedDay)
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                    formattedDate = dateFormat.format(selectedDate.time)
+                    bottomSheetDialog.findViewById<TextView>(R.id.txt_selectdate)!!.text = formattedDate
+                }, year, month, day)
+            datePickerDialog.show()
+        }
+        tv_sport?.setOnClickListener {
 
             val adapter = CustomListViewDialogAdapter(
                 sportsResponse,
@@ -407,7 +430,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
             customDialogSports!!.show()
             customDialogSports!!.setCanceledOnTouchOutside(false)
 
-        })
+        }
 
         tvLocation?.setOnClickListener(View.OnClickListener {
 
