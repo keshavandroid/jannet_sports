@@ -3,10 +3,6 @@ package com.xtrane.retrofit.coacheventlistdata
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
-
-
-
-
 class CoachEventListResult {
 
     @SerializedName("id")
@@ -21,9 +17,9 @@ class CoachEventListResult {
     @Expose
     private var eventDate: String? = null
 
-    @SerializedName("eventdate")
+    @SerializedName("eventTime")
     @Expose
-    private var eventdate: String? = null
+    private var eventTime: String? = null
 
     @SerializedName("fees")
     @Expose
@@ -93,11 +89,9 @@ class CoachEventListResult {
     fun getRole(): String? {
         return role
     }
-
     fun setRole(role: String?) {
         this.role = role
     }
-
     fun getEventDate(): String? {
         return eventDate
     }
@@ -106,15 +100,13 @@ class CoachEventListResult {
         this.eventDate = eventDate
     }
 
-    fun getEventdate(): String? {
-        return eventdate
+    fun getEventTime(): String? {
+        return eventTime
     }
 
-    fun setEventdate(eventdate: String?) {
-        this.eventdate = eventdate
+    fun setEventTime(eventdate: String?) {
+        this.eventTime = eventdate
     }
-
-
     fun getFees(): String? {
         return fees
     }
@@ -202,6 +194,10 @@ class CoachEventListResult {
 
     fun setMatchId(match_id: String?) {
         this.match_id = match_id
+    }
+    fun getEventdate(): String? {
+
+        return  eventDate
     }
 
 }

@@ -21,6 +21,11 @@ class CoachFilterResult {
     @Expose
     private var eventDate: String? = null
 
+    @SerializedName("eventTime")
+    @Expose
+    private var eventTime: String? = null
+
+
     @SerializedName("fees")
     @Expose
     private var fees: String? = null
@@ -63,6 +68,14 @@ class CoachFilterResult {
 
     fun setEventDate(eventDate: String?) {
         this.eventDate = eventDate
+    }
+
+    fun getEventTime(): String? {
+        return eventTime
+    }
+
+    fun setEventTime(eventTime: String?) {
+        this.eventTime = eventTime
     }
 
     fun getFees(): String? {

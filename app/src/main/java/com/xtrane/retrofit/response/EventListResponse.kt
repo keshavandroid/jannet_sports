@@ -51,6 +51,10 @@ class EventListResponse {
         @Expose
         private var eventName: String? = null
 
+        @SerializedName("eventTime")
+        @Expose
+        private var eventTime: String? = null
+
         @SerializedName("eventDate")
         @Expose
         private var eventDate: String? = null
@@ -98,7 +102,12 @@ class EventListResponse {
         fun setEventDate(eventDate: String?) {
             this.eventDate = eventDate
         }
-
+        fun getEventTime(): String? {
+            return eventTime
+        }
+        fun setEventTime(eventTime: String?) {
+            this.eventTime = eventTime
+        }
         fun getFees(): String? {
             return fees
         }

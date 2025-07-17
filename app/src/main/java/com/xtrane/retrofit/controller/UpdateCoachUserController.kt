@@ -1,6 +1,8 @@
 package com.xtrane.retrofit.controller
 
 import android.app.Activity
+import android.location.Address
+import android.location.Geocoder
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.xtrane.retrofit.ControllerInterface
@@ -20,6 +22,7 @@ import retrofit2.Response
 import java.io.File
 import java.io.Reader
 import java.io.StringReader
+import java.io.IOException
 import java.lang.reflect.Modifier
 
 class UpdateCoachUserController(
@@ -55,9 +58,25 @@ class UpdateCoachUserController(
         val phNo: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, phNo)
         val bdate: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, bdate)
         val gender: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, gender)
-        val location: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, location)
-        val sportsIds: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, sportsIds)
+
+        var latitudeValue = ""
+        var longitudeValue = ""
+        val geocoder = Geocoder(context)
+        try {
+            val addresses: List<Address>? = geocoder.getFromLocationName("Rajkot,Gujarat,India", 1)
+            if (addresses != null && addresses.isNotEmpty()) {
+                val address: Address = addresses[0]
+                latitudeValue = address.latitude.toString()
+                longitudeValue = address.longitude.toString()
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        val latitude1: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, latitudeValue)
+        val longitude1: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, longitudeValue)
+
+        val sportsIds: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, sportsIds)
 
         var image: MultipartBody.Part? = null
         val file_path: String = imageStr
@@ -83,7 +102,8 @@ class UpdateCoachUserController(
             birthdate = bdate,
             email = email,
             contactNo = phNo,
-            location = location,
+            latitude = latitude1,
+            longitude = longitude1,
             image = image
         )
 //

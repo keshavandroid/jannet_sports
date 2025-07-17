@@ -45,8 +45,8 @@ class CoachFilterListAdapter() : RecyclerView.Adapter<CoachFilterListAdapter.Chi
         position: Int
     ) {
         try {
-            holder.txtDate.text =
-                Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!)
+            holder.txtDate.text = Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!)+" "+arrayList!!.get(position)!!
+                .getEventTime().toString()
             holder.txtEventName.text = arrayList?.get(position)!!.getEventName()
 
             Glide.with(context)

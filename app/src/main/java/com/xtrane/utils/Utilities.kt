@@ -63,6 +63,36 @@ object Utilities {
         return ""
     }
 
+    @SuppressLint("SimpleDateFormat")
+    fun convertTimeFormat(strDate: String): String {
+        try {
+            if (strDate.length>0)
+            {
+                val inputPattern = "HH:mm:ss"  // Use HH for 24-hour format input
+                val outputPattern = "hh:mm a"   // Use hh for 12-hour format output with AM/PM
+                val inputFormat = SimpleDateFormat(inputPattern)
+                val outputFormat = SimpleDateFormat(outputPattern)
+
+                var date: Date? = null
+                var str: String? = null
+
+                try {
+                    date = inputFormat.parse(strDate)
+                    str = outputFormat.format(date)
+                } catch (e: ParseException) {
+                    e.printStackTrace()
+                }
+                return str!!
+            }
+
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return ""
+    }
+
+
     fun changeDateFormat(strDate: String, inputDate: String, outputDate: String): String {
         return try {
             SimpleDateFormat(outputDate).format(SimpleDateFormat(inputDate).parse(strDate))

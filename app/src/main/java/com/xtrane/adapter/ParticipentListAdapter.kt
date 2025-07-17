@@ -1,5 +1,6 @@
 package com.xtrane.adapter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
@@ -41,21 +42,21 @@ class ParticipentListAdapter() : RecyclerView.Adapter<ParticipentListAdapter.Chi
         return ChildListAdapterVH(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ChildListAdapterVH, position: Int) {
 
         try {
+            holder.txtDate.text = Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!)+" "+
+                    Utilities.convertTimeFormat(arrayList!![position]!!.getEventTime()!!)
 
-
-
-            holder.txtDate.text = Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!)
             holder.txtEventName.text = arrayList?.get(position)!!.getEventName()
 
             Glide.with(context)
                 .load(arrayList!![position]!!.getImage())
                 .into(holder.imgEvent)
 
-        }catch (e:Exception){
-
+        }
+        catch (e:Exception){
             e.printStackTrace()
         }
     }

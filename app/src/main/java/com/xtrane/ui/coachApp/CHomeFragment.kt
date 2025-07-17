@@ -79,6 +79,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         val id = storedata.getString(Constants.COACH_ID)
         val token = storedata.getString(Constants.COACH_TOKEN)
         val user_type = storedata.getString(Constants.COACH_TYPE)
+
         coachomeFilterController = CoachFilterController(requireActivity(), this)
 
         setTopBar()
@@ -308,16 +309,12 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
 
         if (response != null) {
-
-
             hideLoader()
             setListAdapter(response!!.reversed())
 
-        } else {
-
-
+        }
+        else {
             hideLoader()
-
         }
         val storedata = StoreUserData(requireContext())
         val id = storedata.getString(Constants.COACH_ID)

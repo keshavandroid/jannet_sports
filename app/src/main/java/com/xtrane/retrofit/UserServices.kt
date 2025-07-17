@@ -246,7 +246,8 @@ interface UserServices {
         @Part("birthdate") birthdate: RequestBody,
         @Part("email") email: RequestBody,
         @Part("contactNo") contactNo: RequestBody,
-        @Part("location") location: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody,
         @Part image: MultipartBody.Part?,
     ): Call<ResponseBody?>?
 
