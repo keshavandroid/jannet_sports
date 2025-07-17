@@ -1,6 +1,7 @@
 package com.xtrane.ui.coachApp.addEventScreen
 
 import android.app.AlertDialog
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -53,6 +54,7 @@ import com.xtrane.viewinterface.ILocationView
 import com.xtrane.viewinterface.IMinMAxAgeView
 import java.text.ParseException
 import java.util.Date
+import java.util.Calendar
 
 
 class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IGetGradeListView,
@@ -261,13 +263,31 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 val selectedDate = datePicker.selection
                 val sdf = SimpleDateFormat("yyyy-MM-dd")
                 if (selectedDate != null) {
-                    binding.txtDate.text = convertDateFormat(sdf.format(selectedDate))
+                  //  binding.txtDate.text = convertDateFormat(sdf.format(selectedDate))
+                    binding.txtDate.text = sdf.format(selectedDate)
                 }
             }
             datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
         }
 
+        binding.txtTime1.setOnClickListener {
 
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(
+                this,
+                { _, selectedHour, selectedMinute ->
+                    // Format the time and set it to the TextView
+                    val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+                    binding.txtTime1.text = formattedTime
+                },
+                hour,
+                minute,
+                true // Use 24-hour format
+            )
+            timePickerDialog.show()        }
 
 
         binding.txtAdd.setOnClickListener {
@@ -289,6 +309,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             allData.coach_id = id.toString()
 
             allData.date = binding.txtDate.text.toString().trim()
+            allData.time = binding.txtTime1.text.toString().trim()
 
             allData.noParticipants = binding.etxtNoParticipants.text.toString().trim()
             allData.gender_applicable = binding.txtSelectedApplicableGender.text.toString()
@@ -1258,6 +1279,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         var sportTypes = ""
         var eventType = ""
         var date = ""
+        var time = ""
         var noParticipants = ""
         var childGroup = ""
         var event_name = ""

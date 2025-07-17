@@ -50,6 +50,8 @@ class EventListAdapter() : RecyclerView.Adapter<EventListAdapter.ChildListAdapte
 
     override fun onBindViewHolder(holder: ChildListAdapterVH, position: Int) {
         try {
+            Log.e("eventsize=", arrayList!!.size.toString());
+
             holder.txtDate.text = Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!) +" "+ Utilities.convertTimeFormat(arrayList!![position]!!.getEventTime()!!)
 
             holder.txtEventName.text = arrayList?.get(position)!!.getEventName()

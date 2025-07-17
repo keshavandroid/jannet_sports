@@ -68,6 +68,7 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
         val max_grade: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.max_grade)
         val matchType: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.eventType)
         val imgCount: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.imgCount)
+        val time: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.time)
 
 
 //        val lat: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, "19.00")
@@ -169,6 +170,7 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
             min_grade=min_grade,
             max_grade=max_grade,
             matchType=matchType,
+            time = time,
             mainimage = image1,
             image1 = image2,
             image2 = image3,

@@ -68,7 +68,7 @@ object Utilities {
         try {
             if (strDate.length>0)
             {
-                val inputPattern = "HH:mm:ss"  // Use HH for 24-hour format input
+                val inputPattern = "HH:mm"  // Use HH for 24-hour format input
                 val outputPattern = "hh:mm a"   // Use hh for 12-hour format output with AM/PM
                 val inputFormat = SimpleDateFormat(inputPattern)
                 val outputFormat = SimpleDateFormat(outputPattern)
