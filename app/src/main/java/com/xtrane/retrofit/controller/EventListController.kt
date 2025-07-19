@@ -45,7 +45,9 @@ class EventListController(var context: Activity, internal var controllerInterfac
                     builder.excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
                     val gson = builder.create()
                     val response: EventListResponse = gson.fromJson(reader, EventListResponse::class.java)
+
                     Log.d(TAG, "onSuccess: insuccess>>" + response.getStatus() + "<")
+
                     if (response.getStatus() == 1) {
                         controllerInterface.onSuccess(response, "AddChildSuccess")
                     } else {

@@ -7,9 +7,10 @@ import com.xtrane.retrofit.APIClient
 import com.xtrane.retrofit.RetrofitHelper
 import com.xtrane.retrofit.UserServices
 import com.xtrane.retrofit.addteamdata.AddTeamBaseResponse
-import com.xtrane.viewinterface.IAddMatchView
+import com.xtrane.retrofit.response.BasicResponse
+import com.xtrane.viewinterface.IAddNewLocationView
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
+import com.xtrane.viewinterface.IAddReportView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -17,37 +18,18 @@ import java.io.Reader
 import java.io.StringReader
 import java.lang.reflect.Modifier
 
-class AddMatchController(var context: Activity, internal var view: IAddMatchView):IAddMatchController {
-    override fun callAddMatchApi(
+class AddReportController(var context:Activity,internal var view: IAddReportView):IAddReportController {
+    override fun CallAddNewReport(
         id: String,
         token: String,
-        eventid:String,
-        coach_id:String,
-        time: String,
-        coat: String,
-        team_a_id: String,
-        team_b_id: String
-    ) {
+        address: String,
+        message: String,
 
-
+        ) {
         view.showLoader()
 
-        var jsonObject = JsonObject()
-
-        jsonObject.addProperty("id", id)
-        jsonObject.addProperty("token", token)
-//        jsonObject.addProperty("date", date)
-        jsonObject.addProperty("event_id", eventid)
-        jsonObject.addProperty("coach_id", coach_id)
-
-
-        jsonObject.addProperty("time", time)
-        jsonObject.addProperty("coat", coat)
-        jsonObject.addProperty("team_a_id", team_a_id)
-        jsonObject.addProperty("team_b_id", team_b_id)
-
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
-        val call: Call<ResponseBody?>? = apiInterface.addMatch(jsonObject)
+        val call: Call<ResponseBody?>? = apiInterface.addEventReport(id,token,address,message)
 
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack{
@@ -64,10 +46,10 @@ class AddMatchController(var context: Activity, internal var view: IAddMatchView
 
                     val gson = builder.create()
 
-                    val response = gson.fromJson(reader, AddTeamBaseResponse::class.java)
+                    val response = gson.fromJson(reader, BasicResponse::class.java)
 
                     if (response.getStatus() == 1) {
-                        view.addMatchSuccessful()
+                        view.onAddReport()
 
                     } else {
                         Log.d(ContentValues.TAG, "onSuccess: 0 status")
@@ -87,14 +69,11 @@ class AddMatchController(var context: Activity, internal var view: IAddMatchView
 
         })
 
-
     }
 
     override fun onDestroy() {
-        TODO("Not yet implemented")
     }
 
     override fun onFinish() {
-        TODO("Not yet implemented")
     }
 }

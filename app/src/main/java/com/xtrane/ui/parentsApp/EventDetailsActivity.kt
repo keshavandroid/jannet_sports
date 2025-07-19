@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.xtrane.R
@@ -29,6 +31,7 @@ import com.xtrane.utils.Constants.eventDetailTop
 import com.xtrane.utils.SharedPrefUserData
 import com.xtrane.utils.StoreUserData
 import com.xtrane.utils.Utilities
+import com.xtrane.viewinterface.IAddReportView
 import com.xtrane.viewinterface.IDeleteEventView
 import com.xtrane.viewinterface.IProfileView
 
@@ -214,6 +217,10 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
         }
         binding.cardAbout.setOnClickListener { startActivity(Intent(this, EventAboutActivity::class.java)) }
+
+        binding.txtReport.setOnClickListener {
+            showReportDialog()
+        }
 
         binding.cardVenue.setOnClickListener {
 
@@ -567,5 +574,48 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
     }
 
+    private fun showReportDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_add_report)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val etReportMessage = dialog.findViewById<EditText>(R.id.et_report_reason)
+        val btnSubmitReport = dialog.findViewById<TextView>(R.id.et_report_Yes)
+        val btnCancelReport = dialog.findViewById<TextView>(R.id.et_report_cancel)
+
+        btnSubmitReport.setOnClickListener {
+            val reportMessage = etReportMessage.text.toString().trim()
+            if (reportMessage.isNotEmpty()) {
+                val eventId = intent.getStringExtra("eventId")
+                val userId = SharedPrefUserData(this).getSavedData().id
+                val token = SharedPrefUserData(this).getSavedData().token
+
+                AddReportController(this, object : IAddReportView {
+                    override fun onAddReport() {
+                        Log.e("onAddReport=", "Report is added successfully");
+                    //    hideLoader()
+                        showToast("Report submitted successfully")
+                        dialog.dismiss()
+                    }
+
+                    override fun showLoader() {}
+
+                    override fun showLoader(message: String?) {}
+
+                    override fun hideLoader() {}
+
+                    override fun onFail(message: String?, e: Exception?) {
+                        Log.e("OnFailMessage=", message!!);
+                        hideLoader()
+                        showToast("Failed to submit report: $message")
+                    }
+                }).CallAddNewReport(userId!!, token!!, eventId!!, reportMessage)
+            } else {
+                showToast("Please enter a message for the report")
+            }
+        }
+        btnCancelReport.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
 
 }

@@ -67,7 +67,11 @@ interface UserServices {
         @Query("token") token: String?,
         @Query("location_id") location_id: String?,
         @Query("sportsId") sportsId: String?,
-    ): Call<ResponseBody?>?
+        @Query("startDate") startDate: String?,
+        @Query("endDate") endDate: String?,
+        @Query("month") month: String?,
+
+        ): Call<ResponseBody?>?
 
     @GET("eventDetail")
     fun eventDetail(
@@ -76,7 +80,7 @@ interface UserServices {
         @Query("event_id") eventid: String?,
     ): Call<ResponseBody?>?
 
-    @GET("eventList")
+    @GET("parentHomeFilter")
     fun eventList(
         @Query("id") id: String?, @Query("token") token: String?,
     ): Call<ResponseBody?>?
@@ -610,6 +614,14 @@ interface UserServices {
         @Query("latitude") latitude: String?,
         @Query("longitude") longitude: String?,
         @Query("coat") coat: String?,
+    ): Call<ResponseBody?>?
+
+    @POST("addEventReport")
+    fun addEventReport(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("eventId") address: String?,
+        @Query("reportMessage") message: String?
     ): Call<ResponseBody?>?
 
 

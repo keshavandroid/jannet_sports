@@ -63,6 +63,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
     var editor: SharedPreferences.Editor? = null
     var formattedDate: String = ""
     var newToken: String? = null
+    var formattedEndDate: String? = ""
 
     private lateinit var binding: FragmentHomeParentBinding
 
@@ -181,6 +182,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                 override fun <T> onSuccess(response: T, method: String) {
                     try {
                         val resp = response as EventListResponse
+
+
                         setListAdapter(resp.getResult()!!.reversed())
 
                     } catch (e: Exception) {
@@ -193,6 +196,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                 requireActivity(),
                 strIDSports1,
                 strIDLocation1,
+                formattedDate,
+                formattedEndDate!!,
                 object : ControllerInterface {
                     override fun onFail(error: String?) {
 
@@ -202,12 +207,14 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                         try {
 
                             val resp = response as EventListResponse
-                            val respon: EventListResponse = EventListResponse()
+                         //   val respon: EventListResponse = EventListResponse()
+
                             if (resp.getResult() == null) {
                                 editor!!.clear()
                                 editor!!.commit()
                                 strIDLocation = "";
                                 strIDSports = "";
+
                                 for (i in 0..sportsResponse!!.size - 1) {
                                     if (sportsResponse!!.get(i)!!.isCheck.equals("1")) {
                                         sportsResponse!!.get(i)!!.isCheck = "0"
@@ -219,13 +226,13 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                                     }
                                 }
                                 binding.rcvEventList.visibility = View.GONE
-                                var dialog =
-                                    Dialog(requireActivity(), R.style.MyBottomSheetDialogTheme)
-                                val dialogview = LayoutInflater.from(context)
-                                    .inflate(R.layout.dlg_confirm, null, false)
+
+                                var dialog = Dialog(requireActivity(), R.style.MyBottomSheetDialogTheme)
+                                val dialogview = LayoutInflater.from(context).inflate(R.layout.dlg_confirm, null, false)
                                 val tv_title = dialogview.findViewById<TextView>(R.id.tv_title)
                                 val tv_ok = dialogview.findViewById<TextView>(R.id.tv_ok)
                                 tv_title.setText(R.string.NoEventFound)
+
                                 tv_ok.setOnClickListener(View.OnClickListener {
                                     dialog.dismiss()
 
@@ -233,6 +240,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                                         requireActivity(),
                                         "",
                                         "",
+                                        formattedDate,
+                                        formattedEndDate!!,
                                         object : ControllerInterface {
                                             override fun onFail(error: String?) {
                                             }
@@ -312,15 +321,19 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         val txtApply = bottomSheetDialog.findViewById<TextView>(R.id.txtApply)
         val txtClear = bottomSheetDialog.findViewById<TextView>(R.id.txtClear)
         val ll_selectDate = bottomSheetDialog.findViewById<LinearLayout>(R.id.ll_selectDate)
+        val ll_selectEndDate = bottomSheetDialog.findViewById<LinearLayout>(R.id.ll_selectEndDate)
 
 
         var idSports = sharedPreference!!.getString("strIDSportsHome", "")
         if (idSports!!.isEmpty()) {
             strIDSports = ""
 
-        } else {
+        }
+        else {
+
             var strSports: String = ""
             val list: List<String> = listOf(*idSports.split(",").toTypedArray())
+
             for (i in 0..sportsResponse!!.size - 1) {
                 for (j in 0..list!!.size - 1) {
                     if (sportsResponse!!.get(i)!!.id!!.toString().equals(list.get(j))) {
@@ -370,7 +383,23 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
 
             tvLocation!!.setText(strLoc)
         }
+        ll_selectEndDate!!.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, selectedYear, selectedMonth, selectedDay ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(selectedYear, selectedMonth, selectedDay)
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                    formattedEndDate = dateFormat.format(selectedDate.time)
+                    bottomSheetDialog.findViewById<TextView>(R.id.txt_endselectdate)!!.text = formattedEndDate
+                }, year, month, day)
+            datePickerDialog.show()
+        }
         ll_selectDate!!.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -479,6 +508,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                 requireActivity(),
                 strIDSports,
                 strIDLocation,
+                formattedDate,
+                formattedEndDate!!,
                 object : ControllerInterface {
                     override fun onFail(error: String?) {
 
@@ -519,6 +550,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                                         requireActivity(),
                                         "",
                                         "",
+                                        formattedDate,
+                                        formattedEndDate!!,
                                         object : ControllerInterface {
                                             override fun onFail(error: String?) {
                                             }
@@ -579,6 +612,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                 requireActivity(),
                 "",
                 "",
+                formattedDate,
+                formattedEndDate!!,
                 object : ControllerInterface {
                     override fun onFail(error: String?) {
                     }
@@ -691,6 +726,5 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
     override fun onFail(message: String?, e: Exception?) {
 
     }
-
 
 }

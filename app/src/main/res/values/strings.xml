@@ -14,6 +14,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="log_in">Log in</string>
+    <string name="write">Write Here</string>
     <string name="forgot_password">Forgot password ?</string>
     <string name="don_t_have_an_account">Don\'t have an account ?</string>
     <string name="register">Register</string>
@@ -90,6 +91,7 @@
     <string name="edit_profile_personal">EDIT PROFILE PERSONAL</string>
     <string name="coach_profile">COACH PROFILE</string>
     <string name="child">Child</string>
+    <string name="submit">Submit</string>
     <string name="personal">Personal</string>
     <string name="dd_mm_yyyy1">DD/MM/YYYY</string>
     <string name="edit">Edit</string>
@@ -152,7 +154,8 @@
     <string name="add_match">Add Match</string>
     <string name="add_match1">ADD MATCH</string>
     <string name="date">Date</string>
-    <string name="selectdate">Select Date</string>
+    <string name="selectdate">Select start Date</string>
+    <string name="selectenddate">Select End Date</string>
     <string name="select_team_a">Select Team A</string>
     <string name="select_team">Select Team</string>
     <string name="select_team_b">Select Team B</string>
@@ -187,6 +190,7 @@
 
     <string name="buy_coins">Buy Coins</string>
     <string name="all">All</string>
+    <string name="enter_reason_for_report">Enter Reporting Message</string>
 
     <string-array name="Languages">
         <item>Grade 1</item>

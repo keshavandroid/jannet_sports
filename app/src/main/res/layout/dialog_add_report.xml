@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_white_radius_4dp"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/_10sdp"
+    android:paddingEnd="@dimen/_10sdp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_report_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_reason_for_report"
+            android:padding="@dimen/_10sdp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            android:gravity="center_vertical"/>
+
+        <EditText
+            android:id="@+id/et_report_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_report_title"
+            android:background="@drawable/grey_rounded"
+            android:gravity="top"
+            android:hint="@string/write"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="@dimen/_14ssp"
+            android:padding="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_report_reason"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/et_report_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button_bg"
+                android:backgroundTint="@color/colorRed"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/cancel"
+                android:fontFamily="sans-serif-black"
+                android:textSize="@dimen/_14ssp"
+                />
+
+            <TextView
+                android:id="@+id/et_report_Yes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button_bg"
+                android:backgroundTint="@color/teal_200"
+                android:gravity="center"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="sans-serif-black"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/submit" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

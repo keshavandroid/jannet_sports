@@ -1,5 +1,6 @@
 package com.xtrane.retrofit.controller
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
 import com.xtrane.retrofit.ControllerInterface
@@ -16,7 +17,11 @@ import java.io.Reader
 import java.io.StringReader
 import java.lang.reflect.Modifier
 
-class PFilterEventListController(var context: Activity,var strIDSports:String ,var strIDLocation:String, internal var controllerInterface: ControllerInterface) {
+class PFilterEventListController(var context: Activity,var strIDSports:String,
+                                 var strIDLocation:String,
+                                 var startDate:String,
+                                 var endDate:String,
+                                 internal var controllerInterface: ControllerInterface) {
     private val TAG = "PFilterEventListController"
     fun callApi() {
         Utilities.showProgress(context)
@@ -26,9 +31,10 @@ class PFilterEventListController(var context: Activity,var strIDSports:String ,v
         val id= SharedPrefUserData(context).getSavedData().id
         val token= SharedPrefUserData(context).getSavedData().token
 
-        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().parentHomeFilter(id,token,strIDLocation,strIDSports)
+        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().parentHomeFilter(id,token,strIDLocation,strIDSports,startDate,endDate,"")
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
+            @SuppressLint("LongLogTag")
             override fun onSuccess(body: Response<ResponseBody?>?) {
                 Utilities.dismissProgress()
                 try {
@@ -56,6 +62,7 @@ class PFilterEventListController(var context: Activity,var strIDSports:String ,v
             }
 
 
+            @SuppressLint("LongLogTag")
             override fun onError(code: Int, error: String?) {
                 Utilities.dismissProgress()
                 Utilities.showToast(context, "Server error")

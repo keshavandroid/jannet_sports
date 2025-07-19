@@ -27,6 +27,7 @@ class AddNewLocationController(var context:Activity,internal var view:IAddNewLoc
         coat: String
     ) {
         view.showLoader()
+
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
         val call: Call<ResponseBody?>? = apiInterface.addNewLocation(id,token,address,latitude,longitude,coat)
 
