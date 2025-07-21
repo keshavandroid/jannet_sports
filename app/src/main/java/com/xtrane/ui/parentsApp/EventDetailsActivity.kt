@@ -62,8 +62,8 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
        // setContentView(R.layout.activity_event_details)
         binding = ActivityEventDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setTopBar()
+
         Utilities.dismissProgress()
         //use get profile controller for check child is avail or not for hiding register button
         GetProfileController(this, true, object : ControllerInterface {
@@ -172,6 +172,18 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         adapter = SliderAdapterExample(this)
         binding.imageSlider.setSliderAdapter(adapter!!)
 
+        if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
+                .equals("coachPersonal")
+        )
+        {
+            binding.txtReport.visibility=View.GONE
+        }
+
+        else
+        {
+            binding.txtReport.visibility=View.VISIBLE
+
+        }
         binding.cardMatch.setOnClickListener {
 //            if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
 //                    .equals("coachPersonal")

@@ -53,6 +53,37 @@
                 android:id="@+id/view1"/>
 
             <LinearLayout
+                android:id="@+id/llArchiveEvent"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:src="@mipmap/perf"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Archive Events"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_15ssp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/green4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:id="@+id/viewarchiv"/>
+
+
+            <LinearLayout
                 android:id="@+id/llWallet"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"

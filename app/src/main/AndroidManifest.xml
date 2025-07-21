@@ -191,6 +191,10 @@
         <activity
             android:name=".ui.parentsApp.BuyCoinsActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".ui.coachApp.ArchiveEventsActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

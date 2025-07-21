@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.xtrane.R
 import com.xtrane.databinding.FragmentAccountBinding
+import com.xtrane.ui.coachApp.ArchiveEventsActivity
 import com.xtrane.ui.coachApp.CoachMainActivity
 import com.xtrane.ui.coachApp.coachUpdateProfileScreen.CoachUpdateProfileActivity
 import com.xtrane.ui.loginRegister.SelectSportsActivity
@@ -110,7 +111,11 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 //        }
 //
 
-
+        binding.llArchiveEvent.setOnClickListener {
+            val intent = Intent(requireActivity(), ArchiveEventsActivity::class.java)
+            intent.putExtra("COACH", "coach")
+            startActivity(intent)
+        }
         binding.llselectSports.setOnClickListener {
 
             val intent = Intent(requireActivity(), SelectSportsActivity::class.java)

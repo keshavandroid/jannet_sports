@@ -98,6 +98,13 @@ interface UserServices {
         @Query("type") type: String?,
     ): Call<ResponseBody?>?
 
+    @GET("getArchiveCoachEventList")
+    fun getArchiveCoachEventList(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("isarchive") isarchive: String?,
+    ): Call<ResponseBody?>?
+
     //second tab API in Participant
     @GET("getRegisterList")
     fun getRegisterList(
