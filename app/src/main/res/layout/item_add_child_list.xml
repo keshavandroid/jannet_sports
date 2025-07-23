@@ -67,7 +67,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:padding="@dimen/_4sdp"
                     android:src="@mipmap/mal" />
 
@@ -104,7 +104,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:padding="@dimen/_4sdp"
                     android:src="@mipmap/mal" />
 
@@ -127,6 +127,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtMiddleName" />
 
+            //gercy name
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
@@ -142,7 +144,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:padding="@dimen/_4sdp"
                     android:src="@mipmap/mal" />
 
@@ -154,8 +156,6 @@
                     android:maxLength="70" />
 
             </LinearLayout>
-
-            //gercy name
 
             <TextView
                 android:id="@+id/txtJerseyName"
@@ -180,7 +180,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:padding="@dimen/_4sdp"
                     android:src="@mipmap/mal" />
 
@@ -194,8 +194,41 @@
             </LinearLayout>
 
 
-            // Geade
+            <TextView
+                android:id="@+id/txtphoneName"
+                style="@style/txtLoginScreen1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Phone Number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLastName" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/whitebg"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/txtLastName">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/mal" />
+
+                <EditText
+                    android:id="@+id/edtPhonenumber"
+                    style="@style/etxtLoginScreen1"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:inputType="text"
+                    android:maxLength="70" />
+
+            </LinearLayout>
             <TextView
                 android:id="@+id/txtGrade"
                 style="@style/txtLoginScreen1"
@@ -249,6 +282,7 @@
                     <TextView
                         android:id="@+id/txtGradeSelected"
                         style="@style/txtLoginScreen2"
+                        android:layout_marginStart="@dimen/_20sdp"
                         android:layout_width="match_parent"
                         android:hint="Select Grade" />
 
@@ -283,7 +317,7 @@
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:paddingStart="@dimen/_1sdp"
                     android:paddingEnd="@dimen/_1sdp"
                     android:paddingBottom="@dimen/_1sdp"
@@ -324,7 +358,7 @@
                     style="@style/etxtLoginScreen1"
                     android:inputType="textPassword"
                     android:layout_weight="1"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:maxLength="50" />
                 <ImageView
                     android:id="@+id/iv_eye"
@@ -367,7 +401,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:hint="@string/dd_mm_yyyy"
                     android:textColor="@color/grey1"
@@ -425,7 +459,8 @@
                         android:id="@+id/txtSportsSelected"
                         style="@style/txtLoginScreen2"
                         android:layout_width="match_parent"
-                        android:hint="@string/sports" />
+                        android:hint="@string/sports"
+                        android:layout_marginStart="@dimen/_20sdp"/>
 
 
                     <ImageView

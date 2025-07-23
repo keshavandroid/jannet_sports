@@ -35,11 +35,10 @@
         <TextView
             android:id="@+id/tv_sport"
             style="@style/txtLoginScreen2"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:hint="@string/hint_resource"
-            android:scrollbars = "vertical"
-            android:textColor="@color/black"
+            android:paddingStart="@dimen/_10sdp"
+            android:scrollbars="vertical"
+            android:text="@string/hint_resource"
+            android:textColor="@color/grey1"
             tools:ignore="TextFields" />
 
     </LinearLayout>
@@ -47,29 +46,96 @@
     <LinearLayout
         android:id="@+id/ll_location"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:background="@drawable/background_white_radius_4dp"
         android:elevation="@dimen/_5sdp"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <TextView
             android:id="@+id/tv_Location"
-            style="@style/txtLoginScreen2"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:hint="@string/SelectLocation"
-            android:inputType="text"
-            android:scrollbars = "vertical"
-            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_10sdp"
+            android:scrollbars="vertical"
+            android:text="@string/SelectLocation"
+            android:textColor="@color/grey1"
             tools:ignore="TextFields" />
 
+        <TextView
+            android:id="@+id/tv_radius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_10sdp"
+            android:scrollbars="vertical"
+            android:text="@string/SelectRadius"
+            android:textColor="@color/grey1"
+            tools:ignore="TextFields" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/txtstartradius"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:paddingStart="@dimen/_10sdp"
+                android:scrollbars="vertical"
+                android:text="  1 "
+                android:textColor="@color/grey1"
+                tools:ignore="TextFields" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/seekbar_radius"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="500"
+                    android:padding="@dimen/_5sdp"
+                    android:progress="1" />
+
+                <TextView
+                    android:id="@+id/txtSelectedRadius"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1 Miles"
+                    android:gravity="center"
+                    android:textColor="@color/grey1" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/txtEndradius"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:paddingEnd="@dimen/_10sdp"
+                android:scrollbars="vertical"
+                android:text="500"
+                android:textColor="@color/grey1"
+                tools:ignore="TextFields" />
+        </LinearLayout>
+
+
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_selectDate"
         android:layout_width="match_parent"
@@ -88,12 +154,11 @@
             android:id="@+id/txt_selectdate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/selectdate"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/_10sdp"
+            android:scrollbars="vertical"
+            android:text="@string/selectdate"
             android:textColor="@color/grey1"
-            android:textColorHint="@color/grey1"
-            android:scrollbars = "vertical"
             tools:ignore="TextFields" />
 
 
@@ -118,16 +183,17 @@
             android:id="@+id/txt_endselectdate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/selectenddate"
             android:gravity="center_vertical"
+            android:hint="@string/selectenddate"
             android:paddingStart="@dimen/_10sdp"
+            android:scrollbars="vertical"
             android:textColor="@color/grey1"
             android:textColorHint="@color/grey1"
-            android:scrollbars = "vertical"
             tools:ignore="TextFields" />
 
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/txtApply"
         style="@style/txtButton1"

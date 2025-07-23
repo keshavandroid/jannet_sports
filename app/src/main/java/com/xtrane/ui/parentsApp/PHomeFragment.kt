@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -64,6 +65,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
     var formattedDate: String = ""
     var newToken: String? = null
     var formattedEndDate: String? = ""
+    var seekbarprogress: String? = ""
 
     private lateinit var binding: FragmentHomeParentBinding
 
@@ -109,6 +111,8 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         Handler().postDelayed({
             callDeviceRegister(id!!, email!!)
         }, 5000)
+
+        // Fetch current date and add to formattedDate
 
 
     }
@@ -198,6 +202,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                 strIDLocation1,
                 formattedDate,
                 formattedEndDate!!,
+                seekbarprogress.toString(),
                 object : ControllerInterface {
                     override fun onFail(error: String?) {
 
@@ -242,6 +247,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                                         "",
                                         formattedDate,
                                         formattedEndDate!!,
+                                        seekbarprogress.toString(),
                                         object : ControllerInterface {
                                             override fun onFail(error: String?) {
                                             }
@@ -322,6 +328,26 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         val txtClear = bottomSheetDialog.findViewById<TextView>(R.id.txtClear)
         val ll_selectDate = bottomSheetDialog.findViewById<LinearLayout>(R.id.ll_selectDate)
         val ll_selectEndDate = bottomSheetDialog.findViewById<LinearLayout>(R.id.ll_selectEndDate)
+        val seekBarPrice = bottomSheetDialog.findViewById<SeekBar>(R.id.seekbar_radius)
+
+        seekBarPrice?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                // Update the TextView with the current progress
+                bottomSheetDialog.findViewById<TextView>(R.id.txtSelectedRadius)?.text = "$progress"+" Miles"
+                seekbarprogress="$progress"
+
+                Log.e("seekbarprogress=",seekbarprogress.toString())
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                // Called when the user starts interacting with the SeekBar
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                // Called when the user finishes interacting with the SeekBar
+                // You can perform actions here based on the final progress value
+            }
+        })
 
 
         var idSports = sharedPreference!!.getString("strIDSportsHome", "")
@@ -510,6 +536,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                 strIDLocation,
                 formattedDate,
                 formattedEndDate!!,
+                seekbarprogress.toString(),
                 object : ControllerInterface {
                     override fun onFail(error: String?) {
 
@@ -552,6 +579,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                                         "",
                                         formattedDate,
                                         formattedEndDate!!,
+                                        seekbarprogress.toString(),
                                         object : ControllerInterface {
                                             override fun onFail(error: String?) {
                                             }
@@ -614,6 +642,7 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
                 "",
                 formattedDate,
                 formattedEndDate!!,
+                seekbarprogress.toString(),
                 object : ControllerInterface {
                     override fun onFail(error: String?) {
                     }

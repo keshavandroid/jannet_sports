@@ -20,19 +20,27 @@ import java.io.File
 import java.io.Reader
 import java.io.StringReader
 import java.lang.reflect.Modifier
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
-class EventListController(var context: Activity, internal var controllerInterface: ControllerInterface) {
+class EventListController(
+    var context: Activity,
+    internal var controllerInterface: ControllerInterface
+) {
     private val TAG = "EventListCont"
     fun callApi() {
         Utilities.showProgress(context)
 
         val storeData = StoreUserData(context)
 
-        val id= SharedPrefUserData(context).getSavedData().id
-        val token= SharedPrefUserData(context).getSavedData().token
+        val id = SharedPrefUserData(context).getSavedData().id
+        val token = SharedPrefUserData(context).getSavedData().token
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val date = dateFormat.format(calendar.time)
 
         Log.d(TAG, "API URL: ${RetrofitHelper.SERVER_URL}eventList?id=$id&token=$token")
-        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().eventList(id,token)
+        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().eventList(id, token, "")
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
@@ -42,9 +50,14 @@ class EventListController(var context: Activity, internal var controllerInterfac
                     Log.d(TAG, "onSuccess: insuccess>>$resp<")
                     val reader: Reader = StringReader(resp)
                     val builder = GsonBuilder()
-                    builder.excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
+                    builder.excludeFieldsWithModifiers(
+                        Modifier.FINAL,
+                        Modifier.TRANSIENT,
+                        Modifier.STATIC
+                    )
                     val gson = builder.create()
-                    val response: EventListResponse = gson.fromJson(reader, EventListResponse::class.java)
+                    val response: EventListResponse =
+                        gson.fromJson(reader, EventListResponse::class.java)
 
                     Log.d(TAG, "onSuccess: insuccess>>" + response.getStatus() + "<")
 

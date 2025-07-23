@@ -1,5 +1,7 @@
 package com.xtrane.ui.parentsApp
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -7,11 +9,13 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.xtrane.R
 import com.xtrane.adapter.SliderAdapterExample
 import com.xtrane.databinding.ActivityAddMainTeamBinding
@@ -34,6 +38,9 @@ import com.xtrane.utils.Utilities
 import com.xtrane.viewinterface.IAddReportView
 import com.xtrane.viewinterface.IDeleteEventView
 import com.xtrane.viewinterface.IProfileView
+import com.xtrane.viewinterface.IRescheduleEventView
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 
 class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
@@ -46,9 +53,10 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
     lateinit var eventDetairesponse: EventDetailResponse
     private var id = ""
     private var token = ""
-//    var eventResulArraylist: ArrayList<EventDetailResponse.Result> =
-//        ArrayList<EventDetailResponse.Result>()
 
+    //    var eventResulArraylist: ArrayList<EventDetailResponse.Result> =
+//        ArrayList<EventDetailResponse.Result>()
+    var storedata: StoreUserData? = null;
     private lateinit var binding: ActivityEventDetailsBinding
 
     lateinit var controller: IProfileController
@@ -59,7 +67,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_event_details)
+        // setContentView(R.layout.activity_event_details)
         binding = ActivityEventDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setTopBar()
@@ -120,11 +128,11 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 //        val userType: String = SharedPrefUserData(this).getSavedData().usertype
 
 
-        val storedata = StoreUserData(this)
+        storedata = StoreUserData(this)
 
-        if (storedata.getString(Constants.COACH_ID)
-                .trim() == null || storedata.getString(Constants.COACH_ID).trim()
-                .isEmpty() || storedata.getString(Constants.COACH_ID).trim() == ""
+        if (storedata!!.getString(Constants.COACH_ID)
+                .trim() == null || storedata!!.getString(Constants.COACH_ID).trim()
+                .isEmpty() || storedata!!.getString(Constants.COACH_ID).trim() == ""
         ) {
 
             id = SharedPrefUserData(this).getSavedData().id!!
@@ -140,8 +148,8 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         } else {
 
 
-            id = storedata.getString(Constants.COACH_ID)
-            token = storedata.getString(Constants.COACH_TOKEN)
+            id = storedata!!.getString(Constants.COACH_ID)
+            token = storedata!!.getString(Constants.COACH_TOKEN)
 
             controller = ProfileController(this, this)
             controller.callGetProfileAPI(id, token, "coach")
@@ -174,14 +182,10 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
         if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
                 .equals("coachPersonal")
-        )
-        {
-            binding.txtReport.visibility=View.GONE
-        }
-
-        else
-        {
-            binding.txtReport.visibility=View.VISIBLE
+        ) {
+            binding.txtReport.visibility = View.GONE
+        } else {
+            binding.txtReport.visibility = View.VISIBLE
 
         }
         binding.cardMatch.setOnClickListener {
@@ -228,8 +232,20 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
         }
-        binding.cardAbout.setOnClickListener { startActivity(Intent(this, EventAboutActivity::class.java)) }
+        binding.cardAbout.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    EventAboutActivity::class.java
+                )
+            )
+        }
 
+
+
+        binding.lrReSchedule.setOnClickListener {
+            openRescheduelDialog()
+        }
         binding.txtReport.setOnClickListener {
             showReportDialog()
         }
@@ -399,8 +415,16 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                         eventDetairesponse = resp
                         Log.e(TAG, "onSuccess: event detil success===${resp.getResult()}")
 
-                        Log.e("EventDetail", "=========main iamge===${resp.getResult()!![0]?.getMainimage().toString()}")
-                        Log.e("EventDetail", "=========images===${resp.getResult()!![0]?.getImages().toString()}")
+                        Log.e(
+                            "EventDetail",
+                            "=========main iamge===${
+                                resp.getResult()!![0]?.getMainimage().toString()
+                            }"
+                        )
+                        Log.e(
+                            "EventDetail",
+                            "=========images===${resp.getResult()!![0]?.getImages().toString()}"
+                        )
 
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -411,6 +435,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
     }
+
 
     private fun setData(result: List<EventDetailResponse.Result?>) {
         try {
@@ -465,6 +490,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 binding.cardEdit.visibility = View.GONE
 
             }
+
             1 -> {
                 //from match screen
                 //from paent scren
@@ -476,6 +502,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 binding.ll7.visibility = View.VISIBLE
                 binding.cardEdit.visibility = View.GONE
             }
+
             2 -> {
                 //from match screen
                 //from coach side
@@ -605,7 +632,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 AddReportController(this, object : IAddReportView {
                     override fun onAddReport() {
                         Log.e("onAddReport=", "Report is added successfully");
-                    //    hideLoader()
+                        //    hideLoader()
                         showToast("Report submitted successfully")
                         dialog.dismiss()
                     }
@@ -622,11 +649,97 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                         showToast("Failed to submit report: $message")
                     }
                 }).CallAddNewReport(userId!!, token!!, eventId!!, reportMessage)
+
             } else {
                 showToast("Please enter a message for the report")
             }
         }
         btnCancelReport.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
+
+    private fun openRescheduelDialog() {
+
+
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_reschedule)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val txtselectdate = dialog.findViewById<TextView>(R.id.txtselectdate)
+        val txtselecttime = dialog.findViewById<TextView>(R.id.txtselecttime)
+        val et_report_cancel = dialog.findViewById<TextView>(R.id.et_report_cancel)
+        val et_report_Yes = dialog.findViewById<TextView>(R.id.et_report_Yes)
+
+        val eventId = intent.getStringExtra("eventId")
+        val userId = storedata!!.getString(Constants.COACH_ID)
+        val token = storedata!!.getString(Constants.COACH_TOKEN)
+
+        txtselectdate.setOnClickListener {
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setTheme(R.style.ThemeOverlay_App_DatePicker)
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build()
+            datePicker.addOnPositiveButtonClickListener {
+                // Respond to positive button click.
+                val selectedDate = datePicker.selection
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                if (selectedDate != null) {
+                    //  binding.txtDate.text = convertDateFormat(sdf.format(selectedDate))
+                    txtselectdate.text = sdf.format(selectedDate)
+                }
+            }
+            datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+        txtselecttime.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(
+                this,
+                { _, selectedHour, selectedMinute ->
+                    val selectedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+                    txtselecttime.text = selectedTime
+                }, hour, minute, true
+            ) // true for 24-hour format
+
+            timePickerDialog.show()
+        }
+        et_report_cancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        et_report_Yes.setOnClickListener {
+
+            RescheduleEventController(this, object : IRescheduleEventView {
+                override fun onRescheduleEvent() {
+                    Log.e("onAddReport=", "Report is added successfully");
+                    //    hideLoader()
+                    showToast("Event Rescheduled successfully")
+                    dialog.dismiss()
+                }
+
+                override fun showLoader() {}
+
+                override fun showLoader(message: String?) {}
+
+                override fun hideLoader() {}
+
+                override fun onFail(message: String?, e: Exception?) {
+                    Log.e("OnFailMessage=", message!!);
+                    hideLoader()
+                    showToast("Failed to submit report: $message")
+                }
+            }).CallRescheduleEvent(
+                userId!!,
+                token!!,
+                eventId!!,
+                txtselectdate.text.toString(),
+                txtselecttime.text.toString()
+            )
+        }
+
         dialog.show()
     }
 

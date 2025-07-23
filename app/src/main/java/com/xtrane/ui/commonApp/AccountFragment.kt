@@ -60,9 +60,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             binding.llWallet.visibility=View.GONE
             binding.lleventRegisterRequest.visibility=View.GONE
             binding.llTicketBookingRequest.visibility=View.GONE
-            binding.view1.visibility=View.GONE
+            binding.view1.visibility=View.VISIBLE
             binding.view2.visibility=View.GONE
             binding.view3.visibility=View.GONE
+            binding.llArchiveEvent.visibility=View.VISIBLE
 
         }
         else{
@@ -74,6 +75,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             binding.view1.visibility=View.VISIBLE
             binding.view2.visibility=View.VISIBLE
             binding.view3.visibility=View.VISIBLE
+            binding.llArchiveEvent.visibility=View.GONE
+            binding.viewarchiv.visibility=View.GONE
 
         }
 

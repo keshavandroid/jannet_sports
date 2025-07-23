@@ -178,6 +178,7 @@
     <string name="selected_item">Selected item:</string>
     <string name="hint_resource">Select Sports</string>
     <string name="SelectLocation">Select Location</string>
+    <string name="SelectRadius">Select Radius</string>
     <string name="Apply">Apply</string>
     <string name="Please_Select_sports_or_Location">Please Select sports or Location</string>
     <string name="Search">Search</string>

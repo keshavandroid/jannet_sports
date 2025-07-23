@@ -70,7 +70,7 @@ interface UserServices {
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?,
         @Query("month") month: String?,
-
+        @Query("radious") radius: String?,
         ): Call<ResponseBody?>?
 
     @GET("eventDetail")
@@ -82,8 +82,10 @@ interface UserServices {
 
     @GET("parentHomeFilter")
     fun eventList(
-        @Query("id") id: String?, @Query("token") token: String?,
-    ): Call<ResponseBody?>?
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("startDate") startDate: String?,
+        ): Call<ResponseBody?>?
 
     @GET("getParentMatch")
     fun getParentMatch(
@@ -631,7 +633,14 @@ interface UserServices {
         @Query("reportMessage") message: String?
     ): Call<ResponseBody?>?
 
-
+    @POST("addRescheduleEvent")
+    fun addRescheduleEvent(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("eventId") eventId: String?,
+        @Query("date") date: String?,
+        @Query("time") time: String?
+    ): Call<ResponseBody?>?
     @GET("filterHome")
     fun getCoachFilter(
         @Query("id") id: String?,

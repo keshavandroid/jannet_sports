@@ -21,6 +21,7 @@ class PFilterEventListController(var context: Activity,var strIDSports:String,
                                  var strIDLocation:String,
                                  var startDate:String,
                                  var endDate:String,
+                                 var radius:String,
                                  internal var controllerInterface: ControllerInterface) {
     private val TAG = "PFilterEventListController"
     fun callApi() {
@@ -31,7 +32,7 @@ class PFilterEventListController(var context: Activity,var strIDSports:String,
         val id= SharedPrefUserData(context).getSavedData().id
         val token= SharedPrefUserData(context).getSavedData().token
 
-        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().parentHomeFilter(id,token,strIDLocation,strIDSports,startDate,endDate,"")
+        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().parentHomeFilter(id,token,strIDLocation,strIDSports,startDate,endDate,"",radius)
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             @SuppressLint("LongLogTag")
