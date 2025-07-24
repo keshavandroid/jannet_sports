@@ -24,6 +24,7 @@ import com.xtrane.utils.DatePickerResult
 import com.xtrane.utils.MultiSpinner
 import com.xtrane.utils.datePicker
 import com.xtrane.utils.getPathFromUri
+import com.hbb20.CountryCodePicker
 import com.google.gson.GsonBuilder
 
 
@@ -74,7 +75,8 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
                 arrayList[i].sportsIDS,
                 context.getPathFromUri(arrayList[i].imageUri),
                 arrayList[i].gender,
-                arrayList[i].pwd
+                arrayList[i].pwd,
+                arrayList[i].contactNo
             )
             item.setChildId1(arrayList[i].id)
             list.add(item)
@@ -88,6 +90,7 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
     }
 
     var imageTop: ImageView? = null
+    var countrycode: String? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ChildListAdapterVH, position: Int) {
@@ -139,6 +142,7 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
         holder.grade.text = arrayList[position].gradeId
         holder.paidamount.setText(arrayList[position].addedChildamount)
         var allowChildPayment = 0
+
         holder.checkbox.setOnClickListener {
             if (allowChildPayment == 0) {
                 holder.checkbox.setImageResource(R.mipmap.check1)
@@ -238,9 +242,15 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
 
     fun setEditChildUserData(data: ChildListObject?) {
 
-        Log.d(TAG, "ChildAdapterData: ==>>" + GsonBuilder().setPrettyPrinting().create().toJson(data))
+        Log.d(
+            TAG,
+            "ChildAdapterData: ==>>" + GsonBuilder().setPrettyPrinting().create().toJson(data)
+        )
 
-        Log.d(TAG, "setEditChildUserData: et==>>" + data!!.id + ">>middlename" + data.middleName + ">>" + data.firstName + ">>" + data.email + ">>" + data.bdate + ">>" + data.imageUrl + ">>" + data.imageUri)
+        Log.d(
+            TAG,
+            "setEditChildUserData: et==>>" + data!!.id + ">>middlename" + data.middleName + ">>" + data.firstName + ">>" + data.email + ">>" + data.bdate + ">>" + data.imageUrl + ">>" + data.imageUri
+        )
         editFlag = true
         arrayList.clear()
         arrayList.add(data!!)
@@ -270,10 +280,13 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
         val txtFemale: TextView = itemView.findViewById(R.id.txtFemale)
         val checkbox: ImageView = itemView.findViewById(R.id.img_child_permision)
         val paidamount: EditText = itemView.findViewById(R.id.etxt_child_payment)
+        val etxtPhNo: EditText = itemView.findViewById(R.id.etxtPhNo)
+        val countryCodePicker: CountryCodePicker = itemView.findViewById(R.id.countryCodePicker)
         val lladdamount: LinearLayout = itemView.findViewById(R.id.llchild_permission)
         val show_hide: ImageView = itemView.findViewById(R.id.iv_eye)
 
         init {
+
             imgMale.setOnClickListener {
                 imgMale.setImageResource(R.mipmap.rad)
                 imgFemale.setImageResource(R.mipmap.rad1)
@@ -293,6 +306,26 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
                 imageTop = imgChildProfile
                 addChildlistInterface!!.onImagePickSelected(adapterPosition)
             }
+
+            countryCodePicker.setOnCountryChangeListener {
+                countrycode = countryCodePicker.selectedCountryCode
+            }
+            etxtPhNo.addTextChangedListener((object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                    arrayList[adapterPosition].contactNo =countrycode+ p0.toString().trim()
+                    Log.d(TAG, "afterTextChanged: "+arrayList[adapterPosition].contactNo)
+
+                }
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int,
+                ) = Unit
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            }))
             etxtChildName.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) = Unit
 
@@ -423,6 +456,23 @@ class AddChildListAdapter() : RecyclerView.Adapter<AddChildListAdapter.ChildList
 
                 override fun afterTextChanged(p0: Editable?) {
                 }
+
+
+            })
+
+            etxtPhNo.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    arrayList[adapterPosition].contactNo = etxtPhNo.text.toString().trim()
+                }
+
+                override fun afterTextChanged(s: Editable?) = Unit
 
 
             })

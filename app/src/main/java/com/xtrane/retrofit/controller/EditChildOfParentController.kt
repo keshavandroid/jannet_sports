@@ -39,6 +39,7 @@ class EditChildOfParentController(var context: Activity, internal var controller
         val birthdate: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.birthdate)
         val sportsIds: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.sportsIds)
         val childGender: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.childGender)
+        val contactNo: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.contactNo)
 
         var image: MultipartBody.Part? = null
         val file_path: String = registerObj.childImage

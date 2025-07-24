@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.xtrane.R
 import com.xtrane.adapter.AddChildListAdapter
 import com.xtrane.databinding.ActivityAddChildBinding
-import com.xtrane.databinding.ActivityVenueBinding
 import com.xtrane.retrofit.ControllerInterface
 import com.xtrane.retrofit.controller.EditChildOfParentController
 import com.xtrane.retrofit.controller.GetSportsListController
@@ -241,6 +240,7 @@ class AddChildActivity : AppCompatActivity() {
         var sportsIds = ""
         var childImage = ""
         var childGender = ""
+        var contactNo = ""
         //password: String,
 
         fun setData(
@@ -256,6 +256,7 @@ class AddChildActivity : AppCompatActivity() {
             childImage: String?,
             childGender: String,
             password: String,
+            contactNo: String,
         )
         //this.password = password
         {
@@ -268,6 +269,7 @@ class AddChildActivity : AppCompatActivity() {
             this.birthdate = birthdate
             this.sportsIds = sportsIds
             this.childGender = childGender
+
             if (childImage != null) {
                 this.childImage = childImage
             }

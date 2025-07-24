@@ -342,6 +342,7 @@ interface UserServices {
         @Part("sports") sports: RequestBody,
         @Part("gradeId") gradeId: RequestBody,
         @Part("childGender") childGender: RequestBody,
+        @Part("contactNo") contactNo: RequestBody,
         @Part image: MultipartBody.Part?,
     ): Call<ResponseBody?>?
 

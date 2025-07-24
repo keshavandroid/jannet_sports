@@ -19,10 +19,12 @@ class LoginViewModel(val activity: LoginActivity) {
         if (email.trim() == "") {
             Utilities.showToast(activity, "Please enter email to continue.")
             return false
-        } else if (!Utilities.isValidEmail(email.trim())) {
-            Utilities.showToast(activity, "Please enter a valid email to continue.")
-            return false
-        } else if (pwd.trim() == "") {
+        }
+//        else if (!Utilities.isValidEmail(email.trim())) {
+//            Utilities.showToast(activity, "Please enter a valid email to continue.")
+//            return false
+//        }
+        else if (pwd.trim() == "") {
             Utilities.showToast(activity, "Please enter password to continue.")
             return false
         } else if (pwd.trim().length < 6) {
@@ -44,6 +46,7 @@ class LoginViewModel(val activity: LoginActivity) {
             email = email,
             pwd = pwd,
             userType= userType,
+
             controllerInterface = object : ControllerInterface {
                 override fun onFail(error: String?) {
                     Utilities.showToast(activity, error)

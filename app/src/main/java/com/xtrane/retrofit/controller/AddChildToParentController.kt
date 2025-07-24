@@ -40,6 +40,7 @@ class AddChildToParentController(var context: Activity, internal var controllerI
         val birthdate: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.birthdate)
         val sportsIds: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.sportsIds)
         val childGender: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.childGender)
+        val contactNo: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerObj.contactNo)
 
         var image: MultipartBody.Part? = null
         val file_path: String = registerObj.childImage
@@ -49,7 +50,7 @@ class AddChildToParentController(var context: Activity, internal var controllerI
             image = MultipartBody.Part.createFormData("childImage", file.name, reqFile)
         }
 
-        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().registerChildUser(allowBook,id,token,password,childName,middleName,lastName,jurseyName,email,birthdate,sportsIds,gradeId,childGender,image)
+        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().registerChildUser(allowBook,id,token,password,childName,middleName,lastName,jurseyName,email,birthdate,sportsIds,gradeId,childGender,contactNo,image)
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {

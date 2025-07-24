@@ -19,5 +19,6 @@ class ChildListObject {
     var gradeId=""
     var addedChildamount = ""
     var childImage = ""
+    var contactNo = ""
 
 }
