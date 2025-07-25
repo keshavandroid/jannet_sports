@@ -16,6 +16,7 @@ import com.xtrane.retrofit.controller.ChildInfoController
 import com.xtrane.retrofit.controller.GetProfileController
 import com.xtrane.retrofit.controller.IBaseController
 import com.xtrane.retrofit.controller.IChildInfoController
+import com.xtrane.retrofit.response.EventDetailResponse
 import com.xtrane.retrofit.response.GetProfileParentApiResponse
 import com.xtrane.ui.BaseActivity
 import com.xtrane.utils.Constants
@@ -29,6 +30,9 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
     lateinit var controller: IChildInfoController
     var selectChildId: String = "0"
     private lateinit var binding: ActivityParentBookBinding
+    var eventData: EventDetailResponse.Result? = null
+    var counter=0
+    var parentID=""
 
     override fun getController(): IBaseController? {
         return null
@@ -42,32 +46,38 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
         setContentView(binding.root)
 
         setTopBar()
+        eventData=  Constants.eventDetailTop
 
         controller = ChildInfoController(this, this)
 
         binding.txtSelectChild.setOnClickListener { binding.spinnerChildList.performClick() }
 
+        binding.checkboxSelectAll.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                parentID= SharedPrefUserData(this@ParentBookActivity).getSavedData().id.toString()
+            }
+            else {
+                parentID=""
+            }
+        }
+
+
+
         binding.txtBook.setOnClickListener {
 //            if (isDataValid()) {
             if (selectChildId == "0" && selectChildId == null) {
                 showToast("Please Select Child..")
-            } else {
-
+            }
+            else {
                 val eventid = intent.getStringExtra("eventId")
+                  val fees = binding.txtFess.text.toString()
+              //  val fees = eventData!!.getFees()!!.toInt()*counter
 
-
-//                startActivity(
-//                    Intent(
-//                        this,
-//                        BookSignatureActivity::class.java
-//                    )
-//                )
-
-                val fees = binding.txtFess.text.toString()
                 val intent = Intent(this, BookSignatureActivity::class.java)
                 intent.putExtra("eventId", eventid.toString())
                 intent.putExtra("ChildId", selectChildId.toString())
                 intent.putExtra("Fees", fees.toString())
+                intent.putExtra("parentID", parentID)
 
                 Log.e("DATA", eventid.toString() + "" + selectChildId + "" + fees + "")
 
@@ -113,7 +123,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
                 }
             }
         })
-        Constants.eventDetailTop
+
     }
 
     private fun setChildList(result: List<GetProfileParentApiResponse.Result?>?) {
@@ -205,8 +215,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
 
 //                     selectedLocationType = multipleItemSelectionSpinner.selectedItem
-                        selectChildId =
-                            binding.multipleItemSelectionSpinner.selectedIds.joinToString(",")
+                        selectChildId = binding.multipleItemSelectionSpinner.selectedIds.joinToString(",")
 
 //                    val str: String = java.lang.String.join(",", selectChildId as String)
 
@@ -215,6 +224,8 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
                         Log.e(TAG, "selected item, list string ===========$selectChildId")
 
                         Log.e(TAG, " child id======${childrenResult[i].id}")
+                        counter=childrenResult.size
+                        Log.e(TAG, " counter======${counter}")
 
                         val id = SharedPrefUserData(this@ParentBookActivity).getSavedData().id
                         val token = SharedPrefUserData(this@ParentBookActivity).getSavedData().token
@@ -223,6 +234,8 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
                         controller.callChildInfoAPI(id!!, token!!, selectChildId)
                         binding. llTotalPrice.isVisible = true
                         binding.txtBook.isVisible = true
+
+                        binding.txtFess.text= (eventData!!.getFees()!!.toInt()*counter).toString()
 
                     }
 

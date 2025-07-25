@@ -11,32 +11,37 @@ import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import com.xtrane.R
 import com.xtrane.canvasLib.CanvasView
 import com.xtrane.databinding.ActivityBookSignatureBinding
 import com.xtrane.retrofit.ControllerInterface
+import com.xtrane.retrofit.RetrofitHelper
 import com.xtrane.retrofit.controller.BookChildEventController
 import com.xtrane.retrofit.controller.BookEventController
 import com.xtrane.retrofit.controller.IBaseController
 import com.xtrane.retrofit.controller.JoinTeamFromParentController
+import com.xtrane.retrofit.response.PaymentIntentResponse
 import com.xtrane.ui.BaseActivity
 import com.xtrane.utils.ImageFilePath
 import com.xtrane.utils.SharedPrefUserData
+import com.xtrane.utils.Utilities
 import com.xtrane.viewinterface.RegisterControllerInterface
+import com.google.gson.GsonBuilder
 import com.stripe.android.PaymentConfiguration
-import com.stripe.android.paymentsheet.PaymentSheetResult
+import com.stripe.android.Stripe
 import com.stripe.android.paymentsheet.PaymentSheet
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
+import com.stripe.android.paymentsheet.PaymentSheetResult
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.net.HttpURLConnection
-import java.net.URL
+import java.io.IOException
+import java.io.Reader
+import java.io.StringReader
+import java.lang.reflect.Modifier
 
 
-class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, ControllerInterface {
+class BookSignatureActivity1 : BaseActivity(), RegisterControllerInterface, ControllerInterface {
     var canvasView: CanvasView? = null
     lateinit var controller: BookChildEventController
     lateinit var childController: BookEventController
@@ -45,11 +50,13 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     private var TAG = "BookSignatureActivity"
     private var id = ""
     private var token = ""
-    private var paymentIntentClientSecret: String? = null
-    private lateinit var paymentSheet: PaymentSheet
 
     //PAYMENT STRIPE
-    private var alertCheckbox: CheckBox? = null
+    lateinit var paymentSheet: PaymentSheet
+    lateinit var customerConfig: PaymentSheet.CustomerConfiguration
+    lateinit var paymentIntentClientSecret: String
+    private var stripe: Stripe? = null
+    private var alertCheckbox: CheckBox?=null
     private lateinit var binding: ActivityBookSignatureBinding
 
     override fun getController(): IBaseController? {
@@ -57,10 +64,80 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     }
 
     //PAYMENT STRIPE
+    private fun fetchPaymentIntentApi(fees: String?) {
+
+        id = SharedPrefUserData(this).getSavedData().id!!
+        val eventid = intent.getStringExtra("eventId")
+
+        Log.e("Params:id=",id+"fees="+fees+"eventid="+eventid+"currency="+"usd"+"Bookevent="+"Bookevent")
+        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().createPaymentIntentApi(id,fees,eventid,"usd","Bookevent")
+
+        RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
+            override fun onSuccess(body: Response<ResponseBody?>?) {
+                Utilities.dismissProgress()
+                try {
+                    val resp = body!!.body()!!.string()
+                    val reader: Reader = StringReader(resp)
+                    val builder = GsonBuilder()
+                    builder.excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
+                    val gson = builder.create()
+                    val response: PaymentIntentResponse = gson.fromJson(reader, PaymentIntentResponse::class.java)
+
+                    if (response.getStatus()== 1) {
+                        val data = response.getMessage()
+                        Utilities.showToast(this@BookSignatureActivity1, response.getMessage())
+
+                        if(!response.getPaymentIntentClientSecret().isNullOrEmpty()){
+                            paymentIntentClientSecret = response.getPaymentIntentClientSecret().toString()
+
+                            runOnUiThread {binding.txtBook.setEnabled(true) }
+
+//                            PaymentConfiguration.init(this@BookSignatureActivity, response.getPaymentIntentClientSecret().toString())
+                        }
+                    } else {
+                        Utilities.showToast(this@BookSignatureActivity1, response.getMessage())
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+
+            override fun onError(code: Int, error: String?) {
+                Utilities.dismissProgress()
+                Log.d("TAG", "onError: ===" + error)
+            }
+        })
+
+    }
+
+    private fun onPayClicked() {
+        val configuration = PaymentSheet.Configuration("Example, Inc.")
+
+        // Present Payment Sheet
+        paymentSheet.presentWithPaymentIntent(paymentIntentClientSecret, configuration)
+    }
+
+    //PAYMENT STRIPE
+    fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
+        when(paymentSheetResult) {
+            is PaymentSheetResult.Canceled -> {
+                Log.d("TAG00", "Canceled")
+            }
+            is PaymentSheetResult.Failed -> {
+                Log.d("TAG00", "onError: === ${paymentSheetResult.error}")
+            }
+            is PaymentSheetResult.Completed -> {
+                // Display for example, an order confirmation screen
+                Log.d("TAG00", "Completed")
+                afterPaymentSuccess()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_book_signature)
+       // setContentView(R.layout.activity_book_signature)
         binding = ActivityBookSignatureBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -68,8 +145,17 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
         //Initialize PAYMENT STRIPE
 
-        var eventID = intent.getStringExtra("eventId")
+        //TEST KEY
+        PaymentConfiguration.init(
+            this,
+            "pk_test_51RMt1EQOkb1porNanZl25YYGKxBAVSBAsYMixSUBNexFAk2VOJZYgmpVOGeie4VEsFh1E843XKHU3ot9wd8J7VJ500QXtihzAf"
+        );
         paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
+
+        //OLD KEY
+//        pk_test_51JQCe5SEJyzuwCwwZsb9bqrkeGh6liULU7KtwJmvySO75ASyiN7MEyhhY4Cc90OlauNFUTwsg7mj4XlPonNCYwvj00dUQSyXLD
+
+        var eventID = intent.getStringExtra("eventId")
         setTopBar()
         controller = BookChildEventController(this, this)
         joinTeamController = JoinTeamFromParentController(this, this)
@@ -77,8 +163,8 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         binding.imgPrivacy.setOnClickListener {
             privacyClicked()
         }
-        binding.txtPrivacy.setOnClickListener { binding.imgPrivacy.performClick() }
-        binding.txtClear.setOnClickListener { canvasView!!.clearCanvas() }
+        binding.txtPrivacy.setOnClickListener {   binding.imgPrivacy.performClick() }
+        binding. txtClear.setOnClickListener { canvasView!!.clearCanvas() }
 
         canvasView = CanvasView(this)
         binding.rlSign.addView(canvasView)
@@ -89,12 +175,19 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         val team_id = intent.getStringExtra("Team_id")
         val parentJoin = intent.getStringExtra("COACH_JOIN")
 
-        binding.tvFees.text = fees
+        binding.tvFees.text=fees
 
         // Hook up the pay button
 
         // Hook up the pay button
 
+        binding.txtBook.setEnabled(false)
+        paymentSheet = PaymentSheet(this) { paymentSheetResult: PaymentSheetResult? ->
+            onPaymentSheetResult(
+                paymentSheetResult!!
+            )
+        }
+        fetchPaymentIntentApi(fees)
 
         binding.txtBook.setOnClickListener {
 
@@ -113,23 +206,22 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
             } else {
                 //call payment api
 
-                if (alertCheckbox!!.isChecked) {
-                    Toast.makeText(
-                        this@BookSignatureActivity,
+                if(alertCheckbox!!.isChecked){
+                    Toast.makeText(this@BookSignatureActivity1,
                         "Pay the amount on field",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                        Toast.LENGTH_SHORT).show()
                     afterPaymentSuccess()
-                } else {
-                    onPayClicked(fees)
+                }else{
+                    onPayClicked()
                 }
+
 
 
             }
         }
 
         binding.txtSendRequestParent.setOnClickListener {
+
 
 
             id = SharedPrefUserData(this).getSavedData().id!!
@@ -142,85 +234,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         }
     }
 
-    private fun onPayClicked(fees: String?) {
-
-        val userId = SharedPrefUserData(this).getSavedData().id!!
-        val eventid = intent.getStringExtra("eventId")
-
-
-        val publishableKey =
-            "pk_test_51RMt1EQOkb1porNanZl25YYGKxBAVSBAsYMixSUBNexFAk2VOJZYgmpVOGeie4VEsFh1E843XKHU3ot9wd8J7VJ500QXtihzAf"
-        PaymentConfiguration.init(this@BookSignatureActivity, publishableKey)
-        lifecycleScope.launch {
-
-            val response = withContext(Dispatchers.IO) {
-                val url =
-                    URL("https://www.x-trane.com/api/createPaymentIntent?userId=" + userId + "&amount=" + fees + "&currency=USD" + "&eventId=" + eventid + "&bookType=Bookevent")
-                Log.e("startCheckout", "url: $url")
-                val conn = url.openConnection() as HttpURLConnection
-                conn.requestMethod = "POST"
-
-                val stream = conn.inputStream.bufferedReader().use { it.readText() }
-                JSONObject(stream)
-            }
-
-            if (response!=null && response.length()>0)
-            {
-                Log.e("onPaymentSheet=", "$response")
-
-                paymentIntentClientSecret = response.getString("payment_intent_client_secret")
-                Log.e("paymentIntentClientSecret=", "$paymentIntentClientSecret")
-
-                presentPaymentSheet()
-            }
-
-        }
-
-    }
-
-    fun presentPaymentSheet() {
-        paymentSheet.presentWithPaymentIntent(
-            paymentIntentClientSecret!!,
-            PaymentSheet.Configuration(
-                merchantDisplayName = "Giovanni Trane",
-                // Set `allowsDelayedPaymentMethods` to true if your business handles
-                // delayed notification payment methods like US bank accounts.
-                allowsDelayedPaymentMethods = true
-            )
-        )
-
-    }
-
-    private fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
-        when (paymentSheetResult) {
-            is PaymentSheetResult.Completed -> {
-                // Payment successful
-                Log.e("TAG", "onPaymentSheetResult:Payment succeeded")
-
-                Toast.makeText(this, "Payment succeeded", Toast.LENGTH_LONG).show()
-                afterPaymentSuccess()
-            }
-
-            is PaymentSheetResult.Canceled -> {
-                Log.e("TAG", "onPaymentSheetResult:Payment canceled")
-
-                Toast.makeText(this, "Payment canceled", Toast.LENGTH_LONG).show()
-            }
-
-            is PaymentSheetResult.Failed -> {
-
-                Log.e("TAG", "onPaymentSheetResult: ${paymentSheetResult.error.localizedMessage}")
-
-                Toast.makeText(
-                    this,
-                    "Payment failed: ${paymentSheetResult.error.localizedMessage}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
-    fun afterPaymentSuccess() {
+    fun afterPaymentSuccess(){
         imageUri = getImageUri(getBitmapFromView(binding.rlSign)!!)
 
         val eventid = intent.getStringExtra("eventId")
@@ -236,10 +250,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
         controller.bookEvent(registerData)
 
-        Log.e(
-            "ChildData",
-            childId.toString() + "" + fess.toString() + " " + eventid.toString() + " "
-        )
+        Log.e("ChildData", childId.toString() + "" + fess.toString() + " " + eventid.toString() + " ")
         Log.e("TAG", "onCreate:bookChildSignature  ${ImageFilePath.getPath(this, imageUri!!)!!}")
 
     }
@@ -292,24 +303,20 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
         val userType = SharedPrefUserData(this).getSavedData().usertype
         if (response?.equals("Participant age is not compatible for this event") == true) {
-            Toast.makeText(
-                this@BookSignatureActivity,
+            Toast.makeText(this@BookSignatureActivity1,
                 "You have not allow to book event",
-                Toast.LENGTH_SHORT
-            ).show()
+                Toast.LENGTH_SHORT).show()
         } else {
 
-            if (userType.equals("child", ignoreCase = true)) {
+            if(userType.equals("child",ignoreCase = true)){
                 binding.txtSendRequestParent.visibility = View.VISIBLE
-                Toast.makeText(
-                    this@BookSignatureActivity,
-                    "Send Request To Parent",
-                    Toast.LENGTH_SHORT
-                )
+                Toast.makeText(this@BookSignatureActivity1, "Send Request To Parent", Toast.LENGTH_SHORT)
                     .show()
             }
 
         }
+
+
 
 
         /* //Toast.makeText(this@BookSignatureActivity, response.toString(), Toast.LENGTH_SHORT).show()
@@ -346,6 +353,6 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     }
 
     override fun <T> onSuccessNew(response: T, method: String) {
-        Toast.makeText(this@BookSignatureActivity, response.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@BookSignatureActivity1, response.toString(), Toast.LENGTH_SHORT).show()
     }
 }

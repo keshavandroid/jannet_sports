@@ -120,15 +120,10 @@ class BuyCoinsActivity : AppCompatActivity() {
                 val stream = conn.inputStream.bufferedReader().use { it.readText() }
                 JSONObject(stream)
             }
+            Log.e("response=", "$response")
 
-//            val customerId = response.getString("customer")
-//            val ephemeralKey = response.getString("ephemeralKey")
             paymentIntentClientSecret = response.getString("paymentIntentClientSecret")
 
-//            customerConfig = PaymentSheet.CustomerConfiguration(
-//                id = customerId,
-//                ephemeralKeySecret = ephemeralKey
-//            )
             presentPaymentSheet()
         }
 //        run {

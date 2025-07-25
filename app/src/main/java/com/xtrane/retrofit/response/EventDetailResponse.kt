@@ -2,6 +2,7 @@ package com.xtrane.retrofit.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 class EventDetailResponse {
@@ -68,7 +69,7 @@ class EventDetailResponse {
 
 
     }
-    class Result {
+    class Result : Serializable{
 
         @SerializedName("id")
         @Expose

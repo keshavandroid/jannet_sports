@@ -235,6 +235,7 @@ interface UserServices {
         @Part("child_id") child_id: RequestBody,
         @Part("fees") fees: RequestBody,
         @Part("event_id") event_id: RequestBody,
+        @Part("parentId") parentId: RequestBody,
         @Part image: MultipartBody.Part?,
     ): Call<ResponseBody?>?
 
@@ -737,10 +738,10 @@ interface UserServices {
     @POST("createPaymentIntent")
     @FormUrlEncoded
     fun createPaymentIntentApi(
-        @Field("amount") amount: String?,
-        @Field("currency") currency: String?,
-        @Field("eventId") eventId: String?,
         @Field("userId") userId: String?,
+        @Field("amount") amount: String?,
+        @Field("eventId") eventId: String?,
+        @Field("currency") currency: String?,
         @Field("bookType") bookType: String?,
     ): Call<ResponseBody?>?
 

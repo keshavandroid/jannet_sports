@@ -287,6 +287,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             } else {
                 val intent = Intent(this, ParentBookActivity::class.java)
                 intent.putExtra("eventId", eventid.toString())
+           //     intent.putExtra("eventDetail", eventDetailTop)
                 startActivity(intent)
             }
 
