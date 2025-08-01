@@ -1,5 +1,6 @@
 package com.xtrane.ui.parentsApp
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -15,6 +16,7 @@ import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.xtrane.R
 import com.xtrane.databinding.ActivityBuyCoinsBinding
+import com.xtrane.retrofit.APIClient.SERVER_URL
 import com.xtrane.utils.Constants
 import com.xtrane.utils.Constants.userType
 import com.xtrane.utils.SharedPrefUserData
@@ -112,7 +114,7 @@ class BuyCoinsActivity : AppCompatActivity() {
 
             }
             val response = withContext(Dispatchers.IO) {
-                val url = URL("https://www.x-trane.com/api/createCoinPaymentIntent?userId="+userId+"&amount="+coins+"&currency=USD")
+                val url = URL(SERVER_URL +"createCoinPaymentIntent?userId="+userId+"&amount="+coins+"&currency=USD")
                 Log.e("startCheckout", "url: $url")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
@@ -254,6 +256,9 @@ class BuyCoinsActivity : AppCompatActivity() {
         when (paymentSheetResult) {
             is PaymentSheetResult.Completed -> {
                 Toast.makeText(this, "Payment successful!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@BuyCoinsActivity, BalanceActivity::class.java)
+                startActivity(intent)
+                finish()
             }
             is PaymentSheetResult.Canceled -> {
                 Toast.makeText(this, "Payment canceled", Toast.LENGTH_SHORT).show()

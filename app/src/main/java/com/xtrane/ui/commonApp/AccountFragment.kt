@@ -254,6 +254,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         binding.llWallet.setOnClickListener {
             val intent = Intent(requireContext(), BalanceActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
     }
 

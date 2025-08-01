@@ -76,13 +76,10 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         //use get profile controller for check child is avail or not for hiding register button
         GetProfileController(this, true, object : ControllerInterface {
             override fun onFail(error: String?) {
-
                 hideLoader()
-//                showToast(error)
             }
 
             override fun <T> onSuccess(response: T, method: String) {
-
                 hideLoader()
                 try {
 
@@ -287,7 +284,13 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             } else {
                 val intent = Intent(this, ParentBookActivity::class.java)
                 intent.putExtra("eventId", eventid.toString())
-           //     intent.putExtra("eventDetail", eventDetailTop)
+                if (eventDetailTop!!.getFees()!=null && eventDetailTop!!.getFees()!!.length>0)
+                {
+                    intent.putExtra("Fees", eventDetailTop!!.getFees())
+
+                }
+
+                //     intent.putExtra("eventDetail", eventDetailTop)
                 startActivity(intent)
             }
 

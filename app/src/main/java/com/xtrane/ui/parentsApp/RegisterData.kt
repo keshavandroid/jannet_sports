@@ -13,6 +13,7 @@ class RegisterData: Serializable {
     lateinit var description:String
     lateinit var coach_id:String
     lateinit var teamId:String
+    lateinit var parentID:String
 
 
 lateinit var matchId1:String

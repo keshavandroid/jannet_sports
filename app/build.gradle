@@ -8,15 +8,15 @@ plugins {
 }
 
 android {
-    compileSdk 34 // Adjust this according to the AGP version compatibility
+
     namespace "com.xtrane"
     defaultConfig {
         applicationId 'com.xtrane'
         minSdkVersion 21
-        targetSdk 34 // Adjust this according to the AGP version compatibility
-        versionCode 2
+        versionCode 3
         versionName "1.0"
-
+        compileSdk 35 // Adjust this according to the AGP version compatibility
+        targetSdk 35
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

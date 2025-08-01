@@ -115,7 +115,7 @@
     <string name="team_name">Team Name</string>
     <string name="coach_name">Coach Name</string>
     <string name="fees">Fees</string>
-    <string name="_20_00">$20.00</string>
+    <string name="_20_00">0.00</string>
     <string name="per_month">Per Month</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="signature">Signature</string>

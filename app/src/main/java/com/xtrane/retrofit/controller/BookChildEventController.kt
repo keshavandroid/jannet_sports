@@ -30,7 +30,7 @@ class BookChildEventController(var context: Activity, var registerControllerInte
         var child_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.child_id)
         var fees: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.fees)
         var event_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.event_id)
-        var parentId: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!,SharedPrefUserData(context).getSavedData().id!!)
+        var parentId: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!,registerData.parentID)
 
 
         var part: MultipartBody.Part? = null

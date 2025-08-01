@@ -27,6 +27,7 @@ import com.xtrane.viewinterface.RegisterControllerInterface
 import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.stripe.android.paymentsheet.PaymentSheet
+import com.xtrane.retrofit.APIClient.SERVER_URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -34,8 +35,6 @@ import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
-
-
 class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, ControllerInterface {
     var canvasView: CanvasView? = null
     lateinit var controller: BookChildEventController
@@ -86,9 +85,11 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
         val coachId = intent.getStringExtra("Coach_id")
         val fees = intent.getStringExtra("Fees")
+        val parentID = intent.getStringExtra("parentID")
         val team_id = intent.getStringExtra("Team_id")
         val parentJoin = intent.getStringExtra("COACH_JOIN")
 
+        Log.e("fees=",fees+"=")
         binding.tvFees.text = fees
 
         // Hook up the pay button
@@ -107,7 +108,6 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
                 registerData.teamId = team_id?.trim().toString()
                 registerData.fees = fees?.trim().toString()
                 registerData.image = ImageFilePath.getPath(this, imageUri!!)!!
-
                 joinTeamController.joinTeam(registerData)
 
             } else {
@@ -154,8 +154,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         lifecycleScope.launch {
 
             val response = withContext(Dispatchers.IO) {
-                val url =
-                    URL("https://www.x-trane.com/api/createPaymentIntent?userId=" + userId + "&amount=" + fees + "&currency=USD" + "&eventId=" + eventid + "&bookType=Bookevent")
+                val url = URL(SERVER_URL+"createPaymentIntent?userId=" + userId + "&amount=" + 50 + "&currency=USD" + "&eventId=" + eventid + "&bookType=Bookevent")
                 Log.e("startCheckout", "url: $url")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
@@ -226,12 +225,14 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         val eventid = intent.getStringExtra("eventId")
         val childId = intent.getStringExtra("ChildId")
         val fess = intent.getStringExtra("Fees")
+        val parentID = intent.getStringExtra("parentID")
         Log.e("TAG", "onCreate:booksignatur1  ${fess + childId + eventid}")
 
         var registerData = RegisterData()
         registerData.child_id = childId.toString()
         registerData.fees = fess.toString()
         registerData.event_id = eventid.toString()
+        registerData.parentID = parentID.toString()
         registerData.image = ImageFilePath.getPath(this, imageUri!!)!!
 
         controller.bookEvent(registerData)

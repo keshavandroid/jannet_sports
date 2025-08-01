@@ -12,7 +12,8 @@ object APIClient {
 
     private var retrofit: Retrofit? = null
 //    private val SERVER_URL = "https://keshavinfotechdemo2.com/keshav/KG2/Jannet_new/api/"
-    private val SERVER_URL = "http://www.x-trane.com/api/"
+  //  private val SERVER_URL = "http://www.x-trane.com/api/"
+    val SERVER_URL = "https://admin.x-trane.com/api/"
 
 
     fun getClient(): Retrofit? {

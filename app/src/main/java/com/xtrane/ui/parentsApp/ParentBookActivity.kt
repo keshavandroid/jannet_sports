@@ -33,6 +33,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
     var eventData: EventDetailResponse.Result? = null
     var counter=0
     var parentID=""
+    var fees=""
 
     override fun getController(): IBaseController? {
         return null
@@ -46,18 +47,34 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
         setContentView(binding.root)
 
         setTopBar()
+
         eventData=  Constants.eventDetailTop
+
+        if (intent.hasExtra("Fees"))
+        {
+            fees= intent.extras!!.getString("Fees").toString()
+
+        }
+        else
+        {
+            fees= eventData!!.getFees().toString()
+        }
 
         controller = ChildInfoController(this, this)
 
         binding.txtSelectChild.setOnClickListener { binding.spinnerChildList.performClick() }
 
         binding.checkboxSelectAll.setOnCheckedChangeListener { _, isChecked ->
+
             if (isChecked) {
                 parentID= SharedPrefUserData(this@ParentBookActivity).getSavedData().id.toString()
+                counter=counter+1
+                binding.txtFess.text= (fees.toInt()*counter).toString()
             }
             else {
                 parentID=""
+                counter=counter-1
+
             }
         }
 
@@ -207,6 +224,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
         binding.multipleItemSelectionSpinner.setItems(listArray1) { childrenResult ->
 
             try {
+                counter = 0 // Reset counter each time the dialog is opened and items are selected
                 for (i in childrenResult.indices) {
                     if (childrenResult[i].isSelected) {
 
@@ -222,11 +240,13 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 //                    Log.e(TAG,"selected item, list ===========$selectedLocationType")
                         Log.e(TAG, "selected item, list ===========$selectChildId")
                         Log.e(TAG, "selected item, list string ===========$selectChildId")
-
                         Log.e(TAG, " child id======${childrenResult[i].id}")
-                        counter=childrenResult.size
-                        Log.e(TAG, " counter======${counter}")
+                        Log.e(TAG, " counter=before=====${counter}")
 
+
+                        counter++
+
+                        Log.e(TAG, " counter=after=====${counter}")
                         val id = SharedPrefUserData(this@ParentBookActivity).getSavedData().id
                         val token = SharedPrefUserData(this@ParentBookActivity).getSavedData().token
 
@@ -235,12 +255,17 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
                         binding. llTotalPrice.isVisible = true
                         binding.txtBook.isVisible = true
 
-                        binding.txtFess.text= (eventData!!.getFees()!!.toInt()*counter).toString()
+                        binding.txtFess.text= (fees.toInt()*counter).toString()
 
                     }
-
+                    else {
+                        if (counter > 0 && !childrenResult[i].isSelected) {
+                            counter--
+                            Log.e(TAG, " counter=after_deselect=====${counter}")
+                            binding.txtFess.text = (fees.toInt() * counter).toString()
+                        }
+                    }
                 }
-
             } catch (e: Exception) {
 
                 showToast(e.toString())
