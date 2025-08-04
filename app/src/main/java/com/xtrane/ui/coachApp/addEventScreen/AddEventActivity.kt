@@ -216,7 +216,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 val selectedDurationType = parent?.getItemAtPosition(position).toString()
                 // Handle the selected duration type
                 Log.d(TAG, "Selected duration type: $selectedDurationType")
-spi
+
                 if (selectedDurationType.equals("Daily", ignoreCase = true)) {
                     val durationValues = (1..30).map { it.toString()+" days" }.toTypedArray()
                     val adapterDurationValue = ArrayAdapter(
