@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="duration_types">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+
+    <string-array name="duration_types_value">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>_
+</resources>

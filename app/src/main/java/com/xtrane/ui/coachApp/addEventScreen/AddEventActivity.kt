@@ -1,5 +1,6 @@
 package com.xtrane.ui.coachApp.addEventScreen
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
@@ -103,6 +104,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         return null
     }
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -160,6 +162,10 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         val placesClient = Places.createClient(this)
         val sessionToken = AutocompleteSessionToken.newInstance()
 
+
+
+
+
         binding.etxtAddress.addTextChangedListener { text ->
 
             val query = text.toString()
@@ -197,6 +203,62 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
         setTopBar()
         SetEventTypeSpinner()
+
+
+        val adapterEventDuration = ArrayAdapter(this@AddEventActivity, android.R.layout.simple_spinner_item,
+           resources.getStringArray(R.array.duration_types)
+        )
+        adapterEventDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spnDurationType.adapter = adapterEventDuration
+
+        binding.spnDurationType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedDurationType = parent?.getItemAtPosition(position).toString()
+                // Handle the selected duration type
+                Log.d(TAG, "Selected duration type: $selectedDurationType")
+spi
+                if (selectedDurationType.equals("Daily", ignoreCase = true)) {
+                    val durationValues = (1..30).map { it.toString()+" days" }.toTypedArray()
+                    val adapterDurationValue = ArrayAdapter(
+                        this@AddEventActivity,
+                        android.R.layout.simple_spinner_item,
+                        durationValues
+                    )
+                    adapterDurationValue.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding.spnDurationTypevalue.adapter = adapterDurationValue
+                }
+                else  if (selectedDurationType.equals("Weekly", ignoreCase = true)) {
+                    val durationValues = (1..4).map { it.toString() +" Week"}.toTypedArray()
+                    val adapterDurationValue = ArrayAdapter(
+                        this@AddEventActivity,
+                        android.R.layout.simple_spinner_item,
+                        durationValues
+                    )
+                    adapterDurationValue.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding.spnDurationTypevalue.adapter = adapterDurationValue
+                }
+                else
+                {
+                    val durationValues = (1..12).map { it.toString() +" Months  "}.toTypedArray()
+                    val adapterDurationValue = ArrayAdapter(
+                        this@AddEventActivity,
+                        android.R.layout.simple_spinner_item,
+                        durationValues
+                    )
+                    adapterDurationValue.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding.spnDurationTypevalue.adapter = adapterDurationValue
+                }
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle case where nothing is selected if needed
+            }
+        }
+
+
+
+
 
         binding.img1.setOnClickListener {
             imagePickFlag = 1
