@@ -98,7 +98,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
     private var tempGradeMaxList: ArrayList<GradeListResult?>? = null
     private lateinit var binding: ActivityAddEventBinding
     var spnEventType = ""
-
+    var selectedDurationType="Daily"
+    var selectedDurationTypeValue = "1"
     override fun getController(): IBaseController? {
 
         return null
@@ -213,12 +214,25 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
         binding.spnDurationType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedDurationType = parent?.getItemAtPosition(position).toString()
+                 selectedDurationType = parent?.getItemAtPosition(position).toString()
                 // Handle the selected duration type
                 Log.d(TAG, "Selected duration type: $selectedDurationType")
 
                 if (selectedDurationType.equals("Daily", ignoreCase = true)) {
-                    val durationValues = (1..30).map { it.toString()+" days" }.toTypedArray()
+                    val durationValues = (1..30).map {
+
+                        if (it == 1)
+                        {
+                            it.toString()+" day"
+
+                        }
+                        else
+                        {
+                            it.toString()+" days"
+
+                        }
+
+                    }.toTypedArray()
                     val adapterDurationValue = ArrayAdapter(
                         this@AddEventActivity,
                         android.R.layout.simple_spinner_item,
@@ -228,7 +242,20 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                     binding.spnDurationTypevalue.adapter = adapterDurationValue
                 }
                 else  if (selectedDurationType.equals("Weekly", ignoreCase = true)) {
-                    val durationValues = (1..4).map { it.toString() +" Week"}.toTypedArray()
+                    val durationValues = (1..4).map {
+
+                        if (it == 1)
+                        {
+                            it.toString()+" Week"
+
+                        }
+                        else
+                        {
+                            it.toString()+" Weeks"
+
+                        }
+
+                    }.toTypedArray()
                     val adapterDurationValue = ArrayAdapter(
                         this@AddEventActivity,
                         android.R.layout.simple_spinner_item,
@@ -239,7 +266,21 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 }
                 else
                 {
-                    val durationValues = (1..12).map { it.toString() +" Months  "}.toTypedArray()
+                    val durationValues = (1..12).map {
+
+                        if (it == 1)
+                        {
+                            it.toString()+" Month"
+
+                        }
+                        else
+                        {
+                            it.toString()+" Months"
+
+                        }
+
+
+                    }.toTypedArray()
                     val adapterDurationValue = ArrayAdapter(
                         this@AddEventActivity,
                         android.R.layout.simple_spinner_item,
@@ -256,8 +297,20 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             }
         }
 
+        binding.spnDurationTypevalue.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                selectedDurationTypeValue = parent?.getItemAtPosition(position).toString().split(" ")[0]
+                // Handle the selected duration type value
+                Log.d(TAG, "Selected duration type value: $selectedDurationTypeValue")
 
 
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle case where nothing is selected if needed
+            }
+        }
 
 
         binding.img1.setOnClickListener {
@@ -381,6 +434,9 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             allData.max_age = maxRangeSelected.toString()
             allData.min_grade = selectedgradeID.toString()
             allData.max_grade = selectedMaxgradeID.toString()
+            allData.eventDurationTime = selectedDurationType.toString()
+            allData.eventDurationLimit = selectedDurationTypeValue.toString()
+
             Log.e("TAG", "onCreate: minimum_age ==" + allData.minimum_age)
             Log.e("TAG", "onCreate: max_age ==" + allData.max_age)
 
@@ -1353,6 +1409,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         var coach_id = ""
         var min_grade = ""
         var max_grade = ""
+        var eventDurationTime = ""
+        var eventDurationLimit = ""
 
     }
 

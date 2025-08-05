@@ -304,6 +304,8 @@ interface UserServices {
         @Part("max_grade") max_grade: RequestBody,
         @Part("matchType") matchType: RequestBody,
         @Part("time") time: RequestBody,
+        @Part("eventDurationTime") eventDurationTime: RequestBody,
+        @Part("eventDurationLimit") eventDurationLimit: RequestBody,
         @Part("image") image: RequestBody,
         @Part mainimage: MultipartBody.Part?,
         @Part image1: MultipartBody.Part?,
