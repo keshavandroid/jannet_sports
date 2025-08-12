@@ -49,6 +49,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
     //PAYMENT STRIPE
     private var alertCheckbox: CheckBox? = null
+    private var bookPaymentType: String? = null
     private lateinit var binding: ActivityBookSignatureBinding
 
     override fun getController(): IBaseController? {
@@ -96,11 +97,25 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
         // Hook up the pay button
 
+        binding.cardWallet.setOnClickListener {
+            bookPaymentType="wallet"
+            binding.cardWallet.setCardBackgroundColor(resources.getColor(R.color.stroke_border))
+            binding.cardStripe.setCardBackgroundColor(resources.getColor(R.color.white))
+//            binding.txtwallet.setTextColor(resources.getColor(R.color.white))
+//            binding.textView.setTextColor(resources.getColor(R.color.black))
 
+        }
+        binding.cardStripe.setOnClickListener {
+            bookPaymentType="stripe"
+            binding.cardStripe.setCardBackgroundColor(resources.getColor(R.color.stroke_border))
+            binding.cardWallet.setCardBackgroundColor(resources.getColor(R.color.white))
+//            binding.textView.setTextColor(resources.getColor(R.color.white))
+//            binding.txtwallet.setTextColor(resources.getColor(R.color.black))
+
+        }
         binding.txtBook.setOnClickListener {
 
             if (parentJoin?.trim().toString() == "coach_join") {
-
                 imageUri = getImageUri(getBitmapFromView(binding.rlSign)!!)
                 //book team from parent side
                 var registerData = RegisterData()
@@ -121,8 +136,19 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
                     ).show()
 
                     afterPaymentSuccess()
-                } else {
-                    onPayClicked(fees)
+                }
+                else {
+
+                    if(bookPaymentType.equals("stripe"))
+                    {
+                        onPayClicked(fees)
+
+                    }
+                    else if (bookPaymentType.equals("wallet"))
+                    {
+                        afterPaymentSuccess()
+
+                    }
                 }
 
 
@@ -228,11 +254,12 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         val parentID = intent.getStringExtra("parentID")
         Log.e("TAG", "onCreate:booksignatur1  ${fess + childId + eventid}")
 
-        var registerData = RegisterData()
+        val registerData = RegisterData()
         registerData.child_id = childId.toString()
         registerData.fees = fess.toString()
         registerData.event_id = eventid.toString()
         registerData.parentID = parentID.toString()
+        registerData.bookPaymentType = bookPaymentType.toString()
         registerData.image = ImageFilePath.getPath(this, imageUri!!)!!
 
         controller.bookEvent(registerData)

@@ -31,6 +31,7 @@ class BookChildEventController(var context: Activity, var registerControllerInte
         var fees: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.fees)
         var event_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, registerData.event_id)
         var parentId: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!,registerData.parentID)
+        var bookEvent: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!,registerData.bookPaymentType)
 
 
         var part: MultipartBody.Part? = null
@@ -41,7 +42,7 @@ class BookChildEventController(var context: Activity, var registerControllerInte
             part = MultipartBody.Part.createFormData("image", file.name, reqFile)
         }
 
-        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().bookChildEvent(id,token,child_id,fees,event_id,parentId,part)
+        val call: Call<ResponseBody?>? = RetrofitHelper.getAPI().bookChildEvent(id,token,child_id,fees,event_id,parentId,bookEvent,part)
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {

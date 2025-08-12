@@ -74,6 +74,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
             else {
                 parentID=""
                 counter=counter-1
+                binding.txtFess.text= (fees.toInt()*counter).toString()
 
             }
         }

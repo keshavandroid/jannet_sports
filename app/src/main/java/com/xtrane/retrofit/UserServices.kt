@@ -236,6 +236,7 @@ interface UserServices {
         @Part("fees") fees: RequestBody,
         @Part("event_id") event_id: RequestBody,
         @Part("parentId") parentId: RequestBody,
+        @Part("bookPaymentType") bookPaymentType : RequestBody,
         @Part image: MultipartBody.Part?,
     ): Call<ResponseBody?>?
 
