@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/img1"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:background="@drawable/gradient1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/plus"
+                        app:riv_corner_radius="@dimen/_20sdp" />
+
+                    <ImageView
+                        android:id="@+id/delete_icon_img1"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="-5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/colorRed" />
+
+                </FrameLayout>
+
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/img2"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:background="@drawable/gradient1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/plus"
+                        app:riv_corner_radius="@dimen/_20sdp" />
+
+                    <ImageView
+                        android:id="@+id/delete_icon_img2"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="-5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/colorRed" />
+
+                </FrameLayout>
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/img3"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:background="@drawable/gradient1"
+                        android:padding="@dimen/_5sdp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/plus"
+                        app:riv_corner_radius="@dimen/_20sdp" />
+
+                    <ImageView
+                        android:id="@+id/delete_icon_img3"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="-5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/colorRed" />
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/img4"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:background="@drawable/gradient1"
+                        android:padding="@dimen/_5sdp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/plus"
+                        app:riv_corner_radius="@dimen/_20sdp" />
+                    <ImageView
+                        android:id="@+id/delete_icon_img4"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="-5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/colorRed" />
+                </FrameLayout>
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/img5"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:background="@drawable/gradient1"
+                        android:padding="@dimen/_5sdp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/plus"
+                        app:riv_corner_radius="@dimen/_20sdp" />
+                    <ImageView
+                        android:id="@+id/delete_icon_img5"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="-5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/colorRed" />
+                </FrameLayout>
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/img6"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:background="@drawable/gradient1"
+                        android:padding="@dimen/_5sdp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/plus"
+                        app:riv_corner_radius="@dimen/_20sdp" />
+
+                    <ImageView
+                        android:id="@+id/delete_icon_img6"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="-5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/colorRed" />
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_35sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/your_name"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@mipmap/white_bg"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etxtFName"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginStart="@dimen/_30sdp"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:inputType="text" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtEventName"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Event Name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etxtEventName"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:inputType="text"
+                        tools:ignore="TextFields" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtEventDiscription"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Description of Event"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEventName">
+
+                    <EditText
+                        android:id="@+id/etxtEventDiscription"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:inputType="textMultiLine"
+                        tools:ignore="TextFields" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/txtFees"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/fees"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEventDiscription" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEventDiscription">
+
+                    <EditText
+                        android:id="@+id/etxtFees"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:inputType="number"
+                        tools:ignore="TextFields" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtLocation"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtFees" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtFees">
+
+                    <Spinner
+                        android:id="@+id/spinnerLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@null"
+                        android:inputType="text" />
+
+                    <TextView
+                        android:id="@+id/txtlocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical"
+                        android:text="Select Location"
+                        android:textColor="@color/grey1"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <ImageView
+                        android:id="@+id/btn_add_location"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_baseline_add_location_24" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etxtAddress"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:hint="Enter Venue"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="2" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtSports1"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/sports_type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/multispinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:background="@null" />
+
+                        <!--                        <Spinner-->
+                        <!--                            android:id="@+id/multispinner"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="0dp"-->
+                        <!--                            android:layout_marginStart="@dimen/_10sdp"-->
+                        <!--                            android:layout_marginEnd="@dimen/_10sdp"-->
+                        <!--                            android:background="@null" />-->
+
+                        <TextView
+                            android:id="@+id/txtSportscoach"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="Select Sports"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtSelectEventType"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Select Event Type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocation">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/multispinnerforEventType"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:background="@null" />
+
+                        <!--                        <Spinner-->
+                        <!--                            android:id="@+id/multispinner"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="0dp"-->
+                        <!--                            android:layout_marginStart="@dimen/_10sdp"-->
+                        <!--                            android:layout_marginEnd="@dimen/_10sdp"-->
+                        <!--                            android:background="@null" />-->
+
+                        <TextView
+                            android:id="@+id/txtEventType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="Select Event Type"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtDate1"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1">
+
+                    <TextView
+                        android:id="@+id/txtDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/dd_mm_yyyy"
+                        android:maxLength="25"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/grey1"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/birts" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txtEventDurationTime"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Select Duration Type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1">
+
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/txtEventDuration"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="@dimen/_25sdp"-->
+                    <!--                        android:layout_marginStart="@dimen/_10sdp"-->
+                    <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
+                    <!--                        android:gravity="center_vertical"-->
+                    <!--                        android:hint="10:00 am"-->
+                    <!--                        android:maxLength="25"-->
+                    <!--                        android:paddingStart="@dimen/_5sdp"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:textColor="@color/grey1"-->
+                    <!--                        android:textSize="@dimen/_11ssp" />-->
+
+                    <Spinner
+                        android:id="@+id/spnDurationType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@null"
+                        android:entries="@array/duration_types" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txtdurationValue"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Select Duration Value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1">
+
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/txtEventDuration"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="@dimen/_25sdp"-->
+                    <!--                        android:layout_marginStart="@dimen/_10sdp"-->
+                    <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
+                    <!--                        android:gravity="center_vertical"-->
+                    <!--                        android:hint="10:00 am"-->
+                    <!--                        android:maxLength="25"-->
+                    <!--                        android:paddingStart="@dimen/_5sdp"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:textColor="@color/grey1"-->
+                    <!--                        android:textSize="@dimen/_11ssp" />-->
+
+                    <Spinner
+                        android:id="@+id/spnDurationTypevalue"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@null"
+                        android:entries="@array/duration_types_value" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txtDate2"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSports1">
+
+                    <TextView
+                        android:id="@+id/txtTime1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:hint="10:00 am"
+                        android:maxLength="25"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/grey1"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@mipmap/birts" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txtNoParticipants"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/no_of_participants"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDate1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDate1">
+
+                    <EditText
+                        android:id="@+id/etxtNoParticipants"
+                        style="@style/etxtLoginScreen1"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtChildGroup1"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_43sdp"
+                    android:text="@string/child_group"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNoParticipants" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:background="@mipmap/white_bg"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNoParticipants">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_30sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            tools:ignore="Suspicious0dp" />
+
+                        <TextView
+                            android:id="@+id/txtChildGroup"
+                            style="@style/etxtLoginScreen1"
+                            android:layout_width="match_parent" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_23sdp"
+                        android:padding="@dimen/_7sdp"
+                        android:src="@mipmap/drap" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/txtApplicableGender"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Applicable Gender"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtChildGroup1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/txtChildGroup1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinnerGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_18sdp"
+                            android:background="@null" />
+
+                        <TextView
+                            android:id="@+id/txtSelectedApplicableGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:hint="Select Applicable Gender"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtSelectType"
+                    style="@style/txtLoginScreen1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Select Type"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtApplicableGender" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtApplicableGender">
+
+                    <ImageView
+                        android:id="@+id/imgGrade"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@mipmap/rad1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtGrade1"
+                        style="@style/txtLoginScreen3"
+                        android:text="Grade"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgGrade"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imgAge"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_110sdp"
+                        android:src="@mipmap/rad1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtAge"
+                        style="@style/txtLoginScreen3"
+                        android:text="Age"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgAge"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/txtblank"-->
+                <!--                    style="@style/txtLoginScreen1"-->
+                <!--                    android:visibility="invisible"-->
+                <!--                    android:layout_marginStart="@dimen/_30sdp"-->
+                <!--                    android:layout_marginTop="@dimen/_43sdp"-->
+                <!--                    android:text="Select Type"-->
+                <!--                    -->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/txtSelectType"-->
+                <!--                    />-->
+                <!--                grade spiner minimum-->
+
+                <LinearLayout
+                    android:id="@+id/llGradeMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSelectType">
+
+                    <RelativeLayout
+                        android:id="@+id/llGradeSpin"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectGrade"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="@null" />
+
+                        <TextView
+                            android:id="@+id/txtSelectedGrade"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="Select Minimum Grade"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <!--                max grade-->
+
+                <LinearLayout
+                    android:id="@+id/llGradeMainMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSelectType">
+
+                    <RelativeLayout
+                        android:id="@+id/llGradeSpinMax"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectGradeMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="@null" />
+
+                        <TextView
+                            android:id="@+id/txtSelectedGradeMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="Select Maximum Grade"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <!--              minimum age spinner-->
+
+                <LinearLayout
+                    android:id="@+id/llMinmumAgeRange"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSelectType">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectMinRange"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="@null" />
+
+                        <TextView
+                            android:id="@+id/txtSelectMinRange"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="Select Minimum Age"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+                <!--                max age range-->
+
+                <LinearLayout
+                    android:id="@+id/llMaxAgeRange"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/whitebg"
+                    android:elevation="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/llMinmumAgeRange">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinnerSelectMaxRange"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="@null" />
+
+                        <TextView
+                            android:id="@+id/txtSelectMaxRange"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="Select Maximum Age"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@mipmap/drap" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtAdd"
+                style="@style/txtButton1"
+                android:layout_marginStart="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:text="@string/add" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
