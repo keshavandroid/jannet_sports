@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
-class EventDetailResponse {
+class EventDetailResponse :Serializable{
     @SerializedName("status")
     @Expose
     private var status: Int? = null
@@ -41,11 +41,13 @@ class EventDetailResponse {
     fun setResult(result: List<Result?>?) {
         this.result = result
     }
-    class Image {
+    class Image : Serializable{
 
         @SerializedName("id")
         @Expose
         private var id: Int? = null
+
+
 
         @SerializedName("image")
         @Expose
@@ -74,6 +76,10 @@ class EventDetailResponse {
         @SerializedName("id")
         @Expose
         private var id: Int? = null
+
+        @SerializedName("userId")
+        @Expose
+        private var userId: String? = null
 
         @SerializedName("eventName")
         @Expose
@@ -106,8 +112,6 @@ class EventDetailResponse {
         @SerializedName("maxAge")
         @Expose
         private var maxAge: String? = null
-
-
 
         @SerializedName("min_grade")
         @Expose
@@ -166,6 +170,19 @@ class EventDetailResponse {
         @SerializedName("images")
         @Expose
         private var images: List<Image?>? = null
+
+        @SerializedName("eventType")
+        @Expose
+        private var eventType: String? = null
+
+        fun getCoachID(): String? {
+            return userId
+        }
+
+        fun getEventType(): String? {
+            return eventType
+        }
+
 
         fun getId(): Int? {
             return id
@@ -358,7 +375,7 @@ class EventDetailResponse {
 
     }
 
-    class SportsName {
+    class SportsName : Serializable{
 //        @SerializedName("sportsName")
 //        @Expose
 //        var sportsName: String? = null

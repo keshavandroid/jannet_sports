@@ -23,6 +23,7 @@ import com.xtrane.utils.Constants
 import com.xtrane.utils.SharedPrefUserData
 import com.xtrane.utils.Utilities
 import com.xtrane.viewinterface.IChildInfoView
+
 class ParentBookActivity : BaseActivity(), IChildInfoView {
     val arrayList = ArrayList<String>()
     val childList = ArrayList<GetProfileParentApiResponse.Child>()
@@ -31,9 +32,10 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
     var selectChildId: String = "0"
     private lateinit var binding: ActivityParentBookBinding
     var eventData: EventDetailResponse.Result? = null
-    var counter=0
-    var parentID=""
-    var fees=""
+    var counter = 0
+    var parentID = ""
+    var fees = ""
+    var finalfees = 0
 
     override fun getController(): IBaseController? {
         return null
@@ -42,22 +44,20 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       // setContentView(R.layout.activity_parent_book)
+        // setContentView(R.layout.activity_parent_book)
         binding = ActivityParentBookBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setTopBar()
 
-        eventData=  Constants.eventDetailTop
+        eventData = Constants.eventDetailTop
 
-        if (intent.hasExtra("Fees"))
-        {
-            fees= intent.extras!!.getString("Fees").toString()
+        if (intent.hasExtra("Fees")) {
+            fees = intent.extras!!.getString("Fees").toString()
 
-        }
-        else
-        {
-            fees= eventData!!.getFees().toString()
+        } else {
+            if (eventData != null && eventData!!.getFees()!!.length > 0)
+                fees = eventData!!.getFees().toString()
         }
 
         controller = ChildInfoController(this, this)
@@ -67,15 +67,21 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
         binding.checkboxSelectAll.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
-                parentID= SharedPrefUserData(this@ParentBookActivity).getSavedData().id.toString()
-                counter=counter+1
-                binding.txtFess.text= (fees.toInt()*counter).toString()
-            }
-            else {
-                parentID=""
-                counter=counter-1
-                binding.txtFess.text= (fees.toInt()*counter).toString()
+                parentID = SharedPrefUserData(this@ParentBookActivity).getSavedData().id.toString()
+                // Get the total number of children from the spinner
+                val totalChildren = binding.multipleItemSelectionSpinner.selectedIds.size
+                if (finalfees>0) {
+                    finalfees = fees.toInt() + finalfees
 
+                } else {
+                    finalfees = fees.toInt()
+
+                }
+                binding.txtFess.text = finalfees.toString()
+            } else {
+                parentID = ""
+                finalfees = finalfees-fees.toInt()
+                binding.txtFess.text = finalfees.toString()
             }
         }
 
@@ -85,11 +91,10 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 //            if (isDataValid()) {
             if (selectChildId == "0" && selectChildId == null) {
                 showToast("Please Select Child..")
-            }
-            else {
+            } else {
                 val eventid = intent.getStringExtra("eventId")
-                  val fees = binding.txtFess.text.toString()
-              //  val fees = eventData!!.getFees()!!.toInt()*counter
+                val fees = binding.txtFess.text.toString()
+                //  val fees = eventData!!.getFees()!!.toInt()*counter
 
                 val intent = Intent(this, BookSignatureActivity::class.java)
                 intent.putExtra("eventId", eventid.toString())
@@ -226,15 +231,22 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
             try {
                 counter = 0 // Reset counter each time the dialog is opened and items are selected
-                for (i in childrenResult.indices) {
-                    if (childrenResult[i].isSelected) {
 
-                        Log.i(TAG,
-                            i.toString() + " : " + childrenResult[i].name + " : " + childrenResult[i].isSelected)
+                // Reset counter each time the dialog is opened and items are selected
+                for (i in childrenResult.indices) {
+
+                    if (childrenResult[i].isSelected) {
+                        Log.e("", "child is selected");
+
+                        Log.i(
+                            TAG,
+                            i.toString() + " : " + childrenResult[i].name + " : " + childrenResult[i].isSelected
+                        )
 
 
 //                     selectedLocationType = multipleItemSelectionSpinner.selectedItem
-                        selectChildId = binding.multipleItemSelectionSpinner.selectedIds.joinToString(",")
+                        selectChildId =
+                            binding.multipleItemSelectionSpinner.selectedIds.joinToString(",")
 
 //                    val str: String = java.lang.String.join(",", selectChildId as String)
 
@@ -245,25 +257,57 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
                         Log.e(TAG, " counter=before=====${counter}")
 
 
-                        counter++
-
-                        Log.e(TAG, " counter=after=====${counter}")
+                        counter = counter + 1
                         val id = SharedPrefUserData(this@ParentBookActivity).getSavedData().id
                         val token = SharedPrefUserData(this@ParentBookActivity).getSavedData().token
-
-                        showLoader()
                         controller.callChildInfoAPI(id!!, token!!, selectChildId)
-                        binding. llTotalPrice.isVisible = true
+                        binding.llTotalPrice.isVisible = true
                         binding.txtBook.isVisible = true
 
-                        binding.txtFess.text= (fees.toInt()*counter).toString()
 
+                        finalfees = fees.toInt() * counter
+
+
+                        Log.e("finalFees1", finalfees.toString());
+
+
+                        binding.txtFess.text = finalfees.toString()
+                        binding.lrPricelayout.visibility=View.VISIBLE
                     }
-                    else {
-                        if (counter > 0 && !childrenResult[i].isSelected) {
-                            counter--
-                            Log.e(TAG, " counter=after_deselect=====${counter}")
-                            binding.txtFess.text = (fees.toInt() * counter).toString()
+                    else { // This block is called when a checkbox is deselected
+                        // Check if the current child is deselected
+                        Log.e("child2", "child is deselected");
+                        // The reason this block may not be called on checkbox deselection is likely due to how the checkbox's listener or the logic for handling selection/deselection is implemented.
+                        // Typically, the code inside this 'else' block should be triggered when a checkbox is unchecked (i.e., deselected).
+                        // However, if the 'isSelected' property of 'childrenResult[i]' is not being updated correctly before this check,
+                        // or if the event/callback is not firing as expected on deselection, this block will not execute.
+                        // 
+                        // To debug, ensure that:
+                        // 1. The checkbox's listener is properly set up to handle both selection and deselection events.
+                        // 2. The 'isSelected' property is updated immediately when the checkbox state changes, before this logic runs.
+                        // 3. Add logs in the checkbox's onCheckedChanged/onClick listener to verify the flow.
+                        // 
+                        // Example debug log:
+                        Log.d(TAG, "Checkbox deselected for child: ${childrenResult[i].name}, isSelected: ${childrenResult[i].isSelected}")
+
+                        if (!childrenResult[i].isSelected) {
+//                            counter = counter - 1 // Decrement counter if needed
+//                            if (finalfees > 0) { // Ensure finalfees is positive before subtraction
+//                                finalfees -= fees.toInt() // Subtract fees for the deselected child
+//                            }
+//                            Log.e(TAG, "counter=after_deselect1=====${counter}") // Log counter value
+
+                              finalfees=fees.toInt() * counter // Alternative calculation for finalfees
+
+
+                            binding.txtFess.text = finalfees.toString() // Update the UI with the new finalfees
+
+                            binding.lrPricelayout.visibility=View.VISIBLE
+
+                        }
+                        else { // This else block would be reached if childrenResult[i].isSelected is true,
+                                 // which contradicts the outer else condition. This part might need review.
+                            Log.e(TAG, "counter=after_deselect2=====${counter}") // Log counter value
                         }
                     }
                 }
@@ -330,7 +374,7 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
     override fun onChildInfoSuccess(response: List<ChildInfoResult?>?) {
 
-
+        // The controller.callChildInfoAPI call within the loop in setItems callback of multipleItemSelectionSpinner will trigger this method.
         hideLoader()
         var childAdapter = ChildInfoAdapter(this, response)
         binding.rvChildList.adapter = childAdapter

@@ -29,37 +29,21 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
     private val TAG = "AddEventCoachCont"
     fun callApi(obj: AddEventActivity.AddEventObject) {
         Utilities.showProgress(context)
+
         val storedata = StoreUserData(context)
         val idc = storedata.getString(Constants.COACH_ID)
         val tokenc = storedata.getString(Constants.COACH_TOKEN)
 
-
-        val id: RequestBody = RequestBody.create(
-            "text/plain".toMediaTypeOrNull()!!,idc
-
-        )
-        val token: RequestBody = RequestBody.create(
-            "text/plain".toMediaTypeOrNull()!!,
-            tokenc
-        )
-
-        val event_name: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.event_name)
-        val description: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.description)
-
+        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!,idc)
+        val token: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, tokenc)
+        val event_name: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.event_name)
+        val description: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.description)
         val fees: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.fees)
-        val location: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.location)
-        val sportdId: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.sportTypes)
-        val coachId: RequestBody =
-            RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.coach_id)
-
-
+        val location: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.location)
+        val sportdId: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.sportTypes)
+        val coachId: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.coach_id)
         val date: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.date)
         val participants: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.noParticipants)
-
         val gender_applicable: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.gender_applicable)
         val grade_id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.grade_id)
         val min_age: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.minimum_age)
@@ -71,6 +55,10 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
         val time: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.time)
         val eventDurationTime: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.eventDurationTime)
         val eventDurationLimit: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.eventDurationLimit)
+        val noOfTeam: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.noOfTeam)
+        val draftRule: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.draftRule)
+        val rosterFillingDate: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.rosterFillingDate)
+        val isJoined: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, obj.isJoined)
 
 
 //        val lat: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull()!!, "19.00")
@@ -175,6 +163,10 @@ class AddEventCoachController(var context: Activity, internal var controllerInte
             time = time,
             eventDurationTime = eventDurationTime,
             eventDurationLimit = eventDurationLimit,
+            noOfTeam= noOfTeam,
+            draftRule= draftRule,
+            rosterFillingDate= rosterFillingDate,
+            isJoined= isJoined,
             mainimage = image1,
             image1 = image2,
             image2 = image3,

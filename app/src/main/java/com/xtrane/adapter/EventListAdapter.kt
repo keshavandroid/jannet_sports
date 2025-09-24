@@ -1,5 +1,6 @@
 package com.xtrane.adapter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
@@ -48,6 +49,7 @@ class EventListAdapter() : RecyclerView.Adapter<EventListAdapter.ChildListAdapte
         return arrayList!!.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ChildListAdapterVH, position: Int) {
         try {
             Log.e("eventsize=", arrayList!!.size.toString());

@@ -9,11 +9,13 @@ import com.google.gson.annotations.SerializedName
 
 class NonParticipanResult {
 
-    @SerializedName("id")
+
+
+    @SerializedName("userId")
     @Expose
     private var id: Int? = null
 
-    @SerializedName("name")
+    @SerializedName("userName")
     @Expose
     private var name: String? = null
 

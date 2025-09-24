@@ -9,6 +9,9 @@ import com.xtrane.retrofit.UserServices
 import com.xtrane.retrofit.gradlistdata.GralistBaseResponse
 import com.xtrane.viewinterface.IGetGradeListView
 import com.google.gson.GsonBuilder
+import com.xtrane.retrofit.nonparticipantdata.GetMemberResult
+import com.xtrane.retrofit.nonparticipantdata.NonParticipantBaseResponse
+import com.xtrane.viewinterface.IGetTeamMemberView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -16,14 +19,15 @@ import java.io.Reader
 import java.io.StringReader
 import java.lang.reflect.Modifier
 
-class GetGradeListController(var context: Activity, internal var view: IGetGradeListView):IGetGradeListController {
-    override fun callGetGradeListApi(id: String, token: String) {
+class GetTeamMemberController(var context: Activity, internal var view: IGetTeamMemberView):IGetTeamMemberController {
+
+    override fun callITeamMember(id: String, token: String, event_id: String) {
 
         view.showLoader()
 
 
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
-        val call: Call<ResponseBody?>? = apiInterface.getGradeList(id,token)
+        val call: Call<ResponseBody?>? = apiInterface.getMemberList(id,token,event_id)
 
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack{
@@ -40,11 +44,11 @@ class GetGradeListController(var context: Activity, internal var view: IGetGrade
 
                     val gson = builder.create()
 
-                    val response = gson.fromJson(reader, GralistBaseResponse::class.java)
+                    val response = gson.fromJson(reader, GetMemberResult::class.java)
 
                     if (response.getStatus() == 1) {
                         val data = response.getResult()
-                        view.onGradeListSuccess(data)
+                        view.onGetTeamMember(data)
 
                     } else {
                         Log.d(ContentValues.TAG, "onSuccess: 0 status")

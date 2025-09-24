@@ -4,5 +4,5 @@ interface IBookTickitParentView:IBaseView {
 
     fun onBookTicketSuccessful(message:String)
 
-    fun onBookTicketFailed()
+    fun onBookTicketFailed(message:String)
 }

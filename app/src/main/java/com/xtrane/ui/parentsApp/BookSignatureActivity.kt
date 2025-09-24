@@ -28,6 +28,9 @@ import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.xtrane.retrofit.APIClient.SERVER_URL
+import com.xtrane.retrofit.controller.CoachBookEventController
+import com.xtrane.utils.Constants
+import com.xtrane.utils.StoreUserData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -43,7 +46,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     lateinit var joinTeamController: JoinTeamFromParentController
     private var TAG = "BookSignatureActivity"
     private var id = ""
-    private var token = ""
+    private var token = "txtBook"
     private var paymentIntentClientSecret: String? = null
     private lateinit var paymentSheet: PaymentSheet
 
@@ -51,6 +54,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     private var alertCheckbox: CheckBox? = null
     private var bookPaymentType: String? = null
     private lateinit var binding: ActivityBookSignatureBinding
+    lateinit var coachcontroller: CoachBookEventController
 
     override fun getController(): IBaseController? {
         return null
@@ -68,7 +72,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
         //Initialize PAYMENT STRIPE
 
-        var eventID = intent.getStringExtra("eventId")
+        val eventID = intent.getStringExtra("eventId")
         paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
         setTopBar()
         controller = BookChildEventController(this, this)
@@ -89,11 +93,21 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         val parentID = intent.getStringExtra("parentID")
         val team_id = intent.getStringExtra("Team_id")
         val parentJoin = intent.getStringExtra("COACH_JOIN")
+        val userType = intent.getStringExtra("userType")
+
+
+        if (userType!=null && userType.length>0)
+        {
+            binding.linearPaymentLayout.visibility=View.GONE
+        }
+        else
+        {
+            binding.linearPaymentLayout.visibility=View.VISIBLE
+        }
 
         Log.e("fees=",fees+"=")
-        binding.tvFees.text = fees
 
-        // Hook up the pay button
+        binding.tvFees.text = fees
 
         // Hook up the pay button
 
@@ -113,21 +127,37 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 //            binding.txtwallet.setTextColor(resources.getColor(R.color.black))
 
         }
+
         binding.txtBook.setOnClickListener {
 
             if (parentJoin?.trim().toString() == "coach_join") {
+
                 imageUri = getImageUri(getBitmapFromView(binding.rlSign)!!)
                 //book team from parent side
-                var registerData = RegisterData()
+                val registerData = RegisterData()
                 registerData.coach_id = coachId?.trim().toString()
                 registerData.teamId = team_id?.trim().toString()
                 registerData.fees = fees?.trim().toString()
                 registerData.image = ImageFilePath.getPath(this, imageUri!!)!!
                 joinTeamController.joinTeam(registerData)
 
-            } else {
-                //call payment api
+            }
+            else if (userType.equals("coach")) {
+                Log.e("userType=", userType.toString())
 
+                imageUri = getImageUri(getBitmapFromView(binding.rlSign)!!)
+                val img=ImageFilePath.getPath(this, imageUri!!)!!
+                val storedata: StoreUserData = StoreUserData(this)
+
+
+                id = storedata.getString(Constants.COACH_ID)
+                token = storedata.getString(Constants.COACH_TOKEN)
+
+                coachcontroller = CoachBookEventController(this@BookSignatureActivity, this)
+                coachcontroller.callApi("10",eventID!!,img,id,token)
+
+            }
+            else {
                 if (alertCheckbox!!.isChecked) {
                     Toast.makeText(
                         this@BookSignatureActivity,
@@ -150,19 +180,14 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
 
                     }
                 }
-
-
             }
         }
 
         binding.txtSendRequestParent.setOnClickListener {
-
-
             id = SharedPrefUserData(this).getSavedData().id!!
             token = SharedPrefUserData(this).getSavedData().token!!
             val eventid = intent.getStringExtra("eventId")
             val childId = intent.getStringExtra("ChildId")
-
             controller.bookRequestEvent(id, token, childId!!, eventid!!)
 
         }
@@ -174,13 +199,16 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         val eventid = intent.getStringExtra("eventId")
 
 
-        val publishableKey =
-            "pk_test_51RMt1EQOkb1porNanZl25YYGKxBAVSBAsYMixSUBNexFAk2VOJZYgmpVOGeie4VEsFh1E843XKHU3ot9wd8J7VJ500QXtihzAf"
+//        val publishableKey =
+//            "pk_test_51RMt1EQOkb1porNanZl25YYGKxBAVSBAsYMixSUBNexFAk2VOJZYgmpVOGeie4VEsFh1E843XKHU3ot9wd8J7VJ500QXtihzAf"
+
+        val publishableKey = "pk_live_51RLyQDBuyQ1GNDW7vRJvbEgJsSEJz84SVekUx58lTBw92QE1yHfj0KvSy4Vb5R4VvUnA3NgO6Ju4EV08FLNOy1RE00Q8I4qqUq"
+
         PaymentConfiguration.init(this@BookSignatureActivity, publishableKey)
         lifecycleScope.launch {
 
             val response = withContext(Dispatchers.IO) {
-                val url = URL(SERVER_URL+"createPaymentIntent?userId=" + userId + "&amount=" + 50 + "&currency=USD" + "&eventId=" + eventid + "&bookType=Bookevent")
+                val url = URL(SERVER_URL+"createPaymentIntent?userId=" + userId + "&amount=" + fees+ "&currency=USD" + "&eventId=" + eventid + "&bookType=Bookevent")
                 Log.e("startCheckout", "url: $url")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
@@ -284,7 +312,7 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         return Uri.parse(path)
     }
 
-    fun getBitmapFromView(view: View): Bitmap? {
+    fun getBitmapFromView(view: View): Bitmap {
         //Define a bitmap with the same size as the view
         val returnedBitmap = Bitmap.createBitmap(900, 50, Bitmap.Config.ARGB_8888)
         //Bind a canvas to it

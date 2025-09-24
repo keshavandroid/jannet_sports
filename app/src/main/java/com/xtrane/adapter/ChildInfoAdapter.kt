@@ -36,8 +36,8 @@ class ChildInfoAdapter() : RecyclerView.Adapter<ChildInfoAdapter.MyViewHolder>()
         holder.tvChildName.text = currentItem?.getName()
         holder.tvChildEmail.text = currentItem?.getEmail()
         holder.tvChildPhone.text = "9998955333"
-        if (currentItem?.getChildGender().equals("f")) {
 
+        if (currentItem?.getChildGender().equals("f")) {
             holder.imgFeMale.setImageResource(R.mipmap.rad)
             holder.imgMale.setImageResource(R.mipmap.rad1)
         } else {

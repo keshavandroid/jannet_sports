@@ -43,7 +43,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 
-class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
+class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, ControllerInterface {
     var adapter: SliderAdapterExample? = null
     var address = ""
     var event_name = ""
@@ -53,6 +53,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
     lateinit var eventDetairesponse: EventDetailResponse
     private var id = ""
     private var token = ""
+    lateinit var coachcontroller: CoachBookEventController
 
     //    var eventResulArraylist: ArrayList<EventDetailResponse.Result> =
 //        ArrayList<EventDetailResponse.Result>()
@@ -104,26 +105,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             }
         })
 
-
         iDeleteEventController = DeleteEventController(this, this)
-        //        if (intent.getUserType() == Constants.COACH) {
-//
-//            imgDelete.isVisible = true
-//            ll8.isVisible = true
-//            ll7.isGone = true
-//        }
-//        else if (intent.getUserType() == Constants.PARTICIPANT) {
-//
-//            imgDelete.isGone = true
-//            ll8.isGone = true
-//            ll7.isVisible = true
-//        }
-//
-
-//        val id: String = SharedPrefUserData(this).getSavedData().id
-//        val token: String = SharedPrefUserData(this).getSavedData().token
-//        val userType: String = SharedPrefUserData(this).getSavedData().usertype
-
 
         storedata = StoreUserData(this)
 
@@ -134,45 +116,27 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
             id = SharedPrefUserData(this).getSavedData().id!!
             token = SharedPrefUserData(this).getSavedData().token!!
-            val userType: String = SharedPrefUserData(this).getSavedData().usertype!!
 
+            val userType: String = SharedPrefUserData(this).getSavedData().usertype!!
 
             controller = ProfileController(this, this)
             controller.callGetProfileAPI(id, token, "parent")
+
             setDesign(0)
+
             Log.e(TAG, "onCreate: parent vet detail call")
 
-        } else {
-
-
+        }
+        else {
             id = storedata!!.getString(Constants.COACH_ID)
             token = storedata!!.getString(Constants.COACH_TOKEN)
-
             controller = ProfileController(this, this)
             controller.callGetProfileAPI(id, token, "coach")
+
             setDesign(2)
+
             Log.e(TAG, "onCreate: coach vet detail call")
-
-
         }
-//        if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
-//                .equals("match")
-//        ) {
-//            Log.e(TAG, "------from match design")
-//            setDesign(1)
-//        } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
-//                .equals("home")
-//        ) {
-//
-//            Log.e(TAG, "----participent --home")
-//            setDesign(0)
-//        } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
-//                .equals("coachPersonal")
-//        ) {
-//            Log.e(TAG, "------coach persional design")
-//            setDesign(2)
-//        }
-
 
         adapter = SliderAdapterExample(this)
         binding.imageSlider.setSliderAdapter(adapter!!)
@@ -183,8 +147,84 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             binding.txtReport.visibility = View.GONE
         } else {
             binding.txtReport.visibility = View.VISIBLE
-
         }
+
+        Log.d(TAG, "onCreate: test447>>" + intent.getStringExtra("eventId"))
+        val userType = SharedPrefUserData(this).getSavedData().usertype
+        val eventid = intent.getStringExtra("eventId")
+        val childId = intent.getStringExtra("childId")
+
+        Log.d(TAG, "onCreate: userType>>" + userType.toString())
+
+        if (intent.getStringExtra("eventId") != null &&
+            !intent.getStringExtra("eventId").equals("null") &&
+            !intent.getStringExtra("eventId").equals("")
+        )
+        {
+            EventDetailController(this@EventDetailsActivity, object : ControllerInterface {
+                override fun onFail(error: String?) {
+
+                    Log.e(TAG, "onFail: fail ==========$error")
+                }
+
+                override fun <T> onSuccess(response: T, method: String) {
+                    try {
+
+                        val resp = response as EventDetailResponse
+
+                        setData(resp.getResult()!!)
+
+                        address = resp.getResult()!![0]!!.getAddress().toString()
+                        event_name = resp.getResult()!![0]!!.getEventName().toString()
+                        description = resp.getResult()!![0]!!.getDescription().toString()
+                        latitude = resp.getResult()!![0]!!.getLatitude()!!
+                        longitude = resp.getResult()!![0]!!.getLongitude()!!
+
+                        eventDetairesponse = resp
+                        Log.e(TAG, "onSuccess: event detil success===${resp.getResult()}")
+
+                        Log.e(
+                            "EventDetail",
+                            "=========main iamge===${
+                                resp.getResult()!![0]?.getMainimage().toString()
+                            }"
+                        )
+                        Log.e(
+                            "EventDetail",
+                            "=========images===${resp.getResult()!![0]?.getImages().toString()}"
+                        )
+                        Log.e("userType=", userType.toString())
+
+                        if (userType.equals("coach")) {
+
+                            Log.e("userType=1=", userType.toString())
+
+                            if (eventDetailTop != null && eventDetailTop!!.getEventType() != null && eventDetailTop!!.getEventType()
+                                    .equals("Draft", ignoreCase = true)
+                            ) {
+                                Log.e("userType=2=", userType.toString())
+
+                                Log.e("EventType=", eventDetailTop!!.getEventType().toString())
+                                binding.cardRegister.visibility = View.VISIBLE
+                            }
+                            else {
+                                Log.e("userType=3=", userType.toString())
+
+                                binding.cardRegister.visibility = View.GONE
+
+                            }
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }).callApi(intent.getStringExtra("eventId")!!)
+        }
+
+
+
+
         binding.cardMatch.setOnClickListener {
 //            if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
 //                    .equals("coachPersonal")
@@ -221,12 +261,13 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 intent.putExtra("parent", "parent")
                 startActivity(intent)
             } else {
+
                 val intent = Intent(this, TeamsActivity::class.java)
                 intent.putExtra("EVENT_ID", eventid.toString())
+                intent.putExtra("eventdetailresponse", eventDetairesponse)
                 startActivity(intent)
 
             }
-
 
         }
         binding.cardAbout.setOnClickListener {
@@ -237,9 +278,6 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 )
             )
         }
-
-
-
         binding.lrReSchedule.setOnClickListener {
             openRescheduelDialog()
         }
@@ -263,9 +301,6 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         }
         binding.cardRegister.setOnClickListener {
 
-            val userType = SharedPrefUserData(this).getSavedData().usertype
-            val eventid = intent.getStringExtra("eventId")
-            val childId = intent.getStringExtra("childId")
 
             if (userType.equals("adult")) {
                 val intent = Intent(this, BookSignatureActivity::class.java)
@@ -281,11 +316,26 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 intent.putExtra("Fees", eventDetailTop!!.getFees())
                 startActivity(intent)
                 Log.e("CHILDID", childId.toString())
+            } else if (userType.equals("coach")) {
+
+                Log.e("coach", userType.toString())
+
+                val intent = Intent(this, BookSignatureActivity::class.java)
+                intent.putExtra("eventId", eventid.toString())
+                intent.putExtra("userType", userType.toString())
+                intent.putExtra("Coach_id", id.toString())
+                intent.putExtra("token", id.toString())
+
+                startActivity(intent)
+
+//                coachcontroller.callApi(childId!!, eventid!!, imageStr = )
+
             } else {
+
                 val intent = Intent(this, ParentBookActivity::class.java)
                 intent.putExtra("eventId", eventid.toString())
-                if (eventDetailTop!!.getFees()!=null && eventDetailTop!!.getFees()!!.length>0)
-                {
+
+                if (eventDetailTop != null && eventDetailTop!!.getFees() != null && eventDetailTop!!.getFees()!!.length > 0) {
                     intent.putExtra("Fees", eventDetailTop!!.getFees())
 
                 }
@@ -335,15 +385,12 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 startActivity(intent)
 
             } else {
-
                 val eventid = intent.getStringExtra("eventId")
-
                 val intent = Intent(this, BookingDetailActivity::class.java)
                 intent.putExtra("ADDRESS", address.toString())
                 intent.putExtra("EVENT_NAME", event_name)
                 intent.putExtra("EVENT_id", eventid)
                 startActivity(intent)
-
             }
 
 
@@ -392,50 +439,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
             "",
             "https://media.istockphoto.com/photos/searching-browsing-data-information-network-concept-businessman-using-picture-id1264839512?b=1&k=20&m=1264839512&s=170667a&w=0&h=QbzcI671w7ELHtwSMX2VqWOKRIfbq8xiDsBfkd0f9wo="
         )*/
-        Log.d(TAG, "onCreate: test447>>" + intent.getStringExtra("eventId"))
-        if (intent.getStringExtra("eventId") != null &&
-            !intent.getStringExtra("eventId").equals("null") &&
-            !intent.getStringExtra("eventId").equals("")
-        ) {
-            EventDetailController(this@EventDetailsActivity, object : ControllerInterface {
-                override fun onFail(error: String?) {
 
-                    Log.e(TAG, "onFail: fail ==========$error")
-                }
-
-                override fun <T> onSuccess(response: T, method: String) {
-                    try {
-
-                        val resp = response as EventDetailResponse
-
-                        setData(resp.getResult()!!)
-
-                        address = resp.getResult()!![0]!!.getAddress().toString()
-                        event_name = resp.getResult()!![0]!!.getEventName().toString()
-                        description = resp.getResult()!![0]!!.getDescription().toString()
-                        latitude = resp.getResult()!![0]!!.getLatitude()!!
-                        longitude = resp.getResult()!![0]!!.getLongitude()!!
-
-                        eventDetairesponse = resp
-                        Log.e(TAG, "onSuccess: event detil success===${resp.getResult()}")
-
-                        Log.e(
-                            "EventDetail",
-                            "=========main iamge===${
-                                resp.getResult()!![0]?.getMainimage().toString()
-                            }"
-                        )
-                        Log.e(
-                            "EventDetail",
-                            "=========images===${resp.getResult()!![0]?.getImages().toString()}"
-                        )
-
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            }).callApi(intent.getStringExtra("eventId")!!)
-        }
 
 
     }
@@ -444,15 +448,11 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
     private fun setData(result: List<EventDetailResponse.Result?>) {
         try {
             val data = result[0]
-
             Log.e(TAG, "setData: ===========${data?.getAddress()}")
-
             eventDetailTop = data
-
             addNewItem(
                 "",
                 data?.getMainimage()!!
-
             )
 
             for (i in data.getImages()!!.indices) {
@@ -520,8 +520,20 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
                 binding.ll7.visibility = View.GONE
                 binding.ll9.visibility = View.VISIBLE
                 binding.cardDeleteEvent.visibility = View.VISIBLE
-
                 binding.cardEdit.visibility = View.VISIBLE
+
+
+                if (eventDetailTop != null && eventDetailTop!!.getEventType() != null && eventDetailTop!!.getEventType()
+                        .equals("draft", ignoreCase = true)
+                ) {
+                    Log.e("EventType=", eventDetailTop!!.getEventType().toString())
+
+                    binding.cardRegister.visibility = View.VISIBLE
+                } else {
+                    binding.cardRegister.visibility = View.GONE
+                }
+
+
             }
         }
     }
@@ -551,6 +563,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
 
 
         Log.e("EventDetail", "=========child size===${child?.size.toString()}")
+
         if (child?.size == null) {
             Log.e("EventDetail", "=========child size2===${child?.size.toString()}")
 
@@ -745,6 +758,12 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView {
         }
 
         dialog.show()
+    }
+
+    override fun onFail(error: String?) {
+    }
+
+    override fun <T> onSuccess(response: T, method: String) {
     }
 
 }

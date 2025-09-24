@@ -81,6 +81,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
     var selectedMaxgradeID = "0"
     var minRangeSelected: Int = 0
     var maxRangeSelected: Int = 0
+    var isJoined: Int = 0
     var selectedSportList = ""
     lateinit var getSportController: IGetSportController
     lateinit var coachSportsListCOntroller: ICoachSportsListController
@@ -105,7 +106,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         return null
     }
 
-    @SuppressLint("ResourceType")
+    @SuppressLint("ResourceType", "SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -167,6 +168,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
 
 
+
         binding.etxtAddress.addTextChangedListener { text ->
 
             val query = text.toString()
@@ -201,6 +203,21 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
         addEventObject = AddEventObject()
         addEventViewModel = AddEventViewModel(this)
+
+        binding.checkboxSelectAll!!.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (buttonView.isChecked)
+            {
+                isJoined=1;
+            }
+            else
+            {
+                isJoined=0;
+            }
+            // Handle Monday checkbox state change
+        }
+
+
 
         setTopBar()
         SetEventTypeSpinner()
@@ -385,6 +402,25 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
         }
 
+        binding.txtDateRoasterfilling!!.setOnClickListener {
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setTheme(R.style.ThemeOverlay_App_DatePicker)
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build()
+            datePicker.addOnPositiveButtonClickListener {
+                // Respond to positive button click.
+                val selectedDate = datePicker.selection
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                if (selectedDate != null) {
+                    //  binding.txtDate.text = convertDateFormat(sdf.format(selectedDate))
+                    binding.txtDateRoasterfilling!!.text = sdf.format(selectedDate)
+                }
+            }
+            datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+
         binding.txtTime1.setOnClickListener {
 
             val calendar = Calendar.getInstance()
@@ -436,6 +472,10 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
             allData.max_grade = selectedMaxgradeID.toString()
             allData.eventDurationTime = selectedDurationType.toString()
             allData.eventDurationLimit = selectedDurationTypeValue.toString()
+            allData.noOfTeam = binding.edittextNoOfTeams!!.text.toString()
+            allData.draftRule = binding.edittextdraftRule!!.text.toString()
+            allData.rosterFillingDate = binding.txtDateRoasterfilling!!.text.toString()
+            allData.isJoined =isJoined.toString()
 
             Log.e("TAG", "onCreate: minimum_age ==" + allData.minimum_age)
             Log.e("TAG", "onCreate: max_age ==" + allData.max_age)
@@ -556,6 +596,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         eventtype.add("Single Match")
         eventtype.add("Tournament")
         eventtype.add("Practice")
+        eventtype.add("Draft")
 
 
         val adapterSports = ArrayAdapter(this, android.R.layout.simple_spinner_item, eventtype!!)
@@ -573,6 +614,16 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                     binding.txtEventType.text = spnEventType
                     Log.e(TAG, "onItemSelected: ")
 
+                    if (spnEventType.equals("Draft"))
+                    {
+                        binding.LinearDraft!!.visibility=View.VISIBLE
+                    }
+                    else
+                    {
+                        binding.LinearDraft!!.visibility=View.GONE
+
+                    }
+
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -589,10 +640,12 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 
         Log.e("txtSelectMinRange.isvisible=", binding.txtSelectMinRange.isVisible.toString())
         Log.e("txtSelectMaxRange.isvisible=", binding.txtSelectMaxRange.isVisible.toString())
-        val tempminAgeListNew = ArrayList<String?>()
+
+       // val tempminAgeListNew = ArrayList<String?>()
 
         if (minMaxgeResult!!.isNotEmpty()) {
             val tempminAgeList = ArrayList<String?>()
+            tempminAgeList.add("Select Minimum Age")
 
             for (i in minMaxgeResult!![0]!!.getMinAgeStart()!!
                 .toInt()..minMaxgeResult!![0]!!.getMinAgeEnd()!!
@@ -601,8 +654,8 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 tempminAgeList.add("$i")
 
             }
-            tempminAgeListNew.add(0, "Select Minimum Age")
-            tempminAgeListNew.addAll(1, tempminAgeList)
+//            tempminAgeListNew.add("Select Minimum Age")
+//            tempminAgeListNew.addAll(tempminAgeList)
 
             Log.e(TAG, "onMinMaxAgeSuccess: minmimum age list $tempminAgeList")
 
@@ -610,7 +663,7 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                 ArrayAdapter<String>(
                     applicationContext,
                     android.R.layout.simple_spinner_item,
-                    tempminAgeListNew
+                    tempminAgeList
                 )
             adapterMinRange.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerSelectMinRange.adapter = adapterMinRange
@@ -623,9 +676,9 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
                         id: Long,
                     ) {
                         try {
-                            binding.txtSelectMinRange.text = tempminAgeListNew[position]
+                            binding.txtSelectMinRange.text = tempminAgeList[position]
 
-                            val minimumselectedAge = tempminAgeListNew[position]
+                            val minimumselectedAge = tempminAgeList[position]
 
                             Log.e("Select Minimum Age==", minimumselectedAge.toString())
 //                            if (minimumselectedAge != "Select Minimum Age") {
@@ -638,10 +691,10 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
 //
 //                            }
 
-                            if (position == 0) {
+                            if (position != 0) {
                                 // Show default text
-                                binding.txtSelectMinRange.text = "Select Minimum Age"
-                            } else {
+                              //  binding.txtSelectMinRange.text = "Select Minimum Age"
+
                                 val selected = tempminAgeList[position]
                                 binding.txtSelectMinRange.text = selected
                                 minRangeSelected = selected!!.toInt()
@@ -1411,6 +1464,10 @@ class AddEventActivity : BaseActivity(), ILocationView, ICoachSportsListVIew, IG
         var max_grade = ""
         var eventDurationTime = ""
         var eventDurationLimit = ""
+        var noOfTeam = ""
+        var draftRule = ""
+        var rosterFillingDate = ""
+        var isJoined = ""
 
     }
 

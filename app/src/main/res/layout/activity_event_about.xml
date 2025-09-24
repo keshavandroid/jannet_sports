@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.parentsApp.EventAboutActivity">
 
     <include
@@ -16,12 +16,12 @@
         android:id="@+id/imageSlider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_130sdp"
-        app:sliderAnimationDuration="600"
-        app:sliderAutoCycleDirection="right"
-        app:sliderAutoCycleEnabled="true"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
+        app:sliderAnimationDuration="600"
+        app:sliderAutoCycleDirection="right"
+        app:sliderAutoCycleEnabled="true"
         app:sliderIndicatorEnabled="false"
         app:sliderScrollTimeInSec="3"
         app:sliderStartAutoCycle="true" />
@@ -29,254 +29,278 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/txtEventName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:text="@string/mauris_consequat_sem_sed"
-        android:textColor="@color/green6"
-        android:textSize="@dimen/_14ssp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:padding="@dimen/_2sdp"
-                    android:src="@mipmap/cal"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/txtEventDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_30_sept_2021"
-                    android:textColor="@color/grey2"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textSize="@dimen/_10ssp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:padding="@dimen/_3sdp"
-                    android:src="@mipmap/mal"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/txtCoachName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/derrick_n_laffey"
-                    android:textColor="@color/grey2"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textSize="@dimen/_10ssp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:padding="@dimen/_2sdp"
-                    android:src="@mipmap/em"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/txtAgeRange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_10_20_age"
-                    android:textColor="@color/grey2"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textSize="@dimen/_10ssp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:padding="@dimen/_2sdp"
-                    android:src="@mipmap/em"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/txtGrade_about"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/grey2"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textSize="@dimen/_10ssp"/>
-            </LinearLayout>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:padding="@dimen/_2sdp"
-                    android:src="@mipmap/ball"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/txtSportsName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sports"
-                    android:textColor="@color/grey2"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textSize="@dimen/_10ssp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:padding="@dimen/_2sdp"
-                    android:src="@mipmap/em"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/txtParticipantsCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_10_participants"
-                    android:textColor="@color/grey2"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textSize="@dimen/_10ssp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:padding="@dimen/_3sdp"
-                    android:src="@mipmap/mal"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"/>
-
-                <TextView
-                    android:id="@+id/txtGenderAccepted"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/male_female"
-                    android:textColor="@color/grey2"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:textSize="@dimen/_10ssp"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lorem_text"
-        android:textColor="@color/grey2"
-        android:id="@+id/txtDescription"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:textSize="@dimen/_10ssp"/>
-    <LinearLayout
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_40sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:src="@mipmap/moany"
-            android:layout_width="@dimen/_45sdp"
-            android:layout_height="@dimen/_45sdp"/>
-
-        <LinearLayout
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/txtEventName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/fees"
-                android:textColor="@color/grey2"
-                android:textSize="@dimen/_11ssp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_20_00"
-                android:id="@+id/txtFees"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:text="@string/mauris_consequat_sem_sed"
                 android:textColor="@color/green6"
-                android:textSize="@dimen/_17ssp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:padding="@dimen/_2sdp"
+                            android:src="@mipmap/cal" />
+
+                        <TextView
+                            android:id="@+id/txtEventDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="@string/_30_sept_2021"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:padding="@dimen/_3sdp"
+                            android:src="@mipmap/mal" />
+
+                        <TextView
+                            android:id="@+id/txtCoachName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="@string/derrick_n_laffey"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:padding="@dimen/_2sdp"
+                            android:src="@mipmap/em" />
+
+                        <TextView
+                            android:id="@+id/txtAgeRange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="@string/_10_20_age"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:padding="@dimen/_2sdp"
+                            android:src="@mipmap/em" />
+
+                        <TextView
+                            android:id="@+id/txtGrade_about"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text=""
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:padding="@dimen/_2sdp"
+                            android:src="@mipmap/ball" />
+
+                        <TextView
+                            android:id="@+id/txtSportsName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="@string/sports"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lrParticipant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:padding="@dimen/_2sdp"
+                            android:src="@mipmap/em" />
+
+                        <TextView
+                            android:id="@+id/txtParticipantsCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="@string/_10_participants"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:padding="@dimen/_3sdp"
+                            android:src="@mipmap/mal" />
+
+                        <TextView
+                            android:id="@+id/txtGenderAccepted"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="@string/male_female"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:text="@string/lorem_text"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/_10ssp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:src="@mipmap/moany" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fees"
+                        android:textColor="@color/grey2"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <TextView
+                        android:id="@+id/txtFees"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_20_00"
+                        android:textColor="@color/green6"
+                        android:textSize="@dimen/_17ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtViewparticipant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/gradient1"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="View Participant"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp">
+
+            </TextView>
         </LinearLayout>
     </ScrollView>
 

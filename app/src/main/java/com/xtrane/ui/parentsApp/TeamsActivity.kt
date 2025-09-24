@@ -13,6 +13,7 @@ import com.xtrane.adapter.TeamListEDAdapter
 import com.xtrane.databinding.ActivityTeamsBinding
 import com.xtrane.databinding.ActivityVenueBinding
 import com.xtrane.retrofit.controller.*
+import com.xtrane.retrofit.response.EventDetailResponse
 import com.xtrane.retrofit.teamlistdata.TeamListResult
 import com.xtrane.ui.BaseActivity
 import com.xtrane.ui.coachApp.addEventScreen.AddTeamsFinalActivity
@@ -36,12 +37,13 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
 
     lateinit var deleteTeamCOntroller: IDeleteTeamController
     lateinit var controller: ITeamListController
+    lateinit var EventDetailedResponse: EventDetailResponse
 
-    private lateinit var binding : ActivityTeamsBinding
+    private lateinit var binding: ActivityTeamsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_teams)
+        // setContentView(R.layout.activity_teams)
         binding = ActivityTeamsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //        setTopBar()
@@ -49,33 +51,56 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
 
         var storeData = StoreUserData(this)
 
-        if (storeData.getString(Constants.COACH_ID)
-                .trim() == null || storeData.getString(Constants.COACH_ID).trim().isEmpty()
-        ) {
+
+        if (storeData.getString(Constants.COACH_ID).trim().isEmpty())
+        {
 
             id = SharedPrefUserData(this).getSavedData().id!!
             token = SharedPrefUserData(this).getSavedData().token!!
             val event_id = intent.getStringExtra("EVENT_ID")
-
-
             controller = TeamListController(this, this)
             controller.callTeamLostApi(id, token, event_id.toString())
-            binding.txtAddNewTeamEd.isGone=true
+            binding.txtAddNewTeamEd.visibility=View.GONE
             showLoader()
-        } else {
+        }
+        else {
             id = storeData.getString(Constants.COACH_ID)
             token = storeData.getString(Constants.COACH_TOKEN)
             val event_id = intent.getStringExtra("EVENT_ID")
             Log.e("TAG", "onCreate:event id is ===$event_id ")
-            binding.txtAddNewTeamEd.isVisible=true
+//            if (id.equals())
+            binding.txtAddNewTeamEd.visibility=View.VISIBLE
 
             controller = TeamListController(this, this)
             controller.callTeamLostApi(id, token, event_id.toString())
             deleteTeamCOntroller = DeleteTeamCOntroller(this, this)
-        showLoader()
+            showLoader()
 
         }
+        if (intent.hasExtra("eventdetailresponse"))
+        {
+            EventDetailedResponse= intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse
 
+            Log.e("TAG", "EventDetailedResponse ==="+EventDetailedResponse.getResult()!!.get(0)!!.getEventType().toString())
+
+            if (EventDetailedResponse.getResult()!!.get(0)!!.getEventType().equals("draft",ignoreCase = true))
+            {
+                binding.txtAddNewTeamEd.visibility=View.VISIBLE
+            }
+            else
+            {
+                if (EventDetailedResponse.getResult()!!.get(0)!!.getCoachID().equals(id))
+                {
+                    binding.txtAddNewTeamEd.visibility=View.VISIBLE
+                }
+                else
+                {
+                    binding.txtAddNewTeamEd.visibility=View.GONE
+                }
+            }
+
+
+        }
 //
         binding.teamListEd.txtTitle.text = "TEAM LIST"
         binding.teamListEd.imgBack.setOnClickListener {

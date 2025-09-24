@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:context=".ui.parentsApp.BookSignatureActivity">
 
-
-
     <include
         android:id="@+id/topbar"
         layout="@layout/topbar_layout"
@@ -121,6 +119,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearPaymentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">

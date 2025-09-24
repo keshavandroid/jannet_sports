@@ -20,11 +20,12 @@ import java.io.StringReader
 import java.lang.reflect.Modifier
 
 class NonParticipantController(var context: Activity, internal var view: INonParticipanView) :
-    INonParticipantController  {
+    INonParticipantController {
     override fun callNonParticipantApi(id: String, token: String, event_id: String) {
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
-        val call: Call<ResponseBody?>? = apiInterface.getNonTeamParticipants(id, token,event_id)
 
+        val call: Call<ResponseBody?>? = apiInterface.getParticipant(id, token, event_id)
+        // val call: Call<ResponseBody?>? = apiInterface.getNonTeamParticipants(id, token,event_id)
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
@@ -45,9 +46,16 @@ class NonParticipantController(var context: Activity, internal var view: INonPar
                         val data = response.getResult()!!
 
                         view.onNonParticipantSuccess(data)
+
                         Utilities.showToast(context, response.getMessage())
 
-                    } else Utilities.showToast(context, response.getMessage())
+                    } else
+                    {
+                        Utilities.showToast(context, response.getMessage())
+
+                        view.onFail(response.getMessage(), null)
+
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

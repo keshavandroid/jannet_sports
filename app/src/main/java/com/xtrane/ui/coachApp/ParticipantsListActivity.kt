@@ -3,6 +3,7 @@ package com.xtrane.ui.coachApp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.xtrane.R
 import com.xtrane.adapter.MainTeamNonParticipantAapter
@@ -26,7 +27,7 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
 
     lateinit var controller: INonParticipantController
     private lateinit var binding: ActivityParticipantsListBinding
-
+    var eventId: String? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_participants_list)
@@ -37,9 +38,17 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
         val id = storeData.getString(Constants.COACH_ID)
         val token = storeData.getString(Constants.COACH_TOKEN)
 
-        controller = NonParticipantController(this, this)
-        controller.callNonParticipantApi(id, token, "155")
+        if (intent.hasExtra("eventId"))
+        {
+            eventId = intent.getStringExtra("eventId")
+            Log.e("eventID","======$eventId")
+        }
+
         showLoader()
+
+        controller = NonParticipantController(this, this)
+        controller.callNonParticipantApi(id, token, eventId.toString())
+
 //        if(intent.getStringExtra("from").equals("teamsDetailActivity")){
 //            txtWait.visibility=View.VISIBLE
 //            llWait1.visibility=View.VISIBLE

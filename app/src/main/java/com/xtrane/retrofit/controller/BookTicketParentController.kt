@@ -29,7 +29,8 @@ class BookTicketParentController(var context: Activity, internal var view: IBook
         total_ticket: String,
         match_id: String,
         name: String,
-        contactNo: String
+        contactNo: String,
+        bookPaymentType: String
     ) {
 
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
@@ -42,7 +43,8 @@ class BookTicketParentController(var context: Activity, internal var view: IBook
                 total_ticket,
                 match_id,
                 name,
-                contactNo
+                contactNo,
+                bookPaymentType
             )
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
@@ -65,7 +67,7 @@ class BookTicketParentController(var context: Activity, internal var view: IBook
                         Utilities.showToast(context, response.getMessage())
 
                     } else{
-                        view.onBookTicketFailed()
+                        view.onBookTicketFailed(response.getMessage().toString())
                         Utilities.showToast(context, response.getMessage())
                     }
                 } catch (e: IOException) {

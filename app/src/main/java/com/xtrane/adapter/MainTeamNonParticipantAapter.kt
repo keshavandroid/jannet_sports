@@ -43,12 +43,25 @@ class MainTeamNonParticipantAapter() :
         position: Int
     ) {
 
-        var currentItem = datalist[position]
+        val currentItem = datalist[position]
         holder.memberName.text = currentItem?.getName()
 
-        Glide.with(holder.ivImage.context)
-            .load(currentItem?.getImage())
-            .into(holder.ivImage)
+        if (currentItem!!.getImage()!=null && currentItem.getImage()!!.length>0)
+        {
+            Glide.with(holder.ivImage.context)
+                .load(currentItem.getImage())
+                .placeholder(R.mipmap.placeholder)
+                .into(holder.ivImage)
+
+
+        }
+        else
+        {
+            Glide.with(holder.ivImage.context)
+                .load(R.mipmap.placeholder)
+                .into(holder.ivImage)
+
+        }
 
     }
 

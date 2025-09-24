@@ -42,7 +42,7 @@ object Utilities {
     fun convertDateFormat(strDate: String): String {
         try {
             val inputPattern = "yyyy-MM-dd"
-            val outputPattern = "EEE, dd MMM yyyy"
+            val outputPattern = "EEE,MMM dd yyyy"
             val inputFormat = SimpleDateFormat(inputPattern)
             val outputFormat = SimpleDateFormat(outputPattern)
 

@@ -217,6 +217,17 @@ interface UserServices {
     ): Call<ResponseBody?>?
 
     @Multipart
+    @POST("coachBookEvent")
+    fun coachBookEventApi(
+        @Part("id") id: RequestBody,
+        @Part("token") token: RequestBody,
+        @Part("event_id") child_id: RequestBody,
+        @Part("fees") fees: RequestBody,
+        @Part("bookPaymentType") bookPaymentType: RequestBody,
+        @Part image: MultipartBody.Part?,
+    ): Call<ResponseBody?>?
+
+    @Multipart
     @POST("bookEvent")
     fun bookEventApi(
         @Part("id") id: RequestBody,
@@ -307,6 +318,10 @@ interface UserServices {
         @Part("time") time: RequestBody,
         @Part("eventDurationTime") eventDurationTime: RequestBody,
         @Part("eventDurationLimit") eventDurationLimit: RequestBody,
+        @Part("noOfTeam") noOfTeam: RequestBody,
+        @Part("draftRule") draftRule: RequestBody,
+        @Part("rosterFillingDate") rosterFillingDate: RequestBody,
+        @Part("isJoined") isJoined: RequestBody,
         @Part("image") image: RequestBody,
         @Part mainimage: MultipartBody.Part?,
         @Part image1: MultipartBody.Part?,
@@ -390,6 +405,16 @@ interface UserServices {
         @Part image: MultipartBody.Part?,
     ): Call<ResponseBody?>?
 
+    @Multipart
+    @POST("addTeamMember")
+    fun addTeamMember(
+        @Part("id") id: RequestBody,
+        @Part("token") token: RequestBody,
+        @Part("event_id") event_id: RequestBody,
+        @Part("member_id") coach_id: RequestBody,
+        @Part("team_id") teamName: RequestBody,
+    ): Call<ResponseBody?>?
+
 
     @GET("getTeam")
     fun getTeamList(
@@ -453,8 +478,8 @@ interface UserServices {
         @Query("id") id: String?,
         @Query("token") token: String?,
         @Query("teamId") teamId: String?,
-
         ): Call<ResponseBody?>?
+
 
     @POST("deleteMatch")
     fun deleteMatch(
@@ -484,6 +509,15 @@ interface UserServices {
         @Query("id") id: String?,
         @Query("token") token: String?,
         @Query("eventId") eventId: String?,
+    ): Call<ResponseBody?>?
+
+    @POST("deleteTeamMember")
+    fun deleteTeamMember(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("member_id") member_id: String?,
+        @Query("event_id") eventId: String?,
+        @Query("team_id") team_id: String?,
     ): Call<ResponseBody?>?
 
 
@@ -549,6 +583,20 @@ interface UserServices {
 
     @GET("getNonTeamMember")
     fun getNonTeamParticipants(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("event_id") event_id: String?,
+    ): Call<ResponseBody?>?
+
+    @GET("getParticipant")
+    fun getParticipant(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("eventId") event_id: String?,
+    ): Call<ResponseBody?>?
+
+    @GET("getTeamMember")
+    fun getMemberList(
         @Query("id") id: String?,
         @Query("token") token: String?,
         @Query("event_id") event_id: String?,
@@ -691,6 +739,7 @@ interface UserServices {
         @Query("match_id") match_id: String?,
         @Query("name") name: String?,
         @Query("contactNo") contactNo: String?,
+        @Query("bookPaymentType") bookPaymentType: String?
     ): Call<ResponseBody?>?
 
     @Multipart

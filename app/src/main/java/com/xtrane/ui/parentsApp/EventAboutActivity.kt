@@ -1,6 +1,7 @@
 package com.xtrane.ui.parentsApp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import com.xtrane.adapter.SliderAdapterExample
 import com.xtrane.databinding.ActivityAddMainTeamBinding
 import com.xtrane.databinding.ActivityEventAboutBinding
 import com.xtrane.retrofit.response.SliderItem
+import com.xtrane.ui.coachApp.ParticipantsListActivity
 import com.xtrane.utils.Constants.eventDetailTop
 import com.xtrane.utils.TAG
 import com.xtrane.utils.Utilities
@@ -151,8 +153,6 @@ class EventAboutActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-
-
         addNewItem(
             "",
             data.getMainimage()!!
@@ -163,6 +163,18 @@ class EventAboutActivity : AppCompatActivity() {
                 "",
                 data.getImages()!![i]?.getImage()!!
             )
+        }
+
+        binding.txtViewparticipant.setOnClickListener {
+
+            Log.e("participant=EventID=",data.getId().toString())
+            startActivity(
+                Intent(
+                    this,
+                    ParticipantsListActivity::class.java
+                ).putExtra("eventId", data.getId().toString())
+            )
+
         }
     }
 

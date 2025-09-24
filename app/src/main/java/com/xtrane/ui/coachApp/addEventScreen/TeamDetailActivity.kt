@@ -28,11 +28,12 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
     override fun getController(): IBaseController? {
         return null
     }
+
     private lateinit var bind: ActivityTeamDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      // setContentView(R.layout.activity_team_detail)
+        // setContentView(R.layout.activity_team_detail)
         bind = ActivityTeamDetailBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
@@ -82,8 +83,8 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
 
         bind.tvParticipent.setOnClickListener {
             val intent = Intent(this, AddMemberInTeamActivity::class.java)
-//            intent.putExtra("EVENT_ID", eventid.toString())
-//            intent.putExtra("TEAM_ID", team_id.toString())
+            intent.putExtra("EVENT_ID", event_id.toString())
+            intent.putExtra("TEAM_ID", teamId.toString())
             startActivity(intent)
 
 

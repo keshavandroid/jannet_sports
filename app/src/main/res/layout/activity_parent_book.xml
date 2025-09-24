@@ -261,68 +261,77 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
+            android:id="@+id/lrPricelayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkboxSelectAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@+id/checkboxSelectAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Do you want to register in event for your self?"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_total_price"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Booking for myself"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp" />
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:src="@mipmap/moany"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"/>
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fees"
+                        android:textColor="@color/grey2"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <TextView
+                        android:id="@+id/txt_fess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_20_00"
+                        android:textColor="@color/green6"
+                        android:textSize="@dimen/_17ssp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_total_price"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:src="@mipmap/moany"
-            android:layout_width="@dimen/_45sdp"
-            android:layout_height="@dimen/_45sdp"/>
-
-        <LinearLayout
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fees"
-                android:textColor="@color/grey2"
-                android:textSize="@dimen/_11ssp" />
-
-            <TextView
-                android:id="@+id/txt_fess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_20_00"
-                android:textColor="@color/green6"
-                android:textSize="@dimen/_17ssp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-    </LinearLayout>
     <TextView
         android:id="@+id/txtBook"
         android:visibility="gone"

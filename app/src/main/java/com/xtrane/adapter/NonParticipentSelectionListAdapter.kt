@@ -15,13 +15,13 @@ class NonParticipentSelectionListAdapter() :
     RecyclerView.Adapter<NonParticipentSelectionListAdapter.MyViewHolder>() {
 
     var datalist: List<NonParticipanResult?> = ArrayList()
+    lateinit var iCheckBocClickListner:ISelectCheckBoxListner
 
-    constructor(context: Context, datalist: List<NonParticipanResult?>) : this() {
+    constructor(context: Context, datalist: List<NonParticipanResult?>,iCheckBocClick:ISelectCheckBoxListner) : this() {
         this.datalist = datalist
-
+        iCheckBocClickListner=iCheckBocClick
     }
 
-    lateinit var iCheckBocClickListner:ISelectCheckBoxListner
 
 
     override fun onCreateViewHolder(
@@ -44,28 +44,31 @@ class NonParticipentSelectionListAdapter() :
         var currentItem = datalist[position]
         holder.memberName.text = currentItem?.getName()
 
-        Glide.with(holder.ivImage.context)
-            .load(currentItem?.getImage())
-            .into(holder.ivImage)
+        if (currentItem!!.getImage()!=null && currentItem.getImage()!!.length>0)
+        {
+            Glide.with(holder.ivImage.context)
+                .load(currentItem.getImage())
+                .into(holder.ivImage)
+        }
 
         holder.ll.setOnClickListener {
 
-            if (currentItem?.getSelected() == true) {
-
-                holder.cb.setImageResource(R.mipmap.check1)
-                currentItem?.setSelected(false)
-            } else {
-                holder.cb.setImageResource(R.mipmap.check2)
-                currentItem?.setSelected(true)
-
-
+            if (currentItem.getSelected() == true) {
+                holder.cb.setImageResource(R.drawable.check150)
+                currentItem.setSelected(false)
+                iCheckBocClickListner.onCheckBoxClick(currentItem.getId().toString(),false)
             }
-
-
+            else {
+                holder.cb.setImageResource(R.drawable.unchecked_15)
+                currentItem.setSelected(true)
+                iCheckBocClickListner.onCheckBoxClick(currentItem.getId().toString(),true)
+            }
 
         }
 
 //        holder.cb.setOnClickListener {
+//
+//
 //
 //
 //            //checkbox click event handling
@@ -100,7 +103,9 @@ class NonParticipentSelectionListAdapter() :
 
     interface ISelectCheckBoxListner {
 
-        fun onCheckBoxClick(response:List<NonParticipanResult?>?)
+        fun onCheckBoxClick(memberId:String,isSelected:Boolean)
     }
+
+
 
 }

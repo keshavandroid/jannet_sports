@@ -6,8 +6,8 @@ import android.util.Log
 import com.xtrane.retrofit.APIClient
 import com.xtrane.retrofit.RetrofitHelper
 import com.xtrane.retrofit.UserServices
-import com.xtrane.retrofit.gradlistdata.GralistBaseResponse
-import com.xtrane.viewinterface.IGetGradeListView
+import com.xtrane.retrofit.deleteteam.DeleteTeam
+import com.xtrane.viewinterface.IDeleteTeamView
 import com.google.gson.GsonBuilder
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -16,15 +16,15 @@ import java.io.Reader
 import java.io.StringReader
 import java.lang.reflect.Modifier
 
-class GetGradeListController(var context: Activity, internal var view: IGetGradeListView):IGetGradeListController {
-    override fun callGetGradeListApi(id: String, token: String) {
+class DeleteMemberController(var context: Activity, internal var view: IDeleteTeamView):IDeleteMemberController {
 
-        view.showLoader()
-
+    override fun callDeleteMemberApi(id: String,token:String,memberId:String,eventId:String,teamId:String) {
 
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
-        val call: Call<ResponseBody?>? = apiInterface.getGradeList(id,token)
 
+        val call: Call<ResponseBody?>? = apiInterface.deleteTeamMember(id,token,memberId,eventId,teamId)
+
+        view.showLoader()
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack{
             override fun onSuccess(body: Response<ResponseBody?>?) {
@@ -40,18 +40,20 @@ class GetGradeListController(var context: Activity, internal var view: IGetGrade
 
                     val gson = builder.create()
 
-                    val response = gson.fromJson(reader, GralistBaseResponse::class.java)
+                    val response = gson.fromJson(reader, DeleteTeam::class.java)
 
                     if (response.getStatus() == 1) {
-                        val data = response.getResult()
-                        view.onGradeListSuccess(data)
+                        view.deleteTeamSuccessful()
+                        view.hideLoader()
 
                     } else {
                         Log.d(ContentValues.TAG, "onSuccess: 0 status")
                         view.onFail(response.getMessage(), null)
+                        view.hideLoader()
                     }
 
                 }catch (e: Exception) {
+                    view.hideLoader()
                     view.onFail(e.message!!, e)
                     e.printStackTrace()
                 }            }
@@ -64,14 +66,13 @@ class GetGradeListController(var context: Activity, internal var view: IGetGrade
 
         })
 
-
     }
 
     override fun onDestroy() {
-      //  TODO("Not yet implemented")
+        TODO("Not yet implemented")
     }
 
     override fun onFinish() {
-        //TODO("Not yet implemented")
+        TODO("Not yet implemented")
     }
 }
