@@ -46,6 +46,7 @@
             android:name=".ui.parentsApp.EventRegisterRequestActivity"
             android:exported="false" />
         <activity android:name=".ui.coachApp.SeacrchLocationGoogleActivity" />
+        <activity android:name=".ui.coachApp.CoachListActivity" />
         <activity android:name=".ui.parentsApp.RegisteredMatchActivity" />
         <activity android:name=".ui.parentsApp.BookeEventActivity" />
         <activity android:name=".ui.coachApp.SelectCoachSportAccountActivity" />

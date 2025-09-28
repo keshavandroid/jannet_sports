@@ -57,7 +57,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         {
             Log.e("AccountFragment=userType=","Gone")
 
-            binding.llWallet.visibility=View.GONE
+            binding.llWallet.visibility=View.VISIBLE
             binding.lleventRegisterRequest.visibility=View.GONE
             binding.llTicketBookingRequest.visibility=View.GONE
             binding.view1.visibility=View.VISIBLE

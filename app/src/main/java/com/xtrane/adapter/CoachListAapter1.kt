@@ -12,12 +12,13 @@ import com.bumptech.glide.Glide
 import com.xtrane.R
 import com.xtrane.retrofit.mainteamdetaildata.MainTeamParticipentList
 import com.xtrane.retrofit.nonparticipantdata.NonParticipanResult
+import com.xtrane.retrofit.response.EventDetailResponse.coachArray
 
-class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipantAapter.MyViewHolder>() {
+class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>() {
 
-    var datalist: List<NonParticipanResult?> = ArrayList()
+    var datalist: List<coachArray?> = ArrayList()
 
-    constructor(context: Context, datalist: List<NonParticipanResult?>) : this() {
+    constructor(context: Context, datalist: List<coachArray?>) : this() {
         this.datalist = datalist
 
     }
@@ -43,16 +44,14 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
     ) {
 
         val currentItem = datalist[position]
-        holder.memberName.text = currentItem?.getName()
+        holder.memberName.text = currentItem!!.coachName
 
-        if (currentItem!!.getImage()!=null && currentItem.getImage()!!.length>0)
+        if (currentItem.coachName!=null && currentItem.coachName!!.length>0)
         {
             Glide.with(holder.ivImage.context)
-                .load(currentItem.getImage())
+                .load(currentItem.coachName)
                 .placeholder(R.mipmap.placeholder)
                 .into(holder.ivImage)
-
-
         }
         else
         {

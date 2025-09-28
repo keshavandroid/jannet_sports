@@ -54,7 +54,9 @@ class BuyCoinsActivity : AppCompatActivity() {
         binding = ActivityBuyCoinsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
-        val publishableKey = "pk_live_51RLyQDBuyQ1GNDW7vRJvbEgJsSEJz84SVekUx58lTBw92QE1yHfj0KvSy4Vb5R4VvUnA3NgO6Ju4EV08FLNOy1RE00Q8I4qqUq"
+
+     //   val publishableKey = "pk_live_51RLyQDBuyQ1GNDW7vRJvbEgJsSEJz84SVekUx58lTBw92QE1yHfj0KvSy4Vb5R4VvUnA3NgO6Ju4EV08FLNOy1RE00Q8I4qqUq"
+        val publishableKey = "pk_test_51RMt1EQOkb1porNanZl25YYGKxBAVSBAsYMixSUBNexFAk2VOJZYgmpVOGeie4VEsFh1E843XKHU3ot9wd8J7VJ500QXtihzAf"
         PaymentConfiguration.init(this@BuyCoinsActivity, publishableKey)
 
         setTopBar()
@@ -109,11 +111,20 @@ class BuyCoinsActivity : AppCompatActivity() {
             {
 
                 userId = SharedPrefUserData(this@BuyCoinsActivity).getSavedData().id.toString()
-
                 Log.e("startCheckout", "userId: $userId")
 
             }
+            if (SharedPrefUserData(this@BuyCoinsActivity).getSavedData().usertype.equals(Constants.COACH))
+            {
+                val storedata = StoreUserData(this@BuyCoinsActivity)
 
+//                userID = storedata.getString(Constants.COACH_ID)
+//                userToken = storedata.getString(Constants.COACH_TOKEN)
+
+                userId =storedata.getString(Constants.COACH_ID)
+                Log.e("startCheckout", "userId: $userId")
+
+            }
             val response = withContext(Dispatchers.IO) {
                 val url = URL(SERVER_URL +"createCoinPaymentIntent?userId="+userId+"&amount="+coins+"&currency=USD")
                 Log.e("startCheckout", "url: $url")

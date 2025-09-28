@@ -96,14 +96,14 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
         val userType = intent.getStringExtra("userType")
 
 
-        if (userType!=null && userType.length>0)
-        {
-            binding.linearPaymentLayout.visibility=View.GONE
-        }
-        else
-        {
-            binding.linearPaymentLayout.visibility=View.VISIBLE
-        }
+//        if (userType!=null && userType.length>0)
+//        {
+//            binding.linearPaymentLayout.visibility=View.GONE
+//        }
+//        else
+//        {
+//            binding.linearPaymentLayout.visibility=View.VISIBLE
+//        }
 
         Log.e("fees=",fees+"=")
 

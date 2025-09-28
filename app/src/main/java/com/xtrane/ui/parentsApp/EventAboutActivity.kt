@@ -12,7 +12,9 @@ import com.xtrane.R
 import com.xtrane.adapter.SliderAdapterExample
 import com.xtrane.databinding.ActivityAddMainTeamBinding
 import com.xtrane.databinding.ActivityEventAboutBinding
+import com.xtrane.retrofit.response.EventDetailResponse
 import com.xtrane.retrofit.response.SliderItem
+import com.xtrane.ui.coachApp.CoachListActivity
 import com.xtrane.ui.coachApp.ParticipantsListActivity
 import com.xtrane.utils.Constants.eventDetailTop
 import com.xtrane.utils.TAG
@@ -22,10 +24,10 @@ import com.xtrane.utils.Utilities
 class EventAboutActivity : AppCompatActivity() {
     var adapter: SliderAdapterExample? = null
     private lateinit var binding: ActivityEventAboutBinding
-
+    lateinit var eventdata: EventDetailResponse
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_event_about)
+        // setContentView(R.layout.activity_event_about)
         binding = ActivityEventAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -37,26 +39,25 @@ class EventAboutActivity : AppCompatActivity() {
 
         if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
                 .equals("match")
-        ) {
-
+        )
+        {
             binding.topbar.imgEdit.isGone = true
-
-        } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
-                .equals("home")
-        ) {
-
+        }
+        else if (intent.getStringExtra("from") != null && intent.getStringExtra("from").equals("home"))
+        {
             binding.topbar.imgEdit.isGone = true
-
-        } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
-                .equals("coachPersonal")
-        ) {
-
+        }
+        else if (intent.getStringExtra("from") != null && intent.getStringExtra("from").equals("coachPersonal"))
+        {
             binding.topbar.imgEdit.isVisible = true
         }
 
-
+        if (intent.hasExtra("eventdetailresponse")) {
+            eventdata= intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse
+        }
 
         setData()
+
 //        EventDetailController(this, object : ControllerInterface {
 //            override fun onFail(error: String?) {
 //                TODO("Not yet implemented")
@@ -134,7 +135,8 @@ class EventAboutActivity : AppCompatActivity() {
         binding.txtEventName.text = data?.getEventName()
         binding.txtEventDate.text = Utilities.convertDateFormat(data?.getEventDate()!!)
         binding.txtCoachName.text = data.getCreatorName().toString()
-        binding.txtAgeRange.text = data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
+        binding.txtAgeRange.text =
+            data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
 
         if (!sportsNameS.isNullOrEmpty())
             binding.txtSportsName.text = android.text.TextUtils.join(",", sportsNameS)
@@ -148,8 +150,9 @@ class EventAboutActivity : AppCompatActivity() {
 //        txtGrade_about.text = data.getGrade().toString()
 
         try {
-            binding.txtGradeAbout.text = data.getMinGrade().toString() +" - "+ data.getMaxGrade().toString() + " Grade"
-        }catch (e: Exception){
+            binding.txtGradeAbout.text =
+                data.getMinGrade().toString() + " - " + data.getMaxGrade().toString() + " Grade"
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -167,14 +170,19 @@ class EventAboutActivity : AppCompatActivity() {
 
         binding.txtViewparticipant.setOnClickListener {
 
-            Log.e("participant=EventID=",data.getId().toString())
+            Log.e("participant=EventID=", data.getId().toString())
             startActivity(
                 Intent(
                     this,
                     ParticipantsListActivity::class.java
                 ).putExtra("eventId", data.getId().toString())
             )
+        }
+        binding.txtViewCoach.setOnClickListener {
 
+            startActivity(Intent(this, CoachListActivity::class.java
+                ).putExtra("eventdetailresponse", eventdata)
+            )
         }
     }
 

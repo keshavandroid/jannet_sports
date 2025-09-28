@@ -50,7 +50,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
     var description = ""
     private var latitude = ""
     private var longitude = ""
-    lateinit var eventDetairesponse: EventDetailResponse
+    private var eventDetairesponse: EventDetailResponse? = null
     private var id = ""
     private var token = ""
     lateinit var coachcontroller: CoachBookEventController
@@ -226,20 +226,6 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
 
 
         binding.cardMatch.setOnClickListener {
-//            if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
-//                    .equals("coachPersonal")
-//            ) startActivity(
-//                Intent(this, MatchListActivity::class.java).putExtra(
-//                    "from",
-//                    "coachPersonal"
-//                )
-//            )
-//            else startActivity(
-//                Intent(this, MatchListActivity::class.java).putExtra(
-//                    "from",
-//                    "notCoach"
-//                )
-//            )
             val eventid = intent.getStringExtra("eventId")
 
 
@@ -262,21 +248,26 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
                 startActivity(intent)
             } else {
 
-                val intent = Intent(this, TeamsActivity::class.java)
-                intent.putExtra("EVENT_ID", eventid.toString())
-                intent.putExtra("eventdetailresponse", eventDetairesponse)
-                startActivity(intent)
+                if (eventDetairesponse!=null && eventDetairesponse!!.getResult()!=null && eventDetairesponse!!.getResult()!!.size>0)
+                {
+                    val intent = Intent(this, TeamsActivity::class.java)
+                    intent.putExtra("EVENT_ID", eventid.toString())
+                    intent.putExtra("eventdetailresponse", eventDetairesponse!!)
+                    startActivity(intent)
+                }
 
             }
 
         }
         binding.cardAbout.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    EventAboutActivity::class.java
+
+            if (eventDetairesponse!=null && eventDetairesponse!!.getResult()!=null && eventDetairesponse!!.getResult()!!.size>0)
+            {
+                startActivity(Intent(this, EventAboutActivity::class.java)
+                    .putExtra("eventdetailresponse",eventDetairesponse!!)
                 )
-            )
+            }
+
         }
         binding.lrReSchedule.setOnClickListener {
             openRescheduelDialog()
@@ -300,7 +291,6 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
             startActivity(intent)
         }
         binding.cardRegister.setOnClickListener {
-
 
             if (userType.equals("adult")) {
                 val intent = Intent(this, BookSignatureActivity::class.java)

@@ -71,6 +71,8 @@ class EventDetailResponse :Serializable{
 
 
     }
+
+
     class Result : Serializable{
 
         @SerializedName("id")
@@ -101,6 +103,10 @@ class EventDetailResponse :Serializable{
         @Expose
         private var participants: String? = null
 
+        @SerializedName("noOfTeam")
+        @Expose
+        private var noOfTeam: String? = null
+
         @SerializedName("gender_applicable")
         @Expose
         private var genderApplicable: String? = null
@@ -120,8 +126,6 @@ class EventDetailResponse :Serializable{
         @SerializedName("max_grade")
         @Expose
         private var max_grade: String? = null
-
-
 
         @SerializedName("creator_name")
         @Expose
@@ -175,14 +179,20 @@ class EventDetailResponse :Serializable{
         @Expose
         private var eventType: String? = null
 
+        @SerializedName("coachArray")
+        @Expose
+        private var coachArray: List<coachArray?>? = null
+
         fun getCoachID(): String? {
             return userId
+        }
+        fun getCoachArray(): List<coachArray?>? {
+            return coachArray
         }
 
         fun getEventType(): String? {
             return eventType
         }
-
 
         fun getId(): Int? {
             return id
@@ -225,9 +235,6 @@ class EventDetailResponse :Serializable{
         fun setMaxGrade(max_grade: String?) {
             this.max_grade = max_grade
         }
-
-
-
 
         fun getSportsId(): String? {
             return sportsId
@@ -393,5 +400,16 @@ class EventDetailResponse :Serializable{
         }
     }
 
+    class coachArray : Serializable{
+
+        @SerializedName("coachId")
+        @Expose
+        var coachId: Int? = null
+
+        @SerializedName("coachName")
+        @Expose
+        var coachName: String? = null
+
+    }
 
 }
