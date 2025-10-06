@@ -13,6 +13,18 @@ class TeamListResult {
     @Expose
     private var teamId: Int? = null
 
+    @SerializedName("coach_id")
+    @Expose
+    private var coach_id: Int? = null
+
+    fun setCoachID(coach_id: Int?) {
+        this.coach_id = coach_id
+    }
+    fun getCoachID(): Int? {
+        return coach_id
+    }
+
+
     @SerializedName("teamName")
     @Expose
     private var teamName: String? = null

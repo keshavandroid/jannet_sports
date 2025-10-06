@@ -37,6 +37,7 @@ class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
         controller = AddTeamController(this, this)
 
         binding.includeHeader.txtTitle.text = "ADD TEAM"
+
         binding.includeHeader.imgBack.setOnClickListener {
 
             val builder = AlertDialog.Builder(this)
@@ -143,6 +144,7 @@ class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
     }
 
     override fun onFail(error: String?) {
+        hideLoader()
         showToast(error)
     }
 
@@ -156,15 +158,14 @@ class AddTeamsFinalActivity : BaseActivity(), RegisterControllerInterface {
         //set title for alert dialog
         builder.setTitle("Home Screen")
         //set message for alert dialog
-        builder.setMessage("Are you Sure you Want to Go Home Screen?")
+        builder.setMessage("Are you Sure you Want to exit this Screen?")
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
         //performing positive action
         builder.setPositiveButton("Yes"){dialogInterface, which ->
             Toast.makeText(applicationContext,"clicked yes",Toast.LENGTH_LONG).show()
 
-            super.onBackPressed()
-
+            finish()
 
         }
         //performing cancel action

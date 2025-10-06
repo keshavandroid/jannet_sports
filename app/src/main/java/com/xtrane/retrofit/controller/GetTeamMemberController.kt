@@ -6,11 +6,8 @@ import android.util.Log
 import com.xtrane.retrofit.APIClient
 import com.xtrane.retrofit.RetrofitHelper
 import com.xtrane.retrofit.UserServices
-import com.xtrane.retrofit.gradlistdata.GralistBaseResponse
-import com.xtrane.viewinterface.IGetGradeListView
 import com.google.gson.GsonBuilder
 import com.xtrane.retrofit.nonparticipantdata.GetMemberResult
-import com.xtrane.retrofit.nonparticipantdata.NonParticipantBaseResponse
 import com.xtrane.viewinterface.IGetTeamMemberView
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -21,13 +18,13 @@ import java.lang.reflect.Modifier
 
 class GetTeamMemberController(var context: Activity, internal var view: IGetTeamMemberView):IGetTeamMemberController {
 
-    override fun callITeamMember(id: String, token: String, event_id: String) {
+    override fun callITeamMember(id: String, token: String, event_id: String, coach_id: String?) {
 
         view.showLoader()
 
 
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
-        val call: Call<ResponseBody?>? = apiInterface.getMemberList(id,token,event_id)
+        val call: Call<ResponseBody?>? = apiInterface.getMemberList(coach_id,token, event_id)
 
 
         RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack{
@@ -70,7 +67,6 @@ class GetTeamMemberController(var context: Activity, internal var view: IGetTeam
 
 
     }
-
     override fun onDestroy() {
       //  TODO("Not yet implemented")
     }

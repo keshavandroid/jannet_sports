@@ -12,7 +12,6 @@ import com.xtrane.retrofit.controller.IBaseController
 import com.xtrane.retrofit.controller.IDeleteMemberController
 import com.xtrane.retrofit.controller.IGetTeamMemberController
 import com.xtrane.retrofit.nonparticipantdata.GetMemberResult
-import com.xtrane.retrofit.nonparticipantdata.NonParticipanResult
 import com.xtrane.ui.BaseActivity
 import com.xtrane.utils.Constants
 import com.xtrane.utils.StoreUserData
@@ -29,6 +28,7 @@ class AddMemberInTeamActivity : BaseActivity(), IGetTeamMemberView, IDeleteTeamM
     lateinit var controller: IGetTeamMemberController
     private lateinit var binding: ActivityAddMemberInTeamBinding
     var event_id: String? = null
+    var coach_id: String? = null
     var team_id: String? = null
     var id: String? = null
     var token: String? = null
@@ -53,7 +53,10 @@ class AddMemberInTeamActivity : BaseActivity(), IGetTeamMemberView, IDeleteTeamM
 
         }
 
+        if (intent.hasExtra("coach_id")) {
+            coach_id = intent.getStringExtra("coach_id")
 
+        }
         binding.participantsList.txtTitle.text = "MEMBER LIST"
         binding.participantsList.imgBack.setOnClickListener {
 
@@ -63,7 +66,7 @@ class AddMemberInTeamActivity : BaseActivity(), IGetTeamMemberView, IDeleteTeamM
 
 
         controller = GetTeamMemberController(this, this)
-        controller.callITeamMember(id!!, token!!, event_id!!)
+        controller.callITeamMember(id!!, token!!, event_id!!, coach_id)
 
         //  showLoader()
 
@@ -80,14 +83,14 @@ class AddMemberInTeamActivity : BaseActivity(), IGetTeamMemberView, IDeleteTeamM
     @SuppressLint("NotifyDataSetChanged")
     override fun onGetTeamMember(response: List<GetMemberResult.MemberResult?>?) {
         hideLoader()
-        val TeamAdapger = MemberListAdapter(this, response!!,this)
+        val TeamAdapger = MemberListAdapter(this, response!!, this)
         binding.rvParticipantListInTeam.adapter = TeamAdapger
         TeamAdapger.notifyDataSetChanged()
     }
 
     override fun deleteTeamSuccessful() {
         controller = GetTeamMemberController(this, this)
-        controller.callITeamMember(id!!, token!!, event_id!!)
+        controller.callITeamMember(id!!, token!!, event_id!!, coach_id)
     }
 
     override fun onFail(message: String?, e: Exception?) {

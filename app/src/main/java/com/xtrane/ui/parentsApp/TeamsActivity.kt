@@ -199,6 +199,7 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
         intent.putExtra("TEAM_NAME", tam_name)
         intent.putExtra("TEAM_DESCRIPTION", team_description)
         intent.putExtra("TEAM_Image", team_iage)
+        intent.putExtra("coach_id", itemCLick.getCoachID().toString())
 
         intent.putExtra("EVENT_DETAIL", "event_detail")
         startActivity(intent)

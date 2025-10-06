@@ -132,16 +132,40 @@ class EventAboutActivity : AppCompatActivity() {
 
         Log.e(TAG, "SportsList========$sportsNameS")
 
-        binding.txtEventName.text = data?.getEventName()
-        binding.txtEventDate.text = Utilities.convertDateFormat(data?.getEventDate()!!)
+        binding.txtEventName.text = data.getEventName()
+        binding.txtEventDate.text = Utilities.convertDateFormat(data.getEventDate()!!)
         binding.txtCoachName.text = data.getCreatorName().toString()
-        binding.txtAgeRange.text =
-            data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
+        binding.txtAgeRange.text = data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
 
-        if (!sportsNameS.isNullOrEmpty())
+        if (sportsNameS.isNotEmpty())
             binding.txtSportsName.text = android.text.TextUtils.join(",", sportsNameS)
         else
             binding.txtSportsName.text = sportsNameS.toString()
+
+        if (data.getNoofTeams()!=0)
+        {
+            binding.linearTeams.visibility=View.VISIBLE
+            binding.txtTeams.text ="Teams : " + data.getNoofTeams().toString()
+
+        }
+        else
+        {
+            binding.linearTeams.visibility=View.GONE
+            binding.txtTeams.text =""
+
+        }
+        if (data.getEventType()!!.length>0)
+        {
+            binding.txtEventType.visibility=View.VISIBLE
+            binding.txtEventType.text="Event Type : "+data.getEventType().toString()
+
+        }
+        else
+        {
+            binding.txtEventType.visibility=View.GONE
+            binding.txtEventType.text =""
+
+        }
 
         binding.txtParticipantsCount.text = data.getParticipants() + " " + "Participants"
         binding.txtGenderAccepted.text = data.getGenderApplicable().toString()

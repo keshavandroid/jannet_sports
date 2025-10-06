@@ -105,7 +105,7 @@ class EventDetailResponse :Serializable{
 
         @SerializedName("noOfTeam")
         @Expose
-        private var noOfTeam: String? = null
+        private var noOfTeam: Int? = null
 
         @SerializedName("gender_applicable")
         @Expose
@@ -271,7 +271,9 @@ class EventDetailResponse :Serializable{
         fun getMinAge(): String? {
             return minAge
         }
-
+        fun getNoofTeams(): Int? {
+            return noOfTeam
+        }
         fun setMinAge(minAge: String?) {
             this.minAge = minAge
         }

@@ -120,8 +120,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:gravity="end"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/tvCreated"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:text="Created By : "
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/_10ssp" />
 
 
                 <ImageView

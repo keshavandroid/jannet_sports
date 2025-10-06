@@ -45,9 +45,10 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
         val team_desriptiom = intent.getStringExtra("TEAM_DESCRIPTION")
         val team_name = intent.getStringExtra("TEAM_NAME")
         val team_image = intent.getStringExtra("TEAM_Image")
+        val coach_id = intent.getStringExtra("coach_id")
 
 
-        bind.teamDetail.txtTitle.text = "TEAM Detail"
+        bind.teamDetail.txtTitle.text = "Team Detail"
         bind.teamDetail.imgBack.setOnClickListener {
 
             onBackPressed()
@@ -85,6 +86,7 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
             val intent = Intent(this, AddMemberInTeamActivity::class.java)
             intent.putExtra("EVENT_ID", event_id.toString())
             intent.putExtra("TEAM_ID", teamId.toString())
+            intent.putExtra("coach_id", coach_id.toString())
             startActivity(intent)
 
 
@@ -134,7 +136,8 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
     override fun onTeamDetailSuccess(response: List<TeamDetailResult?>?) {
 
         hideLoader()
-        bind.tvTeamNameEventDetail.text = response!![0]!!.getTeamName().toString()
+        bind.tvTeamNameEventDetail.text ="Team Name : " + response!![0]!!.getTeamName().toString()
+        bind.tvCreated.text ="Created By : " +response[0]!!.getCoachName().toString()
         bind.tvSportsTypeTeamDetail.text = response!![0]!!.getSportsName().toString()
         bind.tvParticipentTeamDetail.text = response!![0]!!.getParticipants().toString()
         bind.tvTeamDetailDescription.text = response!![0]!!.getDescription().toString()
