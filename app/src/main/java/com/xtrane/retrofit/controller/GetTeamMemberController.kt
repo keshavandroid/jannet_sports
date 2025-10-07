@@ -52,7 +52,7 @@ view: IGetTeamMemberView):IGetTeamMemberController {
                         Log.d(ContentValues.TAG, "onSuccess: 0 status")
                         view.onFail(response.getMessage(), null)
 
-                 }';idq     XCCCCCCCCCCCCCCCCCC2J;]989JHH
+                 }
 
                 }catch (e: Exception) {
                     view.onFail(e.message!!, e)
