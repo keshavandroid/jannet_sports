@@ -16,7 +16,8 @@ import java.io.Reader
 import java.io.StringReader
 import java.lang.reflect.Modifier
 
-class GetTeamMemberController(var context: Activity, internal var view: IGetTeamMemberView):IGetTeamMemberController {
+class GetTeamMemberController(var context: Activity, internal var
+view: IGetTeamMemberView):IGetTeamMemberController {
 
     override fun callITeamMember(id: String, token: String, event_id: String, coach_id: String?) {
 
@@ -50,7 +51,8 @@ class GetTeamMemberController(var context: Activity, internal var view: IGetTeam
                     } else {
                         Log.d(ContentValues.TAG, "onSuccess: 0 status")
                         view.onFail(response.getMessage(), null)
-                    }
+
+                 }';idq     XCCCCCCCCCCCCCCCCCC2J;]989JHH
 
                 }catch (e: Exception) {
                     view.onFail(e.message!!, e)
