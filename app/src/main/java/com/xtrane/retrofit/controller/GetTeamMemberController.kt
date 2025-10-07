@@ -16,8 +16,10 @@ import java.io.Reader
 import java.io.StringReader
 import java.lang.reflect.Modifier
 
-class GetTeamMemberController(var context: Activity, internal var
-view: IGetTeamMemberView):IGetTeamMemberController {
+class GetTeamMemberController(
+    var context: Activity, internal var
+    view: IGetTeamMemberView
+) : IGetTeamMemberController {
 
     override fun callITeamMember(id: String, token: String, event_id: String, coach_id: String?) {
 
@@ -25,10 +27,10 @@ view: IGetTeamMemberView):IGetTeamMemberController {
 
 
         val apiInterface: UserServices = APIClient.getClient()!!.create(UserServices::class.java)
-        val call: Call<ResponseBody?>? = apiInterface.getMemberList(coach_id,token, event_id)
+        val call: Call<ResponseBody?>? = apiInterface.getMemberList(coach_id, token, event_id)
 
 
-        RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack{
+        RetrofitHelper.callApi(call, object : RetrofitHelper.ConnectionCallBack {
             override fun onSuccess(body: Response<ResponseBody?>?) {
                 view.hideLoader()
                 try {
@@ -38,7 +40,8 @@ view: IGetTeamMemberView):IGetTeamMemberController {
                     builder.excludeFieldsWithModifiers(
                         Modifier.FINAL,
                         Modifier.TRANSIENT,
-                        Modifier.STATIC)
+                        Modifier.STATIC
+                    )
 
                     val gson = builder.create()
 
@@ -52,12 +55,13 @@ view: IGetTeamMemberView):IGetTeamMemberController {
                         Log.d(ContentValues.TAG, "onSuccess: 0 status")
                         view.onFail(response.getMessage(), null)
 
-                 }
+                    }
 
-                }catch (e: Exception) {
+                } catch (e: Exception) {
                     view.onFail(e.message!!, e)
                     e.printStackTrace()
-                }            }
+                }
+            }
 
             override fun onError(code: Int, error: String?) {
                 view.hideLoader()
@@ -69,8 +73,9 @@ view: IGetTeamMemberView):IGetTeamMemberController {
 
 
     }
+
     override fun onDestroy() {
-      //  TODO("Not yet implemented")
+        //  TODO("Not yet implemented")
     }
 
     override fun onFinish() {
