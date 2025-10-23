@@ -65,7 +65,7 @@ class AddParticipantActivity : BaseActivity(), INonParticipanView, RegisterContr
 
 
         controller = NonParticipantController(this, this)
-        controller.callNonParticipantApi(id, token, "155")
+        controller.callNonParticipantApi(id, token, event_id!!)
 
         showLoader()
 

@@ -90,6 +90,8 @@
                 android:gravity="center"
                 android:padding="@dimen/_10sdp"
                 android:text="@string/cancel"
+                android:textColor="@color/white"
+
                 android:fontFamily="sans-serif-black"
                 android:textSize="@dimen/_13ssp"
                 />
@@ -106,6 +108,8 @@
                 android:textSize="@dimen/_13ssp"
                 android:fontFamily="sans-serif-black"
                 android:padding="@dimen/_10sdp"
+                android:textColor="@color/white"
+
                 android:text="Reschedule" />
 
         </LinearLayout>

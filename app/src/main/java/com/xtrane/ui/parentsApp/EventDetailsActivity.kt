@@ -272,6 +272,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         binding.lrReSchedule.setOnClickListener {
             openRescheduelDialog()
         }
+        binding.cardRoasterfilling.setOnClickListener {
+            openRoasterDialog()
+        }
         binding.txtReport.setOnClickListener {
             showReportDialog()
         }
@@ -677,6 +680,95 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         val et_report_cancel = dialog.findViewById<TextView>(R.id.et_report_cancel)
         val et_report_Yes = dialog.findViewById<TextView>(R.id.et_report_Yes)
 
+        val eventId = intent.getStringExtra("eventId")
+        val userId = storedata!!.getString(Constants.COACH_ID)
+        val token = storedata!!.getString(Constants.COACH_TOKEN)
+
+        txtselectdate.setOnClickListener {
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setTheme(R.style.ThemeOverlay_App_DatePicker)
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build()
+            datePicker.addOnPositiveButtonClickListener {
+                // Respond to positive button click.
+                val selectedDate = datePicker.selection
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                if (selectedDate != null) {
+                    //  binding.txtDate.text = convertDateFormat(sdf.format(selectedDate))
+                    txtselectdate.text = sdf.format(selectedDate)
+                }
+            }
+            datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+        txtselecttime.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(
+                this,
+                { _, selectedHour, selectedMinute ->
+                    val selectedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+                    txtselecttime.text = selectedTime
+                }, hour, minute, true
+            ) // true for 24-hour format
+
+            timePickerDialog.show()
+        }
+        et_report_cancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        et_report_Yes.setOnClickListener {
+
+            RescheduleEventController(this, object : IRescheduleEventView {
+                override fun onRescheduleEvent() {
+                    Log.e("onAddReport=", "Report is added successfully");
+                    //    hideLoader()
+                    showToast("Event Rescheduled successfully")
+                    dialog.dismiss()
+                }
+
+                override fun showLoader() {}
+
+                override fun showLoader(message: String?) {}
+
+                override fun hideLoader() {}
+
+                override fun onFail(message: String?, e: Exception?) {
+                    Log.e("OnFailMessage=", message!!);
+                    hideLoader()
+                    showToast("Failed to submit report: $message")
+                }
+            }).CallRescheduleEvent(
+                userId!!,
+                token!!,
+                eventId!!,
+                txtselectdate.text.toString(),
+                txtselecttime.text.toString()
+            )
+        }
+
+        dialog.show()
+    }
+    private fun openRoasterDialog() {
+
+
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_reschedule)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val txtselectdate = dialog.findViewById<TextView>(R.id.txtselectdate)
+        val txtselecttime = dialog.findViewById<TextView>(R.id.txtselecttime)
+        val et_report_cancel = dialog.findViewById<TextView>(R.id.et_report_cancel)
+        val et_report_Yes = dialog.findViewById<TextView>(R.id.et_report_Yes)
+        val tv_report_title = dialog.findViewById<TextView>(R.id.tv_report_title)
+        val tv_description = dialog.findViewById<TextView>(R.id.tv_description)
+
+        et_report_Yes.text="Schedule"
+        tv_report_title.text="Select date of roaster filling"
+        tv_description.text="For coach to select the participant on specific date and time"
         val eventId = intent.getStringExtra("eventId")
         val userId = storedata!!.getString(Constants.COACH_ID)
         val token = storedata!!.getString(Constants.COACH_TOKEN)
