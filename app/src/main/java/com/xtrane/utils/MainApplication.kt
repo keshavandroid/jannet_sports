@@ -16,10 +16,21 @@ import com.stripe.android.PaymentConfiguration
 class MainApplication:Application(), LifecycleObserver,
     Application.ActivityLifecycleCallbacks {
 
+    companion object {
+        private const val TAG = "MainApplication"
+        private var instance: MainApplication? = null
+        var onAppForegrounded = false
 
+        fun applicationContext() : Context {
+            return instance!!.applicationContext
+        }
+
+        fun onAppForground() : Boolean {
+            return onAppForegrounded
+        }
+    }
 
     public var isAppOpened=0
-
     private var sInstance: MainApplication? = null
 
     public fun getAppContext(): MainApplication? {
@@ -33,28 +44,17 @@ class MainApplication:Application(), LifecycleObserver,
         }
     }*/
 
-    companion object {
-        private var instance: MainApplication? = null
-
-        var onAppForegrounded = false
-
-
-        fun applicationContext() : Context {
-            return instance!!.applicationContext
-        }
-
-        fun onAppForground() : Boolean {
-            return onAppForegrounded
-        }
-
-    }
-
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "onCreate() called")
         sInstance = this
+        instance = this
 
         FirebaseApp.initializeApp(this)
+
+        // Initialize Firebase notifications
+        val notificationManager = FirebaseNotificationManager(this)
+        notificationManager.initializeFirebaseNotifications()
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 

@@ -694,6 +694,17 @@ interface UserServices {
         @Query("date") date: String?,
         @Query("time") time: String?
     ): Call<ResponseBody?>?
+
+    @POST("addSelectParticipant")
+    fun addRosterFillingParticipant(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("eventId") eventId: String?,
+        @Query("coachId") coachId: String?,
+        @Query("date") date: String?,
+        @Query("time") time: String?
+    ): Call<ResponseBody?>?
+
     @GET("filterHome")
     fun getCoachFilter(
         @Query("id") id: String?,
@@ -728,7 +739,6 @@ interface UserServices {
         @Query("id") id: String?, @Query("token") token: String?,
     ): Call<ResponseBody?>?
 
-
     @POST("bookParentTicket")
     fun bookTicketParent(
         @Query("id") id: String?,
@@ -741,6 +751,14 @@ interface UserServices {
         @Query("contactNo") contactNo: String?,
         @Query("bookPaymentType") bookPaymentType: String?
     ): Call<ResponseBody?>?
+
+    @POST("selectCoachParticipant")
+    fun SelectCoachNumber(
+        @Query("id") id: String?,
+        @Query("token") token: String?,
+        @Query("eventId") event_id: String?,
+        @Query("coachId") coachId: String?,
+      ): Call<ResponseBody?>?
 
     @Multipart
     @POST("joinMainTeam")

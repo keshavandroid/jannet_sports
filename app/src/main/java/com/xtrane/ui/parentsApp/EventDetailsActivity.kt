@@ -39,6 +39,7 @@ import com.xtrane.viewinterface.IAddReportView
 import com.xtrane.viewinterface.IDeleteEventView
 import com.xtrane.viewinterface.IProfileView
 import com.xtrane.viewinterface.IRescheduleEventView
+import com.xtrane.viewinterface.IRoasterFillingEventView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -754,7 +755,6 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
     }
     private fun openRoasterDialog() {
 
-
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_reschedule)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -811,10 +811,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         }
         et_report_Yes.setOnClickListener {
 
-            RescheduleEventController(this, object : IRescheduleEventView {
-                override fun onRescheduleEvent() {
-                    Log.e("onAddReport=", "Report is added successfully");
-                    //    hideLoader()
+            RoasterFillingController(this, object : IRoasterFillingEventView {
+
+                override fun onRosterEvent() {
                     showToast("Event Rescheduled successfully")
                     dialog.dismiss()
                 }
@@ -830,10 +829,11 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
                     hideLoader()
                     showToast("Failed to submit report: $message")
                 }
-            }).CallRescheduleEvent(
-                userId!!,
-                token!!,
+            }).CallEvent(
+                userId,
+                token,
                 eventId!!,
+                userId,
                 txtselectdate.text.toString(),
                 txtselecttime.text.toString()
             )

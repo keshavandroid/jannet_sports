@@ -1,38 +1,34 @@
 package com.xtrane.ui.coachApp
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.xtrane.R
 import com.xtrane.adapter.CoachListAapter1
-import com.xtrane.adapter.MainTeamNonParticipantAapter
-import com.xtrane.adapter.NonParticipentSelectionListAdapter
-import com.xtrane.databinding.ActivityAddMainTeamBinding
 import com.xtrane.databinding.ActivityParticipantsListBinding
+import com.xtrane.retrofit.coachteamdata.CoachTeamResult
 import com.xtrane.retrofit.controller.IBaseController
-import com.xtrane.retrofit.controller.ICoachParticipantController
-import com.xtrane.retrofit.controller.INonParticipantController
-import com.xtrane.retrofit.controller.NonParticipantController
-import com.xtrane.retrofit.nonparticipantdata.NonParticipanResult
+import com.xtrane.retrofit.controller.ICoachNumberSelectionController
+import com.xtrane.retrofit.controller.SelectCoachNumberController
 import com.xtrane.retrofit.response.EventDetailResponse
 import com.xtrane.ui.BaseActivity
 import com.xtrane.utils.Constants
 import com.xtrane.utils.StoreUserData
-import com.xtrane.viewinterface.INonParticipanView
+import com.xtrane.viewinterface.ICoachTeamListView
 
 
-class CoachListActivity : BaseActivity() {
+class CoachListActivity : BaseActivity(), ICoachTeamListView {
+
     override fun getController(): IBaseController? {
         return null
     }
 
-    lateinit var controller: ICoachParticipantController
+    lateinit var controller: ICoachNumberSelectionController
     private lateinit var binding: ActivityParticipantsListBinding
-    var eventId: String? =null
+    var eventId: String? = null
     lateinit var eventdata: EventDetailResponse
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_participants_list)
@@ -44,13 +40,11 @@ class CoachListActivity : BaseActivity() {
         val id = storeData.getString(Constants.COACH_ID)
         val token = storeData.getString(Constants.COACH_TOKEN)
 
-        if (intent.hasExtra("eventId"))
-        {
+        if (intent.hasExtra("eventId")) {
             eventId = intent.getStringExtra("eventId")
-            Log.e("eventID","======$eventId")
+            Log.e("eventID", "======$eventId")
         }
-        if (intent.hasExtra("eventdetailresponse"))
-        {
+        if (intent.hasExtra("eventdetailresponse")) {
             eventdata = intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse
             Log.e("eventdata=", eventdata.getResult()!!.size.toString())
         }
@@ -58,19 +52,29 @@ class CoachListActivity : BaseActivity() {
         setTopBar()
 
         for (i in 0 until eventdata.getResult()!!.size) {
-                val coachadpter = CoachListAapter1(this,
-                    eventdata.getResult()!![i]!!.getCoachArray()!!
-                )
-                binding.rvParticipantListInTeamMain.adapter = coachadpter
+            val coachadpter = CoachListAapter1(
+                eventdata.getResult()!![i]!!.getCoachArray()!!
+            )
+            binding.rvParticipantListInTeamMain.adapter = coachadpter
         }
+        controller = SelectCoachNumberController(this, this)
 
         binding.txtCreateTeam.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    CreateTeamActivity::class.java
-                )
-            )
+            // Get selected coach IDs from the adapter (assuming only one adapter instance is being used)
+            var selectedCoachIds: List<String> = emptyList()
+            val adapter = binding.rvParticipantListInTeamMain.adapter
+
+            if (adapter is CoachListAapter1) {
+                // Access the selectedCoachIds property from the adapter
+                selectedCoachIds = adapter.selectedCoachIds
+            }
+            // Now selectedCoachIds contains the chosen coach IDs and can be sent or logged
+            Log.e("CoachListActivity", "Selected Coach IDs: $selectedCoachIds")
+            // Combine all selectedCoachIds into a comma-separated string
+            val selectedCoachIdsString = selectedCoachIds.joinToString(separator = ",")
+            Log.e("CoachListActivity", "Comma separated coach IDs: $selectedCoachIdsString")
+
+            controller.callCoachNumberListApi(id, token, eventId.toString(), selectedCoachIdsString)
         }
     }
 
@@ -78,6 +82,14 @@ class CoachListActivity : BaseActivity() {
         binding.participantsListSelection.imgBack.visibility = View.VISIBLE
         binding.participantsListSelection.imgBack.setOnClickListener { finish() }
         binding.participantsListSelection.txtTitle.text = getString(R.string.coach)
+    }
+
+    override fun onCoachTeamListSuccess(response: List<CoachTeamResult?>?) {
+        Log.e(ContentValues.TAG, "onCoachTeamListSuccess:"+response.toString())
+    }
+
+    override fun onFail(message: String?, e: Exception?) {
+        Log.e(ContentValues.TAG, "onFail:"+message.toString())
     }
 
 }

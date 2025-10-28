@@ -1,5 +1,6 @@
 package com.xtrane;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -20,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.xtrane.utils.MainApplication;
+import com.xtrane.utils.FirebaseNotificationHelper;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -30,63 +32,80 @@ import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "LLLL_Firebase: ";
+    private static final String TAG = "FirebaseMessagingService";
     NotificationManager notificationManager;
     NotificationCompat.Builder notificationBuilder;
 
-    public static final String ANDROID_CHANNEL_ID = "com.xtrane";
-    public static final String ANDROID_CHANNEL_NAME = "ANDROID CHANNEL";
+    public static final String ANDROID_CHANNEL_ID = FirebaseNotificationHelper.CHANNEL_ID;
+    public static final String ANDROID_CHANNEL_NAME = FirebaseNotificationHelper.CHANNEL_NAME;
     Context context;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        context = this;
+        // Create notification channel
+        FirebaseNotificationHelper helper = new FirebaseNotificationHelper(this);
+        helper.createNotificationChannel();
+    }
 
-
+    @SuppressLint("LongLogTag")
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.e(TAG, "onMessageReceived Data" + remoteMessage.getData());
-        Log.e(TAG, "onMessageReceived Notification" + remoteMessage.getNotification());
-
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+        Log.d(TAG, "Message notification payload: " + remoteMessage.getNotification());
 
         context = this;
 
+        // Play notification sound
         try {
             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
             r.play();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Error playing notification sound", e);
         }
 
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-        }
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             setupChannels();
         }
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
-
-        /*if (!MainApplication.onAppForegrounded) {
-            Log.e("LLLLLL_APP: ", String.valueOf(MainApplication.onAppForegrounded));
-            if (remoteMessage.getData().size() > 0) {
-                sendNotification(remoteMessage.getData());
-            }
-        }*/
-
+        // Handle both data and notification payloads
         if (remoteMessage.getData().size() > 0) {
-            sendNotification(remoteMessage.getData());
+            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            sendNotification(remoteMessage.getData(), remoteMessage.getNotification());
+        } else if (remoteMessage.getNotification() != null) {
+            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            sendNotification(null, remoteMessage.getNotification());
         }
+    }
 
+    @SuppressLint("LongLogTag")
+    @Override
+    public void onNewToken(String token) {
+        Log.d(TAG, "Refreshed token: " + token);
+        
+        // Send the new token to your server
+        sendRegistrationToServer(token);
+    }
 
+    /**
+     * Send token to server for storing and sending notifications
+     */
+    @SuppressLint("LongLogTag")
+    private void sendRegistrationToServer(String token) {
+        // TODO: Implement server call to save the token
+        Log.d(TAG, "Token should be sent to server: " + token);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setupChannels() {
-        AudioAttributes attributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build();
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .build();
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         CharSequence adminChannelName = ANDROID_CHANNEL_NAME;
         NotificationChannel adminChannel;
@@ -95,72 +114,65 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         adminChannel.setLightColor(Color.RED);
         adminChannel.enableVibration(true);
         adminChannel.setSound(defaultSoundUri, attributes);
+        adminChannel.setDescription(FirebaseNotificationHelper.CHANNEL_DESCRIPTION);
         if (notificationManager != null) {
             notificationManager.createNotificationChannel(adminChannel);
         }
     }
 
     /**
-     * Schedule a job using FirebaseJobDispatcher.
-     */
-
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private void handleNow() {
-        Log.d(TAG, "Short lived task is done.");
-    }
-
-    /**
      * Create and show a simple notification containing the received FCM message.
      *
-     * @param messageBody FCM message body received.
+     * @param dataPayload FCM data payload received.
+     * @param notificationPayload FCM notification payload received.
      */
-    private void sendNotification(Map<String, String> messageBody) {
+    @SuppressLint("LongLogTag")
+    private void sendNotification(Map<String, String> dataPayload, RemoteMessage.Notification notificationPayload) {
 
         try {
-            Log.d("LLLL_Mess_Body: ", messageBody.toString() + "");
+            Log.d(TAG, "Sending notification with data: " + dataPayload);
+            
             Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
             notificationBuilder = new NotificationCompat.Builder(context, ANDROID_CHANNEL_ID);
 
-            JSONObject object = new JSONObject(messageBody);
-            //   JSONObject object = new JSONObject(messageBody.toString());
+            String title = "Jannet";
+            String message = "You have a new notification";
 
-            String message = object.optString("body");
-            String title = object.optString("body");
-            Log.d("LLLL_Mess_Body: ", message + " == " +title);
+            // Extract title and message from notification payload or data payload
+            if (notificationPayload != null) {
+                title = notificationPayload.getTitle() != null ? notificationPayload.getTitle() : title;
+                message = notificationPayload.getBody() != null ? notificationPayload.getBody() : message;
+            } else if (dataPayload != null) {
+                // Try to extract from data payload
+                title = dataPayload.get("title") != null ? dataPayload.get("title") : title;
+                message = dataPayload.get("body") != null ? dataPayload.get("body") : message;
+            }
 
-            //new added
-            /*PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                    new Intent(this, FirstActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-            notificationBuilder.setContentIntent(contentIntent);*/
+            Log.d(TAG, "Notification - Title: " + title + ", Message: " + message);
 
+            // Create intent for notification click
+            Intent intent = new Intent(this, com.xtrane.ui.commonApp.NotificationsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-
-
-            int id_notifaciton = (int) System.currentTimeMillis();
+            int notificationId = (int) System.currentTimeMillis();
             notificationBuilder
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setLargeIcon(icon)//a resource for your custom small icon
+                    .setLargeIcon(icon)
                     .setContentTitle(title)
-                    .setWhen(System.currentTimeMillis())
-                    .setShowWhen(true)//the "title" value you sent in your notification
-                    .setContentText(message) //ditto
-                    .setAutoCancel(true)  //dismisses the notification on click
-                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+                    .setContentText(message)
+                    .setAutoCancel(true)
+                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                    .setContentIntent(pendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setDefaults(NotificationCompat.DEFAULT_ALL);
 
-            //new
-            /*JSONObject jsonObject = new JSONObject(object.optString("data"));
-            Log.e("WOW_NOTI_PAYLOAD",jsonObject.toString());*/
-            /*notificationBuilder.setContentIntent(buildContentIntentLike(context, FirstActivity.class,
-                    object.getInt("category"),
-                    object.getInt("subcategory")));*/
-
-
-            notificationManager.notify(id_notifaciton /* ID of notification */, notificationBuilder.build());
+            notificationManager.notify(notificationId, notificationBuilder.build());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Error creating notification", e);
         }
     }
 
