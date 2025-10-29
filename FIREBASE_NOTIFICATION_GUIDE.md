@@ -179,3 +179,4 @@ To send notifications from your server, you can use the Firebase Admin SDK or RE
 - Validate notification payloads on the server
 - Implement proper authentication for notification endpoints
 - Use HTTPS for all server communications
+

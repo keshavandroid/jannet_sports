@@ -1,6 +1,7 @@
 package com.xtrane.ui.commonApp
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.xtrane.R
 import com.xtrane.databinding.ActivityFirebaseNotificationDemoBinding
+import com.xtrane.retrofit.controller.IBaseController
 import com.xtrane.ui.BaseActivity
 import com.xtrane.utils.FirebaseNotificationHelper
 import com.xtrane.utils.FirebaseNotificationManager
@@ -18,7 +20,7 @@ import com.xtrane.utils.FirebaseNotificationManager
  * Demo activity showing how to use Firebase notifications
  * This can be used as a reference for implementing notifications in other activities
  */
-class FirebaseNotificationDemoActivity : BaseActivity() {
+abstract class FirebaseNotificationDemoActivity : BaseActivity() {
 
     private lateinit var binding: ActivityFirebaseNotificationDemoBinding
     private lateinit var notificationHelper: FirebaseNotificationHelper
@@ -28,6 +30,8 @@ class FirebaseNotificationDemoActivity : BaseActivity() {
         private const val TAG = "FirebaseNotificationDemo"
         private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 1001
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,7 @@ class FirebaseNotificationDemoActivity : BaseActivity() {
         setupClickListeners()
     }
 
+    @SuppressLint("LongLogTag")
     private fun initializeFirebaseNotifications() {
         notificationHelper = FirebaseNotificationHelper(this)
         notificationManager = FirebaseNotificationManager(this)
@@ -137,3 +142,4 @@ class FirebaseNotificationDemoActivity : BaseActivity() {
         }
     }
 }
+

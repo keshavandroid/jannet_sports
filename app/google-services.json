@@ -1,132 +1,26 @@
 {
   "project_info": {
-    "project_number": "888061771490",
-    "firebase_url": "https://jannet-tchs-default-rtdb.firebaseio.com",
-    "project_id": "jannet-tchs",
-    "storage_bucket": "jannet-tchs.appspot.com"
+    "project_number": "1001274975997",
+    "project_id": "x-trane",
+    "storage_bucket": "x-trane.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:888061771490:android:127d95a81a3f22a0c068bb",
+        "mobilesdk_app_id": "1:1001274975997:android:d5948807cbc0b6de410094",
         "android_client_info": {
           "package_name": "com.xtrane"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "888061771490-snod67jmd6k93dsnupta9pe8a3t8h5oj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.xtrane",
-            "certificate_hash": "73566fd6653aca5fc4de84f717723406e0f0a494"
-          }
-        },
-        {
-          "client_id": "888061771490-pm8qpaltb2562mkch75193uo96augnhk.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAOo94EYvpwBbyv6B-OjJ8J3pUAdfO85HY"
+          "current_key": "AIzaSyB6sN3H7u76Qq8lnuJED4GRtAogFex7R3g"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "888061771490-pm8qpaltb2562mkch75193uo96augnhk.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "888061771490-966glorlkhm8q3s252ks1d1kt3req765.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.TCHSApp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:888061771490:android:59d7a1c6a9c3b86ec068bb",
-        "android_client_info": {
-          "package_name": "com.jannet.tchs"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "888061771490-iec7mn626haf67i9kckiti7j5c3agtmk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.jannet.tchs",
-            "certificate_hash": "58a85cb011d447fa6477e3deb2f38ca4a9443b51"
-          }
-        },
-        {
-          "client_id": "888061771490-pm8qpaltb2562mkch75193uo96augnhk.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAOo94EYvpwBbyv6B-OjJ8J3pUAdfO85HY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "888061771490-pm8qpaltb2562mkch75193uo96augnhk.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "888061771490-966glorlkhm8q3s252ks1d1kt3req765.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.TCHSApp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:888061771490:android:894272e9e3cc5eabc068bb",
-        "android_client_info": {
-          "package_name": "com.tchs.internalemployee"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "888061771490-pm8qpaltb2562mkch75193uo96augnhk.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAOo94EYvpwBbyv6B-OjJ8J3pUAdfO85HY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "888061771490-pm8qpaltb2562mkch75193uo96augnhk.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "888061771490-966glorlkhm8q3s252ks1d1kt3req765.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.TCHSApp"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

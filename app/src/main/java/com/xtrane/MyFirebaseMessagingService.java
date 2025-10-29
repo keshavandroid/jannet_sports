@@ -52,6 +52,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @SuppressLint("LongLogTag")
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        Log.d(TAG, "From: " + "onMessageReceived");
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Message data payload: " + remoteMessage.getData());

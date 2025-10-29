@@ -24,7 +24,7 @@
         android:text="FCM Token: Not available"
         android:textSize="14sp"
         android:layout_marginBottom="16dp"
-        android:background="@color/light_gray"
+        android:background="@color/gray"
         android:padding="12dp"
         android:textColor="@color/black" />
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="Get FCM Token"
         android:layout_marginBottom="8dp"
-        android:background="@color/primary_color"
+        android:background="@color/teal_200"
         android:textColor="@color/white" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="Check Notification Permission"
         android:layout_marginBottom="8dp"
-        android:background="@color/secondary_color"
+        android:background="@color/green2"
         android:textColor="@color/white" />
 
     <Button
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:text="Request Notification Permission"
         android:layout_marginBottom="16dp"
-        android:background="@color/accent_color"
+        android:background="@color/green2"
         android:textColor="@color/white" />
 
     <TextView
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:text="Subscribe to General Notifications"
         android:layout_marginBottom="8dp"
-        android:background="@color/green"
+        android:background="@color/green2"
         android:textColor="@color/white" />
 
     <Button
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:text="Subscribe to Coach Notifications"
         android:layout_marginBottom="8dp"
-        android:background="@color/blue"
+        android:background="@color/blue1"
         android:textColor="@color/white" />
 
     <Button
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:text="Subscribe to Parent Notifications"
         android:layout_marginBottom="16dp"
-        android:background="@color/orange"
+        android:background="@color/grey1"
         android:textColor="@color/white" />
 
     <Button
@@ -101,3 +101,4 @@
         android:textColor="@color/white" />
 
 </LinearLayout>
+
