@@ -118,8 +118,6 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
     }
 
     private fun callDeviceRegister(id: String, email: String) {
-
-
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token: String? ->
             if (!TextUtils.isEmpty(token)) {
                 /*Log.e("newToken", newToken);*/

@@ -12,7 +12,7 @@ android {
     namespace "com.xtrane"
     defaultConfig {
         applicationId 'com.xtrane'
-        minSdkVersion 21
+        minSdkVersion 23
         versionCode 3
         versionName "1.0"
         compileSdk 35 // Adjust this according to the AGP version compatibility
@@ -81,14 +81,18 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation 'com.google.maps.android:android-maps-utils:1.1.0' // Updated to be compatible with SDK 33
     implementation 'com.google.android.gms:play-services-maps:18.1.0' // Updated to be compatible with SDK 33
-    implementation 'com.google.firebase:firebase-core:21.1.0' // Updated to be compatible with SDK 33
-    implementation 'com.google.firebase:firebase-messaging:23.1.0' // Updated to be compatible with SDK 33
+    implementation 'com.google.firebase:firebase-core:21.1.1' // Updated to be compatible with SDK 33
+    implementation 'com.google.firebase:firebase-messaging:25.0.1' // Updated to be compatible with SDK 33
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0" // Updated to be compatible with SDK 33
 
 
 
 //        implementation project(':multispinner')
 //    implementation project(':autoimageslider')
+//    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+//    implementation("com.google.firebase:firebase-inappmessaging-display")
+//    implementation("com.google.firebase:firebase-analytics")
+
 
     implementation 'com.stripe:stripe-android:18.2.0'
 //    implementation 'com.stripe:stripe-android:19.0.0'

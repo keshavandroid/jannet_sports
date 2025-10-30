@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,22 +24,29 @@ class FirebaseNotificationManager(private val context: Context) {
     @SuppressLint("LongLogTag")
     fun initializeFirebaseNotifications() {
         Log.d(TAG, "Initializing Firebase notifications")
-        
+
         // Create notification channel
         val helper = FirebaseNotificationHelper(context)
         helper.createNotificationChannel()
-        
+
         // Get FCM token
         getFirebaseToken { token ->
             if (token != null) {
                 Log.d(TAG, "FCM Token obtained: $token")
+                Log.d(TAG, "Device Token obtained: $token")
+                val androidId = Settings.Secure.getString(
+                    context.contentResolver,
+                    Settings.Secure.ANDROID_ID
+                )
+                Log.d(TAG, "Device Token obtained: $androidId")
+
                 // TODO: Send token to your server
                 sendTokenToServer(token)
             } else {
                 Log.e(TAG, "Failed to get FCM token")
             }
         }
-        
+
         // Subscribe to general topics
         subscribeToGeneralTopics()
     }

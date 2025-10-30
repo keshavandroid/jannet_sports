@@ -11,15 +11,20 @@ import com.xtrane.ui.commonApp.AccountFragment
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 
 import android.util.Log
+import android.widget.Toast
 import com.xtrane.retrofit.ControllerInterface
 import com.xtrane.retrofit.controller.GetProfileController
 
 import com.xtrane.utils.Constants
+import com.xtrane.utils.FirebaseNotificationHelper
+import com.xtrane.utils.FirebaseNotificationManager
 import com.xtrane.utils.SharedPrefUserData
 
 
 class ParentsMainActivity : AppCompatActivity() {
     var bottomNavigationViewTop: BottomNavigationView? = null
+    private lateinit var notificationHelper: FirebaseNotificationHelper
+    private lateinit var notificationManager: FirebaseNotificationManager
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +45,8 @@ class ParentsMainActivity : AppCompatActivity() {
 
         Log.d(TAG, "onCreate: test>>" + menuView.childCount)
 
-        if(intent.hasExtra("from") && intent.getStringExtra("from")!=null&& intent.getStringExtra("from")!="null"&& intent.getStringExtra("from")!=""){
+        if(intent.hasExtra("from") && intent.getStringExtra("from")!=null&& intent.getStringExtra("from")!="null"
+            && intent.getStringExtra("from")!=""){
             GetProfileController(this,true,object:ControllerInterface{
                 override fun onFail(error: String?) {
 
@@ -50,6 +56,18 @@ class ParentsMainActivity : AppCompatActivity() {
 
                 }
             })
+        }
+        notificationHelper = FirebaseNotificationHelper(this)
+        notificationManager = FirebaseNotificationManager(this)
+
+        notificationHelper.getFirebaseToken { token ->
+            if (token != null) {
+                //binding.tvToken.text = "Token: ${token.take(20)}..."
+                Log.e("Token=",token)
+                Toast.makeText(this, "Token refreshed="+token, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
