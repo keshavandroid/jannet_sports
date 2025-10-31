@@ -53,7 +53,7 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
 
         for (i in 0 until eventdata.getResult()!!.size) {
             val coachadpter = CoachListAapter1(
-                eventdata.getResult()!![i]!!.getCoachArray()!!
+                eventdata.getResult()!![i]!!.getCoachArray()!!,""
             )
             binding.rvParticipantListInTeamMain.adapter = coachadpter
         }

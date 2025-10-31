@@ -17,10 +17,11 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
 
     var datalist: List<coachArray?> = ArrayList()
     val selectedCoachIds: MutableList<String> = mutableListOf()
+    var flag:String=""
 
-    constructor(datalist: List<coachArray?>) : this() {
+    constructor(datalist: List<coachArray?>,flag1:String) : this() {
         this.datalist = datalist
-
+        flag=flag1
     }
 
 
@@ -41,7 +42,12 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
 
         val currentItem = datalist[position]
         holder.memberName.text = currentItem!!.coachName
-        holder.cb.visibility = View.VISIBLE
+
+        if(flag.equals("y"))
+        {
+            holder.cb.visibility = View.VISIBLE
+
+        }
 
         if (currentItem.coachName!=null && currentItem.coachName!!.length>0)
         {

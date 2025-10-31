@@ -69,6 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.e(TAG, "Error playing notification sound", e);
         }
 
+        // Initialize NotificationManager here
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             setupChannels();
@@ -143,7 +144,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (notificationPayload != null) {
                 title = notificationPayload.getTitle() != null ? notificationPayload.getTitle() : title;
                 message = notificationPayload.getBody() != null ? notificationPayload.getBody() : message;
-            } else if (dataPayload != null) {
+            }
+            else if (dataPayload != null) {
                 // Try to extract from data payload
                 title = dataPayload.get("title") != null ? dataPayload.get("title") : title;
                 message = dataPayload.get("body") != null ? dataPayload.get("body") : message;
@@ -152,6 +154,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Notification - Title: " + title + ", Message: " + message);
 
             // Create intent for notification click
+
             Intent intent = new Intent(this, com.xtrane.ui.commonApp.NotificationsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             
@@ -170,7 +173,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setDefaults(NotificationCompat.DEFAULT_ALL);
 
-            notificationManager.notify(notificationId, notificationBuilder.build());
+            // Ensure notificationManager is not null before using it
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                notificationManager.notify(notificationId, notificationBuilder.build());
+                Log.d(TAG, "Notification sent with ID: " + notificationId);
+            }
 
         } catch (Exception e) {
             Log.e(TAG, "Error creating notification", e);

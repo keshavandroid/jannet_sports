@@ -1,5 +1,6 @@
 package com.xtrane.ui.coachApp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,6 +29,7 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
     lateinit var controller: INonParticipantController
     private lateinit var binding: ActivityParticipantsListBinding
     var eventId: String? =null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_participants_list)
@@ -66,6 +68,7 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
 //        }
 
         setTopBar()
+        binding.txtCreateTeam.text="Participant Selection"
         binding.txtCreateTeam.setOnClickListener {
             startActivity(
                 Intent(
@@ -82,11 +85,12 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
         binding.participantsListSelection.txtTitle.text = getString(R.string.participants)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onNonParticipantSuccess(response: List<NonParticipanResult?>?) {
 
         hideLoader()
 
-        var TeamAdapger = MainTeamNonParticipantAapter(this, response!!)
+        val TeamAdapger = MainTeamNonParticipantAapter(this, response!!,"")
         binding.rvParticipantListInTeamMain.adapter = TeamAdapger
         TeamAdapger.notifyDataSetChanged()
 

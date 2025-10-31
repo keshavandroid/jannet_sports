@@ -78,10 +78,13 @@ class ParentBookActivity : BaseActivity(), IChildInfoView {
 
                 }
                 binding.txtFess.text = finalfees.toString()
+                binding.txtBook.visibility=View.VISIBLE
             } else {
                 parentID = ""
                 finalfees = finalfees-fees.toInt()
                 binding.txtFess.text = finalfees.toString()
+                binding.txtBook.visibility=View.GONE
+
             }
         }
 
