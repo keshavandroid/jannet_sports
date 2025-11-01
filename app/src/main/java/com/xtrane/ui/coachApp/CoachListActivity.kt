@@ -28,6 +28,7 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
     private lateinit var binding: ActivityParticipantsListBinding
     var eventId: String? = null
     lateinit var eventdata: EventDetailResponse
+    var showbtn: String? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +52,15 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
 
         setTopBar()
 
+        if (showbtn.equals("y"))
+        {
+            binding.txtCreateTeam.visibility=View.VISIBLE
+        }
+        else
+        {
+            binding.txtCreateTeam.visibility=View.GONE
+
+        }
         for (i in 0 until eventdata.getResult()!!.size) {
             val coachadpter = CoachListAapter1(
                 eventdata.getResult()!![i]!!.getCoachArray()!!,""
@@ -74,7 +84,7 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
             val selectedCoachIdsString = selectedCoachIds.joinToString(separator = ",")
             Log.e("CoachListActivity", "Comma separated coach IDs: $selectedCoachIdsString")
 
-            controller.callCoachNumberListApi(id, token, eventId.toString(), selectedCoachIdsString)
+            controller.callCoachNumberListApi(id, token, eventdata.getResult()!![0]!!.getId().toString(), selectedCoachIdsString)
         }
     }
 

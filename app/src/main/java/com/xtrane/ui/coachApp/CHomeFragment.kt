@@ -1,16 +1,25 @@
 package com.xtrane.ui.coachApp
 
 import android.app.Dialog
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.provider.Settings
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import com.xtrane.R
 import com.xtrane.adapter.CoachFilterListAdapter
 import com.xtrane.adapter.EventListAdapter
@@ -31,7 +40,7 @@ import com.xtrane.utils.StoreUserData
 import com.xtrane.viewinterface.*
 
 class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
-    ICoachSportsListVIew, ICoachFilterView {
+    ICoachSportsListVIew, ICoachFilterView,IAddMatchView {
 
     lateinit var controller: ICoachEventListController
     lateinit var coachomeFilterController: ICoachFilterController
@@ -42,10 +51,24 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
     var sportsListResponse: List<CoachSportsListResult?>? = null
     lateinit var coachSportsListCOntroller: ICoachSportsListController
     private lateinit var binding: FragmentHomeCoachBinding
+    lateinit var deviceRegisterController: IDeviceRegisterController
+    var newToken: String? = null
 
     private var id = "";
     private var token = "";
+    private var email="";
 
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val msg = intent?.getStringExtra("message")
+            //  Toast.makeText(requireContext(), "FCM: $msg", Toast.LENGTH_SHORT).show()
+
+            Log.d("BroadcastReceiver=", "receiver : " + msg)
+
+            showCustomDialog(msg)
+
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,16 +83,62 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
         id = storedata.getString(Constants.COACH_ID)
         token = storedata.getString(Constants.COACH_TOKEN)
+        email = storedata.getString(Constants.COACH_Email)
+
         val user_type = storedata.getString(Constants.COACH_TYPE)
 
         showLoader()
 
         controller = CoachEventListController(requireActivity(), this)
         controller.callCoachEventListApi(id, token, id, "all")
+        deviceRegisterController = DeviceRegisterController(requireActivity(), this)
+        Handler().postDelayed({
+            callDeviceRegister(id!!, email!!)
+        }, 5000)
 
         return binding.root
 
 //        return view
+    }
+    private fun callDeviceRegister(id: String, email: String) {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token: String? ->
+            if (!TextUtils.isEmpty(token)) {
+                /*Log.e("newToken", newToken);*/
+                //newToken = token
+            } else {
+                /*Log.w(TAG, "token should not be null...");*/
+            }
+        }.addOnFailureListener { e: java.lang.Exception? ->
+
+        }.addOnCanceledListener {
+
+        }.addOnCompleteListener(fun(task: Task<String>) {
+            Log.d("NEWTOKEN", "This is the token : " + task.result)
+            newToken = task.result.toString()
+
+            try {
+
+               val deviceID = Settings.Secure.getString(
+                    requireActivity().contentResolver,
+                    Settings.Secure.ANDROID_ID
+                )
+
+                Log.d("FireToken", "TOKEN : " + newToken + "  deviceID :" + deviceID)
+
+//                 jsonObject.put("regId", newToken)
+//                 jsonObject.put("user_id", id)
+//                 jsonObject.put("device_id", deviceID)
+//                 jsonObject.put("email", email)
+
+                deviceRegisterController.callDeviceRegister(newToken!!, id, deviceID, email)
+
+
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+
+
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,11 +147,20 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         val storedata = StoreUserData(requireContext())
         val id = storedata.getString(Constants.COACH_ID)
         val token = storedata.getString(Constants.COACH_TOKEN)
-        val user_type = storedata.getString(Constants.COACH_TYPE)
+//        val user_type = storedata.getString(Constants.COACH_TYPE)
+
+        setTopBar()
 
         coachomeFilterController = CoachFilterController(requireActivity(), this)
 
-        setTopBar()
+        val type = arguments?.getString("type")
+        val message = arguments?.getString("message")
+
+        Log.e("CoachHometype=", type.toString()+"===")
+
+        if (type.equals("EventReminder")) {
+            showCustomDialog(message)
+        }
 
         binding.topbar.imgHistory.setOnClickListener {
 
@@ -362,6 +440,9 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
     }
 
+    override fun addMatchSuccessful() {
+    }
+
     override fun showLoader() {
         if (loadingDialog != null && loadingDialog!!.isShowing()) return
         hideLoader()
@@ -398,5 +479,32 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
     }
 
+    private fun showCustomDialog(msg: String?) {
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.dialog_custom)
 
+        val btnOk = dialog.findViewById<Button>(R.id.btnOk)
+        val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
+        val tvMessage = dialog.findViewById<TextView>(R.id.tvMessage)
+
+        tvTitle.text = "Xtrane"
+        tvMessage.text =msg
+
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(requireContext())
+            .registerReceiver(receiver, IntentFilter("FCM_MESSAGE"))
+    }
+    override fun onStop() {
+        LocalBroadcastManager.getInstance(requireContext())
+            .unregisterReceiver(receiver)
+        super.onStop()
+    }
 }

@@ -39,7 +39,6 @@ class UserTypeSelectionActivity : AppCompatActivity() {
             )
             finish()
         }
-
         when {
             isUserLoggedIn() == 3 -> {
                 val userType = SharedPrefUserData(this).getSavedData().usertype

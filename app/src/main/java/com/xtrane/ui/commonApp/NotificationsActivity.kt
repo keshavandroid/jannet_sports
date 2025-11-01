@@ -24,6 +24,7 @@ class NotificationsActivity : BaseActivity(),INotificationView {
     override fun getController(): IBaseController? {
         return null
     }
+
     private lateinit var binding: ActivityNotificationsBinding
 
 

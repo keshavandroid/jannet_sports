@@ -1,124 +1,122 @@
-package com.xtrane;
+package com.xtrane
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.media.AudioAttributes;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.Settings;
-import android.util.Log;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.media.AudioAttributes
+import android.media.RingtoneManager
+import android.os.Build
+import android.provider.Settings
+import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import com.xtrane.ui.coachApp.CoachMainActivity
+import com.xtrane.ui.commonApp.NotificationsActivity
+import com.xtrane.ui.parentsApp.ParentsMainActivity
+import com.xtrane.utils.FirebaseNotificationHelper
+import com.xtrane.utils.SharedPrefUserData
 
-import com.xtrane.utils.MainApplication;
-import com.xtrane.utils.FirebaseNotificationHelper;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
+class MyFirebaseMessagingService : FirebaseMessagingService() {
+    var notificationManager: NotificationManager? = null
+    var notificationBuilder: NotificationCompat.Builder? = null
 
-import org.json.JSONObject;
-
-import java.util.Map;
-
-
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
-
-    private static final String TAG = "FirebaseMessagingService";
-    NotificationManager notificationManager;
-    NotificationCompat.Builder notificationBuilder;
-
-    public static final String ANDROID_CHANNEL_ID = FirebaseNotificationHelper.CHANNEL_ID;
-    public static final String ANDROID_CHANNEL_NAME = FirebaseNotificationHelper.CHANNEL_NAME;
-    Context context;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        context = this;
+    var context: Context? = null
+    var type: String? = null
+    override fun onCreate() {
+        super.onCreate()
+        context = this
         // Create notification channel
-        FirebaseNotificationHelper helper = new FirebaseNotificationHelper(this);
-        helper.createNotificationChannel();
+        val helper = FirebaseNotificationHelper(this)
+        helper.createNotificationChannel()
     }
 
     @SuppressLint("LongLogTag")
-    @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG, "From: " + "onMessageReceived");
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        Log.d(TAG, "From: " + "onMessageReceived")
 
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-        Log.d(TAG, "Message notification payload: " + remoteMessage.getNotification());
+        Log.d(TAG, "From: " + remoteMessage.from)
+        // Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+        Log.d(TAG, "Message notification payload: " + remoteMessage.notification)
 
-        context = this;
+        context = this
 
         // Play notification sound
         try {
-            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-            r.play();
-        } catch (Exception e) {
-            Log.e(TAG, "Error playing notification sound", e);
+            val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val r = RingtoneManager.getRingtone(applicationContext, notification)
+            r.play()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error playing notification sound", e)
         }
 
         // Initialize NotificationManager here
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            setupChannels();
+            setupChannels()
         }
 
         // Handle both data and notification payloads
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            sendNotification(remoteMessage.getData(), remoteMessage.getNotification());
-        } else if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            sendNotification(null, remoteMessage.getNotification());
+        if (remoteMessage.data.size > 0) {
+            Log.d(TAG, "Message data payload: " + remoteMessage.data)
+            sendNotification(remoteMessage.data, remoteMessage.notification)
+        } else if (remoteMessage.notification != null) {
+            Log.d(
+                TAG, "Message Notification Body: " + remoteMessage.notification!!
+                    .body
+            )
+            sendNotification(null, remoteMessage.notification)
         }
     }
 
     @SuppressLint("LongLogTag")
-    @Override
-    public void onNewToken(String token) {
-        Log.d(TAG, "Refreshed token: " + token);
-        
+    override fun onNewToken(token: String) {
+        Log.d(TAG, "Refreshed token: $token")
+
+
         // Send the new token to your server
-        sendRegistrationToServer(token);
+        sendRegistrationToServer(token)
     }
 
     /**
      * Send token to server for storing and sending notifications
      */
     @SuppressLint("LongLogTag")
-    private void sendRegistrationToServer(String token) {
+    private fun sendRegistrationToServer(token: String) {
         // TODO: Implement server call to save the token
-        Log.d(TAG, "Token should be sent to server: " + token);
+        Log.d(
+            TAG,
+            "Token should be sent to server: $token"
+        )
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setupChannels() {
-        AudioAttributes attributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                .build();
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        CharSequence adminChannelName = ANDROID_CHANNEL_NAME;
-        NotificationChannel adminChannel;
-        adminChannel = new NotificationChannel(ANDROID_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_HIGH);
-        adminChannel.enableLights(true);
-        adminChannel.setLightColor(Color.RED);
-        adminChannel.enableVibration(true);
-        adminChannel.setSound(defaultSoundUri, attributes);
-        adminChannel.setDescription(FirebaseNotificationHelper.CHANNEL_DESCRIPTION);
+    private fun setupChannels() {
+        val attributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+            .build()
+        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val adminChannelName: CharSequence = ANDROID_CHANNEL_NAME
+        val adminChannel = NotificationChannel(
+            ANDROID_CHANNEL_ID,
+            adminChannelName,
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        adminChannel.enableLights(true)
+        adminChannel.lightColor = Color.RED
+        adminChannel.enableVibration(true)
+        adminChannel.setSound(defaultSoundUri, attributes)
+        adminChannel.description = FirebaseNotificationHelper.CHANNEL_DESCRIPTION
         if (notificationManager != null) {
-            notificationManager.createNotificationChannel(adminChannel);
+            notificationManager!!.createNotificationChannel(adminChannel)
         }
     }
 
@@ -129,81 +127,141 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param notificationPayload FCM notification payload received.
      */
     @SuppressLint("LongLogTag")
-    private void sendNotification(Map<String, String> dataPayload, RemoteMessage.Notification notificationPayload) {
-
+    private fun sendNotification(
+        dataPayload: Map<String, String?>?,
+        notificationPayload: RemoteMessage.Notification?
+    ) {
         try {
-            Log.d(TAG, "Sending notification with data: " + dataPayload);
-            
-            Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-            notificationBuilder = new NotificationCompat.Builder(context, ANDROID_CHANNEL_ID);
+            Log.d(
+                TAG,
+                "Sending notification with data: $dataPayload"
+            )
 
-            String title = "Jannet";
-            String message = "You have a new notification";
+            val icon = BitmapFactory.decodeResource(context!!.resources, R.mipmap.ic_launcher)
+            notificationBuilder = NotificationCompat.Builder(context!!, ANDROID_CHANNEL_ID)
+
+            var title: String? = "Xtrane"
+            var message: String? = "You have a new notification"
 
             // Extract title and message from notification payload or data payload
             if (notificationPayload != null) {
-                title = notificationPayload.getTitle() != null ? notificationPayload.getTitle() : title;
-                message = notificationPayload.getBody() != null ? notificationPayload.getBody() : message;
-            }
-            else if (dataPayload != null) {
-                // Try to extract from data payload
-                title = dataPayload.get("title") != null ? dataPayload.get("title") : title;
-                message = dataPayload.get("body") != null ? dataPayload.get("body") : message;
+                title = if (notificationPayload.title != null) notificationPayload.title else title
+                message =
+                    if (notificationPayload.body != null) notificationPayload.body else message
+            } else if (dataPayload != null) {
+                // Try to extract from data payloadtitle
+                title = if (dataPayload["title"] != null) dataPayload[""] else title
+                message = if (dataPayload["body"] != null) dataPayload["body"] else message
             }
 
-            Log.d(TAG, "Notification - Title: " + title + ", Message: " + message);
-
+            Log.d(
+                TAG,
+                "Notification - Title: $title, Message: $message"
+            )
             // Create intent for notification click
+            val userType: String =
+                SharedPrefUserData(applicationContext).getSavedData().usertype.toString()
+            Log.d(TAG, "Notification - userType: $userType")
+            // Create intent for notification click
+            val intent: Intent
 
-            Intent intent = new Intent(this, com.xtrane.ui.commonApp.NotificationsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            if (userType.equals("coach")) {
+                intent = Intent(this, CoachMainActivity::class.java)
+                //intent.setAction("FCM_MESSAGE")
+                intent.putExtra("from", "notification")
+                intent.putExtra("type", "EventReminder")
+                intent.putExtra("message", message)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-            int notificationId = (int) System.currentTimeMillis();
-            notificationBuilder
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setLargeIcon(icon)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setAutoCancel(true)
-                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-                    .setContentIntent(pendingIntent)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setDefaults(NotificationCompat.DEFAULT_ALL);
+            } else if (userType.equals("parent")) {
+                intent = Intent(this, ParentsMainActivity::class.java)
+                //intent.setAction("FCM_MESSAGE")
+                intent.putExtra("from", "notification")
+                intent.putExtra("type", "EventReminder")
+                intent.putExtra("message", message)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+            } else {
+                intent = Intent(this, ParentsMainActivity::class.java)
+              //  intent.setAction("FCM_MESSAGE")
+                intent.putExtra("from", "notification")
+                intent.putExtra("type", "EventReminder")
+                intent.putExtra("message", message)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+            }
+
+
+           // LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+
+
+            //            intent.putExtra("type","EventOwnerReminder");
+//            intent.putExtra("type","CoachTurn");
+            val pendingIntent = PendingIntent.getActivity(
+                this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
+            val notificationId = System.currentTimeMillis().toInt()
+
+            notificationBuilder!!
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(icon)
+                .setContentTitle("Xtrane")
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
 
             // Ensure notificationManager is not null before using it
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
             if (notificationManager != null) {
-                notificationManager.notify(notificationId, notificationBuilder.build());
-                Log.d(TAG, "Notification sent with ID: " + notificationId);
+                notificationManager.notify(notificationId, notificationBuilder!!.build())
+                Log.d(
+                    TAG,
+                    "Notification sent with ID: $notificationId"
+                )
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating notification", e)
+        }
+    }
+
+    companion object {
+        private const val TAG = "FirebaseMessagingService"
+        const val ANDROID_CHANNEL_ID: String = FirebaseNotificationHelper.CHANNEL_ID
+        const val ANDROID_CHANNEL_NAME: String = FirebaseNotificationHelper.CHANNEL_NAME
+        private fun buildContentIntentLike(
+            context: Context,
+            activityClass: Class<out Activity?>,
+            cid: Int,
+            sid: Int
+        ): PendingIntent? {
+            val intent = Intent(context, activityClass)
+            intent.putExtra("cid", cid)
+            intent.putExtra("sid", sid)
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+
+            var pendingIntent: PendingIntent? = null
+
+
+            pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                PendingIntent.getActivity(
+                    context,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                )
+            } else {
+                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             }
 
-        } catch (Exception e) {
-            Log.e(TAG, "Error creating notification", e);
+            return pendingIntent
         }
     }
-
-    private static PendingIntent buildContentIntentLike(Context context, Class<? extends Activity> activityClass,Integer cid,Integer sid) {
-        Intent intent;
-        intent = new Intent(context, activityClass);
-        intent.putExtra("cid",cid);
-        intent.putExtra("sid",sid);
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-
-        PendingIntent pendingIntent = null;
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getActivity(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
-        } else {
-            pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-
-        return pendingIntent;
-    }
-
 }

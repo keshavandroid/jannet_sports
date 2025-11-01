@@ -2,8 +2,10 @@ package com.xtrane.ui.parentsApp
 
 import android.app.Dialog
 import android.app.DatePickerDialog
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
@@ -13,10 +15,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.SeekBar
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.xtrane.R
 import com.xtrane.adapter.CustomListLocationDialogAdapter
 import com.xtrane.adapter.CustomListViewDialogAdapter
@@ -69,6 +74,38 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
 
     private lateinit var binding: FragmentHomeParentBinding
 
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val msg = intent?.getStringExtra("message")
+          //  Toast.makeText(requireContext(), "FCM: $msg", Toast.LENGTH_SHORT).show()
+
+            Log.d("BroadcastReceiver=", "receiver : " + msg)
+
+            showCustomDialog(msg)
+
+        }
+    }
+
+    private fun showCustomDialog(msg: String?) {
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.dialog_custom)
+
+        val btnOk = dialog.findViewById<Button>(R.id.btnOk)
+        val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
+        val tvMessage = dialog.findViewById<TextView>(R.id.tvMessage)
+
+        tvTitle.text = "Xtrane"
+        tvMessage.text =msg
+
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -93,16 +130,24 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         val id = SharedPrefUserData(requireActivity()).getSavedData().id
         val token = SharedPrefUserData(requireActivity()).getSavedData().token
 
-
         val email = SharedPrefUserData(requireActivity()).getSavedData().email
 
+        // Get bundle arguments from activity
+
+        val type = arguments?.getString("type")
+        val message = arguments?.getString("message")
+
+        Log.e("ParentHomeFragment=", type.toString())
+
+        if (type.equals("EventReminder")) {
+            showCustomDialog(message)
+        }
         locationController = LocationController(requireActivity(), this)
         getSportsController = GetSportsController(requireActivity(), this)
         getSportsController.callGetSportsApi(id!!, token!!)
         locationController.callLocationApi(id, token)
         sharedPreference = this.requireActivity().getSharedPreferences("PREFERENCE_NAME1", Context.MODE_PRIVATE)
         editor = sharedPreference!!.edit()
-
 
         deviceRegisterController = DeviceRegisterController(requireActivity(), this)
 
@@ -754,4 +799,14 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(requireContext())
+            .registerReceiver(receiver, IntentFilter("FCM_MESSAGE"))
+    }
+    override fun onStop() {
+        LocalBroadcastManager.getInstance(requireContext())
+            .unregisterReceiver(receiver)
+        super.onStop()
+    }
 }

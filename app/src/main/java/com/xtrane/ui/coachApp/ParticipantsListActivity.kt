@@ -29,6 +29,7 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
     lateinit var controller: INonParticipantController
     private lateinit var binding: ActivityParticipantsListBinding
     var eventId: String? =null
+    var showbtn: String? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
         val id = storeData.getString(Constants.COACH_ID)
         val token = storeData.getString(Constants.COACH_TOKEN)
 
+
         if (intent.hasExtra("eventId"))
         {
             eventId = intent.getStringExtra("eventId")
@@ -48,6 +50,16 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
 
         showLoader()
 
+        if (showbtn.equals("y"))
+        {
+            binding.txtCreateTeam.visibility=View.VISIBLE
+            binding.txtTimer.visibility=View.VISIBLE
+        }
+        else
+        {
+            binding.txtTimer.visibility=View.GONE
+
+        }
         controller = NonParticipantController(this, this)
         controller.callNonParticipantApi(id, token, eventId.toString())
 

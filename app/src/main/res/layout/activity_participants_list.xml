@@ -12,13 +12,26 @@
         layout="@layout/topbar_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txtTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="00:00"
+        android:visibility="visible"
+        android:layout_below="@+id/participants_list_selection"/>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_below="@id/participants_list_selection"
         android:layout_above="@+id/txtCreateTeam"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_below="@id/txtTimer"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_participant_list_in_team_main"
@@ -37,12 +50,12 @@
 
     <TextView
         android:id="@+id/txtCreateTeam"
-        android:layout_marginTop="@dimen/_10sdp"
+        style="@style/txtButton1"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_40sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="Coach Selection"
-        android:layout_alignParentBottom="true"
-        android:visibility="visible"
-        style="@style/txtButton1"/>
+        android:visibility="visible" />
 </RelativeLayout>

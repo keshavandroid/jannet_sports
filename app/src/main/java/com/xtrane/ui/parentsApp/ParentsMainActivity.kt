@@ -1,6 +1,7 @@
 package com.xtrane.ui.parentsApp
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,6 +12,8 @@ import com.xtrane.ui.commonApp.AccountFragment
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 
 import android.util.Log
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.xtrane.retrofit.ControllerInterface
 import com.xtrane.retrofit.controller.GetProfileController
@@ -25,16 +28,31 @@ class ParentsMainActivity : AppCompatActivity() {
     var bottomNavigationViewTop: BottomNavigationView? = null
     private lateinit var notificationHelper: FirebaseNotificationHelper
     private lateinit var notificationManager: FirebaseNotificationManager
+    var type: String = "";
+    var message: String = "";
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main_parent)
+
+        if (intent.hasExtra("type")) {
+            type = intent.getStringExtra("type").toString()
+        }
+        if (intent.hasExtra("message")) {
+            message = intent.getStringExtra("message").toString()
+        }
+        Log.e("ParentsMainActivity=", type.toString())
+
+        val pHomeFragment = PHomeFragment()
+        val bundle = Bundle()
+        bundle.putString("type", type)
+        bundle.putString("message", message)
+        pHomeFragment.arguments = bundle
 
         supportFragmentManager.beginTransaction().replace(
             R.id.nav_fragment,
-            PHomeFragment(),
+            pHomeFragment,
             "HomeFragment"
         ).commit()
 
@@ -45,9 +63,12 @@ class ParentsMainActivity : AppCompatActivity() {
 
         Log.d(TAG, "onCreate: test>>" + menuView.childCount)
 
-        if(intent.hasExtra("from") && intent.getStringExtra("from")!=null&& intent.getStringExtra("from")!="null"
-            && intent.getStringExtra("from")!=""){
-            GetProfileController(this,true,object:ControllerInterface{
+        if (intent.hasExtra("from") && intent.getStringExtra("from") != null && intent.getStringExtra(
+                "from"
+            ) != "null"
+            && intent.getStringExtra("from") != ""
+        ) {
+            GetProfileController(this, true, object : ControllerInterface {
                 override fun onFail(error: String?) {
 
                 }
@@ -63,8 +84,8 @@ class ParentsMainActivity : AppCompatActivity() {
         notificationHelper.getFirebaseToken { token ->
             if (token != null) {
                 //binding.tvToken.text = "Token: ${token.take(20)}..."
-                Log.e("Token=",token)
-                Toast.makeText(this, "Token refreshed="+token, Toast.LENGTH_SHORT).show()
+                Log.e("Token=", token)
+                Toast.makeText(this, "Token refreshed=" + token, Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show()
             }
@@ -72,6 +93,8 @@ class ParentsMainActivity : AppCompatActivity() {
     }
 
     private val TAG = "ParentsMainActivity"
+
+
     override fun onBackPressed() {
         val myFragmentC: PHomeFragment? =
             supportFragmentManager.findFragmentByTag("HomeFragment") as PHomeFragment?
@@ -89,12 +112,15 @@ class ParentsMainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.homeFragment -> selectedFragment =
                     PHomeFragment()
+
                 R.id.matchFragment -> selectedFragment =
                     MatchFragment()
+
                 R.id.coachesFragment -> selectedFragment =
                     AllCoachesFragment()
+
                 R.id.accountFragment -> {
-                    Constants.userType=0
+                    Constants.userType = 0
                     selectedFragment =
                         AccountFragment()
                 }

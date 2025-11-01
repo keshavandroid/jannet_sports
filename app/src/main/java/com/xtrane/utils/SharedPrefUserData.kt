@@ -10,9 +10,9 @@ import com.xtrane.retrofit.response.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SharedPrefUserData(context: Activity) {
+class SharedPrefUserData(context: Context) {
     private var pref: SharedPreferences? = null
-    private var activity: Activity? = context
+    private var activity: Context = context
     private var APP_KEY: String? = null
     private val TAG = javaClass.simpleName
 

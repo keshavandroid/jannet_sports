@@ -19,17 +19,26 @@ class NonParticipanResult {
     @Expose
     private var name: String? = null
 
+    @SerializedName("email")
+    @Expose
+    private var email: String? = null
+
+
     @SerializedName("image")
     @Expose
     private var image: String? = null
 
-
     private var selected: Boolean?=false
 
+    @SerializedName("isParticipant")
+    @Expose
+    private var isParticipant: String? = null
 
     fun getSelected():Boolean?{
         return  selected
-    }fun setSelected(selected:Boolean?){
+    }
+
+    fun setSelected(selected:Boolean?){
 
         this.selected = selected
     }

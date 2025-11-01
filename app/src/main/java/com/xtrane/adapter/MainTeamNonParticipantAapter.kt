@@ -49,7 +49,10 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
         if(flag.equals("y"))
         {
             holder.cb.visibility = View.VISIBLE
-
+        }
+        else
+        {
+            holder.cb.visibility = View.GONE
         }
 
         if (currentItem!!.getImage()!=null && currentItem.getImage()!!.length>0)

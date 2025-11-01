@@ -45,8 +45,11 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
 
         if(flag.equals("y"))
         {
-            holder.cb.visibility = View.VISIBLE
-
+         holder.cb.visibility = View.VISIBLE
+        }
+        else
+        {
+            holder.cb.visibility = View.GONE
         }
 
         if (currentItem.coachName!=null && currentItem.coachName!!.length>0)
