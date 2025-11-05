@@ -183,7 +183,12 @@
             android:exported="true" />
         <activity
             android:name=".ui.coachApp.CoachMainActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="OPEN_FROM_NOTIFICATION"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.parentsApp.ParentsMainActivity"
             android:exported="true" />
@@ -225,6 +230,10 @@
         <activity
             android:name=".ui.coachApp.ArchiveEventsActivity"
             android:exported="true" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="default_channel_id" />
     </application>
 
 </manifest>

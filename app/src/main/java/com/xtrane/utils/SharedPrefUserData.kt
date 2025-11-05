@@ -102,15 +102,19 @@ class SharedPrefUserData(context: Context) {
         data.sportList = ArrayList()
 
         try {
-            val count = getString(SPORTS_COUNT).toInt()
+            if (getString(SPORTS_COUNT).length>0)
+            {
+                val count = getString(SPORTS_COUNT).toInt()
 
-            for( i in 0 until count){
-                val item = Sports()
-                item.sportId=getString(SPORTS_ID)
-                item.sportName=getString(SPORTS_NAME)
+                for( i in 0 until count){
+                    val item = Sports()
+                    item.sportId=getString(SPORTS_ID)
+                    item.sportName=getString(SPORTS_NAME)
 
-                data.sportList!!.add(item)
+                    data.sportList!!.add(item)
+                }
             }
+
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }

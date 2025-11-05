@@ -204,7 +204,7 @@ class EventAboutActivity : AppCompatActivity() {
         }
         binding.txtViewCoach.setOnClickListener {
             startActivity(Intent(this, CoachListActivity::class.java
-                ).putExtra("eventdetailresponse", eventdata)
+               ).putExtra("eventdetailresponse", eventdata)
             )
         }
     }

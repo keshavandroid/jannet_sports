@@ -21,8 +21,11 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_40sdp"
         android:layout_marginBottom="@dimen/_10sdp"
+        android:textSize="@dimen/_21ssp"
         android:text="00:00"
-        android:visibility="visible"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:visibility="gone"
         android:layout_below="@+id/participants_list_selection"/>
 
     <androidx.core.widget.NestedScrollView

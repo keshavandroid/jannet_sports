@@ -98,7 +98,13 @@ class PHomeFragment : Fragment(), ILocationView, IGetSportView,
         tvMessage.text =msg
 
         btnOk.setOnClickListener {
+
+            val sharedPref = requireActivity().getSharedPreferences("NotificationData", Context.MODE_PRIVATE)
+            val notificationEditor = sharedPref.edit()
+            notificationEditor.clear()
+            notificationEditor.apply()
             dialog.dismiss()
+
         }
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)

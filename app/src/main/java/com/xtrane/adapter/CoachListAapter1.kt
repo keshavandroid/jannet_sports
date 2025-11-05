@@ -43,7 +43,7 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
         val currentItem = datalist[position]
         holder.memberName.text = currentItem!!.coachName
 
-        if(flag.equals("y"))
+        if(flag.equals("yes"))
         {
          holder.cb.visibility = View.VISIBLE
         }

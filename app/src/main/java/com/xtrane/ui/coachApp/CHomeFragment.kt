@@ -35,12 +35,13 @@ import com.xtrane.retrofit.locationdata.LocationResult
 import com.xtrane.ui.coachApp.addEventScreen.AddEventActivity
 import com.xtrane.ui.parentsApp.EventDetailsActivity
 import com.xtrane.utils.Constants
+import com.xtrane.utils.Constants.eventDetailTop
 import com.xtrane.utils.CustomProgressDialog
 import com.xtrane.utils.StoreUserData
 import com.xtrane.viewinterface.*
 
 class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
-    ICoachSportsListVIew, ICoachFilterView,IAddMatchView {
+    ICoachSportsListVIew, ICoachFilterView, IAddMatchView {
 
     lateinit var controller: ICoachEventListController
     lateinit var coachomeFilterController: ICoachFilterController
@@ -56,7 +57,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
     private var id = "";
     private var token = "";
-    private var email="";
+    private var email = "";
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -65,10 +66,11 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
             Log.d("BroadcastReceiver=", "receiver : " + msg)
 
-            showCustomDialog(msg)
+            showCustomDialog(msg,"","")
 
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -92,6 +94,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         controller = CoachEventListController(requireActivity(), this)
         controller.callCoachEventListApi(id, token, id, "all")
         deviceRegisterController = DeviceRegisterController(requireActivity(), this)
+
         Handler().postDelayed({
             callDeviceRegister(id!!, email!!)
         }, 5000)
@@ -100,6 +103,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
 //        return view
     }
+
     private fun callDeviceRegister(id: String, email: String) {
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token: String? ->
             if (!TextUtils.isEmpty(token)) {
@@ -118,7 +122,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
             try {
 
-               val deviceID = Settings.Secure.getString(
+                val deviceID = Settings.Secure.getString(
                     requireActivity().contentResolver,
                     Settings.Secure.ANDROID_ID
                 )
@@ -155,11 +159,12 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
         val type = arguments?.getString("type")
         val message = arguments?.getString("message")
+        val title = arguments?.getString("title")
 
-        Log.e("CoachHometype=", type.toString()+"===")
+        Log.e("CoachHometype=", type.toString() + "===")
 
-        if (type.equals("EventReminder")) {
-            showCustomDialog(message)
+        if (type != null && type.length > 0) {
+            showCustomDialog(message, type, title!!)
         }
 
         binding.topbar.imgHistory.setOnClickListener {
@@ -390,8 +395,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
             hideLoader()
             setListAdapter(response!!.reversed())
 
-        }
-        else {
+        } else {
             hideLoader()
         }
         val storedata = StoreUserData(requireContext())
@@ -479,7 +483,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
     }
 
-    private fun showCustomDialog(msg: String?) {
+    private fun showCustomDialog(msg: String?, type: String,title:String) {
         val dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.dialog_custom)
 
@@ -487,21 +491,52 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
         val tvMessage = dialog.findViewById<TextView>(R.id.tvMessage)
 
-        tvTitle.text = "Xtrane"
-        tvMessage.text =msg
+        tvTitle.text = title
+        tvMessage.text = msg
+        val eventId = arguments?.getString("eventId")
 
         btnOk.setOnClickListener {
+            val sharedPref =
+                requireActivity().getSharedPreferences("NotificationData", Context.MODE_PRIVATE)
+            val notificationEditor = sharedPref.edit()
+            notificationEditor.clear()
+            notificationEditor.apply()
+
+
+            if (type.equals("DraftStartingSoon")) {
+
+                val intent = Intent(requireContext(), ParticipantsListActivity::class.java)
+               //val intent = Intent(requireContext(), CoachListActivity::class.java)
+                intent.putExtra("eventId",eventId)
+                intent.putExtra("showbtn","yes")
+                requireContext().startActivity(intent)
+            }
+            if (type.equals("CoachTurn")) {
+
+                Log.e("Constants.eventDetailTop", eventDetailTop!!.getEventName()!!)
+                val intent = Intent(requireContext(), ParticipantsListActivity::class.java)
+                intent.putExtra("eventId",eventId)
+                intent.putExtra("showbtn","yes")
+                requireContext().startActivity(intent)
+            }
+//            else
+//            {
+//                dialog.dismiss()
+//
+//            }
             dialog.dismiss()
         }
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
     }
+
     override fun onStart() {
         super.onStart()
         LocalBroadcastManager.getInstance(requireContext())
             .registerReceiver(receiver, IntentFilter("FCM_MESSAGE"))
     }
+
     override fun onStop() {
         LocalBroadcastManager.getInstance(requireContext())
             .unregisterReceiver(receiver)

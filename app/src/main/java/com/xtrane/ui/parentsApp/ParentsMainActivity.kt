@@ -2,6 +2,7 @@ package com.xtrane.ui.parentsApp
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -30,11 +31,13 @@ class ParentsMainActivity : AppCompatActivity() {
     private lateinit var notificationManager: FirebaseNotificationManager
     var type: String = "";
     var message: String = "";
+    var from: String = "";
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_parent)
+
 
         if (intent.hasExtra("type")) {
             type = intent.getStringExtra("type").toString()
@@ -42,6 +45,14 @@ class ParentsMainActivity : AppCompatActivity() {
         if (intent.hasExtra("message")) {
             message = intent.getStringExtra("message").toString()
         }
+        if (intent.hasExtra("from")) {
+            from= intent.getStringExtra("from").toString()
+        }
+//        val sharedPref = getSharedPreferences("NotificationData", Context.MODE_PRIVATE)
+//        val from = sharedPref.getString("from", null)
+//        val type = sharedPref.getString("type", null)
+//        val message = sharedPref.getString("message", null)
+
         Log.e("ParentsMainActivity=", type.toString())
 
         val pHomeFragment = PHomeFragment()

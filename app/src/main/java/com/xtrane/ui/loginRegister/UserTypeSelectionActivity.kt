@@ -25,6 +25,11 @@ class UserTypeSelectionActivity : AppCompatActivity() {
         binding = ActivityUserTypeSelectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        intent.extras?.keySet()?.forEach {
+            Log.e(TAG,"USERACtivity_Key : $it Value : ${intent?.extras?.get(it).toString()}")
+        }
+
         Log.d(TAG, "onCreate: test>>>" + isUserLoggedIn())
 
         val userType = SharedPrefUserData(this).getSavedData().usertype

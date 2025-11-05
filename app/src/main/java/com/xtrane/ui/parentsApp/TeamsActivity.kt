@@ -79,7 +79,7 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
         }
         if (intent.hasExtra("eventdetailresponse"))
         {
-            EventDetailedResponse= intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse
+            EventDetailedResponse= (intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse?)!!
 
             Log.e("TAG", "EventDetailedResponse ==="+EventDetailedResponse.getResult()!!.get(0)!!.getEventType().toString())
 

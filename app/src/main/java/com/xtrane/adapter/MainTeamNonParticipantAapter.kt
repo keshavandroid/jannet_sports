@@ -46,7 +46,7 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
         holder.memberName.text = currentItem?.getName()
         holder.cb.visibility=View.VISIBLE
 
-        if(flag.equals("y"))
+        if(flag.equals("yes"))
         {
             holder.cb.visibility = View.VISIBLE
         }

@@ -2,7 +2,10 @@ package com.xtrane.utils
 
 import android.app.Activity
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Lifecycle
@@ -55,6 +58,7 @@ class MainApplication:Application(), LifecycleObserver,
         // Initialize Firebase notifications
         val notificationManager = FirebaseNotificationManager(this)
         notificationManager.initializeFirebaseNotifications()
+        createNotificationChannel()
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
@@ -102,5 +106,18 @@ class MainApplication:Application(), LifecycleObserver,
 
     override fun onActivityDestroyed(activity: Activity) {
         onAppForegrounded = false
+    }
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "my_channel_id", // same ID as manifest
+                "General Notifications", // channel name for settings
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            channel.description = "This channel is used for general notifications"
+
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(channel)
+        }
     }
 }
