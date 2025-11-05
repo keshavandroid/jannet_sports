@@ -80,6 +80,7 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
                 override fun onFinish() {
                     Log.d("TIMER", "Timer finished!")
                     finish()
+
                 }
             }
             timer.start()
