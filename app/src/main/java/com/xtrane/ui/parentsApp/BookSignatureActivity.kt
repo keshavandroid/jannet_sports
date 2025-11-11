@@ -29,7 +29,9 @@ import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.xtrane.retrofit.APIClient.SERVER_URL
 import com.xtrane.retrofit.controller.CoachBookEventController
+import com.xtrane.ui.coachApp.addEventScreen.AddTeamsActivity
 import com.xtrane.utils.Constants
+import com.xtrane.utils.Constants.userType
 import com.xtrane.utils.StoreUserData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -353,7 +355,8 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
                 "You have not allow to book event",
                 Toast.LENGTH_SHORT
             ).show()
-        } else {
+        }
+        else {
 
             if (userType.equals("child", ignoreCase = true)) {
                 binding.txtSendRequestParent.visibility = View.VISIBLE
@@ -385,16 +388,25 @@ class BookSignatureActivity : BaseActivity(), RegisterControllerInterface, Contr
     override fun <T> onSuccess(response: T, method: String) {
         val coach = intent.getStringExtra("child_id").toString()
         val eid = intent.getStringExtra("eventId").toString()
+        val userType = SharedPrefUserData(this).getSavedData().usertype
 
         if (coach == "child") {
             showToast("Book Successful")
             onBackPressed()
             finish()
         } else {
-            val intent = Intent(this, EventDetailsActivity::class.java)
-            intent.putExtra("eventId", eid)
-            startActivity(intent)
-            showToast("Book Successful Not ")
+//            val intent = Intent(this, EventDetailsActivity::class.java)
+//            intent.putExtra("eventId", eid)
+            if (userType.equals("coach"))
+            {
+                val intent = Intent(this@BookSignatureActivity, AddTeamsActivity::class.java)
+                intent.putExtra("eid", eid.toString())
+                intent.putExtra("coachtype", userType)
+                startActivity(intent)
+                finish()
+            }
+         //   startActivity(intent)
+            showToast("Book Successful")
             finish()
 
         }

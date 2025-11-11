@@ -54,7 +54,16 @@ class EventListAdapter() : RecyclerView.Adapter<EventListAdapter.ChildListAdapte
         try {
             Log.e("eventsize=", arrayList!!.size.toString());
 
-            holder.txtDate.text = Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!) +" "+ Utilities.convertTimeFormat(arrayList!![position]!!.getEventTime()!!)
+            if (arrayList!![position]!!.getEventDate()!!.length>0)
+            {
+                holder.txtDate.text = Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!)
+            }
+            if (arrayList!![position]!!.getEventTime()!=null&& arrayList!![position]!!.getEventTime()!!.length>0)
+            {
+                holder.txtDate.text = Utilities.convertDateFormat(arrayList!![position]!!.getEventDate()!!) +" "+ Utilities.convertTimeFormat(arrayList!![position]!!.getEventTime()!!)
+
+            }
+
 
             holder.txtEventName.text = arrayList?.get(position)!!.getEventName()
 

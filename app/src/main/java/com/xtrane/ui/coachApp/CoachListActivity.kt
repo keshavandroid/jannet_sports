@@ -151,7 +151,9 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
                         )
                         for (i in 0 until eventdata.getResult()!!.size) {
                             val coachadpter = CoachListAapter1(
-                                eventdata.getResult()!![i]!!.getCoachArray()!!, showbtn!!
+                                eventdata.getResult()!![i]!!.getCoachArray()!!,
+                                showbtn!!,
+                                eventdata.getResult()
                             )
                             binding.rvParticipantListInTeamMain.adapter = coachadpter
                         }

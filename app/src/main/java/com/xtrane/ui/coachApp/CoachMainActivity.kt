@@ -17,7 +17,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
 import com.xtrane.R
+import com.xtrane.model.NotificationModel
 import com.xtrane.retrofit.controller.DeviceRegisterController
 import com.xtrane.retrofit.controller.IDeviceRegisterController
 import com.xtrane.ui.commonApp.AccountFragment
@@ -34,36 +36,33 @@ class CoachMainActivity : AppCompatActivity() {
     var message: String = "";
     var from: String = "";
     var eventId: String = "";
+    var title: String = "";
     private lateinit var notificationHelper: FirebaseNotificationHelper
     private lateinit var notificationManager: FirebaseNotificationManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_coach)
+        // To fetch the data passed via putExtra("model", Gson().toJson(model)), retrieve it as a string and then deserialize it:
+        var modelJson: String? = null
 
-        if (intent.hasExtra("type")) {
-
-            type= intent.getStringExtra("type").toString()
-        }
-        if (intent.hasExtra("from")) {
-
-            from= intent.getStringExtra("from").toString()
-        }
-        if (intent.hasExtra("message")) {
-
-            message= intent.getStringExtra("message").toString()
-        }
-        if (intent.hasExtra("title")) {
-
-            title= intent.getStringExtra("title").toString()
-        }
-        if (intent.hasExtra("eventId")) {
-
-            eventId= intent.getStringExtra("eventId").toString()
+        if (intent.hasExtra("model")) {
+            modelJson = intent.getStringExtra("model")
+            // If you have NotificationModel in scope and Gson available:
         }
 
-        Log.e("CoachActivity1=", type.toString()+"="+from+"="+message);
-        Log.e("CoachActivity2=", "="+from);
-        Log.e("CoachActivity3=", "="+message);
+        val notificationModel = Gson().fromJson(modelJson, NotificationModel::class.java)
+
+
+        if (notificationModel != null && notificationModel.type.length > 0) {
+            type = notificationModel.type
+            from = notificationModel.from
+            message = notificationModel.message
+            title = notificationModel.title
+            eventId = notificationModel.eventId
+        }
+        Log.e("CoachMainActivity1=", type + "=" + from + "=" + message);
+        Log.e("CoachMainActivity2=", "=" + title);
+        Log.e("CoachMainActivity3=", "=" + eventId);
 
         val CHomeFragment = CHomeFragment()
         val bundle = Bundle()
@@ -71,6 +70,7 @@ class CoachMainActivity : AppCompatActivity() {
         bundle.putString("message", message)
         bundle.putString("title", title.toString())
         bundle.putString("eventId", eventId.toString())
+
         CHomeFragment.arguments = bundle
 
         supportFragmentManager.beginTransaction().replace(

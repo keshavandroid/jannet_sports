@@ -154,6 +154,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         val userType = SharedPrefUserData(this).getSavedData().usertype
         val eventid = intent.getStringExtra("eventId")
         val childId = intent.getStringExtra("childId")
+        //val coachtype = intent.getStringExtra("coachtype")
 
         Log.d(TAG, "onCreate: userType>>" + userType.toString())
 

@@ -14,23 +14,31 @@ import com.xtrane.adapter.NonParticipentSelectionListAdapter
 import com.xtrane.databinding.ActivityAddMainTeamBinding
 import com.xtrane.databinding.ActivityParticipantsListBinding
 import com.xtrane.retrofit.ControllerInterface
+import com.xtrane.retrofit.controller.AddMemberToTeamController
 import com.xtrane.retrofit.controller.EventDetailController
+import com.xtrane.retrofit.controller.GetTeamMemberController
 import com.xtrane.retrofit.controller.IBaseController
+import com.xtrane.retrofit.controller.IGetTeamMemberController
 import com.xtrane.retrofit.controller.INonParticipantController
 import com.xtrane.retrofit.controller.NonParticipantController
+import com.xtrane.retrofit.nonparticipantdata.GetMemberResult
 import com.xtrane.retrofit.nonparticipantdata.NonParticipanResult
 import com.xtrane.retrofit.response.EventDetailResponse
 import com.xtrane.ui.BaseActivity
 import com.xtrane.ui.parentsApp.TeamsActivity
 import com.xtrane.utils.Constants
 import com.xtrane.utils.StoreUserData
+import com.xtrane.viewinterface.IGetTeamMemberView
 import com.xtrane.viewinterface.INonParticipanView
+import com.xtrane.viewinterface.RegisterControllerInterface
 
 
-class ParticipantsListActivity : BaseActivity(), INonParticipanView {
+class ParticipantsListActivity : BaseActivity(), INonParticipanView,IGetTeamMemberView,
+    NonParticipentSelectionListAdapter.ISelectCheckBoxListner,RegisterControllerInterface  {
     override fun getController(): IBaseController? {
         return null
     }
+    lateinit var teamcontroller: IGetTeamMemberController
 
     lateinit var controller: INonParticipantController
     private lateinit var binding: ActivityParticipantsListBinding
@@ -38,7 +46,10 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
     var showbtn: String? ="no"
     var TAG: String? = "ParticipantList"
     var eventdata: EventDetailResponse? = null
+    var selectedMemberID: String? = null
 
+    lateinit var controllerAddTeam: AddMemberToTeamController
+    var myTeam: GetMemberResult.MemberResult? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_participants_list)
@@ -90,6 +101,8 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
             binding.txtTimer.visibility=View.GONE
 
         }
+        teamcontroller = GetTeamMemberController(this@ParticipantsListActivity, this)
+        teamcontroller.callITeamMember(id, token, eventId!!, id)
 
         controller = NonParticipantController(this, this)
         controller.callNonParticipantApi(id, token, eventId.toString())
@@ -115,10 +128,18 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
         binding.txtCreateTeam.text="Participant Selection"
         binding.txtCreateTeam.setOnClickListener {
          //   if ()
-            val intent = Intent(this, TeamsActivity::class.java)
-            intent.putExtra("EVENT_ID", eventId.toString())
-            intent.putExtra("eventdetailresponse", eventdata!!)
-            startActivity(intent)
+//            val intent = Intent(this, TeamsActivity::class.java)
+//            intent.putExtra("EVENT_ID", eventId.toString())
+//            intent.putExtra("eventdetailresponse", eventdata!!)
+//            startActivity(intent)
+
+            if (myTeam!!.getId()!=null)
+            {
+                controllerAddTeam = AddMemberToTeamController(this, this)
+                controllerAddTeam.addTeamMember(eventId.toString(), selectedMemberID!!, myTeam!!.getId().toString())
+
+            }
+
         }
     }
 
@@ -133,12 +154,24 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
 
        // hideLoader()
 
-        val TeamAdapger = MainTeamNonParticipantAapter(this, response!!,"")
+        val TeamAdapger = MainTeamNonParticipantAapter(response!!,"",this)
         binding.rvParticipantListInTeamMain.adapter = TeamAdapger
         TeamAdapger.notifyDataSetChanged()
 
         getEventDetails()
 
+    }
+
+    override fun showLoader() {
+       // TODO("Not yet implemented")
+    }
+
+    override fun showLoader(message: String?) {
+    //    TODO("Not yet implemented")
+    }
+
+    override fun hideLoader() {
+      //  TODO("Not yet implemented")
     }
 
     override fun onFail(message: String?, e: Exception?) {
@@ -188,6 +221,36 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView {
             }).callApi(eventId!!)
         }
 
+    }
+
+    override fun onCheckBoxClick(memberId: String, isSelected: Boolean) {
+        selectedMemberID=memberId
+    }
+
+    override fun <T> onSuccess(response: T) {
+     //   TODO("Not yet implemented")
+    }
+
+    override fun onFail(error: String?) {
+       // TODO("Not yet implemented")
+    }
+
+    override fun <T> onSuccessNew(response: T, method: String) {
+        //TODO("Not yet implemented")
+    }
+
+    override fun onGetTeamMember(response: List<GetMemberResult.MemberResult?>?) {
+        val storeData = StoreUserData(this)
+        val coachId = storeData.getString(Constants.COACH_ID)
+
+        if (!response.isNullOrEmpty()) {
+            for (team in response) {
+                if (team?.getId().toString() == coachId) {
+                    myTeam = team
+                    break
+                }
+            }
+        }
     }
 
 }

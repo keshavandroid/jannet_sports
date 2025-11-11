@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.xtrane.R
+import com.xtrane.adapter.NonParticipentSelectionListAdapter.ISelectCheckBoxListner
 import com.xtrane.retrofit.mainteamdetaildata.MainTeamParticipentList
 import com.xtrane.retrofit.nonparticipantdata.NonParticipanResult
 
@@ -18,11 +19,12 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
 
     var datalist: List<NonParticipanResult?> = ArrayList()
     var flag:String=""
+    lateinit var iCheckBocClickListner:ISelectCheckBoxListner
 
-    constructor(context: Context, datalist: List<NonParticipanResult?>,flag1:String) : this() {
+    constructor(datalist: List<NonParticipanResult?>,flag1:String,iCheckBocClick:ISelectCheckBoxListner) : this() {
         this.datalist = datalist
         flag=flag1
-
+        iCheckBocClickListner=iCheckBocClick
     }
 
 
@@ -70,6 +72,20 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
                 .into(holder.ivImage)
 
         }
+        holder.ll.setOnClickListener {
+
+            if (currentItem.getSelected() == true) {
+                holder.cb.setImageResource(R.drawable.check150)
+                currentItem.setSelected(false)
+                iCheckBocClickListner.onCheckBoxClick(currentItem.getId().toString(),false)
+            }
+            else {
+                holder.cb.setImageResource(R.drawable.unchecked_15)
+                currentItem.setSelected(true)
+                iCheckBocClickListner.onCheckBoxClick(currentItem.getId().toString(),true)
+            }
+
+        }
 
     }
 
@@ -83,7 +99,8 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
 
         val ivImage = itemView.findViewById<ImageView>(R.id.ci_added_participant_image_not_selected_main)
         val memberName = itemView.findViewById<TextView>(R.id.tv_participant_name_not_selected_main)
-        val cb = itemView.findViewById<MaterialCheckBox>(R.id.cb)
+        val cb = itemView.findViewById<ImageView>(R.id.cb)
+        val ll = itemView.findViewById<LinearLayout>(R.id.ll)
 
 
 

@@ -101,8 +101,6 @@ class AddParticipantActivity : BaseActivity(), INonParticipanView, RegisterContr
             }
 
         }
-
-
         TeamAdapger = NonParticipentSelectionListAdapter(this, response,this)
         binding.rvParticipantListInTeamSelection.adapter = TeamAdapger
         TeamAdapger!!.notifyDataSetChanged()

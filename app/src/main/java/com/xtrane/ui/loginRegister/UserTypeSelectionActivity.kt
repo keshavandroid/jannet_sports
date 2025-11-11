@@ -4,9 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.gson.Gson
+import com.xtrane.MyFirebaseMessagingService
+import com.xtrane.MyFirebaseMessagingService.Companion
 import com.xtrane.R
 import com.xtrane.databinding.ActivityMatchListBinding
 import com.xtrane.databinding.ActivityUserTypeSelectionBinding
+import com.xtrane.model.NotificationModel
 import com.xtrane.ui.coachApp.CoachMainActivity
 import com.xtrane.ui.loginRegister.loginScreen.LoginActivity
 import com.xtrane.ui.loginRegister.addChildScreen.AddChildActivity
@@ -18,7 +22,11 @@ import com.xtrane.utils.StoreUserData
 class UserTypeSelectionActivity : AppCompatActivity() {
     private val TAG = "UserTypeSelectionActivi"
     private lateinit var binding: ActivityUserTypeSelectionBinding
-
+    var type: String = "";
+    var message: String = "";
+    var from: String = "";
+    var eventId: String = "";
+    var title: String = "";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        // setContentView(R.layout.activity_user_type_selection)
@@ -27,8 +35,25 @@ class UserTypeSelectionActivity : AppCompatActivity() {
 
 
         intent.extras?.keySet()?.forEach {
-            Log.e(TAG,"USERACtivity_Key : $it Value : ${intent?.extras?.get(it).toString()}")
+            Log.e(TAG,"USERActivity_Key : $it Value : ${intent?.extras?.get(it).toString()}")
+
         }
+        if (intent.hasExtra("type")) {
+            type= intent.getStringExtra("type").toString()
+        }
+//        if (intent.hasExtra("from")) {
+//            from= intent.getStringExtra("from").toString()
+//        }
+        if (intent.hasExtra("message")) {
+            message= intent.getStringExtra("message").toString()
+        }
+        if (intent.hasExtra("title")) {
+            title= intent.getStringExtra("title").toString()
+        }
+        if (intent.hasExtra("eventId")) {
+            eventId= intent.getStringExtra("eventId").toString()
+        }
+        Log.e("UserTypeSelection=", type+"="+from+"="+message);
 
         Log.d(TAG, "onCreate: test>>>" + isUserLoggedIn())
 
@@ -48,13 +73,22 @@ class UserTypeSelectionActivity : AppCompatActivity() {
             isUserLoggedIn() == 3 -> {
                 val userType = SharedPrefUserData(this).getSavedData().usertype
                 if (userType == "parent" || userType == "adult" || userType == "child") {
+                    val model=NotificationModel(type,from,message,title,eventId)
+
                     startActivity(
                         Intent(this@UserTypeSelectionActivity, ParentsMainActivity::class.java)
+                            .putExtra("model", Gson().toJson(model))
+
                     )
                     finish()
-                } else if (userType == "coach") {
+                }
+                else if (userType == "coach") {
+                    val model=NotificationModel(type,from,message, title,eventId)
+                    Log.d(TAG, "userType -coach: $type$from$message$title$eventId")
+
                     startActivity(
                         Intent(this@UserTypeSelectionActivity, CoachMainActivity::class.java)
+                            .putExtra("model", Gson().toJson(model))
                     )
                     finish()
                 }
@@ -165,10 +199,13 @@ class UserTypeSelectionActivity : AppCompatActivity() {
         val storeData = StoreUserData(this)
         val token = storeData.getString(Constants.COACH_TOKEN)
         val data = storeData.getString(Constants.COACH_ID)
-        if (data!=""&&token!=""){
 
-            startActivity(
-                Intent(this@UserTypeSelectionActivity, CoachMainActivity::class.java)
+        if (data!=""&&token!=""){
+            val model=NotificationModel(type,from,message, title,eventId)
+            Log.d(TAG, "userType -coach1: $type$from$message$title$eventId")
+
+            startActivity(Intent(this@UserTypeSelectionActivity, CoachMainActivity::class.java)
+                .putExtra("model", Gson().toJson(model))
             )
             finish()
 

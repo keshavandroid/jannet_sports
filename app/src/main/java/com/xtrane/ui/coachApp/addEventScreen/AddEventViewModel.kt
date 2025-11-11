@@ -79,6 +79,7 @@ class AddEventViewModel(val activity: AddEventActivity) {
                 val event_id = resp.getResult()?.get(0)?.getEventId()
                 Log.e("AddEventController", "onSuccess: event id =====$event_id")
                 Utilities.showToast(activity, "Event added successfully")
+
                 val intent = Intent(activity, AddTeamsActivity::class.java)
                 intent.putExtra("eid", event_id.toString())
                 activity.startActivity(intent)

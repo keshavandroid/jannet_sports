@@ -491,8 +491,25 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
         val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
         val tvMessage = dialog.findViewById<TextView>(R.id.tvMessage)
 
-        tvTitle.text = title
-        tvMessage.text = msg
+        if (title!=null && title.length>0)
+        {
+            tvTitle.text = title
+
+        }
+        else{
+            tvTitle.text = type
+
+        }
+        if (msg!=null && msg.length>0)
+        {
+            tvMessage.text = msg
+
+        }
+        else
+        {
+            tvMessage.text = "The draft for your event has been scheduled!"
+
+        }
         val eventId = arguments?.getString("eventId")
 
         btnOk.setOnClickListener {
@@ -505,13 +522,13 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
 
             if (type.equals("DraftStartingSoon")) {
 
-                val intent = Intent(requireContext(), ParticipantsListActivity::class.java)
-               //val intent = Intent(requireContext(), CoachListActivity::class.java)
+              //  val intent = Intent(requireContext(), ParticipantsListActivity::class.java)
+               val intent = Intent(requireContext(), CoachListActivity::class.java)
                 intent.putExtra("eventId",eventId)
                 intent.putExtra("showbtn","yes")
                 requireContext().startActivity(intent)
             }
-            if (type.equals("CoachTurn")) {
+            if (type.equals("YourTurntoPick")) {
 
                 Log.e("Constants.eventDetailTop", eventDetailTop!!.getEventName()!!)
                 val intent = Intent(requireContext(), ParticipantsListActivity::class.java)

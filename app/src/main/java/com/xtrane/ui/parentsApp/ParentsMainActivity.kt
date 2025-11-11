@@ -16,6 +16,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.google.gson.Gson
+import com.xtrane.model.NotificationModel
 import com.xtrane.retrofit.ControllerInterface
 import com.xtrane.retrofit.controller.GetProfileController
 
@@ -32,22 +34,39 @@ class ParentsMainActivity : AppCompatActivity() {
     var type: String = "";
     var message: String = "";
     var from: String = "";
+    var eventId: String = "";
+    var title: String = "";
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_parent)
+        var modelJson: String? = null
 
+        if (intent.hasExtra("model")) {
+            modelJson = intent.getStringExtra("model")
+            // If you have NotificationModel in scope and Gson available:
+        }
+        val notificationModel = Gson().fromJson(modelJson, NotificationModel::class.java)
+        type= notificationModel.type
+        from= notificationModel.from
+        message= notificationModel.message
+        title= notificationModel.title
+        eventId= notificationModel.eventId
 
-        if (intent.hasExtra("type")) {
-            type = intent.getStringExtra("type").toString()
-        }
-        if (intent.hasExtra("message")) {
-            message = intent.getStringExtra("message").toString()
-        }
-        if (intent.hasExtra("from")) {
-            from= intent.getStringExtra("from").toString()
-        }
+        Log.e("ParentsActivity1=", type+"="+from+"="+message);
+        Log.e("ParentsActivity2=", "="+title);
+        Log.e("ParentsActivity3=", "="+eventId);
+
+//        if (intent.hasExtra("type")) {
+//            type = intent.getStringExtra("type").toString()
+//        }
+//        if (intent.hasExtra("message")) {
+//            message = intent.getStringExtra("message").toString()
+//        }
+//        if (intent.hasExtra("from")) {
+//            from= intent.getStringExtra("from").toString()
+//        }
 //        val sharedPref = getSharedPreferences("NotificationData", Context.MODE_PRIVATE)
 //        val from = sharedPref.getString("from", null)
 //        val type = sharedPref.getString("type", null)

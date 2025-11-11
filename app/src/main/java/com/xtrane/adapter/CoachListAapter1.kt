@@ -1,5 +1,8 @@
 package com.xtrane.adapter
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,17 +14,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.xtrane.R
+import com.xtrane.retrofit.response.EventDetailResponse
 import com.xtrane.retrofit.response.EventDetailResponse.coachArray
+import com.xtrane.utils.Constants
+import com.xtrane.utils.StoreUserData
 
 class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>() {
 
     var datalist: List<coachArray?> = ArrayList()
     val selectedCoachIds: MutableList<String> = mutableListOf()
-    var flag:String=""
-
-    constructor(datalist: List<coachArray?>,flag1:String) : this() {
+    var flag: String = ""
+    var data1: List<EventDetailResponse.Result?>? = ArrayList()
+    constructor(datalist: List<coachArray?>, flag1: String, data:  List<EventDetailResponse.Result?>?) : this() {
         this.datalist = datalist
-        flag=flag1
+        flag = flag1
+        data1 = data
     }
 
 
@@ -35,45 +42,49 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
         return MyViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(
         holder: MyViewHolder,
         position: Int
     ) {
 
-        val currentItem = datalist[position]
-        holder.memberName.text = currentItem!!.coachName
 
-        if(flag.equals("yes"))
-        {
-         holder.cb.visibility = View.VISIBLE
+        val currentItem = datalist[position]
+//        val con: Context=activity!!
+//        val storeData = StoreUserData(con)
+//        val id = storeData.getString(Constants.COACH_ID)
+        if (currentItem!!.coachId.toString().equals(data1!!.get(0)!!.getCoachID())) {
+            holder.memberName.text = currentItem.coachName + " (Owner)"
+        } else {
+            holder.memberName.text = currentItem.coachName
+
         }
-        else
-        {
+
+        if (flag.equals("yes")) {
+            holder.cb.visibility = View.VISIBLE
+        } else {
             holder.cb.visibility = View.GONE
         }
 
-        if (currentItem.coachName!=null && currentItem.coachName!!.length>0)
-        {
+        if (currentItem.coachName != null && currentItem.coachName!!.length > 0) {
             Glide.with(holder.ivImage.context)
                 .load(currentItem.coachName)
                 .placeholder(R.mipmap.placeholder)
                 .into(holder.ivImage)
-        }
-        else
-        {
+        } else {
             Glide.with(holder.ivImage.context)
                 .load(R.mipmap.placeholder)
                 .into(holder.ivImage)
 
         }
 
-    // When we select checkbox, add value of coach id
+        // When we select checkbox, add value of coach id
 
-    // Assuming 'cb' is the checkbox (currently a TextView) - should be a CheckBox for this logic.
-    // If not, this code may need to be adjusted after UI fix.
-    // Let's assume 'cb' is actually a CheckBox and update logic for checking selection.
+        // Assuming 'cb' is the checkbox (currently a TextView) - should be a CheckBox for this logic.
+        // If not, this code may need to be adjusted after UI fix.
+        // Let's assume 'cb' is actually a CheckBox and update logic for checking selection.
 
-    // First, check if 'cb' is a CheckBox.
+        // First, check if 'cb' is a CheckBox.
         holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 // Add value of coach id to selectedCoachIds list
@@ -83,17 +94,19 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
                     // Place this declaration at the top of your class
                     if (!selectedCoachIds.contains(coachId.toString())) {
                         selectedCoachIds.add(coachId.toString())
-                        Log.d("CoachListAapter1", "Coach with id $coachId selected. Current list: $selectedCoachIds")
+                        Log.d(
+                            "CoachListAapter1",
+                            "Coach with id $coachId selected. Current list: $selectedCoachIds"
+                        )
                     }
                 }
-            }
-            else {
+            } else {
                 val coachId = currentItem.coachId
                 Log.d("CoachListAapter1", "Coach with id $coachId deselected")
             }
         }
 
-        
+
     }
 
     override fun getItemCount(): Int {
@@ -104,7 +117,8 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val ivImage = itemView.findViewById<ImageView>(R.id.ci_added_participant_image_not_selected_main)
+        val ivImage =
+            itemView.findViewById<ImageView>(R.id.ci_added_participant_image_not_selected_main)
         val memberName = itemView.findViewById<TextView>(R.id.tv_participant_name_not_selected_main)
         val cb = itemView.findViewById<MaterialCheckBox>(R.id.cb)
 

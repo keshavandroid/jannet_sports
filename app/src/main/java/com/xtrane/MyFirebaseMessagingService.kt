@@ -18,6 +18,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
+import com.xtrane.model.NotificationModel
 import com.xtrane.ui.coachApp.CoachMainActivity
 import com.xtrane.ui.parentsApp.ParentsMainActivity
 import com.xtrane.utils.FirebaseNotificationHelper
@@ -283,12 +285,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 //  intent.setAction("FCM_MESSAGE")
 
             }
+            val model= NotificationModel(type!!,"notification", message!!, title!!,
+                dataPayload!!.get("eventId")!!
+            )
 
             intent.putExtra("from", "notification")
             intent.putExtra("title", title)
             intent.putExtra("type", type)
             intent.putExtra("message", message+"")
             intent.putExtra("eventId", dataPayload!!.get("eventId")+"==")
+            intent.putExtra("model", Gson().toJson(model))
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
