@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -85,9 +86,30 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
         // Let's assume 'cb' is actually a CheckBox and update logic for checking selection.
 
         // First, check if 'cb' is a CheckBox.
-        holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                // Add value of coach id to selectedCoachIds list
+//        holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+//            if (isChecked) {
+//                // Add value of coach id to selectedCoachIds list
+//                val coachId = currentItem.coachId
+//                if (coachId != null) {
+//                    // Declare selectedCoachIds if not already declared
+//                    // Place this declaration at the top of your class
+//                    if (!selectedCoachIds.contains(coachId.toString())) {
+//                        selectedCoachIds.add(coachId.toString())
+//                        Log.d(
+//                            "CoachListAapter1",
+//                            "Coach with id $coachId selected. Current list: $selectedCoachIds"
+//                        )
+//                    }
+//                }
+//            } else {
+//                val coachId = currentItem.coachId
+//                Log.d("CoachListAapter1", "Coach with id $coachId deselected")
+//            }
+//        }
+
+        holder.ll.setOnClickListener {
+
+            if (currentItem.getSelected() == true) {
                 val coachId = currentItem.coachId
                 if (coachId != null) {
                     // Declare selectedCoachIds if not already declared
@@ -100,13 +122,14 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
                         )
                     }
                 }
-            } else {
-                val coachId = currentItem.coachId
-                Log.d("CoachListAapter1", "Coach with id $coachId deselected")
             }
+            else {
+                holder.cb.setImageResource(R.drawable.unchecked_15)
+                currentItem.setSelected(true)
+                val coachId = currentItem.coachId
+                Log.d("CoachListAapter1", "Coach with id $coachId deselected")            }
+
         }
-
-
     }
 
     override fun getItemCount(): Int {
@@ -120,7 +143,8 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
         val ivImage =
             itemView.findViewById<ImageView>(R.id.ci_added_participant_image_not_selected_main)
         val memberName = itemView.findViewById<TextView>(R.id.tv_participant_name_not_selected_main)
-        val cb = itemView.findViewById<MaterialCheckBox>(R.id.cb)
+        val cb = itemView.findViewById<ImageView>(R.id.cb)
+        val ll = itemView.findViewById<LinearLayout>(R.id.ll)
 
     }
 

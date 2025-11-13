@@ -133,11 +133,22 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView,IGetTeamMemb
 //            intent.putExtra("eventdetailresponse", eventdata!!)
 //            startActivity(intent)
 
-            if (myTeam!!.getId()!=null)
+            if (myTeam!!.getId()!=null && myTeam!!.getId()!! > 0)
             {
-                controllerAddTeam = AddMemberToTeamController(this, this)
-                controllerAddTeam.addTeamMember(eventId.toString(), selectedMemberID!!, myTeam!!.getId().toString())
+                if (selectedMemberID!=null && selectedMemberID!!.length>0)
+                {
+                    controllerAddTeam = AddMemberToTeamController(this, this)
+                    controllerAddTeam.addTeamMember(eventId.toString(), selectedMemberID!!, myTeam!!.getId().toString())
 
+                }
+                else
+                {
+                    showToast("Please select member")
+                }
+
+            }
+            else {
+                showToast("Team not found")
             }
 
         }

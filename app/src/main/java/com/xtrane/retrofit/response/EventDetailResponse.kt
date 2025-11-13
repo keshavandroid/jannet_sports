@@ -412,6 +412,17 @@ class EventDetailResponse :Serializable{
         @Expose
         var coachName: String? = null
 
+        private var selected: Boolean?=false
+
+        fun getSelected():Boolean?{
+            return  selected
+        }
+
+        fun setSelected(selected:Boolean?){
+
+            this.selected = selected
+        }
+
     }
 
 }

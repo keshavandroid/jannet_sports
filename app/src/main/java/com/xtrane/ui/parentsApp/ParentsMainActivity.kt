@@ -48,15 +48,22 @@ class ParentsMainActivity : AppCompatActivity() {
             // If you have NotificationModel in scope and Gson available:
         }
         val notificationModel = Gson().fromJson(modelJson, NotificationModel::class.java)
-        type= notificationModel.type
-        from= notificationModel.from
-        message= notificationModel.message
-        title= notificationModel.title
-        eventId= notificationModel.eventId
 
-        Log.e("ParentsActivity1=", type+"="+from+"="+message);
-        Log.e("ParentsActivity2=", "="+title);
-        Log.e("ParentsActivity3=", "="+eventId);
+        if (notificationModel != null && notificationModel.type != null && notificationModel.type.length > 0)
+        {
+            type = notificationModel.type
+            from = notificationModel.from
+            message = notificationModel.message
+            title = notificationModel.title
+            eventId = notificationModel.eventId
+
+            Log.e("ParentsActivity1=", type+"="+from+"="+message);
+            Log.e("ParentsActivity2=", "="+title);
+            Log.e("ParentsActivity3=", "="+eventId);
+        }
+
+
+
 
 //        if (intent.hasExtra("type")) {
 //            type = intent.getStringExtra("type").toString()
