@@ -39,21 +39,20 @@ class EventAboutActivity : AppCompatActivity() {
 
         if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
                 .equals("match")
-        )
-        {
+        ) {
             binding.topbar.imgEdit.isGone = true
-        }
-        else if (intent.getStringExtra("from") != null && intent.getStringExtra("from").equals("home"))
-        {
+        } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
+                .equals("home")
+        ) {
             binding.topbar.imgEdit.isGone = true
-        }
-        else if (intent.getStringExtra("from") != null && intent.getStringExtra("from").equals("coachPersonal"))
-        {
+        } else if (intent.getStringExtra("from") != null && intent.getStringExtra("from")
+                .equals("coachPersonal")
+        ) {
             binding.topbar.imgEdit.isVisible = true
         }
 
         if (intent.hasExtra("eventdetailresponse")) {
-            eventdata= intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse
+            eventdata = intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse
         }
 
         setData()
@@ -120,93 +119,94 @@ class EventAboutActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setData() {
-        if (eventDetailTop == null) return
+        if (eventDetailTop == null)
+            return
 
-        val data = eventDetailTop
-        val sportsNameS = ArrayList<String>()
+        if (eventDetailTop != null) {
+            val data = eventDetailTop
+            val sportsNameS = ArrayList<String>()
 
-        data!!.getSportsName()!!.forEach {
-            it?.getSportsName()
-            sportsNameS.add(it?.getSportsName().toString())
-        }
+            data!!.getSportsName()!!.forEach {
+                it?.getSportsName()
+                sportsNameS.add(it?.getSportsName().toString())
+            }
 
-        Log.e(TAG, "SportsList========$sportsNameS")
+            Log.e(TAG, "SportsList========$sportsNameS")
 
-        binding.txtEventName.text = data.getEventName()
-        binding.txtEventDate.text = Utilities.convertDateFormat(data.getEventDate()!!)
-        binding.txtCoachName.text = data.getCreatorName().toString()
-        binding.txtAgeRange.text = data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
+            binding.txtEventName.text = data.getEventName()
+            binding.txtEventDate.text = Utilities.convertDateFormat(data.getEventDate()!!)
+            binding.txtCoachName.text = data.getCreatorName().toString()
+            binding.txtAgeRange.text =
+                data.getMinAge().toString() + "-" + data.getMaxAge().toString() + " Age"
 
-        if (sportsNameS.isNotEmpty())
-            binding.txtSportsName.text = android.text.TextUtils.join(",", sportsNameS)
-        else
-            binding.txtSportsName.text = sportsNameS.toString()
+            if (sportsNameS.isNotEmpty())
+                binding.txtSportsName.text = android.text.TextUtils.join(",", sportsNameS)
+            else
+                binding.txtSportsName.text = sportsNameS.toString()
 
-        if (data.getNoofTeams()!=0)
-        {
-            binding.linearTeams.visibility=View.VISIBLE
-            binding.txtTeams.text ="Teams : " + data.getNoofTeams().toString()
+            if (data.getNoofTeams() != 0) {
+                binding.linearTeams.visibility = View.VISIBLE
+                binding.txtTeams.text = "Teams : " + data.getNoofTeams().toString()
 
-        }
-        else
-        {
-            binding.linearTeams.visibility=View.GONE
-            binding.txtTeams.text =""
+            } else {
+                binding.linearTeams.visibility = View.GONE
+                binding.txtTeams.text = ""
 
-        }
-        if (data.getEventType()!!.length>0)
-        {
-            binding.txtEventType.visibility=View.VISIBLE
-            binding.txtEventType.text="Event Type : "+data.getEventType().toString()
+            }
+            if (data.getEventType()!!.length > 0) {
+                binding.txtEventType.visibility = View.VISIBLE
+                binding.txtEventType.text = "Event Type : " + data.getEventType().toString()
 
-        }
-        else
-        {
-            binding.txtEventType.visibility=View.GONE
-            binding.txtEventType.text =""
+            } else {
+                binding.txtEventType.visibility = View.GONE
+                binding.txtEventType.text = ""
 
-        }
+            }
 
-        binding.txtParticipantsCount.text = data.getParticipants() + " " + "Participants"
-        binding.txtGenderAccepted.text = data.getGenderApplicable().toString()
-        binding.txtDescription.text = data.getDescription().toString()
-        binding.txtFees.text = "$" + data.getFees()
+            binding.txtParticipantsCount.text = data.getParticipants() + " " + "Participants"
+            binding.txtGenderAccepted.text = data.getGenderApplicable().toString()
+            binding.txtDescription.text = data.getDescription().toString()
+            binding.txtFees.text = "$" + data.getFees()
 //        txtGrade_about.text = data.getGrade().toString()
 
-        try {
-            binding.txtGradeAbout.text =
-                data.getMinGrade().toString() + " - " + data.getMaxGrade().toString() + " Grade"
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+            try {
+                binding.txtGradeAbout.text =
+                    data.getMinGrade().toString() + " - " + data.getMaxGrade().toString() + " Grade"
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
-        addNewItem(
-            "",
-            data.getMainimage()!!
-        )
-
-        for (i in data.getImages()!!.indices) {
             addNewItem(
                 "",
-                data.getImages()!![i]?.getImage()!!
+                data.getMainimage()!!
             )
+
+            for (i in data.getImages()!!.indices) {
+                addNewItem(
+                    "",
+                    data.getImages()!![i]?.getImage()!!
+                )
+            }
+
+            binding.txtViewparticipant.setOnClickListener {
+
+                Log.e("participant=EventID=", data.getId().toString())
+                startActivity(
+                    Intent(
+                        this,
+                        ParticipantsListActivity::class.java
+                    ).putExtra("eventId", data.getId().toString())
+                )
+            }
+            binding.txtViewCoach.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this, CoachListActivity::class.java
+                    ).putExtra("eventdetailresponse", eventdata)
+                )
+            }
         }
 
-        binding.txtViewparticipant.setOnClickListener {
-
-            Log.e("participant=EventID=", data.getId().toString())
-            startActivity(
-                Intent(
-                    this,
-                    ParticipantsListActivity::class.java
-                ).putExtra("eventId", data.getId().toString())
-            )
-        }
-        binding.txtViewCoach.setOnClickListener {
-            startActivity(Intent(this, CoachListActivity::class.java
-               ).putExtra("eventdetailresponse", eventdata)
-            )
-        }
     }
 
     private fun addNewItem(string1: String, string2: String) {

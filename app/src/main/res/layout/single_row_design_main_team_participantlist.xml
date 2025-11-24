@@ -16,7 +16,8 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp">
+        android:paddingBottom="@dimen/_8sdp"
+        android:background="@color/white">
         <ImageView
             android:id="@+id/cb"
             android:layout_width="22dp"

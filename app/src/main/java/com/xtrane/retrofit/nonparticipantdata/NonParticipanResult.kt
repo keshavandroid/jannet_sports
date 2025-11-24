@@ -32,8 +32,12 @@ class NonParticipanResult {
 
     @SerializedName("isParticipant")
     @Expose
-    private var isParticipant: String? = null
+    private var isParticipant: Int? = null
 
+    fun getParticipant(): Int?
+    {
+        return  isParticipant
+    }
     fun getSelected():Boolean?{
         return  selected
     }

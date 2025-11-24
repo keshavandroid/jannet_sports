@@ -64,7 +64,7 @@ class AddMemberToTeamController(var context: Activity, var registerControllerInt
                     if (response.getStatus() == 1) {
 //                        SharedPrefUserData(context).saveRegisterCoach(response.getResult())
 //                        SharedPrefUserData(context).setRegisterStep("1")
-                        registerControllerInterface.onSuccess(response)
+                        registerControllerInterface.onSuccess(response.getMessage())
                     }
                     else {
                         Log.d("TAG", "onSuccess: 0 status")

@@ -20,62 +20,70 @@ import com.xtrane.retrofit.controller.GetTeamMemberController
 import com.xtrane.retrofit.controller.IBaseController
 import com.xtrane.retrofit.controller.IGetTeamMemberController
 import com.xtrane.retrofit.controller.INonParticipantController
+import com.xtrane.retrofit.controller.ITeamListController
 import com.xtrane.retrofit.controller.NonParticipantController
+import com.xtrane.retrofit.controller.TeamListController
 import com.xtrane.retrofit.nonparticipantdata.GetMemberResult
 import com.xtrane.retrofit.nonparticipantdata.NonParticipanResult
 import com.xtrane.retrofit.response.EventDetailResponse
+import com.xtrane.retrofit.teamlistdata.TeamListResult
 import com.xtrane.ui.BaseActivity
+import com.xtrane.ui.parentsApp.EventDetailsActivity
 import com.xtrane.ui.parentsApp.TeamsActivity
 import com.xtrane.utils.Constants
 import com.xtrane.utils.StoreUserData
 import com.xtrane.viewinterface.IGetTeamMemberView
 import com.xtrane.viewinterface.INonParticipanView
+import com.xtrane.viewinterface.ITeamListView
 import com.xtrane.viewinterface.RegisterControllerInterface
 
 
-class ParticipantsListActivity : BaseActivity(), INonParticipanView,IGetTeamMemberView,
-    NonParticipentSelectionListAdapter.ISelectCheckBoxListner,RegisterControllerInterface  {
+class ParticipantsListActivity : BaseActivity(), INonParticipanView, IGetTeamMemberView,
+    ITeamListView,
+    NonParticipentSelectionListAdapter.ISelectCheckBoxListner, RegisterControllerInterface {
     override fun getController(): IBaseController? {
         return null
     }
-    lateinit var teamcontroller: IGetTeamMemberController
+
+    lateinit var teamcontroller: ITeamListController
 
     lateinit var controller: INonParticipantController
     private lateinit var binding: ActivityParticipantsListBinding
-    var eventId: String? =null
-    var showbtn: String? ="no"
+    var eventId: String? = null
+    var showbtn: String? = "no"
     var TAG: String? = "ParticipantList"
     var eventdata: EventDetailResponse? = null
     var selectedMemberID: String? = null
 
     lateinit var controllerAddTeam: AddMemberToTeamController
-    var myTeam: GetMemberResult.MemberResult? = null
+    var myTeam: TeamListResult? = null
+    var id: String = ""
+    var token: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_participants_list)
         binding = ActivityParticipantsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var storeData = StoreUserData(this)
-        val id = storeData.getString(Constants.COACH_ID)
-        val token = storeData.getString(Constants.COACH_TOKEN)
+        val storeData = StoreUserData(this)
+        id = storeData.getString(Constants.COACH_ID)
+        token = storeData.getString(Constants.COACH_TOKEN)
 
 
-        if (intent.hasExtra("eventId"))
-        {
+        if (intent.hasExtra("eventId")) {
             eventId = intent.getStringExtra("eventId")
-            Log.e("eventID","======$eventId")
+            Log.e("eventID", "======$eventId")
         }
         if (intent.hasExtra("showbtn")) {
             showbtn = intent.getStringExtra("showbtn")
             Log.e("showbtn", "======$showbtn")
         }
-       // showLoader()
+        // showLoader()
 
-        if (showbtn.equals("yes"))
-        {
-            binding.txtCreateTeam.visibility=View.VISIBLE
-            binding.txtTimer.visibility=View.VISIBLE
+        if (showbtn.equals("yes")) {
+
+            binding.txtCreateTeam.visibility = View.VISIBLE
+            binding.txtTimer.visibility = View.VISIBLE
 
             val timer = object : CountDownTimer(60000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
@@ -96,17 +104,18 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView,IGetTeamMemb
             }
             timer.start()
         }
-        else
-        {
-            binding.txtTimer.visibility=View.GONE
+        else {
+            binding.txtTimer.visibility = View.GONE
+            binding.txtCreateTeam.visibility = View.GONE
 
         }
-        teamcontroller = GetTeamMemberController(this@ParticipantsListActivity, this)
-        teamcontroller.callITeamMember(id, token, eventId!!, id)
+
 
         controller = NonParticipantController(this, this)
         controller.callNonParticipantApi(id, token, eventId.toString())
-       // getEventDetails()
+
+
+        // getEventDetails()
 
 //        if(intent.getStringExtra("from").equals("teamsDetailActivity")){
 //            txtWait.visibility=View.VISIBLE
@@ -125,29 +134,28 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView,IGetTeamMemb
 //        }
 
         setTopBar()
-        binding.txtCreateTeam.text="Participant Selection"
+        binding.txtCreateTeam.text = "Participant Selection"
         binding.txtCreateTeam.setOnClickListener {
-         //   if ()
+            //   if ()
 //            val intent = Intent(this, TeamsActivity::class.java)
 //            intent.putExtra("EVENT_ID", eventId.toString())
 //            intent.putExtra("eventdetailresponse", eventdata!!)
 //            startActivity(intent)
 
-            if (myTeam!!.getId()!=null && myTeam!!.getId()!! > 0)
-            {
-                if (selectedMemberID!=null && selectedMemberID!!.length>0)
-                {
+            if (myTeam != null && myTeam!!.getTeamId() != null && myTeam!!.getTeamId()!! > 0) {
+                if (selectedMemberID != null && selectedMemberID!!.length > 0) {
                     controllerAddTeam = AddMemberToTeamController(this, this)
-                    controllerAddTeam.addTeamMember(eventId.toString(), selectedMemberID!!, myTeam!!.getId().toString())
+                    controllerAddTeam.addTeamMember(
+                        eventId.toString(),
+                        selectedMemberID!!,
+                        myTeam!!.getTeamId().toString()
+                    )
 
-                }
-                else
-                {
+                } else {
                     showToast("Please select member")
                 }
 
-            }
-            else {
+            } else {
                 showToast("Team not found")
             }
 
@@ -163,87 +171,99 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView,IGetTeamMemb
     @SuppressLint("NotifyDataSetChanged")
     override fun onNonParticipantSuccess(response: List<NonParticipanResult?>?) {
 
-       // hideLoader()
+        // hideLoader()
 
-        val TeamAdapger = MainTeamNonParticipantAapter(response!!,"",this)
+        val TeamAdapger = MainTeamNonParticipantAapter(response!!,showbtn.toString(), this)
         binding.rvParticipantListInTeamMain.adapter = TeamAdapger
         TeamAdapger.notifyDataSetChanged()
 
-        getEventDetails()
+        teamcontroller = TeamListController(this, this)
+        teamcontroller.callTeamLostApi(id, token, eventId.toString())
+        //   getEventDetails()
 
     }
 
     override fun showLoader() {
-       // TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override fun showLoader(message: String?) {
-    //    TODO("Not yet implemented")
+        //    TODO("Not yet implemented")
     }
 
     override fun hideLoader() {
-      //  TODO("Not yet implemented")
+        //  TODO("Not yet implemented")
     }
 
     override fun onFail(message: String?, e: Exception?) {
 
-       // hideLoader()
+        // hideLoader()
         showToast(message)
-        getEventDetails()
+        //   getEventDetails()
 
     }
-    private fun getEventDetails() {
-        Log.e(TAG, "getEventDetails ==========$eventId")
 
-        if (eventId != null &&
-            !eventId.equals("null") &&
-            !eventId.equals("")
-        ) {
-            EventDetailController(this@ParticipantsListActivity, object : ControllerInterface {
-                override fun onFail(error: String?) {
-
-                    Log.e(TAG, "onFail: fail ==========$error")
-                }
-
-                override fun <T> onSuccess(response: T, method: String) {
-                    try {
-
-                        val resp = response as EventDetailResponse
-
-                        //setData(resp.getResult()!!)
-                        Log.e(TAG, "getEventDetails1 ==========$resp")
-
-                        eventdata = resp
-
-                        Log.e(TAG, "onSuccess: event detil success===${resp.getResult()}")
-
-                        Log.e(
-                            "EventDetail",
-                            "=========main iamge===${
-                                resp.getResult()!![0]?.getMainimage().toString()
-                            }"
-                        )
-
-
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            }).callApi(eventId!!)
-        }
-
-    }
+//    private fun getEventDetails() {
+//        Log.e(TAG, "getEventDetails ==========$eventId")
+//
+//        if (eventId != null &&
+//            !eventId.equals("null") &&
+//            !eventId.equals("")
+//        ) {
+//            EventDetailController(this@ParticipantsListActivity, object : ControllerInterface {
+//                override fun onFail(error: String?) {
+//
+//                    Log.e(TAG, "onFail: fail ==========$error")
+//                }
+//
+//                override fun <T> onSuccess(response: T, method: String) {
+//                    try {
+//
+//                        val resp = response as EventDetailResponse
+//
+//                        //setData(resp.getResult()!!)
+//                        Log.e(TAG, "getEventDetails1 ==========$resp")
+//
+//                        eventdata = resp
+//
+//                        Log.e(TAG, "onSuccess: event detil success===${resp.getResult()}")
+//
+//                        Log.e(
+//                            "EventDetail",
+//                            "=========main iamge===${
+//                                resp.getResult()!![0]?.getMainimage().toString()
+//                            }"
+//                        )
+//
+//
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }).callApi(eventId!!)
+//        }
+//
+//    }
 
     override fun onCheckBoxClick(memberId: String, isSelected: Boolean) {
-        selectedMemberID=memberId
+        selectedMemberID = memberId
     }
 
     override fun <T> onSuccess(response: T) {
-     //   TODO("Not yet implemented")
+        showToast(response.toString())
+
+        startActivity(
+            Intent(this, EventDetailsActivity::class.java).putExtra(
+                "from",
+                "coachPersonal"
+            ).putExtra("eventId", eventId.toString())
+
+
+        )
     }
 
     override fun onFail(error: String?) {
-       // TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override fun <T> onSuccessNew(response: T, method: String) {
@@ -251,17 +271,23 @@ class ParticipantsListActivity : BaseActivity(), INonParticipanView,IGetTeamMemb
     }
 
     override fun onGetTeamMember(response: List<GetMemberResult.MemberResult?>?) {
+
+    }
+
+    override fun onTeamListSuccess(response: List<TeamListResult?>?) {
         val storeData = StoreUserData(this)
         val coachId = storeData.getString(Constants.COACH_ID)
 
+        Log.e("onTeamListSuccess_coachId1",coachId.toString()+"==")
         if (!response.isNullOrEmpty()) {
             for (team in response) {
-                if (team?.getId().toString() == coachId) {
+                if (team?.getCoachID().toString().equals(coachId)) {
+                    Log.e("onTeamListSuccess_coachId2",team?.getCoachID().toString()+"==")
+
                     myTeam = team
                     break
                 }
             }
         }
     }
-
 }

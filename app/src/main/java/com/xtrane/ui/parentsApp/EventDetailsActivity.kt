@@ -146,8 +146,10 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
                 .equals("coachPersonal")
         ) {
             binding.txtReport.visibility = View.GONE
+            binding.cardRoasterfilling.visibility = View.VISIBLE
         } else {
             binding.txtReport.visibility = View.VISIBLE
+            binding.cardRoasterfilling.visibility = View.GONE
         }
 
         Log.d(TAG, "onCreate: test447>>" + intent.getStringExtra("eventId"))

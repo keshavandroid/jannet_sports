@@ -45,8 +45,8 @@ object RetrofitHelper {
         val okHttpClient = OkHttpClient.Builder()
             .connectionSpecs(arraList)
             .addInterceptor(logging)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS)
+//            .readTimeout(120, TimeUnit.SECONDS)
+//            .connectTimeout(120, TimeUnit.SECONDS)
             .build()
 
         val gsonBuilder = GsonBuilder()
@@ -73,14 +73,16 @@ object RetrofitHelper {
         val gsonBuilder = GsonBuilder()
         gsonBuilder.setDateFormat("yyyy-MM-dd")
         gsonBuilder.disableHtmlEscaping()
-        val timeout = 1 * 60 * 1000
+        val timeout = 1 * 120 * 1000
 
         val retrofit = Retrofit.Builder()
             .baseUrl(serverUrl)
             .client(
-                okHttpClient.connectTimeout(timeout.toLong(), TimeUnit.SECONDS)
-                    .readTimeout(timeout.toLong(), TimeUnit.SECONDS)
-                    .writeTimeout(timeout.toLong(), TimeUnit.SECONDS).build()
+                okHttpClient
+                   // .connectTimeout(timeout.toLong(), TimeUnit.SECONDS)
+//                    .readTimeout(timeout.toLong(), TimeUnit.SECONDS)
+//                    .writeTimeout(timeout.toLong(), TimeUnit.SECONDS)
+                    .build()
             )
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
             .build()
@@ -91,7 +93,9 @@ object RetrofitHelper {
     private fun clearConnectionCallback() {
         if (masterCall != null)
             masterCall!!.cancel()
+
         connectionCallBack = null
+
     }
 
     private var masterCall: Call<ResponseBody?>? = null

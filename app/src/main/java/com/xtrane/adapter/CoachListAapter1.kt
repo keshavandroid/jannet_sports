@@ -116,6 +116,8 @@ class CoachListAapter1() : RecyclerView.Adapter<CoachListAapter1.MyViewHolder>()
                     // Place this declaration at the top of your class
                     if (!selectedCoachIds.contains(coachId.toString())) {
                         selectedCoachIds.add(coachId.toString())
+                        holder.cb.setImageResource(R.drawable.check150)
+
                         Log.d(
                             "CoachListAapter1",
                             "Coach with id $coachId selected. Current list: $selectedCoachIds"

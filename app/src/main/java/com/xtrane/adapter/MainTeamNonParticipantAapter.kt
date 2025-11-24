@@ -1,5 +1,6 @@
 package com.xtrane.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,7 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
 
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(
         holder: MyViewHolder,
         position: Int
@@ -51,10 +53,25 @@ class MainTeamNonParticipantAapter() : RecyclerView.Adapter<MainTeamNonParticipa
         if(flag.equals("yes"))
         {
             holder.cb.visibility = View.VISIBLE
+            if (currentItem!!.getParticipant() == 1) {
+                holder.ll.isEnabled = false
+                holder.ll.setBackgroundResource(R.color.gray)
+            }
+            else
+            {
+                holder.ll.isEnabled = true
+                holder.ll.setBackgroundResource(R.color.white)
+
+
+            }
         }
         else
         {
             holder.cb.visibility = View.GONE
+            holder.ll.isEnabled = true
+            holder.ll.setBackgroundResource(R.color.white)
+
+
         }
 
         if (currentItem!!.getImage()!=null && currentItem.getImage()!!.length>0)

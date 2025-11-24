@@ -530,7 +530,7 @@ class CHomeFragment : Fragment(), ICoachEventListView, ILocationView,
             }
             if (type.equals("YourTurntoPick")) {
 
-                Log.e("Constants.eventDetailTop", eventDetailTop!!.getEventName()!!)
+         //       Log.e("Constants.eventDetailTop", eventDetailTop!!.getEventName()!!)
                 val intent = Intent(requireContext(), ParticipantsListActivity::class.java)
                 intent.putExtra("eventId",eventId)
                 intent.putExtra("showbtn","yes")

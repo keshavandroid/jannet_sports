@@ -42,20 +42,25 @@ class NonParticipantController(var context: Activity, internal var view: INonPar
                     val response: NonParticipantBaseResponse =
                         gson.fromJson(reader, NonParticipantBaseResponse::class.java)
 
-                    if (response.getStatus() == 1) {
-                        val data = response.getResult()!!
-
-                        view.onNonParticipantSuccess(data)
-
-                        Utilities.showToast(context, response.getMessage())
-
-                    } else
+                    if (response!=null)
                     {
-                        Utilities.showToast(context, response.getMessage())
+                        if (response.getStatus() == 1) {
+                            val data = response.getResult()!!
 
-                        view.onFail(response.getMessage(), null)
+                            view.onNonParticipantSuccess(data)
 
+                            Utilities.showToast(context, response.getMessage())
+
+                        }
+                        else
+                        {
+                            Utilities.showToast(context, response.getMessage())
+
+                            view.onFail(response.getMessage(), null)
+
+                        }
                     }
+
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

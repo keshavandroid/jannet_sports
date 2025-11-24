@@ -31,7 +31,7 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
     lateinit var controller: ICoachNumberSelectionController
     private lateinit var binding: ActivityParticipantsListBinding
     var eventId: String? = null
-    lateinit var eventdata: EventDetailResponse
+    var eventdata: EventDetailResponse?=null
     var showbtn: String? = "no"
     var TAG: String? = "CoachList"
 
@@ -56,8 +56,8 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
         }
         if (intent.hasExtra("eventdetailresponse")) {
             eventdata = intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse
-            Log.e("eventdata=", eventdata.getResult()!!.size.toString())
-            eventId=eventdata.getResult()!![0]!!.getId().toString()
+            Log.e("eventdata=", eventdata!!.getResult()!!.size.toString())
+            eventId= eventdata!!.getResult()!![0]!!.getId().toString()
         }
 
 //        if (intent.hasExtra("eventId")) {
@@ -97,7 +97,7 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
             controller.callCoachNumberListApi(
                 id,
                 token,
-                eventdata.getResult()!![0]!!.getId().toString(),
+                eventdata!!.getResult()!![0]!!.getId().toString(),
                 selectedCoachIdsString
             )
         }
@@ -143,22 +143,25 @@ class CoachListActivity : BaseActivity(), ICoachTeamListView {
 
                         Log.e(TAG, "onSuccess: event detil success===${resp.getResult()}")
 
-                        Log.e(
-                            "EventDetail",
-                            "=========main iamge===${
-                                resp.getResult()!![0]?.getMainimage().toString()
-                            }"
+//                        Log.e(
+//                            "EventDetail",
+//                            "=========main iamge===${
+//                                resp.getResult()!![0]?.getMainimage().toString()
+//                            }"
+//                        )
+//                        for (i in 0 until eventdata!!.getResult()!!.size) {
+//
+//                        }
+                        val coachadpter = CoachListAapter1(
+                            eventdata!!.getResult()!![0
+                            ]!!.getCoachArray()!!,
+                            showbtn!!,
+                            eventdata!!.getResult()
                         )
-                        for (i in 0 until eventdata.getResult()!!.size) {
-                            val coachadpter = CoachListAapter1(
-                                eventdata.getResult()!![i]!!.getCoachArray()!!,
-                                showbtn!!,
-                                eventdata.getResult()
-                            )
-                            binding.rvParticipantListInTeamMain.adapter = coachadpter
-                        }
+                        binding.rvParticipantListInTeamMain.adapter = coachadpter
 
                     } catch (e: Exception) {
+                        Log.e("Exception=", e.printStackTrace().toString())
                         e.printStackTrace()
                     }
                 }
