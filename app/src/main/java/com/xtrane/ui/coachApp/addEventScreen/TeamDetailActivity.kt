@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.xtrane.R
@@ -40,13 +41,25 @@ class TeamDetailActivity : BaseActivity(), TeamDetailView, IDeleteTeamView {
         var storeData = StoreUserData(this)
         id = storeData.getString(Constants.COACH_ID)
         token = storeData.getString(Constants.COACH_TOKEN)
+
         val event_id = intent.getStringExtra("EVENT_ID")
         val teamId = intent.getStringExtra("TEAM_ID")
         val team_desriptiom = intent.getStringExtra("TEAM_DESCRIPTION")
         val team_name = intent.getStringExtra("TEAM_NAME")
         val team_image = intent.getStringExtra("TEAM_Image")
         val coach_id = intent.getStringExtra("coach_id")
+        val EventType = intent.getStringExtra("EventType")
 
+
+        if (EventType.equals("Draft",ignoreCase = true))
+        {
+            bind.tvParticipent.visibility= View.GONE
+        }
+        else
+        {
+            bind.tvParticipent.visibility= View.VISIBLE
+
+        }
 
         bind.teamDetail.txtTitle.text = "Team Detail"
         bind.teamDetail.imgBack.setOnClickListener {

@@ -59,7 +59,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
     //    var eventResulArraylist: ArrayList<EventDetailResponse.Result> =
 //        ArrayList<EventDetailResponse.Result>()
     var storedata: StoreUserData? = null;
-    var userType="" ;
+    var userType = "";
     private lateinit var binding: ActivityEventDetailsBinding
 
     lateinit var controller: IProfileController
@@ -110,7 +110,8 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         iDeleteEventController = DeleteEventController(this, this)
 
         storedata = StoreUserData(this)
-        val userType = SharedPrefUserData(this).getSavedData().usertype
+
+        userType = SharedPrefUserData(this).getSavedData().usertype.toString()
 
         if (storedata!!.getString(Constants.COACH_ID)
                 .trim() == null || storedata!!.getString(Constants.COACH_ID).trim()
@@ -120,7 +121,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
             id = SharedPrefUserData(this).getSavedData().id!!
             token = SharedPrefUserData(this).getSavedData().token!!
 
-          //  userType = SharedPrefUserData(this).getSavedData().usertype!!
+            //  userType = SharedPrefUserData(this).getSavedData().usertype!!
 
             controller = ProfileController(this, this)
             controller.callGetProfileAPI(id, token, "parent")
@@ -420,7 +421,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
             val data = result[0]
             Log.e(TAG, "setData: ===========${data?.getAddress()}")
             eventDetailTop = data
-            addNewItem("",data?.getMainimage()!!)
+            addNewItem("", data?.getMainimage()!!)
 
             for (i in data.getImages()!!.indices) {
                 addNewItem(
@@ -446,26 +447,29 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
 
                     binding.cardRegister.visibility = View.VISIBLE
 
-                    if (id.equals(eventDetailTop!!.getCoachID(),ignoreCase = true))
-                    {
-                        binding.cardRoasterfilling.visibility = View.VISIBLE
-                        binding.lrReSchedule.visibility = View.VISIBLE
+                    if (id.equals(eventDetailTop!!.getCoachID(), ignoreCase = true)) {
+                        binding.ll6.visibility = View.VISIBLE
+//                        binding.cardRescheduleEvent.visibility = View.VISIBLE
 
-                    }
-                    else{
-                        binding.cardRoasterfilling.visibility = View.GONE
-                        binding.lrReSchedule.visibility = View.GONE
+                    } else {
+                        binding.ll6.visibility = View.GONE
+                        //  binding.cardRescheduleEvent.visibility = View.GONE
 
                     }
 
                 } else {
                     Log.e("userType=3=", userType.toString())
 
-                    binding.cardRegister.visibility = View.GONE
-                    binding.cardRoasterfilling.visibility = View.GONE
+                    binding.ll6.visibility = View.GONE
+//                    binding.cardRoasterfilling.visibility = View.GONE
+//                    binding.cardRescheduleEvent.visibility = View.GONE
 
 
                 }
+            } else {
+                binding.ll6.visibility = View.GONE
+//                binding.cardRoasterfilling.visibility = View.GONE
+//                binding.lrReSchedule.visibility = View.GONE
             }
 //            ll2.visibility = View.GONE
         } catch (e: Exception) {

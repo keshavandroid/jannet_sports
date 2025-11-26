@@ -762,7 +762,6 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:elevation="@dimen/_8sdp"
-                    android:visibility="visible"
                     app:cardBackgroundColor="@color/quantum_white_100"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="@dimen/_5sdp">
@@ -771,7 +770,9 @@
                         android:id="@+id/lrReSchedule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        >
 
                         <ImageView
                             android:layout_width="wrap_content"

@@ -37,7 +37,7 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
 
     lateinit var deleteTeamCOntroller: IDeleteTeamController
     lateinit var controller: ITeamListController
-    lateinit var EventDetailedResponse: EventDetailResponse
+    var EventDetailedResponse: EventDetailResponse? = EventDetailResponse()
 
     private lateinit var binding: ActivityTeamsBinding
 
@@ -81,15 +81,15 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
         {
             EventDetailedResponse= (intent.getSerializableExtra("eventdetailresponse") as EventDetailResponse?)!!
 
-            Log.e("TAG", "EventDetailedResponse ==="+EventDetailedResponse.getResult()!!.get(0)!!.getEventType().toString())
+            Log.e("TAG", "EventDetailedResponse ==="+ EventDetailedResponse!!.getResult()!!.get(0)!!.getEventType().toString())
 
-            if (EventDetailedResponse.getResult()!!.get(0)!!.getEventType().equals("draft",ignoreCase = true))
+            if (EventDetailedResponse!!.getResult()!!.get(0)!!.getEventType().equals("draft",ignoreCase = true))
             {
                 binding.txtAddNewTeamEd.visibility=View.VISIBLE
             }
             else
             {
-                if (EventDetailedResponse.getResult()!!.get(0)!!.getCoachID().equals(id))
+                if (EventDetailedResponse!!.getResult()!!.get(0)!!.getCoachID().equals(id))
                 {
                     binding.txtAddNewTeamEd.visibility=View.VISIBLE
                 }
@@ -191,8 +191,18 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
         val tam_name = itemCLick.getTeamName().toString()
         val team_description = itemCLick.getDescription().toString()
         val team_iage = itemCLick.getImage().toString()
+        val EventType = if (EventDetailedResponse!!.getResult()!!.get(0)!!.getEventType()!=null &&
+            EventDetailedResponse!!.getResult()!!.get(0)!!.getEventType()!!.length>0)
+        {
+            EventDetailedResponse!!.getResult()!!.get(0)!!.getEventType()
+        }
+        else
+        {
+            ""
+        }
 
         Log.e("TAG", "onCreate: ========$event_id")
+        Log.e("TAG", "EventType: ========$EventType")
         val intent = Intent(this, TeamDetailActivity::class.java)
         intent.putExtra("EVENT_ID", event_id)
         intent.putExtra("TEAM_ID", team_id)
@@ -200,6 +210,7 @@ class TeamsActivity : BaseActivity(), ITeamListView, TeamListEDAdapter.IEditTeam
         intent.putExtra("TEAM_DESCRIPTION", team_description)
         intent.putExtra("TEAM_Image", team_iage)
         intent.putExtra("coach_id", itemCLick.getCoachID().toString())
+        intent.putExtra("EventType",EventType)
 
         intent.putExtra("EVENT_DETAIL", "event_detail")
         startActivity(intent)
