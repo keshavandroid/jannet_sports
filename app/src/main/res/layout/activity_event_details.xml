@@ -602,7 +602,7 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:elevation="@dimen/_8sdp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:cardBackgroundColor="@color/quantum_white_100"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="@dimen/_5sdp">

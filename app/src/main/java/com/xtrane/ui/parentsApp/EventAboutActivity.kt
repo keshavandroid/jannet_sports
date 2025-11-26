@@ -154,8 +154,19 @@ class EventAboutActivity : AppCompatActivity() {
 
             }
             if (data.getEventType()!!.length > 0) {
+
                 binding.txtEventType.visibility = View.VISIBLE
                 binding.txtEventType.text = "Event Type : " + data.getEventType().toString()
+
+                if (data.getEventType().equals("Draft",ignoreCase = true))
+                {
+                    binding.lirView.visibility= View.VISIBLE
+                }
+                else
+                {
+                    binding.lirView.visibility= View.GONE
+
+                }
 
             } else {
                 binding.txtEventType.visibility = View.GONE

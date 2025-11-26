@@ -73,15 +73,15 @@ object RetrofitHelper {
         val gsonBuilder = GsonBuilder()
         gsonBuilder.setDateFormat("yyyy-MM-dd")
         gsonBuilder.disableHtmlEscaping()
-        val timeout = 1 * 120 * 1000
-
+       // val timeout = 1 * 120 * 1000
+        val timeout = 120L
         val retrofit = Retrofit.Builder()
             .baseUrl(serverUrl)
             .client(
                 okHttpClient
-                   // .connectTimeout(timeout.toLong(), TimeUnit.SECONDS)
-//                    .readTimeout(timeout.toLong(), TimeUnit.SECONDS)
-//                    .writeTimeout(timeout.toLong(), TimeUnit.SECONDS)
+                    .connectTimeout(timeout.toLong(), TimeUnit.SECONDS)
+                    .readTimeout(timeout.toLong(), TimeUnit.SECONDS)
+                    .writeTimeout(timeout.toLong(), TimeUnit.SECONDS)
                     .build()
             )
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))

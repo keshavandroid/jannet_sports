@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_130sdp"
         android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         app:sliderAnimationDuration="600"
         app:sliderAutoCycleDirection="right"
@@ -28,9 +28,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -41,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:text="@string/mauris_consequat_sem_sed"
                 android:textColor="@color/green6"
@@ -49,12 +50,14 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/lirViewcontent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_below="@id/txtEventName">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -272,24 +275,28 @@
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:text="Event Type :"
                 android:textColor="@color/grey2"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_10ssp"
+                android:layout_below="@+id/lirViewcontent"/>
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:text="@string/lorem_text"
                 android:textColor="@color/grey2"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_10ssp"
+                android:layout_below="@+id/txtEventType"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/txtDescription">
 
                 <ImageView
                     android:layout_width="@dimen/_45sdp"
@@ -322,37 +329,47 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtViewparticipant"
+
+
+            <LinearLayout
+                android:id="@+id/lirView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/gradient1"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:padding="@dimen/_10sdp"
-                android:text="View Participant"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_15ssp">
-            </TextView>
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/_20sdp">
+                <TextView
+                    android:id="@+id/txtViewCoach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:background="@drawable/gradient1"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:padding="@dimen/_10sdp"
+                    android:text="View Coach"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/txtViewCoach"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/gradient1"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:padding="@dimen/_10sdp"
-                android:text="View Coach"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_15ssp">
-
-            </TextView>
-        </LinearLayout>
+                </TextView>
+                <TextView
+                    android:id="@+id/txtViewparticipant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:background="@drawable/gradient1"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:padding="@dimen/_10sdp"
+                    android:text="View Participant"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:layout_weight="1">
+                </TextView>
+            </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </LinearLayout>

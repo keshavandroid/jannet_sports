@@ -59,6 +59,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
     //    var eventResulArraylist: ArrayList<EventDetailResponse.Result> =
 //        ArrayList<EventDetailResponse.Result>()
     var storedata: StoreUserData? = null;
+    var userType="" ;
     private lateinit var binding: ActivityEventDetailsBinding
 
     lateinit var controller: IProfileController
@@ -109,6 +110,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         iDeleteEventController = DeleteEventController(this, this)
 
         storedata = StoreUserData(this)
+        val userType = SharedPrefUserData(this).getSavedData().usertype
 
         if (storedata!!.getString(Constants.COACH_ID)
                 .trim() == null || storedata!!.getString(Constants.COACH_ID).trim()
@@ -118,7 +120,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
             id = SharedPrefUserData(this).getSavedData().id!!
             token = SharedPrefUserData(this).getSavedData().token!!
 
-            val userType: String = SharedPrefUserData(this).getSavedData().usertype!!
+          //  userType = SharedPrefUserData(this).getSavedData().usertype!!
 
             controller = ProfileController(this, this)
             controller.callGetProfileAPI(id, token, "parent")
@@ -127,8 +129,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
 
             Log.e(TAG, "onCreate: parent vet detail call")
 
-        }
-        else {
+        } else {
             id = storedata!!.getString(Constants.COACH_ID)
             token = storedata!!.getString(Constants.COACH_TOKEN)
             controller = ProfileController(this, this)
@@ -146,25 +147,19 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
                 .equals("coachPersonal")
         ) {
             binding.txtReport.visibility = View.GONE
-            binding.cardRoasterfilling.visibility = View.VISIBLE
         } else {
             binding.txtReport.visibility = View.VISIBLE
-            binding.cardRoasterfilling.visibility = View.GONE
         }
 
         Log.d(TAG, "onCreate: test447>>" + intent.getStringExtra("eventId"))
-        val userType = SharedPrefUserData(this).getSavedData().usertype
         val eventid = intent.getStringExtra("eventId")
         val childId = intent.getStringExtra("childId")
-        //val coachtype = intent.getStringExtra("coachtype")
 
-        Log.d(TAG, "onCreate: userType>>" + userType.toString())
 
-        if (intent.getStringExtra("eventId") != null &&
-            !intent.getStringExtra("eventId").equals("null") &&
-            !intent.getStringExtra("eventId").equals("")
-        )
-        {
+        if (eventid != null &&
+            !eventid.equals("null") &&
+            !eventid.equals("")
+        ) {
             EventDetailController(this@EventDetailsActivity, object : ControllerInterface {
                 override fun onFail(error: String?) {
 
@@ -197,27 +192,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
                             "EventDetail",
                             "=========images===${resp.getResult()!![0]?.getImages().toString()}"
                         )
-                        Log.e("userType=", userType.toString())
 
-                        if (userType.equals("coach")) {
-
-                            Log.e("userType=1=", userType.toString())
-
-                            if (eventDetailTop != null && eventDetailTop!!.getEventType() != null && eventDetailTop!!.getEventType()
-                                    .equals("Draft", ignoreCase = true)
-                            ) {
-                                Log.e("userType=2=", userType.toString())
-
-                                Log.e("EventType=", eventDetailTop!!.getEventType().toString())
-                                binding.cardRegister.visibility = View.VISIBLE
-                            }
-                            else {
-                                Log.e("userType=3=", userType.toString())
-
-                                binding.cardRegister.visibility = View.GONE
-
-                            }
-                        }
 
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -252,8 +227,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
                 startActivity(intent)
             } else {
 
-                if (eventDetairesponse!=null && eventDetairesponse!!.getResult()!=null && eventDetairesponse!!.getResult()!!.size>0)
-                {
+                if (eventDetairesponse != null && eventDetairesponse!!.getResult() != null && eventDetairesponse!!.getResult()!!.size > 0) {
                     val intent = Intent(this, TeamsActivity::class.java)
                     intent.putExtra("EVENT_ID", eventid.toString())
                     intent.putExtra("eventdetailresponse", eventDetairesponse!!)
@@ -265,10 +239,10 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         }
         binding.cardAbout.setOnClickListener {
 
-            if (eventDetairesponse!=null && eventDetairesponse!!.getResult()!=null && eventDetairesponse!!.getResult()!!.size>0)
-            {
-                startActivity(Intent(this, EventAboutActivity::class.java)
-                    .putExtra("eventdetailresponse",eventDetairesponse!!)
+            if (eventDetairesponse != null && eventDetairesponse!!.getResult() != null && eventDetairesponse!!.getResult()!!.size > 0) {
+                startActivity(
+                    Intent(this, EventAboutActivity::class.java)
+                        .putExtra("eventdetailresponse", eventDetairesponse!!)
                 )
             }
 
@@ -438,7 +412,6 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         )*/
 
 
-
     }
 
 
@@ -447,10 +420,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
             val data = result[0]
             Log.e(TAG, "setData: ===========${data?.getAddress()}")
             eventDetailTop = data
-            addNewItem(
-                "",
-                data?.getMainimage()!!
-            )
+            addNewItem("",data?.getMainimage()!!)
 
             for (i in data.getImages()!!.indices) {
                 addNewItem(
@@ -459,6 +429,44 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
                 )
             }
 
+
+            Log.d(TAG, "onCreate: userType>>" + userType.toString())
+
+            if (userType.equals("coach")) {
+
+                Log.e("userType=1=", userType.toString())
+
+                if (eventDetailTop != null && eventDetailTop!!.getEventType() != null && eventDetailTop!!.getEventType()
+                        .equals("Draft", ignoreCase = true)
+                ) {
+                    Log.e("userType=2=", userType.toString())
+                    Log.e("EventType=", eventDetailTop!!.getEventType().toString())
+                    Log.e("getCoachID=", eventDetailTop!!.getCoachID().toString())
+                    Log.e("coachID=", id.toString())
+
+                    binding.cardRegister.visibility = View.VISIBLE
+
+                    if (id.equals(eventDetailTop!!.getCoachID(),ignoreCase = true))
+                    {
+                        binding.cardRoasterfilling.visibility = View.VISIBLE
+                        binding.lrReSchedule.visibility = View.VISIBLE
+
+                    }
+                    else{
+                        binding.cardRoasterfilling.visibility = View.GONE
+                        binding.lrReSchedule.visibility = View.GONE
+
+                    }
+
+                } else {
+                    Log.e("userType=3=", userType.toString())
+
+                    binding.cardRegister.visibility = View.GONE
+                    binding.cardRoasterfilling.visibility = View.GONE
+
+
+                }
+            }
 //            ll2.visibility = View.GONE
         } catch (e: Exception) {
             e.printStackTrace()
@@ -756,6 +764,7 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
 
         dialog.show()
     }
+
     private fun openRoasterDialog() {
 
         val dialog = Dialog(this)
@@ -769,9 +778,9 @@ class EventDetailsActivity : BaseActivity(), IProfileView, IDeleteEventView, Con
         val tv_report_title = dialog.findViewById<TextView>(R.id.tv_report_title)
         val tv_description = dialog.findViewById<TextView>(R.id.tv_description)
 
-        et_report_Yes.text="Schedule"
-        tv_report_title.text="Select date of roaster filling"
-        tv_description.text="For coach to select the participant on specific date and time"
+        et_report_Yes.text = "Schedule"
+        tv_report_title.text = "Select date of roaster filling"
+        tv_description.text = "For coach to select the participant on specific date and time"
         val eventId = intent.getStringExtra("eventId")
         val userId = storedata!!.getString(Constants.COACH_ID)
         val token = storedata!!.getString(Constants.COACH_TOKEN)
